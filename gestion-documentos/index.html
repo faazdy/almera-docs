@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestión Documental — Almera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --ink: #0a0a0a;
+    --ink-soft: #525252;
+    --ink-faint: #a3a3a3;
+    --border: #ececec;
+    --border-strong: #e0e0e0;
+    --accent: #eb5a25;
+    --accent-soft: #ffefeb;
+    --accent-ring: rgba(235, 90, 37, 0.14);
+    --surface: #fafafa;
+    --surface-raised: #ffffff;
+    --warn-bg: #fff8eb;
+    --warn-border: #fbe5b6;
+    --warn-ink: #92620a;
+    --good-bg: #f0fdf6;
+    --good-border: #c8efd8;
+    --good-ink: #15803d;
+    --radius: 10px;
+    --radius-lg: 16px;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: -0.011em;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+
+  ::selection { background: var(--accent-ring); }
+  a { color: inherit; text-decoration: none; }
+
+  .mono { font-family: 'JetBrains Mono', monospace; letter-spacing: -0.02em; }
+
+  /* ---------- Layout shell ---------- */
+  .shell {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 100vh;
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+
+  /* ---------- Sidebar ---------- */
+  .sidebar {
+    border-right: 1px solid var(--border);
+    padding: 32px 28px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .brand { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .brand-mark {
+    width: 26px; height: 26px; border-radius: 7px; background: var(--ink);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .brand-mark svg { width: 14px; height: 14px; }
+  .brand-name { font-weight: 700; font-size: 15px; letter-spacing: -0.02em; }
+  .brand-sub { font-size: 12.5px; color: var(--ink-faint); margin-bottom: 36px; padding-left: 36px; }
+
+  .nav-section { margin-bottom: 28px; }
+  .nav-label {
+    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--ink-faint); margin-bottom: 10px; padding-left: 10px;
+  }
+  .nav-link {
+    display: flex; align-items: center; gap: 9px; padding: 7px 10px; border-radius: 7px;
+    font-size: 13.5px; color: var(--ink-soft); font-weight: 500;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .nav-link:hover { background: var(--surface); color: var(--ink); }
+  .nav-link.active { background: var(--accent-soft); color: var(--accent); }
+  .nav-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--ink-faint); flex-shrink: 0; }
+  .nav-link.active .nav-dot { background: var(--accent); }
+
+  /* ---------- Main content ---------- */
+  .main { padding: 56px 64px 120px; max-width: 760px; }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600;
+    color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 16px;
+  }
+  .eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+  h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 14px; }
+
+  .lede {
+    font-size: 16.5px; color: var(--ink-soft); line-height: 1.6; max-width: 600px; margin-bottom: 32px;
+  }
+
+  /* ---------- Quick-links steps (hero) ---------- */
+  .steps {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .step {
+    display: flex; gap: 16px; padding: 16px 20px; border-bottom: 1px solid var(--border);
+    background: var(--surface-raised);
+  }
+  .step:last-child { border-bottom: none; }
+  .step-body { flex: 1; }
+  .step-text { font-size: 14.5px; line-height: 1.6; color: var(--ink); }
+  .step-text strong { font-weight: 600; }
+
+  .see-also {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600;
+    color: var(--accent); padding: 2px 0; border-bottom: 1px solid transparent;
+    transition: border-color 0.15s ease;
+  }
+  .see-also:hover { border-color: var(--accent); }
+  .see-also svg { width: 13px; height: 13px; }
+
+  .divider-hero { border: none; border-top: 1px solid var(--border); margin: 40px 0 48px; }
+
+  /* ---------- Section ---------- */
+  .section { margin-bottom: 56px; scroll-margin-top: 32px; }
+  .section-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--accent); font-weight: 600;
+    background: var(--accent-soft); padding: 2px 8px; border-radius: 6px;
+  }
+  h2 { font-size: 23px; font-weight: 700; letter-spacing: -0.02em; }
+  .section-desc { color: var(--ink-soft); font-size: 14.5px; margin: 10px 0 24px; line-height: 1.65; }
+
+  /* ---------- Route badge ---------- */
+  .route {
+    display: inline-flex; align-items: center; gap: 8px; background: var(--surface);
+    border: 1px solid var(--border-strong); border-radius: 8px; padding: 9px 14px; margin-bottom: 24px;
+  }
+  .route-label {
+    font-size: 11px; color: var(--ink-faint); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .route-path { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; color: var(--ink); }
+  .route-path .seg-arrow { color: var(--ink-faint); margin: 0 5px; }
+
+  /* ---------- Numbered steps list (with markers) ---------- */
+  .steps-marked {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .step-marked {
+    display: flex; gap: 16px; padding: 18px 20px; border-bottom: 1px solid var(--border);
+    background: var(--surface-raised);
+  }
+  .step-marked:last-child { border-bottom: none; }
+  .step-marker {
+    width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: white;
+    font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .step-marked-body { flex: 1; padding-top: 1px; }
+  .step-marked-label {
+    font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--accent); margin-bottom: 4px;
+  }
+  .step-marked-text { font-size: 14.5px; line-height: 1.6; color: var(--ink); }
+  .step-marked-text strong { font-weight: 600; }
+
+  .field-list { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .field-chip {
+    font-size: 12.5px; font-weight: 500; padding: 4px 10px; border-radius: 6px;
+    background: var(--surface); border: 1px solid var(--border-strong); color: var(--ink-soft);
+  }
+  .field-chip.required { background: var(--accent-soft); border-color: #d6e4ff; color: var(--accent); }
+  .field-chip.required::after { content: ' *'; color: var(--accent); }
+
+  /* ---------- Callouts ---------- */
+  .callout {
+    display: flex; gap: 12px; padding: 14px 16px; border-radius: 10px; margin: 14px 0;
+    font-size: 13.5px; line-height: 1.6;
+  }
+  .callout-icon { flex-shrink: 0; width: 18px; height: 18px; margin-top: 1px; }
+  .callout.logic { background: var(--accent-soft); border: 1px solid #d6e4ff; color: #1e3a8a; }
+  .callout.logic .callout-icon { color: var(--accent); }
+  .callout.warn { background: var(--warn-bg); border: 1px solid var(--warn-border); color: var(--warn-ink); }
+  .callout.warn .callout-icon { color: var(--warn-ink); }
+  .callout.note { background: var(--surface); border: 1px solid var(--border-strong); color: var(--ink-soft); }
+  .callout.good { background: var(--good-bg); border: 1px solid var(--good-border); color: var(--good-ink); }
+  .callout.good .callout-icon { color: var(--good-ink); }
+  .callout strong { font-weight: 700; }
+
+  /* ---------- Example card ---------- */
+  .example-card {
+    border: 1px dashed var(--border-strong);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-top: 14px;
+    background: var(--surface);
+  }
+  .example-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--ink-faint); margin-bottom: 8px;
+  }
+  .example-kv { display: flex; flex-wrap: wrap; gap: 14px; }
+  .example-kv-item { display: flex; flex-direction: column; gap: 2px; }
+  .example-kv-item .k { font-size: 10.5px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.03em; }
+  .example-kv-item .v { font-size: 13px; font-weight: 600; color: var(--ink); font-family: 'JetBrains Mono', monospace; }
+
+  /* ---------- Footer ---------- */
+  .footer {
+    margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12.5px; color: var(--ink-faint);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .shell { grid-template-columns: 1fr; }
+    .sidebar { position: relative; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+    .main { padding: 40px 24px 80px; max-width: 100%; }
+    h1 { font-size: 30px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="brand-name"><a href="../index.html">Almera</a></span>
+    </div>
+    <div class="brand-sub">Guía de operación</div>
+
+    <nav class="nav-section">
+      <div class="nav-label">Gestión documental</div>
+      <a class="nav-link active" href="#elaboracion"><span class="nav-dot"></span> 1. Elaborar documento</a>
+      <a class="nav-link" href="#emisor"><span class="nav-dot"></span> 2. Crear emisor</a>
+      <a class="nav-link" href="#clase"><span class="nav-dot"></span> 3. Crear clase</a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">Mapa de procesos</div>
+      <a class="nav-link" href="#jerarquia"><span class="nav-dot"></span> 4. Jerarquía de proceso</a>
+      <a class="nav-link" href="#mapa"><span class="nav-dot"></span> 5. Actualizar mapa</a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">Referencia</div>
+      <a class="nav-link" href="#terminos"><span class="nav-dot"></span> 6. Términos y definiciones</a>
+    </nav>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+
+    <div class="eyebrow">Almera</div>
+    <h1>Gestión documental</h1>
+    <p class="lede">
+      Cómo elaborar documentos dentro del flujo de aprobación, configurar emisores y
+      clases documentales, y mantener actualizado el mapa de procesos.
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-body">
+          <p class="step-text">
+            <a class="see-also" href="#elaboracion">
+              ¿Cómo crear un documento nuevo?
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <p class="step-text">
+            <a class="see-also" href="#emisor">
+              ¿Cómo agrego un nuevo emisor (interno o externo)?
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <p class="step-text">
+            <a class="see-also" href="#clase">
+              ¿Cómo creo un nuevo tipo de documento?
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <p class="step-text">
+            <a class="see-also" href="#mapa">
+              ¿Cómo actualizo el mapa de procesos?
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <br>
+    <h2>Reunión de capacitación</h2>
+    <p class="section-desc">
+      Para ver la operación completa, consulte <a class="see-also" target="_blank" href="">aquí</a> la grabación de la reunión de capacitación.
+    </p>
+    <hr class="divider-hero">
+
+    <!-- ============ SECTION 1 — ELABORACIÓN ============ -->
+    <section class="section" id="elaboracion">
+      <div class="section-head">
+        <span class="section-num">01</span>
+        <h2>Creación de un documento (Elaboración)</h2>
+      </div>
+      <p class="section-desc">
+        El proceso para crear un nuevo documento sigue un flujo de aprobación que inicia con una solicitud.
+      </p>
+
+      <div class="route">
+        <span class="route-label">Ruta</span>
+        <span class="route-path">Documentos <span class="seg-arrow">→</span> Elaborar <span class="seg-arrow">→</span> documento específico</span>
+      </div>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Ingreso</div>
+            <p class="step-marked-text">Diríjase a la parte superior en el menú y seleccione <strong>Documentos → Elaborar documento específico</strong>.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Asociación</div>
+            <p class="step-marked-text">Seleccione el proceso o subproceso al cual quedará vinculado el documento.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Identificación</div>
+            <p class="step-marked-text">Ingrese el nombre del documento.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">4</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Clasificación</div>
+            <p class="step-marked-text">Elija la clase de documento (guía, manual, política, etc.) del listado desplegable.</p>
+            <a class="see-also" href="#clase" style="margin-top:8px; font-size:13px;">
+              ¿No existe la clase que necesita? Ver sección 3
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">5</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Sustentación</div>
+            <p class="step-marked-text">Diligencie el campo de justificación: la razón por la cual se crea el documento.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">6</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Envío de solicitud</div>
+            <p class="step-marked-text">Haga clic en <strong>Grabar</strong> y luego, en la parte superior, seleccione <strong>Enrutar</strong> para que la solicitud sea aprobada por el responsable.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">7</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Edición</div>
+            <p class="step-marked-text">Una vez aprobada la solicitud, el documento aparecerá en la sección <strong>Mis pendientes</strong>. Al abrirlo y darle <strong>Editar</strong>, podrá completar campos adicionales como la fecha y el responsable.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">8</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Redacción online</div>
+            <p class="step-marked-text">Abra la plantilla (formato Word) y trabaje directamente en el editor online.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout logic">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div><strong>Guardado automático.</strong> El sistema guarda los cambios del editor online de forma automática, sin necesidad de descargar el archivo.</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 2 — EMISOR ============ -->
+    <section class="section" id="emisor">
+      <div class="section-head">
+        <span class="section-num">02</span>
+        <h2>Creación de un emisor (externo o interno)</h2>
+      </div>
+      <p class="section-desc">
+        Para agregar entidades que emiten documentos, como el INVIMA o entes de control.
+      </p>
+
+      <div class="route">
+        <span class="route-label">Ruta</span>
+        <span class="route-path">Admin <span class="seg-arrow">→</span> Calidad <span class="seg-arrow">→</span> Clases y emisores de documentos</span>
+      </div>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Vaya al panel lateral izquierdo: <strong>Admin → Calidad → Clases y emisores de documentos</strong>.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Haga clic en el botón <strong>Crear emisor</strong>, ubicado a la derecha.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Registre el nombre del emisor.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">4</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Asigne un código (puede ser un número consecutivo o iniciales).</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">5</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Defina el origen: si aplica para documentos internos, externos o ambos.</p>
+            <div class="field-list">
+              <span class="field-chip">Interno</span>
+              <span class="field-chip">Externo</span>
+              <span class="field-chip">Ambos</span>
+            </div>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">6</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Haga clic en <strong>Grabar</strong>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 3 — CLASE ============ -->
+    <section class="section" id="clase">
+      <div class="section-head">
+        <span class="section-num">03</span>
+        <h2>Creación de una clase de documento (tipos)</h2>
+      </div>
+      <p class="section-desc">
+        Si necesita un nuevo tipo de documento — por ejemplo, un nuevo "Protocolo".
+      </p>
+
+      <div class="route">
+        <span class="route-label">Ruta</span>
+        <span class="route-path">Admin <span class="seg-arrow">→</span> Calidad <span class="seg-arrow">→</span> Clases y emisores de documentos</span>
+      </div>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Ingrese a <strong>Admin → Calidad → Clases y emisores de documentos</strong>.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Seleccione <strong>Crear clase</strong>.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Registre el nombre y asigne un código (siglas del tipo de documento).</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">4</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Defina si es interno, externo o ambos.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">5</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Marque si corresponde a un formato y si debe aplicar para solicitudes en el flujo de aprobación.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">6</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Carga de plantilla</div>
+            <p class="step-marked-text">En la opción <strong>Adjuntar archivo</strong>, suba el formato estándar en .doc (Word) para que los usuarios puedan usar la edición online sobre esa base.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">7</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Haga clic en <strong>Grabar</strong>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 4 — JERARQUÍA ============ -->
+    <section class="section" id="jerarquia">
+      <div class="section-head">
+        <span class="section-num">04</span>
+        <h2>Modificación de la jerarquía de un proceso</h2>
+      </div>
+      <p class="section-desc">
+        Para trasladar un subproceso a un nuevo "proceso padre".
+      </p>
+
+      <div class="route">
+        <span class="route-label">Ruta</span>
+        <span class="route-path">Admin <span class="seg-arrow">→</span> Procesos</span>
+      </div>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Vaya a la sección <strong>Procesos</strong> en el menú administrativo.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Busque y seleccione el subproceso que desea mover.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">En el campo <strong>Padre</strong>, elimine el proceso actual y busque el nuevo proceso del cual dependerá.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">4</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Haga clic en <strong>Grabar</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout good">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div>El cambio se refleja automáticamente en el mapa de procesos. No requiere actualización manual de la imagen.</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 5 — MAPA ============ -->
+    <section class="section" id="mapa">
+      <div class="section-head">
+        <span class="section-num">05</span>
+        <h2>Actualización y vinculación del mapa de procesos</h2>
+      </div>
+      <p class="section-desc">
+        Para cambiar la imagen del mapa y hacer que sus botones funcionen.
+      </p>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Imagen</div>
+            <p class="step-marked-text">En la visual del mapa, seleccione <strong>Administrar archivos</strong>, elimine la imagen anterior y suba la nueva.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Vinculación</div>
+            <p class="step-marked-text">Haga clic en <strong>Administrar áreas</strong>.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">URL de seguimiento</div>
+            <p class="step-marked-text">En otra pestaña, abra el proceso específico en el sistema, vaya a la pestaña <strong>Seguimiento</strong> y copie la URL de esa página.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">4</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Enlace</div>
+            <p class="step-marked-text">En la ventana de "Administrar áreas", seleccione el área en el mapa y pegue la URL en el campo <strong>Dirección</strong>.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">5</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Haga clic en <strong>Grabar</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div>Cada área del mapa debe enlazarse manualmente a la URL de seguimiento de su proceso correspondiente. Si sube una imagen nueva, las áreas anteriores no se conservan automáticamente.</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 6 — TÉRMINOS ============ -->
+    <section class="section" id="terminos">
+      <div class="section-head">
+        <span class="section-num">06</span>
+        <h2>Gestión de términos y definiciones</h2>
+      </div>
+      <p class="section-desc">
+        Para alimentar el listado maestro de términos.
+      </p>
+
+      <div class="route">
+        <span class="route-label">Ruta</span>
+        <span class="route-path">Admin <span class="seg-arrow">→</span> Calidad <span class="seg-arrow">→</span> Términos y definiciones</span>
+      </div>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Vaya a <strong>Admin → Calidad → Términos y definiciones</strong>.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Registre el nombre del término y su definición.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Opcionalmente, indique la fuente de donde proviene la definición.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">4</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Haga clic en <strong>Grabar</strong>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <span>Gestión documental — Calidad</span>
+      <span class="mono">Almera SGI</span>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>

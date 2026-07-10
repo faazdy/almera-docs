@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Indicadores — Almera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --ink: #0a0a0a;
+    --ink-soft: #525252;
+    --ink-faint: #a3a3a3;
+    --border: #ececec;
+    --border-strong: #e0e0e0;
+    --accent: #eb5a25;
+    --accent-soft: #fff5ef;
+    --accent-ring: rgba(235, 100, 37, 0.14);
+    --surface: #fafafa;
+    --surface-raised: #ffffff;
+    --warn-bg: #fff8eb;
+    --warn-border: #fbe5b6;
+    --warn-ink: #92620a;
+    --good-bg: #f0fdf6;
+    --good-border: #c8efd8;
+    --good-ink: #15803d;
+    --radius: 10px;
+    --radius-lg: 16px;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: -0.011em;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+
+  ::selection { background: var(--accent-ring); }
+  a { color: inherit; text-decoration: none; }
+  .mono { font-family: 'JetBrains Mono', monospace; letter-spacing: -0.02em; }
+
+  /* ---------- Layout shell ---------- */
+  .shell {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 100vh;
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+
+  /* ---------- Sidebar ---------- */
+  .sidebar {
+    border-right: 1px solid var(--border);
+    padding: 32px 28px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .brand-mark {
+    width: 26px; height: 26px; border-radius: 7px; background: var(--ink);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .brand-mark svg { width: 14px; height: 14px; }
+  .brand-name { font-weight: 700; font-size: 15px; letter-spacing: -0.02em; }
+  .brand-sub { font-size: 12.5px; color: var(--ink-faint); margin-bottom: 36px; padding-left: 36px; }
+
+  .nav-section { margin-bottom: 28px; }
+  .nav-label {
+    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--ink-faint); margin-bottom: 10px; padding-left: 10px;
+  }
+  .nav-link {
+    display: flex; align-items: center; gap: 9px; padding: 7px 10px; border-radius: 7px;
+    font-size: 13.5px; color: var(--ink-soft); font-weight: 500;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .nav-link:hover { background: var(--surface); color: var(--ink); }
+  .nav-link.active { background: var(--accent-soft); color: var(--accent); }
+  .nav-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--ink-faint); flex-shrink: 0; }
+  .nav-link.active .nav-dot { background: var(--accent); }
+
+  /* ---------- Main content ---------- */
+  .main { padding: 56px 64px 120px; max-width: 760px; }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600;
+    color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 16px;
+  }
+  .eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+  h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 14px; }
+  .lede { font-size: 16.5px; color: var(--ink-soft); line-height: 1.6; max-width: 600px; margin-bottom: 32px; }
+
+  /* ---------- Quick-links steps (hero) ---------- */
+  .steps {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .step {
+    display: flex; gap: 16px; padding: 16px 20px; border-bottom: 1px solid var(--border);
+    background: var(--surface-raised);
+  }
+  .step:last-child { border-bottom: none; }
+  .step-body { flex: 1; }
+  .step-text { font-size: 14.5px; line-height: 1.6; color: var(--ink); }
+  .step-text strong { font-weight: 600; }
+
+  .see-also {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600;
+    color: var(--accent); padding: 2px 0; border-bottom: 1px solid transparent;
+    transition: border-color 0.15s ease;
+  }
+  .see-also:hover { border-color: var(--accent); }
+  .see-also svg { width: 13px; height: 13px; }
+
+  .divider-hero { border: none; border-top: 1px solid var(--border); margin: 40px 0 48px; }
+
+  /* ---------- Section ---------- */
+  .section { margin-bottom: 56px; scroll-margin-top: 32px; }
+  .section-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--accent); font-weight: 600;
+    background: var(--accent-soft); padding: 2px 8px; border-radius: 6px;
+  }
+  h2 { font-size: 23px; font-weight: 700; letter-spacing: -0.02em; }
+  .section-desc { color: var(--ink-soft); font-size: 14.5px; margin: 10px 0 24px; line-height: 1.65; }
+
+  /* ---------- Route badge ---------- */
+  .route {
+    display: inline-flex; align-items: center; gap: 8px; background: var(--surface);
+    border: 1px solid var(--border-strong); border-radius: 8px; padding: 9px 14px; margin-bottom: 24px;
+  }
+  .route-label {
+    font-size: 11px; color: var(--ink-faint); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .route-path { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; color: var(--ink); }
+  .route-path .seg-arrow { color: var(--ink-faint); margin: 0 5px; }
+
+  /* ---------- Numbered steps ---------- */
+  .steps-marked { border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+  .step-marked {
+    display: flex; gap: 16px; padding: 18px 20px; border-bottom: 1px solid var(--border);
+    background: var(--surface-raised);
+  }
+  .step-marked:last-child { border-bottom: none; }
+  .step-marker {
+    width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: white;
+    font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .step-marked-body { flex: 1; padding-top: 1px; }
+  .step-marked-label {
+    font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--accent); margin-bottom: 4px;
+  }
+  .step-marked-text { font-size: 14.5px; line-height: 1.6; color: var(--ink); }
+  .step-marked-text strong { font-weight: 600; }
+
+  .field-list { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .field-chip {
+    font-size: 12.5px; font-weight: 500; padding: 4px 10px; border-radius: 6px;
+    background: var(--surface); border: 1px solid var(--border-strong); color: var(--ink-soft);
+  }
+  .field-chip.required { background: var(--accent-soft); border-color: #ffd9c4; color: var(--accent); }
+  .field-chip.required::after { content: ' *'; color: var(--accent); }
+
+  /* ---------- Sub-steps (nested, for config items inside a step) ---------- */
+  .substeps {
+    margin-top: 10px;
+    border-left: 2px solid var(--border-strong);
+    padding-left: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .substep { display: flex; gap: 8px; align-items: baseline; }
+  .substep-bullet {
+    width: 5px; height: 5px; border-radius: 50%; background: var(--ink-faint);
+    flex-shrink: 0; margin-top: 7px;
+  }
+  .substep-text { font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; }
+  .substep-text strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Callouts ---------- */
+  .callout {
+    display: flex; gap: 12px; padding: 14px 16px; border-radius: 10px; margin: 14px 0;
+    font-size: 13.5px; line-height: 1.6;
+  }
+  .callout-icon { flex-shrink: 0; width: 18px; height: 18px; margin-top: 1px; }
+  .callout.logic { background: var(--accent-soft); border: 1px solid #ffd9c4; color: #9a3412; }
+  .callout.logic .callout-icon { color: var(--accent); }
+  .callout.warn { background: var(--warn-bg); border: 1px solid var(--warn-border); color: var(--warn-ink); }
+  .callout.warn .callout-icon { color: var(--warn-ink); }
+  .callout.note { background: var(--surface); border: 1px solid var(--border-strong); color: var(--ink-soft); }
+  .callout.good { background: var(--good-bg); border: 1px solid var(--good-border); color: var(--good-ink); }
+  .callout.good .callout-icon { color: var(--good-ink); }
+  .callout strong { font-weight: 700; }
+
+  /* ---------- Example card ---------- */
+  .example-card {
+    border: 1px dashed var(--border-strong);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-top: 14px;
+    background: var(--surface);
+  }
+  .example-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--ink-faint); margin-bottom: 8px;
+  }
+  .example-kv { display: flex; flex-wrap: wrap; gap: 16px 20px; }
+  .example-kv-item { display: flex; flex-direction: column; gap: 2px; }
+  .example-kv-item .k { font-size: 10.5px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.03em; }
+  .example-kv-item .v { font-size: 13px; font-weight: 600; color: var(--ink); font-family: 'JetBrains Mono', monospace; }
+
+  /* ---------- Tabs visual (Privilegios vs Información adicional) ---------- */
+  .tab-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .tab-card {
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    padding: 16px;
+    background: var(--surface-raised);
+  }
+  .tab-card-head {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+  }
+  .tab-pill {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
+    padding: 2px 8px; border-radius: 5px;
+  }
+  .tab-pill.off { background: var(--surface); color: var(--ink-faint); border: 1px solid var(--border-strong); }
+  .tab-pill.on { background: var(--accent-soft); color: var(--accent); }
+  .tab-card-title { font-size: 13.5px; font-weight: 700; }
+  .tab-card-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.55; }
+
+  @media (max-width: 640px) {
+    .tab-compare { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Semáforo strip ---------- */
+  .semaforo-strip {
+    display: flex;
+    gap: 8px;
+    margin: 16px 0;
+  }
+  .semaforo-chip {
+    flex: 1;
+    border-radius: 10px;
+    padding: 12px 14px;
+    text-align: center;
+  }
+  .semaforo-chip.red { background: #fef2f2; border: 1px solid #fecaca; }
+  .semaforo-chip.yellow { background: var(--warn-bg); border: 1px solid var(--warn-border); }
+  .semaforo-chip.green { background: var(--good-bg); border: 1px solid var(--good-border); }
+  .semaforo-label { font-size: 12px; font-weight: 700; margin-bottom: 2px; }
+  .semaforo-chip.red .semaforo-label { color: #b91c1c; }
+  .semaforo-chip.yellow .semaforo-label { color: var(--warn-ink); }
+  .semaforo-chip.green .semaforo-label { color: var(--good-ink); }
+  .semaforo-range { font-size: 11.5px; color: var(--ink-faint); font-family: 'JetBrains Mono', monospace; }
+
+  /* ---------- Footer ---------- */
+  .footer {
+    margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12.5px; color: var(--ink-faint);
+  }
+
+  @media (max-width: 900px) {
+    .shell { grid-template-columns: 1fr; }
+    .sidebar { position: relative; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+    .main { padding: 40px 24px 80px; max-width: 100%; }
+    h1 { font-size: 30px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="brand-name"><a href="../index.html">Almera</a></span>
+    </div>
+    <div class="brand-sub">Guía de operación</div>
+
+    <nav class="nav-section">
+      <div class="nav-label">Ficha técnica</div>
+      <a class="nav-link active" href="#campos"><span class="nav-dot"></span> 1. Campos adicionales</a>
+      <a class="nav-link" href="#opciones"><span class="nav-dot"></span> 2. Opciones de un campo</a>
+      <a class="nav-link" href="#unidades"><span class="nav-dot"></span> 3. Unidades de medida</a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">Medición</div>
+      <a class="nav-link" href="#metas"><span class="nav-dot"></span> 4. Metas y semaforización</a>
+      <a class="nav-link" href="#privilegios"><span class="nav-dot"></span> 5. Privilegios y responsables</a>
+      <a class="nav-link" href="#fechas"><span class="nav-dot"></span> 6. Control de fechas</a>
+    </nav>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+
+    <div class="eyebrow">Almera</div>
+    <h1>Indicadores</h1>
+    <p class="lede">
+      Cómo personalizar la ficha técnica de un indicador, configurar unidades de medida,
+      definir metas con semaforización dinámica y administrar quién puede medir y consultar.
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-body">
+          <p class="step-text">
+            <a class="see-also" href="#campos">
+              ¿Cómo agrego un campo nuevo a la ficha técnica?
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <p class="step-text">
+            <a class="see-also" href="#metas">
+              ¿Cómo configuro correctamente las metas para no perder el histórico?
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <p class="step-text">
+            <a class="see-also" href="#privilegios">
+              ¿Cómo asigno acciones a un usuario específico?
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <p class="step-text">
+            <a class="see-also" href="#fechas">
+              ¿Qué pasa cuando llega la fecha de corte del indicador?
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <br>
+    <h2>Reunión de capacitación</h2>
+    <p class="section-desc">
+      Para ver la operación completa, consulte 
+      <a class="see-also" target="_blank" href="">aquí</a> la grabación de la reunión de capacitación.
+    </p>
+    <hr class="divider-hero">
+
+    <!-- ============ SECTION 1 — CAMPOS ADICIONALES ============ -->
+    <section class="section" id="campos">
+      <div class="section-head">
+        <span class="section-num">01</span>
+        <h2>Creación de campos adicionales en la ficha técnica</h2>
+      </div>
+      <p class="section-desc">
+        Para personalizar la información que se solicita al crear un indicador — por ejemplo,
+        para añadir una categorización propia.
+      </p>
+
+      <div class="route">
+        <span class="route-label">Ruta</span>
+        <span class="route-path">Admin <span class="seg-arrow">→</span> Indicadores <span class="seg-arrow">→</span> Categorías y tipos de indicador</span>
+      </div>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Selección del componente</div>
+            <p class="step-marked-text">Entre a la opción llamada <strong>Indicador</strong>.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Gestión de campos</div>
+            <p class="step-marked-text">Diríjase a la pestaña <strong>Campos adicionales</strong>.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Nuevo registro</div>
+            <p class="step-marked-text">Haga clic en <strong>Nuevo campo</strong>.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">4</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Configuración</div>
+            <div class="substeps">
+              <div class="substep">
+                <span class="substep-bullet"></span>
+                <span class="substep-text">Seleccione el <strong>tipo de campo</strong> (selección múltiple, texto, etc.).</span>
+              </div>
+              <div class="substep">
+                <span class="substep-bullet"></span>
+                <span class="substep-text">Asigne un <strong>código o consecutivo</strong>, siguiendo el orden existente.</span>
+              </div>
+              <div class="substep">
+                <span class="substep-bullet"></span>
+                <span class="substep-text">Escriba el <strong>nombre</strong> del campo.</span>
+              </div>
+              <div class="substep">
+                <span class="substep-bullet"></span>
+                <span class="substep-text">Elija el <strong>agrupador</strong>: seleccione "Definición" si desea que aparezca en la primera pestaña de la ficha técnica.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">5</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Obligatoriedad</div>
+            <p class="step-marked-text">Marque si el diligenciamiento de este campo es obligatorio o no.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">6</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Haga clic en <strong>Grabar</strong> para guardar los cambios.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 2 — OPCIONES (ÍTEMS) ============ -->
+    <section class="section" id="opciones">
+      <div class="section-head">
+        <span class="section-num">02</span>
+        <h2>Actualización de opciones en campos existentes (ítems)</h2>
+      </div>
+      <p class="section-desc">
+        Si desea añadir nuevas opciones a un campo de selección múltiple — por ejemplo,
+        clasificar entre indicadores "normativos" o "de gestión".
+      </p>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">En la misma sección de <strong>Campos adicionales</strong>, busque el campo que desea modificar (ej. "Clase").</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Entrar al campo</div>
+            <p class="step-marked-text">Haga clic sobre el nombre del campo para ver sus opciones actuales.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Adicionar opción</div>
+            <p class="step-marked-text">Seleccione <strong>Nuevo ítem</strong>.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">4</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Diligenciar datos</div>
+            <p class="step-marked-text">Ingrese el orden, el código y el nombre de la nueva opción.</p>
+            <div class="example-card">
+              <div class="example-label">Ejemplo</div>
+              <div class="example-kv">
+                <div class="example-kv-item"><span class="k">Nombre</span><span class="v">Indicador de gestión</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">5</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Peso (opcional)</div>
+            <p class="step-marked-text">Si el campo es de selección múltiple, puede asignar un peso para que el sistema genere una calificación automática basada en esa respuesta.</p>
+            <div class="example-card">
+              <div class="example-label">Ejemplo de pesos</div>
+              <div class="example-kv">
+                <div class="example-kv-item"><span class="k">Cumple</span><span class="v">peso = 1</span></div>
+                <div class="example-kv-item"><span class="k">No cumple</span><span class="v">peso = 0</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">6</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Guarde el nuevo ítem.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 3 — UNIDADES DE MEDIDA ============ -->
+    <section class="section" id="unidades">
+      <div class="section-head">
+        <span class="section-num">03</span>
+        <h2>Configuración de unidades de medida</h2>
+      </div>
+      <p class="section-desc">
+        Para definir cómo se medirá el indicador — porcentaje, pesos, tasas, etc.
+      </p>
+
+      <div class="route">
+        <span class="route-label">Ruta</span>
+        <span class="route-path">Admin <span class="seg-arrow">→</span> Indicadores <span class="seg-arrow">→</span> Unidades y categorías</span>
+      </div>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Haga clic en <strong>Adicionar unidad</strong>, en la esquina superior derecha.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Identificación</div>
+            <p class="step-marked-text">Asigne el nombre a la unidad.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Formato</div>
+            <p class="step-marked-text">Utilice el formato de llaves y, si lo desea, añada siglas al final para que aparezcan en los resultados.</p>
+            <div class="example-card">
+              <span class="example-label">Ejemplo 1 (tasa)</span>
+              <div class="example-kv">
+                <div class="example-kv-item"><span class="k">Nombre</span><span class="v">Tasa</span></div>
+                <div class="example-kv-item"><span class="k">Formato</span><span class="v">{valor} TZ</span></div>
+              </div>
+            </div>
+            <div class="example-card">
+              <span class="example-label">Ejemplo 2 (moneda)</span>
+              <div class="example-kv">
+                <div class="example-kv-item"><span class="k">Nombre</span><span class="v">COP</span></div>
+                <div class="example-kv-item"><span class="k">Formato</span><span class="v">$ {valor}</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">4</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Decimales</div>
+            <p class="step-marked-text">Defina (en números) cuántos decimales tendrá la medición.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">5</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Haga clic en <strong>Grabar</strong> para que la unidad esté disponible en la ficha técnica.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 4 — METAS Y SEMÁFORO ============ -->
+    <section class="section" id="metas">
+      <div class="section-head">
+        <span class="section-num">04</span>
+        <h2>Gestión de metas y semaforización</h2>
+      </div>
+      <p class="section-desc">
+        Es fundamental configurar correctamente las metas para no afectar el historial del indicador.
+      </p>
+
+      <div class="callout logic">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div><strong>Recomendación técnica.</strong> Utilice siempre Meta periódica con Semáforo dinámico.</div>
+      </div>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Configuración en la ficha</div>
+            <p class="step-marked-text">En el campo de meta, elija <strong>Periódica</strong>.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Definición de valores</div>
+            <p class="step-marked-text">Haga clic en <strong>Definir metas</strong>.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Carga mes a mes</div>
+            <p class="step-marked-text">Ingrese la meta específica para cada periodo: enero, febrero, etc.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">4</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Rangos del semáforo</div>
+            <p class="step-marked-text">Defina los valores para el cumplimiento. El sistema toma el valor de la meta como el 100% para los cálculos porcentuales.</p>
+            <div class="semaforo-strip">
+              <div class="semaforo-chip red">
+                <div class="semaforo-label">Rojo</div>
+                <div class="semaforo-range">Bajo cumplimiento</div>
+              </div>
+              <div class="semaforo-chip yellow">
+                <div class="semaforo-label">Amarillo</div>
+                <div class="semaforo-range">Cumplimiento parcial</div>
+              </div>
+              <div class="semaforo-chip green">
+                <div class="semaforo-label">Verde</div>
+                <div class="semaforo-range">Meta cumplida</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout good">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div><strong>Por qué importa.</strong> Si la meta cambia en el futuro — por ejemplo, sube de 90% a 95% en junio — el sistema conserva el histórico de los meses anteriores con la meta antigua y no recalcula todo el año.</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 5 — PRIVILEGIOS ============ -->
+    <section class="section" id="privilegios">
+      <div class="section-head">
+        <span class="section-num">05</span>
+        <h2>Asignación de privilegios y responsables</h2>
+      </div>
+      <p class="section-desc">
+        Distinga entre responsables por cargo y permisos para personas específicas. Dentro de algún indicador, puede haber un cargo responsable y, a la vez, usuarios específicos que pueden medir o analizar el indicador.
+      </p>
+
+      <div class="tab-compare">
+        <div class="tab-card">
+          <div class="tab-card-head">
+            <span class="tab-pill off">Información adicional</span>
+          </div>
+          <div class="tab-card-title">Cargos responsables</div>
+          <div class="tab-card-desc">Define qué cargo es responsable del indicador, no una persona en particular.</div>
+        </div>
+        <div class="tab-card">
+          <div class="tab-card-head">
+            <span class="tab-pill on">Privilegios</span>
+          </div>
+          <div class="tab-card-title">Usuarios específicos</div>
+          <div class="tab-card-desc">Define qué persona puede consultar, medir o analizar este indicador en particular.</div>
+        </div>
+      </div>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Privilegios específicos</div>
+            <p class="step-marked-text">Dentro de su indicador, vaya a la pestaña <strong>Editar</strong> -> <strong>Privilegios</strong> y haga clic en <strong>Administrar</strong>.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Selección</div>
+            <p class="step-marked-text">Busque al usuario específico y asígnele acciones.</p>
+            <div class="field-list">
+              <span class="field-chip">Consultar</span>
+              <span class="field-chip">Agregar medición</span>
+              <span class="field-chip">Hacer análisis</span>
+            </div>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Haga clic en <strong>Agregar</strong> para finalizar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 6 — FECHAS ============ -->
+    <section class="section" id="fechas">
+      <div class="section-head">
+        <span class="section-num">06</span>
+        <h2>Control de fechas del indicador</h2>
+      </div>
+      <p class="section-desc">
+        Las fechas determinan cuándo un indicador empieza y deja de aceptar mediciones.
+      </p>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Fecha válido</div>
+            <p class="step-marked-text">Ingrese la fecha en la que el indicador debe comenzar a reportarse.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Fecha de corte</div>
+            <p class="step-marked-text">Ingrese la fecha en la que el indicador finaliza su vigencia.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Periodos en cero</div>
+            <p class="step-marked-text">Si un indicador puede tener meses sin datos, marque <strong>Permitir periodos sin medición</strong> para que el sistema muestre el mes en las tablas aunque el valor sea cero.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div><strong>Bloqueo automático.</strong> A partir de la fecha de corte, el sistema bloquea el indicador y los usuarios ya no podrán registrar más mediciones.</div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <span>Indicadores — Calidad</span>
+      <span class="mono">Almera SGI</span>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>

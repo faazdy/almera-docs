@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evaluaciones (Auditorías) — Almera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --ink: #0a0a0a;
+    --ink-soft: #525252;
+    --ink-faint: #a3a3a3;
+    --border: #ececec;
+    --border-strong: #e0e0e0;
+    --accent: #eb5a25;
+    --accent-soft: #ffefeb;
+    --accent-ring: rgba(235, 90, 37, 0.14);
+    --surface: #fafafa;
+    --surface-raised: #ffffff;
+    --warn-bg: #fff8eb;
+    --warn-border: #fbe5b6;
+    --warn-ink: #92620a;
+    --good-bg: #f0fdf6;
+    --good-border: #c8efd8;
+    --good-ink: #15803d;
+    --radius: 10px;
+    --radius-lg: 16px;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: -0.011em;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+
+  ::selection { background: var(--accent-ring); }
+  a { color: inherit; text-decoration: none; }
+
+  .mono { font-family: 'JetBrains Mono', monospace; letter-spacing: -0.02em; }
+
+  /* ---------- Layout shell ---------- */
+  .shell {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 100vh;
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+
+  /* ---------- Sidebar ---------- */
+  .sidebar {
+    border-right: 1px solid var(--border);
+    padding: 32px 28px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .brand { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .brand-mark {
+    width: 26px; height: 26px; border-radius: 7px; background: var(--ink);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .brand-mark svg { width: 14px; height: 14px; }
+  .brand-name { font-weight: 700; font-size: 15px; letter-spacing: -0.02em; }
+  .brand-sub { font-size: 12.5px; color: var(--ink-faint); margin-bottom: 36px; padding-left: 36px; }
+
+  .nav-section { margin-bottom: 28px; }
+  .nav-label {
+    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--ink-faint); margin-bottom: 10px; padding-left: 10px;
+  }
+  .nav-link {
+    display: flex; align-items: center; gap: 9px; padding: 7px 10px; border-radius: 7px;
+    font-size: 13.5px; color: var(--ink-soft); font-weight: 500;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .nav-link:hover { background: var(--surface); color: var(--ink); }
+  .nav-link.active { background: var(--accent-soft); color: var(--accent); }
+  .nav-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--ink-faint); flex-shrink: 0; }
+  .nav-link.active .nav-dot { background: var(--accent); }
+
+  /* ---------- Main content ---------- */
+  .main { padding: 56px 64px 120px; max-width: 760px; }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600;
+    color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 16px;
+  }
+  .eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+  h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 14px; }
+
+  .lede {
+    font-size: 16.5px; color: var(--ink-soft); line-height: 1.6; max-width: 600px; margin-bottom: 32px;
+  }
+
+  /* ---------- Quick-links steps (hero) ---------- */
+  .steps {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .step {
+    display: flex; gap: 16px; padding: 16px 20px; border-bottom: 1px solid var(--border);
+    background: var(--surface-raised);
+  }
+  .step:last-child { border-bottom: none; }
+  .step-body { flex: 1; }
+  .step-text { font-size: 14.5px; line-height: 1.6; color: var(--ink); }
+  .step-text strong { font-weight: 600; }
+
+  .see-also {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600;
+    color: var(--accent); padding: 2px 0; border-bottom: 1px solid transparent;
+    transition: border-color 0.15s ease;
+  }
+  .see-also:hover { border-color: var(--accent); }
+  .see-also svg { width: 13px; height: 13px; }
+
+  .divider-hero { border: none; border-top: 1px solid var(--border); margin: 40px 0 48px; }
+
+  /* ---------- Section ---------- */
+  .section { margin-bottom: 56px; scroll-margin-top: 32px; }
+  .section-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--accent); font-weight: 600;
+    background: var(--accent-soft); padding: 2px 8px; border-radius: 6px;
+  }
+  h2 { font-size: 23px; font-weight: 700; letter-spacing: -0.02em; }
+  .section-desc { color: var(--ink-soft); font-size: 14.5px; margin: 10px 0 24px; line-height: 1.65; }
+
+  /* ---------- Route badge ---------- */
+  .route {
+    display: inline-flex; align-items: center; gap: 8px; background: var(--surface);
+    border: 1px solid var(--border-strong); border-radius: 8px; padding: 9px 14px; margin-bottom: 24px;
+  }
+  .route-label {
+    font-size: 11px; color: var(--ink-faint); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .route-path { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; color: var(--ink); }
+  .route-path .seg-arrow { color: var(--ink-faint); margin: 0 5px; }
+
+  /* ---------- Numbered steps list (with markers) ---------- */
+  .steps-marked {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .step-marked {
+    display: flex; gap: 16px; padding: 18px 20px; border-bottom: 1px solid var(--border);
+    background: var(--surface-raised);
+  }
+  .step-marked:last-child { border-bottom: none; }
+  .step-marker {
+    width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: white;
+    font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .step-marked-body { flex: 1; padding-top: 1px; }
+  .step-marked-label {
+    font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--accent); margin-bottom: 4px;
+  }
+  .step-marked-text { font-size: 14.5px; line-height: 1.6; color: var(--ink); }
+  .step-marked-text strong { font-weight: 600; }
+
+  .field-list { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .field-chip {
+    font-size: 12.5px; font-weight: 500; padding: 4px 10px; border-radius: 6px;
+    background: var(--surface); border: 1px solid var(--border-strong); color: var(--ink-soft);
+  }
+  .field-chip.required { background: var(--accent-soft); border-color: #d6e4ff; color: var(--accent); }
+  .field-chip.required::after { content: ' *'; color: var(--accent); }
+
+  /* ---------- Sub-block (A/B/C/D) ---------- */
+  .subblock { margin-bottom: 36px; }
+  .subblock:last-child { margin-bottom: 0; }
+  .subblock-head {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 6px;
+  }
+  .subblock-letter {
+    width: 22px; height: 22px; border-radius: 6px; background: var(--ink); color: white;
+    font-size: 11.5px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-family: 'JetBrains Mono', monospace;
+  }
+  .subblock-title { font-size: 16.5px; font-weight: 700; letter-spacing: -0.015em; }
+  .subblock-desc { color: var(--ink-soft); font-size: 13.5px; margin: 4px 0 16px 32px; line-height: 1.6; }
+
+  /* ---------- Callouts ---------- */
+  .callout {
+    display: flex; gap: 12px; padding: 14px 16px; border-radius: 10px; margin: 14px 0;
+    font-size: 13.5px; line-height: 1.6;
+  }
+  .callout-icon { flex-shrink: 0; width: 18px; height: 18px; margin-top: 1px; }
+  .callout.logic { background: var(--accent-soft); border: 1px solid #d6e4ff; color: #1e3a8a; }
+  .callout.logic .callout-icon { color: var(--accent); }
+  .callout.warn { background: var(--warn-bg); border: 1px solid var(--warn-border); color: var(--warn-ink); }
+  .callout.warn .callout-icon { color: var(--warn-ink); }
+  .callout.note { background: var(--surface); border: 1px solid var(--border-strong); color: var(--ink-soft); }
+  .callout.good { background: var(--good-bg); border: 1px solid var(--good-border); color: var(--good-ink); }
+  .callout.good .callout-icon { color: var(--good-ink); }
+  .callout strong { font-weight: 700; }
+
+  /* ---------- Footer ---------- */
+  .footer {
+    margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12.5px; color: var(--ink-faint);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .shell { grid-template-columns: 1fr; }
+    .sidebar { position: relative; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+    .main { padding: 40px 24px 80px; max-width: 100%; }
+    h1 { font-size: 30px; }
+    .subblock-desc { margin-left: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="brand-name"><a href="../index.html">Almera</a></span>
+    </div>
+    <div class="brand-sub">Guía de operación</div>
+
+    <nav class="nav-section">
+      <div class="nav-label">Evaluaciones (Auditorías)</div>
+      <a class="nav-link active" href="#creacion"><span class="nav-dot"></span> A. Crear auditoría</a>
+      <a class="nav-link" href="#plantillas"><span class="nav-dot"></span> B. Crear plantillas</a>
+      <a class="nav-link" href="#cuestionario"><span class="nav-dot"></span> C. Elaborar cuestionario</a>
+      <a class="nav-link" href="#ejecucion"><span class="nav-dot"></span> D. Ejecución y hallazgos</a>
+    </nav>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+
+    <div class="eyebrow">Almera</div>
+    <h1>Evaluaciones (Auditorías)</h1>
+    <p class="lede">
+      Este componente permite gestionar auditorías internas o externas (donde la entidad es el auditor)
+      y sus planes de mejora, desde la creación hasta la generación automática de hallazgos.
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-body">
+          <p class="step-text">
+            <a class="see-also" href="#creacion">
+              ¿Cómo creo una auditoría desde cero?
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <p class="step-text">
+            <a class="see-also" href="#plantillas">
+              ¿Cómo configuro una plantilla para auditorías recurrentes?
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <p class="step-text">
+            <a class="see-also" href="#cuestionario">
+              ¿Cómo cargo la lista de chequeo (masiva o manual)?
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <p class="step-text">
+            <a class="see-also" href="#ejecucion">
+              ¿Cómo se generan los hallazgos y planes de mejora?
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider-hero">
+
+    <!-- ============ SECTION A — CREACIÓN ============ -->
+    <section class="section" id="creacion">
+      <div class="section-head">
+        <span class="section-num">A</span>
+        <h2>Creación de una auditoría desde cero</h2>
+      </div>
+      <p class="section-desc">
+        Configure una auditoría nueva definiendo su alcance, evaluador y periodo de ejecución.
+      </p>
+
+      <div class="route">
+        <span class="route-label">Ruta</span>
+        <span class="route-path">Admin <span class="seg-arrow">→</span> Evaluaciones <span class="seg-arrow">→</span> Evaluaciones</span>
+      </div>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Ingreso</div>
+            <p class="step-marked-text">Vaya a <strong>Admin → Evaluaciones → Evaluaciones</strong>.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Adición</div>
+            <p class="step-marked-text">Haga clic en el botón <strong>Adicionar</strong>, ubicado en la parte superior.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Configuración inicial</div>
+            <p class="step-marked-text">Diligencie los siguientes campos:</p>
+            <div class="field-list">
+              <span class="field-chip required">Año de ejecución</span>
+              <span class="field-chip required">Evaluador</span>
+              <span class="field-chip required">Nombre</span>
+              <span class="field-chip">Código (opcional)</span>
+              <span class="field-chip required">Sistema de referencia</span>
+              <span class="field-chip required">Periodo de tiempo</span>
+            </div>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">4</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Guardado</div>
+            <p class="step-marked-text">Haga clic en <strong>Grabar</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div><strong>Campo bloqueado tras grabar.</strong> Sea cuidadoso al seleccionar el Sistema de referencia: este campo no se puede modificar después de guardar la auditoría.</div>
+      </div>
+
+      <div class="callout note">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div>Si el evaluador que necesita no existe en el listado, puede crearlo desde <strong>Parámetros generales de evaluación</strong>.</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION B — PLANTILLAS ============ -->
+    <section class="section" id="plantillas">
+      <div class="section-head">
+        <span class="section-num">B</span>
+        <h2>Creación de plantillas para auditorías recurrentes</h2>
+      </div>
+      <p class="section-desc">
+        Diligencie la información técnica una sola vez para que el sistema la traiga automáticamente
+        en futuras auditorías del mismo tipo.
+      </p>
+
+      <div class="route">
+        <span class="route-label">Ruta</span>
+        <span class="route-path">Admin <span class="seg-arrow">→</span> Evaluaciones <span class="seg-arrow">→</span> Tipos de evaluación</span>
+      </div>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Vaya a <strong>Admin → Evaluaciones → Tipos de evaluación</strong>.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Seleccione <strong>Evaluación</strong> o <strong>Programa anual de auditorías</strong>, según corresponda.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">En la pestaña <strong>Plantillas</strong>, haga clic en <strong>Adicionar plantilla</strong>.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">4</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Diligencie la información técnica una sola vez; el sistema la traerá automáticamente en futuras auditorías.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION C — CUESTIONARIO ============ -->
+    <section class="section" id="cuestionario">
+      <div class="section-head">
+        <span class="section-num">C</span>
+        <h2>Elaboración del cuestionario (lista de chequeo)</h2>
+      </div>
+      <p class="section-desc">
+        Defina las preguntas de evaluación y las unidades auditables (procesos) a las que aplican,
+        de forma manual o masiva.
+      </p>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Dentro de la auditoría o plantilla, vaya a la pestaña <strong>Cuestionario</strong>.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Haga clic en <strong>Adicionar cuestionario</strong>, asígnele un nombre y seleccione las <strong>Unidades auditables</strong> (procesos) a las que aplica.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Carga de preguntas</div>
+            <p class="step-marked-text"><strong>Manual:</strong> use <strong>Adicionar pregunta</strong>, asigne un código y escriba la pregunta.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">4</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Carga de preguntas</div>
+            <p class="step-marked-text"><strong>Masiva (Excel):</strong> haga clic en el icono <strong>Descargar plantilla</strong>, complete el Excel manteniendo la estructura de numeración y súbalo con el icono <strong>Cargar desde archivo Excel</strong>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION D — EJECUCIÓN ============ -->
+    <section class="section" id="ejecucion">
+      <div class="section-head">
+        <span class="section-num">D</span>
+        <h2>Ejecución y generación de hallazgos</h2>
+      </div>
+      <p class="section-desc">
+        Asigne el equipo auditor, ejecute la evaluación y deje que el sistema genere los planes
+        de mejora a partir de los puntos de atención.
+      </p>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Asignación</div>
+            <p class="step-marked-text">Defina el <strong>Equipo auditor</strong> (Líder y editores) en su pestaña respectiva.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Responsable</div>
+            <p class="step-marked-text">Regrese a la pestaña <strong>General</strong> y elija al <strong>Responsable</strong> (esta opción se habilita solo después de definir el equipo).</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Transición</div>
+            <p class="step-marked-text">Cambie el estado de la auditoría a <strong>Ejecución</strong> mediante el botón <strong>Aplicar transición</strong>.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">4</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Evaluar</div>
+            <p class="step-marked-text">En la pestaña Cuestionario, use el icono <strong>Evaluar</strong> para calificar con "Cumple/No cumple" según la configuración de su sistema de referencia.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">5</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Hallazgos automáticos</div>
+            <p class="step-marked-text">Si un ítem no cumple, marque la casilla <strong>Punto de atención</strong> para que el sistema genere automáticamente un plan de mejora en el módulo correspondiente.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout logic">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div><strong>Generación automática.</strong> Marcar "Punto de atención" es lo único que se requiere para que el plan de mejora aparezca en su módulo, sin necesidad de crearlo manualmente.</div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <span>Evaluaciones (Auditorías) — Calidad</span>
+      <span class="mono">Almera SGI</span>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>

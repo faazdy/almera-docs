@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Planes de Mejora — Almera</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="brand-name"><a href="../index.html">Almera</a></span>
+    </div>
+    <div class="brand-sub">Guía de operación</div>
+
+    <nav class="nav-section">
+      <div class="nav-label">Proceso principal</div>
+      <a class="nav-link" href="#informe">
+        <span class="nav-dot"></span> 1. Crear informe
+      </a>
+      <a class="nav-link" href="#hallazgo">
+        <span class="nav-dot"></span> 2. Crear hallazgo
+      </a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">Anexo A — Configuración</div>
+      <a class="nav-link" href="#a1">
+        <span class="nav-dot"></span> A.1 Evaluadores
+      </a>
+      <a class="nav-link" href="#a2">
+        <span class="nav-dot"></span> A.2 Sistema de referencia
+      </a>
+      <div class="nav-sub">
+        <a class="nav-link" href="#a2-transiciones">Transiciones</a>
+        <a class="nav-link" href="#a2-niveles">Niveles de respuesta</a>
+        <a class="nav-link" href="#a2-campos">Campos personalizados</a>
+      </div>
+      <a class="nav-link" href="#a3">
+        <span class="nav-dot"></span> A.3 Puntos de atención
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+
+    <div class="eyebrow">Almera</div>
+    <h1>Planes de mejora</h1>
+    <p class="lede">
+      Cómo registrar informes de evaluación y sus hallazgos en Almera, y dónde ajustar
+      la configuración cuando un campo, responsable u opción no aparece por defecto.
+    </p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-body">
+          <p class="step-text">
+            <a class="see-also" href="#informe">
+              ¿Cómo crear y configurar un informe?
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <p class="step-text">
+            <a class="see-also" href="#hallazgo">
+              ¿Cómo crear y configurar un hallazgo?
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <br>
+    <h2>Reunion de capacitación</h2>
+    <p class="section-desc">
+      Para ver la operación completa, consulte <a class="see-also" target="_blank" href="https://capitalsaludesp-my.sharepoint.com/personal/profesional_planeacion2_capitalsalud_gov_co/_layouts/15/stream.aspx?id=%2Fpersonal%2Fprofesional%5Fplaneacion2%5Fcapitalsalud%5Fgov%5Fco%2FDocuments%2FGrabaciones%2FPlanes%20de%20Mejora%20%2D%20Almera%2D20260622%5F150200%2DGrabaci%C3%B3n%20de%20la%20reuni%C3%B3n%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2Ebd0a7796%2D5ecd%2D4b91%2Dad4d%2D3b7cb9df6a66">aquí</a> la grabación de la reunión de capacitación.
+    </p>
+    <hr class="divider-hero">
+
+    <!-- ============ SECTION 1 ============ -->
+    <section class="section" id="informe">
+      <div class="section-head">
+        <span class="section-num">01</span>
+        <h2>Crear informe de evaluación</h2>
+      </div>
+      <p class="section-desc">
+        El informe es el contenedor principal. Una vez creado, habilita la opción para
+        cargar los hallazgos asociados.
+      </p>
+
+      <div class="route">
+        <span class="route-label">Ruta</span>
+        <span class="route-path">Admin <span class="seg-arrow">→</span> Evaluaciones <span class="seg-arrow">→</span> Administrar planes</span>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <span class="step-marker">1</span>
+          <div class="step-body">
+            <p class="step-text">En la parte superior izquierda de la sección, haga clic en <strong>"Nuevo informe"</strong>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-marker">2</span>
+          <div class="step-body">
+            <p class="step-text">Diligencie el formulario. Los campos marcados con asterisco son obligatorios.</p>
+            <div class="field-list">
+              <span class="field-chip required">Nombre</span>
+              <span class="field-chip required">Evaluador</span>
+              <span class="field-chip required">Sistema de referencia</span>
+              <span class="field-chip required">Descripción</span>
+              <span class="field-chip required">Fecha</span>
+            </div>
+            <a class="see-also" href="#a1">
+              ¿No aparece el evaluador que necesita? Ver A.1
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <br>
+            <a class="see-also" href="#a2">
+              ¿Necesita un sistema de referencia nuevo? Ver A.2
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-marker">3</span>
+          <div class="step-body">
+            <p class="step-text">Haga clic en el botón <strong>"Grabar"</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout logic">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div><strong>Lógica de fechas.</strong> Todos los hallazgos dentro del rango cronológico definido en este campo se consolidan automáticamente dentro del informe.</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 2 ============ -->
+    <section class="section" id="hallazgo">
+      <div class="section-head">
+        <span class="section-num">02</span>
+        <h2>Crear hallazgo para el informe</h2>
+      </div>
+      <p class="section-desc">
+        Disponible para informes creados y guardados.
+      </p>
+
+      <div class="steps">
+        <div class="step">
+          <span class="step-marker">1</span>
+          <div class="step-body">
+            <p class="step-text">Ingrese al informe creado y haga clic en el botón <strong>"Adicionar"</strong>.</p>
+            <div class="shot-placeholder">
+              <img src="./imgs/image.png" alt="add">
+             
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-marker">2</span>
+          <div class="step-body">
+            <p class="step-text">En el formulario de registro, diligencie los campos requeridos.</p>
+            <div class="field-list">
+              <span class="field-chip">Código</span>
+              <span class="field-chip">Clasificación</span>
+              <span class="field-chip">Nombre</span>
+              <span class="field-chip">Descripción</span>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-marker">3</span>
+          <div class="step-body">
+            <p class="step-text">Cargue o adicione archivos adjuntos si el proceso lo requiere.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-marker">4</span>
+          <div class="step-body">
+            <p class="step-text">Utilice el buscador del sistema para encontrar la unidad auditable correspondiente, selecciónela y confirme la asociación.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div><strong>Vinculación obligatoria.</strong> Todo hallazgo debe estar atado a una Unidad Auditable. No es un campo opcional.</div>
+      </div>
+
+      <div class="field-list" style="margin-top:4px;">
+        <span class="field-chip">Clasificación: 100% parametrizable</span>
+      </div>
+    </section>
+
+    <!-- ============ ANEXO BANNER ============ -->
+    <div class="anexo-banner">
+      <div class="anexo-banner-icon">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M10.5 4.5H6A2 2 0 004 6.5V19A2 2 0 006 21H18A2 2 0 0020 19V13.5M20 4L13 11M20 4H15M20 4V9" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="anexo-banner-title">Anexo A — Configuración avanzada</div>
+        <div class="anexo-banner-text">
+          Consulte esta sección únicamente si necesita añadir opciones, responsables o campos
+          personalizados que no aparecen en el proceso principal. Son ajustes de parametrización,
+          no pasos de la operación diaria.
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ A.1 ============ -->
+    <section class="section" id="a1">
+      <div class="subsection">
+        <div class="subsection-header">
+          <span class="subsection-tag">A.1</span>
+          <span class="subsection-title">Adicionar nuevos evaluadores</span>
+        </div>
+        <div class="subsection-body">
+          <p class="usage-line">Use esto si el evaluador que necesita no aparece al crear el informe.</p>
+
+          <div class="route">
+            <span class="route-label">Ruta</span>
+            <span class="route-path">Admin <span class="seg-arrow">→</span> Evaluaciones <span class="seg-arrow">→</span> Parámetros generales evaluación</span>
+          </div>
+
+          <div class="steps">
+            <div class="step">
+              <span class="step-marker">1</span>
+              <div class="step-body"><p class="step-text">Haga clic en <strong>"Crear emisor"</strong>.</p></div>
+            </div>
+            <div class="step">
+              <span class="step-marker">2</span>
+              <div class="step-body"><p class="step-text">Llene los campos requeridos y guarde.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ A.2 ============ -->
+    <section class="section" id="a2">
+      <div class="subsection">
+        <div class="subsection-header">
+          <span class="subsection-tag">A.2</span>
+          <span class="subsection-title">Adicionar o ajustar un sistema de referencia</span>
+        </div>
+        <div class="subsection-body">
+          <p class="usage-line">Use esto si requiere estructurar una nueva norma o modificar comportamientos internos.</p>
+
+          <div class="route">
+            <span class="route-label">Ruta</span>
+            <span class="route-path">Admin <span class="seg-arrow">→</span> Evaluaciones <span class="seg-arrow">→</span> Sistema de referencia</span>
+          </div>
+
+          <div class="steps">
+            <div class="step">
+              <span class="step-marker">1</span>
+              <div class="step-body"><p class="step-text">Haga clic en <strong>"Adicionar sistema de referencia"</strong>.</p></div>
+            </div>
+            <div class="step">
+              <span class="step-marker">2</span>
+              <div class="step-body"><p class="step-text">Llene los campos y presione <strong>"Grabar"</strong>.</p></div>
+            </div>
+          </div>
+
+          <div class="callout note">
+            <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="10" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M7 11V7A5 5 0 0117 7V11" stroke="currentColor" stroke-width="1.6"/></svg>
+            <div><strong>Nota de control.</strong> Si un sistema ya contiene hallazgos, el botón "Eliminar" se bloquea automáticamente.</div>
+          </div>
+
+          <div class="option-grid">
+
+            <div class="option-card" id="a2-transiciones">
+              <div class="option-head">
+                <span class="option-tab">Transiciones</span>
+                Cambiar a quién pasa el hallazgo
+              </div>
+              <div class="option-body">
+                Estando dentro de un sistema de referencia, vaya a la pestaña <code>Privilegios</code> (parte inferior). En el cuadro
+                "Transiciones", asigne las acciones (enviar, devolver, aprobar...) a un usuario
+                o cargo y presione el ícono verde. Se pueden asignar múltiples responsables.
+                <div class="shot-placeholder">
+                  <img src="./imgs/img2.png" alt="add">
+                  <br>
+                  <h5>Ejemplo:</h5>
+                  <img src="./imgs/img3.png" alt="adds">
+                  <span class="timestamp">35:07</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="option-card" id="a2-niveles">
+              <div class="option-head">
+                <span class="option-tab">Niveles de respuesta</span>
+                Agregar calificaciones de auditoría
+              </div>
+              <div class="option-body">
+                Vaya a la pestaña <code>Niveles de respuesta</code> → "Nuevo nivel de respuesta".
+                Llene Código, Nombre, Peso y Color. Si activa <strong>"Genera punto de atención"</strong>,
+                el sistema creará un hallazgo automático al marcar esta opción — por ejemplo, "No cumple".
+                <div class="shot-placeholder">
+                  <h5>Ejemplo (auditoría externa):</h5>
+                  <img src="./imgs/img4.png" alt="ss">
+                  <span class="timestamp">25:00</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="option-card" id="a2-campos">
+              <div class="option-head">
+                <span class="option-tab">Campos personalizados</span>
+                Agregar campos extra al registrar un hallazgo
+              </div>
+              <div class="option-body">
+                Vaya a la pestaña <code>Grupos</code> → "Nuevo agrupador" para crear el contenedor
+                (defina su ubicación y desactive "Mostrar nombre"). Luego vaya a "Nuevo campo
+                adicional", llene los datos y elija el tipo de campo — selección múltiple, una línea, etc.
+                <div class="shot-placeholder">
+                  <h5>Ejemplo nuevo agrupador:</h5>
+                  <img src="./imgs/img5.png" alt="add">
+                  <h5>Ejemplo nuevo campo adicional:</h5>
+                  <img src="./imgs/img6.png" alt="add">
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ A.3 ============ -->
+    <section class="section" id="a3">
+      <div class="subsection">
+        <div class="subsection-header">
+          <span class="subsection-tag">A.3</span>
+          <span class="subsection-title">Adicionar o ajustar puntos de atención</span>
+        </div>
+        <div class="subsection-body">
+          <p class="usage-line">Use esto para modificar las clasificaciones automáticas del sistema.</p>
+
+          <div class="route">
+            <span class="route-label">Ruta</span>
+            <span class="route-path">Admin <span class="seg-arrow">→</span> Evaluaciones <span class="seg-arrow">→</span> Parametrización de puntos de atención</span>
+          </div>
+
+          <div class="kv-row">
+            <span class="kv-key">Agregar</span>
+            <span class="kv-val">Haga clic en "Crear clasificación" — se asocia a todo por defecto.</span>
+          </div>
+          <div class="kv-row">
+            <span class="kv-key">Desactivar</span>
+            <span class="kv-val">Ingrese al punto, deseleccione todos los sistemas de referencia y guarde.</span>
+          </div>
+          <div class="kv-row">
+            <span class="kv-key">Eliminar</span>
+            <span class="kv-val">Haga clic sobre el ícono del bote de basura.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <span>Gestión operativa — Evaluaciones</span>
+      <span class="mono">Almera SGI</span>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>
