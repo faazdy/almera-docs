@@ -321,6 +321,12 @@
       <a class="nav-link" href="#metas"><span class="nav-dot"></span> 4. Metas y semaforización</a>
       <a class="nav-link" href="#privilegios"><span class="nav-dot"></span> 5. Privilegios y responsables</a>
       <a class="nav-link" href="#fechas"><span class="nav-dot"></span> 6. Control de fechas</a>
+      <a class="nav-link" href="#notificaciones"><span class="nav-dot"></span> 7. Notificaciones de atraso</a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">Reportes</div>
+      <a class="nav-link" href="#clasificacion"><span class="nav-dot"></span> 8. Clasificar y filtrar</a>
     </nav>
   </aside>
 
@@ -370,6 +376,16 @@
           <p class="step-text">
             <a class="see-also" href="#fechas">
               ¿Qué pasa cuando llega la fecha de corte del indicador?
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <p class="step-text">
+            <a class="see-also" href="#notificaciones">
+              ¿Quién recibe la alerta cuando un indicador está atrasado?
               <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
           </p>
@@ -528,6 +544,11 @@
           </div>
         </div>
       </div>
+
+      <div class="callout note">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div><strong>Eliminar vs. inactivar.</strong> Si una opción tiene el ícono de papelera habilitado, ningún indicador la está usando y se puede eliminar. Si no tiene papelera, ya hay indicadores usando esa opción — solo se puede <strong>inactivar</strong> (quitarle el check), no eliminar.</div>
+      </div>
     </section>
 
     <!-- ============ SECTION 3 — UNIDADES DE MEDIDA ============ -->
@@ -611,6 +632,16 @@
         <div><strong>Recomendación técnica.</strong> Utilice siempre Meta periódica con Semáforo dinámico.</div>
       </div>
 
+      <div class="example-card">
+        <div class="example-label">Meta única vs. Meta periódica</div>
+        <p class="step-marked-text">Con <strong>Meta única</strong>, si el valor de la meta cambia en el futuro, el sistema <strong>recalcula todo el histórico</strong> con la meta nueva. Con <strong>Meta periódica</strong>, cada período conserva la meta que tenía en su momento — el histórico no se altera. El sistema toma siempre el valor de la meta como el 100% para el cálculo porcentual.</p>
+      </div>
+
+      <div class="callout warn">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div><strong>Migrar de meta única a periódica:</strong> hay que reingresar, período por período, la meta que estuvo vigente en ese momento — si se deja la meta nueva aplicada a todo el histórico, el sistema sí modifica las mediciones ya registradas.</div>
+      </div>
+
       <div class="steps-marked">
         <div class="step-marked">
           <span class="step-marker">1</span>
@@ -659,6 +690,11 @@
       <div class="callout good">
         <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <div><strong>Por qué importa.</strong> Si la meta cambia en el futuro — por ejemplo, sube de 90% a 95% en junio — el sistema conserva el histórico de los meses anteriores con la meta antigua y no recalcula todo el año.</div>
+      </div>
+
+      <div class="callout warn">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div><strong>Sin confirmar todavía:</strong> cuando el resultado supera la meta (ej. 125%), el sistema hoy lo muestra tal cual, sin tope en 100%. Existe un parámetro para limitarlo, pero quedó pendiente de validación con soporte Almera — no se confirmó cómo activarlo.</div>
       </div>
     </section>
 
@@ -716,6 +752,11 @@
           </div>
         </div>
       </div>
+
+      <div class="callout note">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div>El campo de responsable en "Información adicional" solo admite <strong>un cargo</strong> por campo. Si varias personas específicas necesitan poder cargar mediciones (ej. un titular y un suplente), asígnalas por nombre desde <strong>Privilegios</strong>, que sí admite múltiples usuarios.</div>
+      </div>
     </section>
 
     <!-- ============ SECTION 6 — FECHAS ============ -->
@@ -755,6 +796,91 @@
       <div class="callout warn">
         <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
         <div><strong>Bloqueo automático.</strong> A partir de la fecha de corte, el sistema bloquea el indicador y los usuarios ya no podrán registrar más mediciones.</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 7 — NOTIFICACIONES ============ -->
+    <section class="section" id="notificaciones">
+      <div class="section-head">
+        <span class="section-num">07</span>
+        <h2>Notificaciones y alertas de atraso</h2>
+      </div>
+      <p class="section-desc">
+        Cómo está diseñado el aviso automático cuando un indicador no se ha medido a tiempo.
+      </p>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Frecuencia</div>
+            <p class="step-marked-text">El sistema no avisa apenas se vence un indicador. Hace un barrido <strong>semanal, todos los lunes</strong>, y envía un solo correo consolidado con todos los indicadores vencidos.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Destinatario</div>
+            <p class="step-marked-text">La notificación llega únicamente al <strong>responsable del indicador</strong>. No existe una opción de copia automática para un coordinador — para recibir esas alertas, esa persona tendría que estar marcada como responsable en cada indicador.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Envío manual</div>
+            <p class="step-marked-text">Un administrador puede disparar un <strong>envío masivo manual</strong> de la notificación de atraso a todos los usuarios con indicadores vencidos, como acción puntual.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div><strong>Sin confirmar todavía:</strong> en la última revisión, varios usuarios con indicadores atrasados desde meses atrás no habían recibido ninguna alerta semanal. Quedó pendiente que soporte Almera valide la causa (correo mal registrado, o usuario no marcado como responsable). No trates esta función como confiable hasta confirmarlo.</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 8 — CLASIFICACIÓN Y REPORTES ============ -->
+    <section class="section" id="clasificacion">
+      <div class="section-head">
+        <span class="section-num">08</span>
+        <h2>Clasificar indicadores y generar reportes filtrados</h2>
+      </div>
+      <p class="section-desc">
+        Para separar tipos de indicadores (por ejemplo, normativos vs. de gestión propia del proceso) sin que se mezclen al evaluar el cumplimiento.
+      </p>
+
+      <div class="callout note">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div>Almera no tiene una función de carpetas para separar visualmente los indicadores de un subproceso. La alternativa es etiquetar y filtrar.</div>
+      </div>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Etiquetar</div>
+            <p class="step-marked-text">Use o cree un campo de selección en la ficha técnica (por ejemplo, el campo <strong>Clase</strong>) con ítems como "Indicador normativo" e "Indicador de gestión".</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Asignar</div>
+            <p class="step-marked-text">Al crear o editar cada indicador, seleccione la etiqueta que le corresponde.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Filtrar y exportar</div>
+            <p class="step-marked-text">Al generar el listado, filtre por esa etiqueta antes de exportar — así se puede sacar el reporte de un solo tipo sin que el otro afecte el cálculo de cumplimiento.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div>No existe un reporte consolidado automático (ej. promedio trimestral o semestral de cumplimiento). Hay que descargar los meses y promediarlos manualmente, o escribir a soporte para solicitar un reporte específico.</div>
       </div>
     </section>
 

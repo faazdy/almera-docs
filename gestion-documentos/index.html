@@ -253,21 +253,33 @@
     <div class="brand-sub">Guía de operación</div>
 
     <nav class="nav-section">
+      <div class="nav-label">Conceptos</div>
+      <a class="nav-link active" href="#estados"><span class="nav-dot"></span> 1. Estados de un documento</a>
+    </nav>
+
+    <nav class="nav-section">
       <div class="nav-label">Gestión documental</div>
-      <a class="nav-link active" href="#elaboracion"><span class="nav-dot"></span> 1. Elaborar documento</a>
-      <a class="nav-link" href="#emisor"><span class="nav-dot"></span> 2. Crear emisor</a>
-      <a class="nav-link" href="#clase"><span class="nav-dot"></span> 3. Crear clase</a>
+      <a class="nav-link" href="#elaboracion"><span class="nav-dot"></span> 2. Elaborar documento</a>
+      <a class="nav-link" href="#emisor"><span class="nav-dot"></span> 3. Crear emisor</a>
+      <a class="nav-link" href="#clase"><span class="nav-dot"></span> 4. Crear clase</a>
+      <a class="nav-link" href="#buscar"><span class="nav-dot"></span> 5. Buscar y exportar</a>
     </nav>
 
     <nav class="nav-section">
       <div class="nav-label">Mapa de procesos</div>
-      <a class="nav-link" href="#jerarquia"><span class="nav-dot"></span> 4. Jerarquía de proceso</a>
-      <a class="nav-link" href="#mapa"><span class="nav-dot"></span> 5. Actualizar mapa</a>
+      <a class="nav-link" href="#jerarquia"><span class="nav-dot"></span> 6. Jerarquía de proceso</a>
+      <a class="nav-link" href="#mapa"><span class="nav-dot"></span> 7. Actualizar mapa</a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">Configuración adicional</div>
+      <a class="nav-link" href="#modelos"><span class="nav-dot"></span> 8. Modelos de gestión</a>
+      <a class="nav-link" href="#recursos"><span class="nav-dot"></span> 9. Recursos</a>
     </nav>
 
     <nav class="nav-section">
       <div class="nav-label">Referencia</div>
-      <a class="nav-link" href="#terminos"><span class="nav-dot"></span> 6. Términos y definiciones</a>
+      <a class="nav-link" href="#terminos"><span class="nav-dot"></span> 10. Términos y definiciones</a>
     </nav>
   </aside>
 
@@ -322,6 +334,16 @@
           </p>
         </div>
       </div>
+      <div class="step">
+        <div class="step-body">
+          <p class="step-text">
+            <a class="see-also" href="#buscar">
+              ¿Cómo exporto el listado de documentos a Excel?
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
     </div>
     <br>
     <h2>Reunión de capacitación</h2>
@@ -330,10 +352,53 @@
     </p>
     <hr class="divider-hero">
 
-    <!-- ============ SECTION 1 — ELABORACIÓN ============ -->
-    <section class="section" id="elaboracion">
+    <!-- ============ SECTION 1 — ESTADOS ============ -->
+    <section class="section" id="estados">
       <div class="section-head">
         <span class="section-num">01</span>
+        <h2>Estados de un documento</h2>
+      </div>
+      <p class="section-desc">
+        Todo documento pasa por alguno de estos 4 estados. El sistema nunca elimina un documento por completo — solo lo anula — para no perder trazabilidad.
+      </p>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <div class="step-marked-body">
+            <div class="step-marked-label">Vigente</div>
+            <p class="step-marked-text">Es la versión activa y oficial del documento en este momento. Es lo único que se muestra por defecto al entrar al módulo Documentos.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <div class="step-marked-body">
+            <div class="step-marked-label">No publicado</div>
+            <p class="step-marked-text">El documento ya se solicitó o se está construyendo, pero todavía está dentro del flujo de aprobación (por ejemplo, esperando revisión de un líder). Para el sistema aún no es "vigente", aunque ya guarda trazabilidad de a quién se envió y en qué estado va.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <div class="step-marked-body">
+            <div class="step-marked-label">Obsoleto</div>
+            <p class="step-marked-text">Cuando se sube una nueva versión de un documento, la versión anterior pasa automáticamente a este estado. Sigue siendo consultable, pero ya no es la oficial.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <div class="step-marked-body">
+            <div class="step-marked-label">Anulado</div>
+            <p class="step-marked-text">El documento ya no aplica. El sistema no permite eliminar documentos, solo anularlos — así se conserva la trazabilidad. Todos estos estados son consultables desde las pestañas superiores del listado de Documentos.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout note">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div>El "listado maestro" que se genera desde arriba del módulo de Documentos solo muestra documentos <strong>vigentes</strong> por defecto. Para ver la traza completa hay que moverse a las otras pestañas o quitar los filtros activos.</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 2 — ELABORACIÓN ============ -->
+    <section class="section" id="elaboracion">
+      <div class="section-head">
+        <span class="section-num">02</span>
         <h2>Creación de un documento (Elaboración)</h2>
       </div>
       <p class="section-desc">
@@ -412,12 +477,27 @@
         <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
         <div><strong>Guardado automático.</strong> El sistema guarda los cambios del editor online de forma automática, sin necesidad de descargar el archivo.</div>
       </div>
+
+      <div class="example-card">
+        <div class="example-label">Código del documento</div>
+        <p class="step-marked-text">El código se puede generar <strong>automáticamente</strong> (configuración parametrizable por Almera, no algo que active cada usuario). La estructura típica es inicial del proceso + inicial del subproceso + inicial del tipo de documento + consecutivo, pero es ajustable. Si ya existen documentos codificados manualmente, hay que pedirle a soporte que revise la parametrización antes de activarlo, para no generar códigos duplicados.</p>
+      </div>
+
+      <div class="example-card">
+        <div class="example-label">Vincular otro documento dentro de la plantilla</div>
+        <p class="step-marked-text">Para referenciar un formato o manual relacionado dentro del editor en línea, la única forma disponible es: buscar el documento en el listado de Documentos, copiar su enlace, y pegarlo dentro del texto de la plantilla. No existe vinculación automática por código.</p>
+      </div>
+
+      <div class="callout warn">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div>Los documentos antiguos cargados como <strong>PDF</strong> no permiten activar la edición en línea. Hay que reconstruir el contenido en una plantilla Word editable y volver a cargarlo.</div>
+      </div>
     </section>
 
-    <!-- ============ SECTION 2 — EMISOR ============ -->
+    <!-- ============ SECTION 3 — EMISOR ============ -->
     <section class="section" id="emisor">
       <div class="section-head">
-        <span class="section-num">02</span>
+        <span class="section-num">03</span>
         <h2>Creación de un emisor (externo o interno)</h2>
       </div>
       <p class="section-desc">
@@ -474,10 +554,10 @@
       </div>
     </section>
 
-    <!-- ============ SECTION 3 — CLASE ============ -->
+    <!-- ============ SECTION 4 — CLASE ============ -->
     <section class="section" id="clase">
       <div class="section-head">
-        <span class="section-num">03</span>
+        <span class="section-num">04</span>
         <h2>Creación de una clase de documento (tipos)</h2>
       </div>
       <p class="section-desc">
@@ -534,12 +614,74 @@
           </div>
         </div>
       </div>
+
+      <div class="callout warn">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div>Una clase con documentos vinculados <strong>no se puede eliminar</strong>. Primero hay que reclasificar todos los documentos que la usan y solo entonces se puede eliminar la clase.</div>
+      </div>
+
+      <div class="example-card">
+        <div class="example-label">Orden del listado</div>
+        <p class="step-marked-text">Las clases siempre aparecen en el orden en que fueron creadas. Se puede reordenar temporalmente haciendo clic en el encabezado de la columna (código o nombre), pero eso no queda guardado como configuración fija.</p>
+      </div>
     </section>
 
-    <!-- ============ SECTION 4 — JERARQUÍA ============ -->
+    <!-- ============ SECTION 5 — BUSCAR Y EXPORTAR ============ -->
+    <section class="section" id="buscar">
+      <div class="section-head">
+        <span class="section-num">05</span>
+        <h2>Buscar, filtrar y exportar documentos</h2>
+      </div>
+      <p class="section-desc">
+        Para consultar el listado general de documentos, filtrarlo o sacar un reporte en Excel.
+      </p>
+
+      <div class="route">
+        <span class="route-label">Ruta</span>
+        <span class="route-path">Documentos</span>
+      </div>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Filtrar</div>
+            <p class="step-marked-text">Desde el encabezado del listado se puede filtrar por <strong>origen</strong> (interno / externo) o por <strong>proceso</strong> específico. Cada pestaña (vigentes, no publicados, obsoletos, anulados) respeta el filtro activo.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Ver todos los registros</div>
+            <p class="step-marked-text">Si el listado tiene varias páginas, aumente la cantidad de registros mostrados (por ejemplo a 100) para verlos todos en una sola hoja.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Seleccionar</div>
+            <p class="step-marked-text">Use <strong>Seleccionar → Todos</strong> para marcar todo el listado visible, o marque manualmente los documentos que necesita.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">4</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Exportar</div>
+            <p class="step-marked-text">En <strong>Documentos seleccionados</strong>, elija <strong>Exportar todos</strong> o <strong>Exportar seleccionados</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div>En el cuadro de exportación, <strong>nunca marque la opción "Incluir archivos"</strong>. El reporte se vuelve muy pesado y la descarga puede tardar muchísimo.</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 6 — JERARQUÍA ============ -->
     <section class="section" id="jerarquia">
       <div class="section-head">
-        <span class="section-num">04</span>
+        <span class="section-num">06</span>
         <h2>Modificación de la jerarquía de un proceso</h2>
       </div>
       <p class="section-desc">
@@ -584,10 +726,10 @@
       </div>
     </section>
 
-    <!-- ============ SECTION 5 — MAPA ============ -->
+    <!-- ============ SECTION 7 — MAPA ============ -->
     <section class="section" id="mapa">
       <div class="section-head">
-        <span class="section-num">05</span>
+        <span class="section-num">07</span>
         <h2>Actualización y vinculación del mapa de procesos</h2>
       </div>
       <p class="section-desc">
@@ -637,10 +779,96 @@
       </div>
     </section>
 
-    <!-- ============ SECTION 6 — TÉRMINOS ============ -->
+    <!-- ============ SECTION 8 — MODELOS DE GESTIÓN ============ -->
+    <section class="section" id="modelos">
+      <div class="section-head">
+        <span class="section-num">08</span>
+        <h2>Modelos de gestión</h2>
+      </div>
+      <p class="section-desc">
+        Para cargar un estándar o norma de gestión (ISO 9001, ISO 45001, etc.) y poder luego seleccionar, desde la caracterización de cada proceso, qué ítems de esa norma le aplican.
+      </p>
+
+      <div class="route">
+        <span class="route-label">Ruta</span>
+        <span class="route-path">Admin <span class="seg-arrow">→</span> Calidad <span class="seg-arrow">→</span> Modelos de gestión</span>
+      </div>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Vaya a <strong>Admin → Calidad → Modelos de gestión</strong>.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Adjunte el archivo del modelo o norma que desea cargar.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Haga clic en <strong>Guardar</strong>. Ya podrá seleccionar sus ítems desde la caracterización de cualquier proceso.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout logic">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div><strong>Antes de subir un modelo nuevo</strong>, pregunte a soporte de Almera si ya lo tienen disponible como plantilla — cargarlo desde cero (ítem por ítem) es mucho más operativo que si Almera ya lo tiene pre-armado.</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 9 — RECURSOS ============ -->
+    <section class="section" id="recursos">
+      <div class="section-head">
+        <span class="section-num">09</span>
+        <h2>Recursos</h2>
+      </div>
+      <p class="section-desc">
+        Para cuando, al caracterizar un proceso, no aparece habilitado el campo para indicar qué tipo de recursos necesita.
+      </p>
+
+      <div class="route">
+        <span class="route-label">Ruta</span>
+        <span class="route-path">Admin <span class="seg-arrow">→</span> Calidad <span class="seg-arrow">→</span> Recursos</span>
+      </div>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Clasificación</div>
+            <p class="step-marked-text">Cree primero la <strong>clasificación</strong> del recurso (categoría general), por ejemplo: Talento Humano, Infraestructura, Tecnológicos.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Recurso</div>
+            <p class="step-marked-text">Cree el <strong>recurso</strong> específico y asócielo a una clasificación, por ejemplo: "Equipos de cómputo" dentro de Infraestructura/Tecnológicos.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">El recurso ya queda disponible para <strong>seleccionarse</strong> desde la caracterización de cualquier proceso.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout note">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div>Tener solo la <strong>clasificación</strong> creada no es suficiente. Si el campo sigue sin habilitarse, revise que también exista el <strong>recurso</strong> específico, no solo su categoría.</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 10 — TÉRMINOS ============ -->
     <section class="section" id="terminos">
       <div class="section-head">
-        <span class="section-num">06</span>
+        <span class="section-num">10</span>
         <h2>Gestión de términos y definiciones</h2>
       </div>
       <p class="section-desc">

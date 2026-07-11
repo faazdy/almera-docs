@@ -256,6 +256,8 @@
       <a class="nav-link" href="#plantillas"><span class="nav-dot"></span> B. Crear plantillas</a>
       <a class="nav-link" href="#cuestionario"><span class="nav-dot"></span> C. Elaborar cuestionario</a>
       <a class="nav-link" href="#ejecucion"><span class="nav-dot"></span> D. Ejecución y hallazgos</a>
+      <a class="nav-link" href="#sistema-referencia"><span class="nav-dot"></span> E. Sistema de referencia</a>
+      <a class="nav-link" href="#reportes"><span class="nav-dot"></span> F. Reportes y privilegios</a>
     </nav>
   </aside>
 
@@ -421,6 +423,11 @@
           </div>
         </div>
       </div>
+
+      <div class="callout note">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div><strong>Jerarquía.</strong> Primero se crea la plantilla del <strong>Programa anual de auditorías</strong> (si aplica); las auditorías individuales se agregan luego dentro de la pestaña "Auditorías" de ese programa, cada una con su propia plantilla. Las auditorías no programadas (visitas sorpresa) se crean sueltas, fuera del programa. Las auditorías que un ente externo aplica a la organización <strong>no se crean en el sistema</strong> — solo se registra el hallazgo resultante como plan de mejora.</div>
+      </div>
     </section>
 
     <!-- ============ SECTION C — CUESTIONARIO ============ -->
@@ -461,6 +468,16 @@
             <p class="step-marked-text"><strong>Masiva (Excel):</strong> haga clic en el icono <strong>Descargar plantilla</strong>, complete el Excel manteniendo la estructura de numeración y súbalo con el icono <strong>Cargar desde archivo Excel</strong>.</p>
           </div>
         </div>
+      </div>
+
+      <div class="callout logic">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div><strong>Preguntas jerárquicas.</strong> Si una pregunta es en realidad una sección (ej. "3. Parámetros generales"), créela con su código normal — el sistema no la cuenta como pregunta evaluable. Las preguntas reales que dependen de ella se crean con código tipo "3.1", "3.2", seleccionando esa sección como su <strong>Grupo</strong> (pregunta padre).</div>
+      </div>
+
+      <div class="callout note">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div>Una auditoría puede tener <strong>varios cuestionarios</strong>, cada uno aplicado a distintas unidades auditables — útil para separar preguntas generales (aplican a todos los procesos) de preguntas propias de cada proceso.</div>
       </div>
     </section>
 
@@ -516,6 +533,89 @@
       <div class="callout logic">
         <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
         <div><strong>Generación automática.</strong> Marcar "Punto de atención" es lo único que se requiere para que el plan de mejora aparezca en su módulo, sin necesidad de crearlo manualmente.</div>
+      </div>
+
+      <div class="callout note">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div>Marcar "Punto de atención" es opcional — no todo no-cumplimiento requiere un hallazgo formal; depende de la política interna (por ejemplo, algunas organizaciones solo generan hallazgo tras incumplimiento recurrente). La pestaña "Plan de trabajo" de la auditoría permite además asignar actividades relacionadas con la ejecución de la auditoría misma, distintas del plan de acción del hallazgo (que se gestiona desde Planes de Mejora).</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION E — SISTEMA DE REFERENCIA ============ -->
+    <section class="section" id="sistema-referencia">
+      <div class="section-head">
+        <span class="section-num">E</span>
+        <h2>Sistema de referencia: campos, niveles de respuesta y niveles de gestión</h2>
+      </div>
+      <p class="section-desc">
+        Configure, por cada sistema de referencia, qué información se pide y cómo se califica cada auditoría que lo use.
+      </p>
+
+      <div class="route">
+        <span class="route-label">Ruta</span>
+        <span class="route-path">Admin <span class="seg-arrow">→</span> Evaluaciones <span class="seg-arrow">→</span> Sistemas de referencia</span>
+      </div>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Campos adicionales</div>
+            <p class="step-marked-text">En la pestaña <strong>Campos</strong> del sistema de referencia, cree el campo eligiendo con cuidado el <strong>agrupador</strong>: "General" (ficha de la auditoría), "Hallazgo" (ficha del plan de mejora) o "Pregunta" (aparece dentro del cuestionario al evaluar, ej. un campo de Observaciones).</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Niveles de respuesta</div>
+            <p class="step-marked-text">Defina cómo se califica cada pregunta: código, nombre (ej. "Cumple"), calificación numérica, color, y si tiene o no peso en el cálculo.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout note">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div>Además de los niveles de respuesta existen los <strong>niveles de gestión</strong>, que dan un resultado porcentual/agregado visible en la vista de <strong>Seguimiento</strong> de la auditoría (no en la de edición).</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION F — REPORTES Y PRIVILEGIOS ============ -->
+    <section class="section" id="reportes">
+      <div class="section-head">
+        <span class="section-num">F</span>
+        <h2>Reportes y privilegios</h2>
+      </div>
+      <p class="section-desc">
+        Cómo consultar los resultados de una auditoría y quién puede generar hallazgos desde otros módulos.
+      </p>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Reporte</div>
+            <p class="step-marked-text">En la pestaña Cuestionario, la opción <strong>Reporte</strong> genera el documento completo con la planeación y el detalle de cada respuesta.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Resultado</div>
+            <p class="step-marked-text">La opción <strong>Resultado</strong> muestra el resumen cuantitativo (cuántas preguntas cumplieron/no cumplieron), según los niveles de respuesta.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Privilegios</div>
+            <p class="step-marked-text">El acceso a generar hallazgos desde otros módulos (ej. desde un indicador) se asigna en <strong>Sistemas de referencia → [sistema] → Privilegios</strong>. Tras otorgar el privilegio, el usuario debe refrescar su sesión para verlo reflejado.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div>Incluso los administradores "superusuario" pueden no tener automáticamente todos los privilegios — hay que revisarlos y asignarlos explícitamente por sistema de referencia.</div>
       </div>
     </section>
 
