@@ -6,12 +6,14 @@
 - Responde siempre con el procedimiento exacto documentado aquí, paso a paso, antes de sugerir cualquier otra cosa.
 - No inventes pasos, botones o menús que no estén mencionados en este documento.
 - Si la pregunta no está cubierta aquí, dilo explícitamente — no improvises.
+- Si preguntan dónde encontrar una opción o módulo dentro de Admin, revisa primero el **Árbol de Navegación** al inicio de este documento.
 - La sección final **"Temas pendientes de validar"** contiene comportamientos del sistema que quedaron sin confirmar en la capacitación. No los presentes como hechos resueltos.
 
 ---
 
 ## Índice
 
+0. Árbol de navegación de Admin (todos los módulos)
 1. Conceptos básicos (estados de un documento, tipo adjunto vs. tipo plantilla)
 2. Crear un documento (solicitud → aprobación → edición → plantilla online)
 3. Crear un emisor (interno/externo)
@@ -23,6 +25,76 @@
 9. Términos y definiciones
 10. Preguntas frecuentes puntuales (por correo)
 11. Temas pendientes de validar con soporte Almera
+
+---
+
+## Árbol de Opciones y Módulos Principales de Almera
+
+Estructura de la pestaña 'Admin', donde se alojan las opciones y módulos del sistema. Usar esta guia para rutas requeridas por el usuario que aparezcan en este árbol.
+
+---
+
+### Árbol de Navegación
+
+```
+└── 📁 Admin (Pestaña Principal)
+    ├── 📂 1. Calidad
+    │   ├── 📄 Clases y Emisores de Documentos
+    │   ├── 📄 Directorios
+    │   ├── 📄 Documentos
+    │   ├── 📄 Manejo de registros
+    │   ├── 📄 Mecanismos de integración
+    │   ├── 📄 Modelos de gestión
+    │   ├── 📄 Parametrización procesos
+    │   ├── 📄 Parametrizar Mecanismos de Integración
+    │   ├── 📄 Procesos
+    │   ├── 📄 Recursos
+    │   └── 📄 Términos & Definiciones
+    │
+    ├── 📂 2. Evaluaciones
+    │   ├── 📄 Administrar planes
+    │   ├── 📄 Evaluaciones
+    │   ├── 📄 Parametrización de Puntos de Atención
+    │   ├── 📄 Parámetros generales evaluación
+    │   ├── 📄 Reporte atenciones
+    │   ├── 📄 Sistema de referencia
+    │   ├── 📄 Tablero atenciones
+    │   ├── 📄 Tipos de Evaluación
+    │   └── 📄 Unidades auditables
+    │
+    ├── 📂 3. General
+    │   ├── 📄 Bitácora
+    │   ├── 📄 Cargos
+    │   ├── 📄 Centro de seguridad
+    │   ├── 📄 Correos
+    │   ├── 📄 Empresas
+    │   ├── 📄 Estructura organizacional
+    │   ├── 📄 Favoritos
+    │   ├── 📄 Grupos de cargos
+    │   ├── 📄 Grupos de usuarios
+    │   ├── 📄 Manual del sistema
+    │   ├── 📄 Pagina de inicio
+    │   ├── 📄 Parametrización cargos
+    │   ├── 📄 Privilegios Generales del Sistema
+    │   ├── 📄 Reglas de acceso
+    │   ├── 📄 Reporte General de Acciones
+    │   ├── 📄 Terminos Ayuda
+    │   └── 📄 Usuarios
+    │
+    ├── 📂 4. Indicadores
+    │   ├── 📄 Clasificaciones de Objetivos Estratégicos
+    │   ├── 📄 Planeación estratégica
+    │   ├── 📄 Reporte de indicadores
+    │   └── 📄 Unidades y categorías
+    │
+    ├── 📂 5. Proyectos
+    │   ├── 📄 Proyectos
+    │   └── 📄 Tipos de Proyecto
+    │
+    └── 📂 6. Riesgos
+        ├── 📄 Evaluación de Controles
+        └── 📄 Sistemas de referencia
+```
 
 ---
 

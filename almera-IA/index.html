@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Almera + IA — Almera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/main.css">
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="brand-name"><a href="../index.html">Almera</a></span>
+    </div>
+    <div class="brand-sub">Guía de operación</div>
+
+    <nav class="nav-section">
+      <div class="nav-label">Introducción</div>
+      <a class="nav-link active" href="#que-son"><span class="nav-dot"></span> 1. Qué son estos archivos</a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">Usar con Claude</div>
+      <a class="nav-link" href="#instalar-skill"><span class="nav-dot"></span> 2. Instalar un .skill</a>
+      <a class="nav-link" href="#usar-skill"><span class="nav-dot"></span> 3. Usar la habilidad</a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">Usar con otros agentes</div>
+      <a class="nav-link" href="#usar-md"><span class="nav-dot"></span> 4. Usar los archivos .md</a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">Referencia</div>
+      <a class="nav-link" href="#modulos-disponibles"><span class="nav-dot"></span> 5. Módulos disponibles</a>
+      <a class="nav-link" href="#buenas-practicas"><span class="nav-dot"></span> 6. Buenas prácticas</a>
+    </nav>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+
+    <div class="eyebrow">Almera</div>
+    <h1>Almera + IA</h1>
+    <p class="lede">
+      Cada módulo de esta documentación tiene una habilidad de inteligencia artificial asociada,
+      para poder consultarla directamente desde un asistente en vez de leer la guía completa.
+      Aquí se explica cómo instalar y usar los dos formatos disponibles: archivos <code>.skill</code>
+      (para Claude) y archivos <code>.md</code> (para cualquier agente de IA).
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-body">
+          <p class="step-text">
+            <a class="see-also" href="#instalar-skill">
+              ¿Cómo instalo un archivo .skill en Claude?
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <p class="step-text">
+            <a class="see-also" href="#usar-md">
+              ¿Cómo uso un archivo .md con otro agente de IA?
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <p class="step-text">
+            <a class="see-also" href="#modulos-disponibles">
+              ¿Qué módulos tienen habilidades disponibles para descargar?
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider-hero">
+
+    <!-- ============ SECTION 1 — QUÉ SON ============ -->
+    <section class="section" id="que-son">
+      <div class="section-head">
+        <span class="section-num">01</span>
+        <h2>Qué son los archivos .skill y .md</h2>
+      </div>
+      <p class="section-desc">
+        Cada módulo documentado (Evaluaciones, Gestión documental, Indicadores, Mecanismos de
+        integración, Planes de mejora) tiene su conocimiento empaquetado en dos formatos distintos,
+        pensados para dos formas diferentes de usar IA.
+      </p>
+
+      <div class="tab-compare">
+        <div class="tab-card">
+          <div class="tab-card-head">
+            <span class="tab-pill on">.skill</span>
+          </div>
+          <div class="tab-card-title">Habilidad para Claude</div>
+          <div class="tab-card-desc">
+            Un paquete listo para instalar como <strong>Agent Skill</strong>. Una vez activado,
+            Claude lo carga automáticamente cuando la conversación lo necesita — no hay que
+            adjuntar nada manualmente en cada chat.
+          </div>
+        </div>
+        <div class="tab-card">
+          <div class="tab-card-head">
+            <span class="tab-pill off">.md</span>
+          </div>
+          <div class="tab-card-title">Documento de referencia</div>
+          <div class="tab-card-desc">
+            Un archivo de texto plano con toda la guía del módulo. Sirve para <strong>cualquier
+            asistente de IA</strong> (ChatGPT, Gemini, Copilot, o el propio Claude), pero hay que
+            adjuntarlo o pegarlo manualmente en cada conversación donde se quiera usar.
+          </div>
+        </div>
+      </div>
+
+      <div class="callout note">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div>Si usas Claude, el archivo <strong>.skill</strong> es la opción más cómoda. Si usas otro asistente, o quieres una alternativa más simple, usa el archivo <strong>.md</strong>.</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 2 — INSTALAR .skill ============ -->
+    <section class="section" id="instalar-skill">
+      <div class="section-head">
+        <span class="section-num">02</span>
+        <h2>Instalar un archivo .skill en Claude</h2>
+      </div>
+      <p class="section-desc">
+        Pasos para subir la habilidad de un módulo a Claude (Claude.ai o Claude Desktop). Solo se
+        instala una vez por módulo; después queda disponible en todas las conversaciones nuevas.
+      </p>
+
+      <div class="route">
+        <span class="route-label">Ruta</span>
+        <span class="route-path">Claude <span class="seg-arrow">→</span> Configuración <span class="seg-arrow">→</span> Capacidades <span class="seg-arrow">→</span> Habilidades</span>
+      </div>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Descargar el archivo</div>
+            <p class="step-marked-text">Vaya a la sección <strong>Módulos disponibles</strong> de esta página y descargue el archivo <strong>.skill</strong> del módulo que le interesa.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Abrir configuración</div>
+            <p class="step-marked-text">En Claude, abra <strong>Configuración</strong> y entre a la sección de <strong>Capacidades</strong> o <strong>Habilidades</strong>.</p>
+            <div class="shot-placeholder">
+              <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 21H16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              Captura pendiente — menú de Configuración → Habilidades
+            </div>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Subir la habilidad</div>
+            <p class="step-marked-text">Haga clic en <strong>Subir habilidad</strong> (o <strong>Upload skill</strong>) y seleccione el archivo <strong>.skill</strong> descargado en el paso 1.</p>
+            <div class="shot-placeholder">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 16V4M12 4L7 9M12 4L17 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16V18A2 2 0 006 20H18A2 2 0 0020 18V16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              Captura pendiente — botón "Subir habilidad"
+            </div>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">4</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Confirmar instalación</div>
+            <p class="step-marked-text">Claude procesa el archivo y muestra la habilidad en la lista, con su nombre y una breve descripción. Verifique que aparezca <strong>activada</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div>Las habilidades <strong>.skill</strong> solo se pueden instalar en Claude. Para usar la documentación con otro asistente de IA, use el archivo <strong>.md</strong> del mismo módulo (ver <a class="see-also" href="#usar-md">sección 4</a>).</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 3 — USAR LA HABILIDAD ============ -->
+    <section class="section" id="usar-skill">
+      <div class="section-head">
+        <span class="section-num">03</span>
+        <h2>Usar la habilidad instalada</h2>
+      </div>
+      <p class="section-desc">
+        Una vez instalada, la habilidad queda disponible para cualquier conversación nueva sin
+        necesidad de volver a subir el archivo.
+      </p>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Nueva conversación</div>
+            <p class="step-marked-text">Abra un chat nuevo en Claude.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Verificar activación</div>
+            <p class="step-marked-text">Confirme que la habilidad del módulo esté activada para esa conversación (algunas cuentas permiten activar o desactivar habilidades por chat).</p>
+            <div class="shot-placeholder">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M8 12L11 15L16 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Captura pendiente — habilidad activada en el chat
+            </div>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Preguntar</div>
+            <p class="step-marked-text">Haga una pregunta relacionada con el módulo, en lenguaje natural.</p>
+            <div class="example-card">
+              <div class="example-label">Ejemplo</div>
+              <div class="example-kv">
+                <div class="example-kv-item"><span class="k">Pregunta</span><span class="v">"¿Cómo configuro una meta periódica en un indicador?"</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">4</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Revisar la respuesta</div>
+            <p class="step-marked-text">Claude debe responder con base en los pasos documentados del módulo, no con información inventada. Si la respuesta parece genérica, verifique que la habilidad esté activa.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout note">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div>La habilidad no reemplaza el juicio del usuario: para procedimientos críticos, siga confirmando contra la guía escrita del módulo.</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 4 — USAR .md ============ -->
+    <section class="section" id="usar-md">
+      <div class="section-head">
+        <span class="section-num">04</span>
+        <h2>Usar los archivos .md con otros agentes (incluido Claude)</h2>
+      </div>
+      <p class="section-desc">
+        Este método funciona con cualquier asistente de IA — ChatGPT, Gemini, Copilot, o el propio
+        Claude sin instalar la habilidad — porque el archivo es texto plano.
+      </p>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Descargar el archivo</div>
+            <p class="step-marked-text">Vaya a <strong>Módulos disponibles</strong> y descargue el archivo <strong>.md</strong> del módulo que le interesa.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Abrir el agente de IA</div>
+            <p class="step-marked-text">Abra el asistente que vaya a usar (ChatGPT, Gemini, Copilot, Claude, etc.).</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Adjuntar como contexto</div>
+            <div class="substeps">
+              <div class="substep">
+                <span class="substep-bullet"></span>
+                <span class="substep-text">Si el agente permite adjuntar archivos, suba el <strong>.md</strong> directamente en la conversación.</span>
+              </div>
+              <div class="substep">
+                <span class="substep-bullet"></span>
+                <span class="substep-text">Si no permite adjuntar archivos, abra el <strong>.md</strong> con un editor de texto y pegue su contenido completo al inicio del chat.</span>
+              </div>
+            </div>
+            <div class="shot-placeholder">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M21.44 11.05L12.25 20.24A5.5 5.5 0 014.5 12.5L13.69 3.31A3.67 3.67 0 1118.9 8.5L9.7 17.69A1.83 1.83 0 117 15L15.5 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Captura pendiente — adjuntar archivo .md en el chat
+            </div>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">4</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Indicar el uso</div>
+            <p class="step-marked-text">Pida explícitamente que use ese documento como referencia para responder.</p>
+            <div class="example-card">
+              <div class="example-label">Ejemplo</div>
+              <div class="example-kv">
+                <div class="example-kv-item"><span class="k">Instrucción</span><span class="v">"Usa este documento como referencia para responder mis preguntas sobre el módulo de Indicadores."</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">5</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Preguntar</div>
+            <p class="step-marked-text">Haga sus preguntas sobre el módulo dentro de esa misma conversación.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout logic">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div><strong>Recomendación.</strong> Use este método cuando no trabaje con Claude, o cuando quiera una opción rápida sin instalar nada.</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 5 — MÓDULOS DISPONIBLES ============ -->
+    <section class="section" id="modulos-disponibles">
+      <div class="section-head">
+        <span class="section-num">05</span>
+        <h2>Módulos disponibles</h2>
+      </div>
+      <p class="section-desc">
+        Descargue el archivo que necesite. Los enlaces apuntan directamente al archivo real de cada módulo.
+      </p>
+
+      <div class="var-table">
+        <div class="var-row">
+          <span class="var-code">Evaluaciones</span>
+          <span class="var-desc">
+            <a class="see-also" href="../evaluaciones/AI/almera-evaluaciones.skill" download>.skill</a>
+            &nbsp;·&nbsp;
+            <a class="see-also" href="../evaluaciones/AI/evaluaciones-almera.md" download>.md</a>
+          </span>
+        </div>
+        <div class="var-row">
+          <span class="var-code">Gestión documental</span>
+          <span class="var-desc">
+            <a class="see-also" href="../gestion-documentos/AI/almera-documentos.skill" download>.skill</a>
+            &nbsp;·&nbsp;
+            <a class="see-also" href="../gestion-documentos/AI/documentos-almera.md" download>.md</a>
+          </span>
+        </div>
+        <div class="var-row">
+          <span class="var-code">Indicadores</span>
+          <span class="var-desc">
+            <a class="see-also" href="../indicadores/AI/almera-indicadores.skill" download>.skill</a>
+            &nbsp;·&nbsp;
+            <a class="see-also" href="../indicadores/AI/indicadores.md" download>.md</a>
+          </span>
+        </div>
+        <div class="var-row">
+          <span class="var-code">Mecanismos de integración</span>
+          <span class="var-desc">
+            <a class="see-also" href="../mecanismos-integracion/AI/almera-mecanismos.skill" download>.skill</a>
+            &nbsp;·&nbsp;
+            <a class="see-also" href="../mecanismos-integracion/AI/mecanismos-integracion.md" download>.md</a>
+          </span>
+        </div>
+        <div class="var-row">
+          <span class="var-code">Planes de mejora</span>
+          <span class="var-desc">
+            .skill pendiente
+            &nbsp;·&nbsp;
+            <a class="see-also" href="../planes-de-mejora/AI/docs-plan-de-mejora.md" download>.md</a>
+          </span>
+        </div>
+      </div>
+
+      <div class="callout note">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div>El módulo <strong>Planes de mejora</strong> todavía no tiene habilidad <strong>.skill</strong> empaquetada para Claude — por ahora solo está disponible su archivo <strong>.md</strong>.</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 6 — BUENAS PRÁCTICAS ============ -->
+    <section class="section" id="buenas-practicas">
+      <div class="section-head">
+        <span class="section-num">06</span>
+        <h2>Buenas prácticas</h2>
+      </div>
+
+      <div class="callout warn">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div><strong>Mantenga la habilidad actualizada.</strong> Si la documentación de un módulo cambia, vuelva a descargar el archivo <strong>.skill</strong> o <strong>.md</strong> más reciente y reemplace el que tenga instalado o adjunto.</div>
+      </div>
+
+      <div class="callout note">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div>El archivo <strong>.skill</strong> incluye varios documentos de referencia internos que Claude consulta automáticamente según la pregunta. El archivo <strong>.md</strong> es un solo documento completo — más simple, pero sin esa carga selectiva.</div>
+      </div>
+
+      <div class="callout good">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div>Si tiene dudas sobre si la respuesta de la IA es correcta, siempre puede volver a la guía escrita del módulo en esta misma documentación.</div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <span>Almera + IA — Referencia</span>
+      <span class="mono">Almera SGI</span>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>

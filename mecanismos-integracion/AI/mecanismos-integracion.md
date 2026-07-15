@@ -6,6 +6,7 @@
 - Responde siempre con el procedimiento exacto documentado aquí, paso a paso, antes de sugerir cualquier otra cosa.
 - No inventes pasos, botones o menús que no estén mencionados en este documento.
 - Si la pregunta no está cubierta aquí, dilo explícitamente — no improvises.
+- Si preguntan dónde encontrar una opción o módulo dentro de Admin, revisa primero el **Árbol de Navegación** al inicio de este documento.
 - Revisa siempre la sección final **"Temas pendientes de validar"** antes de responder sobre los 4 tipos de privilegio o sobre la nueva función de plantilla en línea — hay puntos que quedaron sin resolver en la capacitación.
 
 ---
@@ -18,6 +19,7 @@ Gestiona **comités y sus actas de reunión** (juntas, comités estratégicos, o
 
 ## Índice
 
+0. Árbol de navegación de Admin (todos los módulos)
 1. Conceptos básicos (acceso, privilegios, qué puede hacer cada rol)
 2. Crear y configurar un nuevo comité/mecanismo
 3. Crear una nueva clasificación de mecanismo
@@ -27,6 +29,76 @@ Gestiona **comités y sus actas de reunión** (juntas, comités estratégicos, o
 7. Plantilla institucional del acta (variables, dónde se edita, función nueva de edición en línea)
 8. Temas pendientes de validar con soporte Almera
 9. Preguntas puntuales por correo
+
+---
+
+## Árbol de Opciones y Módulos Principales de Almera
+
+Estructura de la pestaña 'Admin', donde se alojan las opciones y módulos del sistema. Usar esta guia para rutas requeridas por el usuario que aparezcan en este árbol.
+
+---
+
+### Árbol de Navegación
+
+```
+└── 📁 Admin (Pestaña Principal)
+    ├── 📂 1. Calidad
+    │   ├── 📄 Clases y Emisores de Documentos
+    │   ├── 📄 Directorios
+    │   ├── 📄 Documentos
+    │   ├── 📄 Manejo de registros
+    │   ├── 📄 Mecanismos de integración
+    │   ├── 📄 Modelos de gestión
+    │   ├── 📄 Parametrización procesos
+    │   ├── 📄 Parametrizar Mecanismos de Integración
+    │   ├── 📄 Procesos
+    │   ├── 📄 Recursos
+    │   └── 📄 Términos & Definiciones
+    │
+    ├── 📂 2. Evaluaciones
+    │   ├── 📄 Administrar planes
+    │   ├── 📄 Evaluaciones
+    │   ├── 📄 Parametrización de Puntos de Atención
+    │   ├── 📄 Parámetros generales evaluación
+    │   ├── 📄 Reporte atenciones
+    │   ├── 📄 Sistema de referencia
+    │   ├── 📄 Tablero atenciones
+    │   ├── 📄 Tipos de Evaluación
+    │   └── 📄 Unidades auditables
+    │
+    ├── 📂 3. General
+    │   ├── 📄 Bitácora
+    │   ├── 📄 Cargos
+    │   ├── 📄 Centro de seguridad
+    │   ├── 📄 Correos
+    │   ├── 📄 Empresas
+    │   ├── 📄 Estructura organizacional
+    │   ├── 📄 Favoritos
+    │   ├── 📄 Grupos de cargos
+    │   ├── 📄 Grupos de usuarios
+    │   ├── 📄 Manual del sistema
+    │   ├── 📄 Pagina de inicio
+    │   ├── 📄 Parametrización cargos
+    │   ├── 📄 Privilegios Generales del Sistema
+    │   ├── 📄 Reglas de acceso
+    │   ├── 📄 Reporte General de Acciones
+    │   ├── 📄 Terminos Ayuda
+    │   └── 📄 Usuarios
+    │
+    ├── 📂 4. Indicadores
+    │   ├── 📄 Clasificaciones de Objetivos Estratégicos
+    │   ├── 📄 Planeación estratégica
+    │   ├── 📄 Reporte de indicadores
+    │   └── 📄 Unidades y categorías
+    │
+    ├── 📂 5. Proyectos
+    │   ├── 📄 Proyectos
+    │   └── 📄 Tipos de Proyecto
+    │
+    └── 📂 6. Riesgos
+        ├── 📄 Evaluación de Controles
+        └── 📄 Sistemas de referencia
+```
 
 ---
 
