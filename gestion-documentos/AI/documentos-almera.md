@@ -23,7 +23,7 @@
 7. Modelos de gestión
 8. Recursos
 9. Términos y definiciones
-10. Preguntas frecuentes puntuales (por correo)
+10. Preguntas frecuentes
 11. Temas pendientes de validar con soporte Almera
 
 ---
@@ -398,23 +398,25 @@ Una vez construido el listado, al redactar un documento no hay que volver a escr
 
 ---
 
-## Preguntas frecuentes puntuales (por correo)
+## Preguntas frecuentes — Documentos
 
-Este archivo se va llenando con dudas específicas que llegan por correo y ya fueron resueltas. Cada entrada sigue el mismo formato que el resto de la skill:
+---
 
-```markdown
-### <Pregunta o tema del correo>
+### 1. ¿Cómo descargo los documentos de un proceso?
 
-**Cuándo se usa:** <contexto>
+**Cuándo se usa:** para descargar en un solo archivo comprimido (.zip) todos los documentos asociados a un proceso específico.
 
-**Respuesta / pasos:** ...
+**Pasos:**
 
-**Notas / advertencias:** ...
+1. Ir al **Mapa de procesos** y seleccionar el proceso de interés.
+2. Dentro del proceso, dar clic en el botón **Editar** (parte superior izquierda, bajo la pestaña "General").
+3. Ir a la pestaña **Documentación**.
+4. En la parte superior derecha, hacer clic en el **ícono del .zip** (está al lado de un ícono de Excel) — es la opción para "Exportar archivos".
+5. Se abre una ventana (modal) donde se puede seleccionar si se incluyen los **documentos obsoletos** y los **subprocesos**.
+6. Dar clic en **Exportar**.
+7. Se descargará un archivo comprimido (.zip) con todos los archivos.
 
-**Fuente:** Correo de <remitente>, <fecha>, asunto "<asunto>".
-```
-
-*(Todavía no hay contenido aquí — pendiente de que se compartan los correos.)*
+**Fuente:** Documento de profundización de capacitación (FAQ interno).
 
 ---
 

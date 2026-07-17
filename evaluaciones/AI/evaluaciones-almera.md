@@ -1,21 +1,21 @@
 # Almera — Módulo de Evaluaciones / Auditorías (guía de referencia completa)
 
-> Este documento reúne todo el conocimiento operativo del módulo de Evaluaciones (Auditorías) de Almera: procedimientos paso a paso, reglas del sistema y dudas que quedaron abiertas en la capacitación con soporte. No hubo un documento limpio disponible para este módulo — todo salió de una guía interna en HTML y de la transcripción completa de una capacitación con soporte de Almera (25 jun 2026).
+> Este documento reúne todo el conocimiento operativo del módulo de Evaluaciones (Auditorías) de Almera: procedimientos paso a paso, reglas del sistema y dudas que quedaron abiertas en la capacitación con soporte.
 
 **Instrucciones para la IA que use este documento:**
 - Responde siempre con el procedimiento exacto documentado aquí, paso a paso, antes de sugerir cualquier otra cosa.
 - No inventes pasos, botones o menús que no estén mencionados en este documento.
 - Si la pregunta no está cubierta aquí, dilo explícitamente — no improvises.
 - Si preguntan dónde encontrar una opción o módulo dentro de Admin, revisa primero el **Árbol de Navegación** al inicio de este documento.
-- Revisa siempre la sección final **"Temas pendientes de validar"** antes de responder sobre el estado "Pendiente" del flujo o sobre "niveles de gestión" — hay puntos que quedaron sin resolver en la capacitación.
+- Revisa siempre la sección **"Temas pendientes de validar"** antes de responder sobre el estado "Pendiente" del flujo o sobre "niveles de gestión".
 
 ---
 
 ## Qué cubre (y qué no) este módulo
 
-- **Sí aplica:** auditorías internas, y auditorías externas donde la propia entidad es quien audita a un tercero (ej. a un proveedor).
-- **No aplica:** cuando un ente regulador externo llega a auditar a la organización (ellos traen su propia metodología). En ese caso no se crea una "auditoría" en el sistema — solo se registra el hallazgo/no conformidad resultante como plan de mejora.
-- El módulo de Evaluaciones parametriza dos cosas a la vez: las **auditorías** y los **planes de mejora** (hallazgos). Ambos viven bajo `Admin → Evaluaciones`.
+- **Sí aplica:** auditorías internas, y auditorías externas donde la propia entidad es quien audita a un tercero.
+- **No aplica:** cuando un ente regulador externo audita a la organización. En ese caso solo se registra el hallazgo como plan de mejora.
+- El módulo parametriza las **auditorías** y los **planes de mejora** (hallazgos). Ambos viven bajo `Admin → Evaluaciones`.
 
 ---
 
@@ -31,7 +31,7 @@
 7. Sistema de referencia: campos, niveles de respuesta y niveles de gestión
 8. Ejecución, hallazgos automáticos y cierre de la auditoría
 9. Temas pendientes de validar con soporte Almera
-10. Preguntas puntuales por correo
+10. Preguntas frecuentes
 
 ---
 
@@ -444,20 +444,79 @@ Estos son puntos que quedaron **sin resolver o sin decidir** en la capacitación
 
 ---
 
-## Preguntas frecuentes puntuales (por correo)
+## Preguntas frecuentes — Evaluaciones / Auditorías
 
-Este archivo se va llenando con dudas específicas sobre Evaluaciones/Auditorías que lleguen por correo y ya estén resueltas. Mismo formato que el resto de la skill:
+---
 
-```markdown
-### <Pregunta o tema del correo>
+### 1. ¿Cómo puedo ver las evaluaciones existentes y editarlas?
 
-**Cuándo se usa:** <contexto>
+**Cuándo se usa:** para consultar el listado de auditorías/evaluaciones y modificar alguna.
 
-**Respuesta / pasos:** ...
+**Ver el listado:** `Admin → Evaluaciones → Evaluaciones`. Ahí aparecen todas las auditorías o evaluaciones que existen en la plataforma.
 
-**Notas / advertencias:** ...
+**Editar una evaluación — hay 3 formas:**
 
-**Fuente:** Correo de <remitente>, <fecha>, asunto "<asunto>".
-```
+**Opción 1 (ícono del lápiz):** en el costado derecho de cada evaluación, hacer clic en el ícono del **lápiz** (está al lado del estado de la evaluación). Se abre la vista de edición completa.
 
-*(Todavía no hay contenido aquí — pendiente de que se compartan los correos.)*
+**Opción 2 (clic en el nombre):** hacer clic sobre el **nombre** de la evaluación (funciona como hipervínculo). Esto lleva a los detalles de la evaluación. Desde ahí, dar clic al botón **Editar** en la parte superior izquierda, debajo del título "Programa auditorías". Se abre la pestaña con todos los detalles para modificar.
+
+**Opción 3 (edición rápida desde checkbox — solo para cambios muy puntuales):** seleccionar la evaluación con el **checkbox** en su costado izquierdo, ir a la parte superior en **Elementos seleccionados**, desplegar las opciones y elegir **Editar**. Se abre una ventana (modal) donde **solo se pueden modificar**: estados, fechas (planeada/ejecutada) y observaciones (el porqué se modifica, para la bitácora). Al finalizar, dar clic en **Grabar**.
+
+**Fuente:** Documento de profundización de capacitación (FAQ interno).
+
+---
+
+### 2. ¿Cómo veo auditorías de años anteriores?
+
+**Cuándo se usa:** cuando se necesita consultar evaluaciones de años pasados (2024, 2025, etc.) que no aparecen en el listado.
+
+**Pasos:**
+
+1. Ir a `Admin → Evaluaciones → Evaluaciones`.
+2. Verificar que no haya un **filtro de resultados** aplicado: en la parte superior derecha, revisar la opción **Filtrar** y quitar cualquier filtro activo.
+3. Normalmente, las auditorías viejas no aparecen porque el listado muestra por defecto solo las del año vigente (2026). Al quitar los filtros, deberían aparecer todas.
+
+**Fuente:** Documento de profundización de capacitación (FAQ interno).
+
+---
+
+### 3. ¿Cómo exporto un consolidado de las auditorías/evaluaciones?
+
+**Cuándo se usa:** para descargar un reporte en Excel con el detalle de las auditorías existentes.
+
+**Pasos:**
+
+1. Ir a `Admin → Evaluaciones → Evaluaciones`.
+2. Seleccionar las auditorías de interés con el **checkbox** (o seleccionar todas).
+3. En la parte superior izquierda, junto al botón "Adicionar", hacer clic en el **ícono verde de descarga** (una ventana con un símbolo de descarga).
+4. Se descarga un archivo Excel con el reporte.
+
+**Campos del reporte:**
+
+| ID | Tipo | Código | Nombre | Evaluador | Sistema de referencia | Fecha inicio | Fecha fin | Unidades auditables | Estado | Equipo de trabajo |
+|---|---|---|---|---|---|---|---|---|---|---|
+
+**Fuente:** Documento de profundización de capacitación (FAQ interno).
+
+---
+
+### 4. ¿Cómo cambio al auditor encargado en alguna auditoría?
+
+**Cuándo se usa:** cuando se necesita reemplazar al auditor líder o modificar el equipo auditor de una evaluación ya creada.
+
+**Pasos:**
+
+1. Entrar a la auditoría de interés.
+2. En la parte superior izquierda, dar clic al botón **Editar**.
+3. Ir a la pestaña **Equipo**, donde se ve el auditor responsable y el equipo auditor.
+4. Hacer clic en el **ícono del lápiz** en el costado derecho del rol que se quiere modificar (auditor líder o equipo auditor).
+5. Se abre una ventana (modal) con la información del rol y la asignación.
+6. Para agregar un usuario: buscarlo, hacer clic en el **ícono del avatar con el "+"** (en verde).
+7. Para eliminar un usuario asignado: hacer clic en el **ícono del bote de basura** junto a su nombre.
+8. Dar clic en **Grabar**.
+
+**¿Se puede asignar más de un usuario?** Sí. Lo recomendable es hacerlo en el rol de **Equipo auditor** y dejar solo un usuario como responsable en **Auditor líder**.
+
+**Nota:** si se necesita un rol adicional que no existe (por ejemplo, "Observador"), se puede crear con el botón **Adicionar Rol**, asignándole nombre y descripción.
+
+**Fuente:** Documento de profundización de capacitación (FAQ interno).
