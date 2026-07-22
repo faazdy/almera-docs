@@ -95,7 +95,47 @@ Estructura de la pestaña 'Admin', donde se alojan las opciones y módulos del s
         ├── 📄 Evaluación de Controles
         └── 📄 Sistemas de referencia
 ```
-
+## Navbar (Menú superior de navegación)
+```
+1. Gestión de Calidad
+    - Mapa de procesos
+    - Listados maestros
+        - listado maestro de documentos
+        - listado maestro de registros
+ 
+    - Glorasio de terminos
+    - Evaluacion
+    - Reportes
+        - General
+            - Seguimiento MOP
+            - Consolidado Estrategia
+            - Utility Almera
+            - Bitácora por usuario
+            - Atributos sin calificar
+ 
+        - Privilegios y Accesos
+            -Privilegios
+            - Súper usuarios
+ 
+2. Documentos
+    -Mis solicitudes
+    - Mis pendientes
+    - Elaborar
+        - Documento especifico
+    - Buscar
+    - Estadísticas
+ 
+3. Riesgos / Oportunidades
+    - Matriz de riesgos
+    - Controles
+    - Evaluación Controles
+ 
+4. Cuadro de Mando
+    - Seguimiento
+    - Mis tableros
+ 
+5. Salir  / {nombre usuario} <- el logout
+```
 ---
 
 ## Conceptos básicos — Módulo Documentos (Almera)
