@@ -418,6 +418,23 @@ Una vez construido el listado, al redactar un documento no hay que volver a escr
 
 **Fuente:** Documento de profundización de capacitación (FAQ interno).
 
+### 2. ¿Qué diferencia hay entre los menús (superior/navbar o lateral/arbol de opciones) u opciones para los documentos?
+
+**Cuándo se usa:** para cuando el usuario pregunte cual de las dos opciones de 'Documentos' utilizar en ciertos contextos.
+
+**Menú superior -> Documentos:**
+1. Crear documentos.
+2. Ver documentos o tramites documentales pendientes (aprobar, rechazar o mandar a revision documentos).
+3. Ver solicitudes de tramites documentales.
+4. Estadisticas: Ver historico de tramites documentales en la plataforma, cuantos documentos hay por Subproceso, etc. En resumen, estadisticas de los documentos en la plataforma.
+5. Buscar.
+
+**Menú Lateral (Arbol de navegacion lateral). Admin -> Calidad -> Documentos:**
+1. Ver todos los documentos subidos a la plataforma (Vigentes, No Publicados, Obsoletos, Anulados).
+2. Descargar listado maestro de documentos (Excel con los datos de los documentos montados).
+3. Filtrar documentos por Proceso/Subproceso.
+
+**Fuente:** Documento de profundización de capacitación (FAQ interno).
 ---
 
 ## Temas pendientes de validar con soporte Almera
