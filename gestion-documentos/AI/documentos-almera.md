@@ -194,14 +194,16 @@ Almera maneja (o manejaba) dos formas de construir un documento. Es importante q
 5. Diligenciar la **justificación** de creación (por qué se necesita este documento). El campo "descripción" puede quedar en blanco si el contenido real se va a construir en la plantilla — no es obligatorio llenarlo en la solicitud.
 6. Presionar **Grabar** y luego **Enrutar**, en la parte superior, para enviar la solicitud a aprobación. Al enrutar se elige a quién se envía la solicitud para revisión.
 7. Quien recibe la solicitud tiene 3 opciones: **aprobar**, **rechazar** o **devolver** la solicitud.
-8. Una vez aprobada, el documento pasa a **Mis pendientes** del usuario que lo solicitó:
-   - Abrir el documento y darle **Editar**.
-   - Completar los campos adicionales que se habilitan: **fecha** del documento y **responsable** (la persona o cargo dueño de la ejecución del documento — p. ej. el coordinador del área, no necesariamente quien lo redacta).
-   - Para colocarle un responsable se debe dar clic en el botón **Enviar a revisión** ubicado en la parte superior.
-   - Llenamos la Ruta colocando el nombre del responsable.
-   - Damos clic en **Grabar**.
-   - Despúes de asignar responsable le damos clic a **Grabar**.
-9. Abrir la plantilla Word y continuar la redacción desde el **editor en línea**.
+8. Una vez aprobada la solicitud, el documento pasa a **Mis pendientes** del usuario que realizó la solicitud.
+   - Abrir el documento y hacer clic en **Editar**.
+   - Completar los campos adicionales que se habilitan, como la **Fecha** del documento y el **Responsable** (la persona o cargo responsable de la ejecución del documento; por ejemplo, el coordinador del área, no necesariamente quien redactó el documento).
+   - Hacer clic en **Enviar a revisión**, ubicado en la parte superior.
+   - En el campo **Ruta**, seleccionar el usuario que será el responsable del documento.
+   - Completar obligatoriamente el campo **Observaciones**.
+   - Hacer clic en **Grabar**.
+9. Abrir la plantilla de Word y continuar la elaboración del documento desde el **editor en línea**.
+
+> **Nota:** Una vez asignado el responsable, este podrá visualizar el documento en **Documentos → Mis pendientes**, desde donde podrá enviarlo a coordinación para aprobación o devolverlo a revisión si requiere ajustes.
 
 ### Código del documento
 
