@@ -475,6 +475,162 @@ Una vez construido el listado, al redactar un documento no hay que volver a escr
 3. Filtrar documentos por Proceso/Subproceso.
 
 **Fuente:** Documento de profundización de capacitación (FAQ interno).
+
+### 3. ¿Qué pasa si rechazo, apruebo o retorno una solicitud de documento?
+
+**Cuándo se usa:** cuando un usuario encargado de revisar una solicitud de trámite documental desea conocer el resultado de cada acción disponible.
+
+**Rechazar solicitud:**
+
+Al rechazar una solicitud:
+
+- La solicitud queda **cerrada definitivamente**.
+- Se mueve a **Documentos → Mis Solicitudes → Solicitudes históricas** con el estado **Rechazado**.
+- No es posible continuar el trámite sobre esa misma solicitud.
+
+Si posteriormente se requiere continuar con el proceso, será necesario **crear una nueva solicitud desde cero**.
+
+**Aprobar solicitud:**
+
+Al aprobar una solicitud:
+
+1. La solicitud queda aprobada y muestra la información registrada, como:
+   - Tipo de solicitud.
+   - Solicitud.
+   - Tipo de documento asociado.
+   - Clase de documento.
+   - Subproceso.
+   - Justificación.
+   - Usuario que registra.
+   - Fecha y hora.
+   - Documento asociado.
+2. Para anexar el documento, hacer clic sobre el nombre de la solicitud en la columna **Documento asociado**.
+3. Dentro de la solicitud, hacer clic en **Editar**.
+4. Completar o verificar la información del documento (Origen, Emisor, Clase, Código, Fecha, Título, Subproceso y Responsable).
+5. En la sección **Archivos**, hacer clic en **Seleccionar archivo**.
+6. Adjuntar el archivo correspondiente.
+7. Hacer clic en **Grabar**.
+
+El documento quedará cargado en la plataforma y asociado al proceso y subproceso correspondiente.
+
+> **Nota:** Se recomienda acordar previamente con el coordinador quién será el responsable del documento.
+
+**Retornar solicitud:**
+
+Al retornar una solicitud para correcciones:
+
+1. La solicitud vuelve al usuario que la creó.
+2. El creador debe ingresar a **Documentos → Mis Solicitudes → Solicitudes en trámite**.
+3. Allí encontrará la solicitud con estado **Borrador**.
+4. Debe realizar los cambios necesarios.
+5. Finalmente deberá volver a enrutar la solicitud al aprobador.
+
+> Mientras la solicitud permanezca en estado **Borrador**, el aprobador que la retornó no podrá verla nuevamente hasta que el creador la envíe otra vez para aprobación.
+
+**Fuente:** Documento de profundización de capacitación (FAQ interno).
+
+---
+
+### 4. ¿El rechazo de una solicitud cierra definitivamente el trámite?
+
+**Cuándo se usa:** cuando se desea saber si una solicitud rechazada puede continuar su proceso.
+
+Sí.
+
+Al rechazar una solicitud:
+
+- El trámite queda finalizado.
+- La solicitud pasa a **Solicitudes históricas** con estado **Rechazado**.
+- No puede volver a enviarse para aprobación.
+
+Si se requiere continuar con el trámite, será necesario crear una nueva solicitud.
+
+**Fuente:** Documento de profundización de capacitación (FAQ interno).
+
+---
+
+### 5. ¿Se puede modificar una solicitud rechazada?
+
+**Cuándo se usa:** cuando un usuario desea realizar cambios sobre una solicitud que fue rechazada.
+
+No.
+
+Las solicitudes rechazadas quedan cerradas definitivamente y no pueden editarse ni reutilizarse.
+
+Si es necesario realizar nuevamente el trámite, deberá crearse una nueva solicitud.
+
+**Fuente:** Documento de profundización de capacitación (FAQ interno).
+
+---
+
+### 6. Si recibo una solicitud para aprobar, ¿qué pasos debo seguir?
+
+**Cuándo se usa:** cuando un usuario recibe una solicitud documental para revisarla y decidir si la aprueba, la retorna o la rechaza.
+
+**Pasos:**
+
+1. Ir al menú superior **Documentos → Mis Solicitudes → Solicitudes pendientes**.
+2. Seleccionar la solicitud que desea revisar.
+3. Al abrirla estarán disponibles las siguientes acciones:
+   - **Editar solicitud.**
+   - **Aprobar solicitud.**
+   - **Retornar solicitud.**
+   - **Rechazar solicitud.**
+4. Seleccionar la acción correspondiente.
+5. Registrar las **observaciones** justificando la decisión tomada.
+6. Hacer clic en **Grabar**.
+
+**Resultado de cada acción:**
+
+- **Aprobar:** la solicitud vuelve al creador para que adjunte el documento y posteriormente lo envíe a coordinación para su aprobación final.
+- **Retornar:** la solicitud vuelve al creador para que realice las correcciones necesarias y la envíe nuevamente.
+- **Rechazar:** el trámite finaliza y la solicitud queda en estado **Rechazado**.
+
+**Fuente:** Documento de profundización de capacitación (FAQ interno).
+
+---
+
+### 7. ¿Puedo borrar una solicitud?
+
+**Cuándo se usa:** cuando un usuario desea eliminar una solicitud documental creada previamente.
+
+Sí, pero únicamente si la solicitud aún no ha sido enviada para aprobación.
+
+**Pasos:**
+
+1. Ir a **Documentos → Mis Solicitudes → Solicitudes en trámite**.
+2. Verificar que la solicitud tenga estado **Borrador**.
+3. Si se encuentra en ese estado, podrá eliminarse.
+4. Se elimina dando clic en el ícono del bote de basura (ubicado en el costado derecho).
+
+> Si la solicitud ya fue enrutada para revisión o aprobación, ya no podrá borrarse.
+
+En ese caso, si se requiere eliminar el trámite, lo recomendable es solicitar al aprobador que **rechace la solicitud**.
+
+**Fuente:** Documento de profundización de capacitación (FAQ interno).
+
+---
+
+### 8. Después de aprobar una solicitud, ¿cómo anulo un documento para que deje de aparecer como vigente?
+
+**Cuándo se usa:** cuando un documento ya fue publicado, pero debe quedar con estado **Anulado**.
+
+**Pasos:**
+
+1. Verificar que el usuario tenga permisos para administrar documentos.
+2. Ir a **Admin → Calidad → Documentos**.
+3. Buscar y abrir el documento que se desea anular.
+4. Hacer clic en el botón **Anular**.
+5. Completar la información solicitada.
+6. Hacer clic en **Grabar**.
+
+Para confirmar la anulación:
+
+1. Regresar a **Admin → Calidad → Documentos**.
+2. Abrir la pestaña **Anulados**.
+3. Verificar que el documento aparezca en dicho listado.
+
+**Fuente:** Documento de profundización de capacitación (FAQ interno).
 ---
 
 ## Temas pendientes de validar con soporte Almera

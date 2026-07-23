@@ -1,0 +1,54 @@
+FAQ.
+
+1. que pasa si rechazo/apruebo/devuelvo un documento?
+- rechazo: al rechazar un documento, la solicitud queda totalmente rechazada, quedando en 'Solicitudes historicas' con Estado = Rechazado.
+Si quieres rehabilitar la solicituddebes crearla de cero nuevamente.
+- Apruebo: al aprobar una solicitud se visualiza Tipo de solicitud, Solicitud, Tipo de documento asociado, Clase de documento, Subproceso, Justificación, Usuario que registra, Fecha y hora, Documento asociado.
+Luego, para anexar un documento como tal, se le da click al nombre de la solicitud en el campo Documento Asociado de la tabla, una vez dentro le damos al botón de editar para anexar un documento como tal.
+Al darle Editar vemos lo siguiente:
+    Documento específico
+
+    Origen: 
+    Emisor: 
+    Clase: 
+    Código: 
+    Fecha: 
+    Título *: Titulo de la solicitud
+    Subproceso: Subproceso seleccionado
+    Responsable: *Recomendable acordar con el coordinador para el responsable del documento
+
+    Archivos
+
+Seleccionamos en la parte inferior, en la seccion 'Archivos' el botón Seleccionar archivo. Despues de anexar el documento le damos click en Grabar.
+De esta manera ya queda montado un documento en Almera con su respectivo Proceso/Subproceso asociado.
+
+- Devuelvo/Retorno: Al retornar un documento para revision y cambios, la persona que hizo la solicitud debe ir al menu superior Documentos -> Mis Solicitudes -> 'Solicitudes en trámite'
+alli se encuentra el documento que se devolvio, en estado 'Borrador. Se le da click a la solicitud para nuevamente enrutarlo hacia un aprobador.
+Si eres el aprobador del documento y lo retornaste al usuario creador de la solicitud no podras ver la solicitud dentro de las pestañas hasta que te enruten nuevamente para aprobar la misma.
+
+2. El rechazo cierra el tramite?
+si, al rechazar un documento, la solicitud queda totalmente rechazada, quedando en 'Solicitudes historicas' con Estado = Rechazado.
+Si quieres rehabilitar la solicitud debes crearla de cero nuevamente.
+
+3. se puede modificar un documento rechazado?
+
+4. el que recibe los documentos, que pasos debe seguir?
+
+Si soy el que recibe el documento, es decir, soy el usuario al que le enrutaron la solicitud, debo ir al menú superior, Documentos -> Mis Solicitudes -> Solicitudes Pendientes
+
+En la pestaña de solicitudes pendientes podemos ver la solicitud del documento al que nos dieron a aprobar, alli al darle click a la solicitud podemos hacer:
+    Editar Solicitud (al darle click aparece los mismos campos cuando se crean los documentos), Aprobar solicitud, Retornar solicitud, Rechazar solicitud.
+Al darle a algun estado de la solicitud (aprobar, rechazar o retornar) se llena el campo de las observaciones del porqué se toma esa accion y se le da 'Grabar'.
+Una vez decicida la accion y al darle 'Grabar' ya le pasa el documento al que hizo la solicitud (solo si se aprobó o retornó la solicitud) para anexar el documento y posteriormente enviarlo a
+coordinacion para aprobacion
+
+
+5. Puedo borrar una solicitud?
+si, para borrarla debe estar en Documentos -> Mis Solicitudes -> 'Solicitudes en trámite', y debe estar con estado 'Borrador'.
+si ya se enrutó para revision y aprobacion no se podrá borrar. Si se requiere que sea eliminada la solicitud una vez enrutada lo recomendable es que el aprobador que se enrutó rechace la solicitud.
+
+6. Despues de aprobada una solicitud, como anulo los documentos para que no salgan como Vigentes?
+
+Si tienes los permisos necesarios, vamos a Admin -> Calidad -> Documentos para visualizar todos los que estan montados.
+Le damos click al documento que vayamos a anular, luego en la parte superior le damos al botón de 'Anular'. Sigues los pasos o llenas los campos requeridos y se le da click en grabar.
+para ver si se anuló correctamente vamos a Admin -> Calidad -> Documentos, y en la pestaña de Anulados se podra visualizar.
