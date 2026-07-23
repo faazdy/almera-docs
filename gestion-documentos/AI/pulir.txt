@@ -87,3 +87,5 @@ Luego le damos al boton de 'Correccion' ubicado en la parte superior, al darle c
 para actualizar el documento adjunto le damos a los tres puntos que aparecen junto al nombre del archivo adjunto, luego 
 le damos a la opcion Actualizar Version, adjuntamos un nuevo documento y le damos 'Grabar'
 > la version del documento, segun el sistema, deberia actualizar el numero de la version automaticamente en la vista de los detalles del documento en la plataforma.
+
+10. Como coloco un responsable una vez se haya aprobado el documento?

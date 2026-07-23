@@ -197,6 +197,10 @@ Almera maneja (o manejaba) dos formas de construir un documento. Es importante q
 8. Una vez aprobada, el documento pasa a **Mis pendientes** del usuario que lo solicitó:
    - Abrir el documento y darle **Editar**.
    - Completar los campos adicionales que se habilitan: **fecha** del documento y **responsable** (la persona o cargo dueño de la ejecución del documento — p. ej. el coordinador del área, no necesariamente quien lo redacta).
+   - Para colocarle un responsable se debe dar clic en el botón **Enviar a revisión** ubicado en la parte superior.
+   - Llenamos la Ruta colocando el nombre del responsable.
+   - Damos clic en **Grabar**.
+   - Despúes de asignar responsable le damos clic a **Grabar**.
 9. Abrir la plantilla Word y continuar la redacción desde el **editor en línea**.
 
 ### Código del documento
