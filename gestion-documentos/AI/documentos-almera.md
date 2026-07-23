@@ -631,6 +631,28 @@ Para confirmar la anulación:
 3. Verificar que el documento aparezca en dicho listado.
 
 **Fuente:** Documento de profundización de capacitación (FAQ interno).
+
+### 9. ¿Cómo actualizo la versión de un documento?
+
+**Cuándo se usa:** cuando se requiere reemplazar el archivo de un documento vigente por una nueva versión, manteniendo el mismo registro del documento en la plataforma.
+
+**Pasos:**
+
+1. Ir a **Admin → Calidad → Documentos**.
+2. Buscar y seleccionar el documento que desea actualizar.
+3. Hacer clic en el botón **Corrección**, ubicado en la parte superior.
+4. Se abrirá la vista de edición del documento, donde estarán disponibles:
+   - **Botones:** Seguimiento, Anular y Administrar.
+   - **Pestañas:** Documento específico(pestaña actual), Contenido y Seguridad.
+   - **Información del documento:** Origen, Emisor, Clase, Código, Fecha, Título, Subproceso, Responsable y la sección **Archivos**.
+5. En la sección **Archivos**, ubicar el archivo actualmente adjunto.
+6. Hacer clic en los **tres puntos (⋮)** ubicados junto al nombre del archivo.
+7. Seleccionar la opción **Actualizar versión**.
+8. Adjuntar el nuevo archivo que reemplazará la versión anterior.
+9. Hacer clic en **Grabar** para guardar los cambios.
+
+> **Nota:** La plataforma debería actualizar automáticamente el número de versión del documento una vez se guarden los cambios. Esta información puede verificarse posteriormente en los detalles del documento.
+
 ---
 
 ## Temas pendientes de validar con soporte Almera

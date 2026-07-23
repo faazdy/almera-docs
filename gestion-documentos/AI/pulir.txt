@@ -52,3 +52,38 @@ si ya se enrutó para revision y aprobacion no se podrá borrar. Si se requiere 
 Si tienes los permisos necesarios, vamos a Admin -> Calidad -> Documentos para visualizar todos los que estan montados.
 Le damos click al documento que vayamos a anular, luego en la parte superior le damos al botón de 'Anular'. Sigues los pasos o llenas los campos requeridos y se le da click en grabar.
 para ver si se anuló correctamente vamos a Admin -> Calidad -> Documentos, y en la pestaña de Anulados se podra visualizar.
+
+7. Como actualizo un documento (actualizar la version)?
+
+Para actualizar un documento vamos a Admin -> Calidad -> Documentos, seleccionamos el documento que deseamos actualizar.
+Luego le damos al boton de 'Correccion' ubicado en la parte superior, al darle click salen los campos:
+
+    - BOTONES:
+    Seguimiento (para visualizar detalles del documento montado)
+    Anular (anular el documento)
+    Administrar (detalles administrativos del documento)
+
+   -  PESTAÑAS:
+    Documento especifico (donde nos ubicamos por defecto)
+    Contenido (...)
+    Seguridad (verficar si el documento es publico o privado, seleccion de usuarios responsables de él)
+
+    - CAMPOS DE DOCUMENTO:
+    Origen: Interno
+    Emisor: 
+    Clase: 
+    Código: 
+    Fecha: 
+    Título *: titulo del documento
+    Subproceso: 
+    Responsable: 
+
+    - Archivos
+    Seleccionar archivo: Ningún archivo seleccionado
+    Adicionar más archivos (Máx 50 M)
+    Archivo adjunto: documento.pdf
+    Archivos adjuntos: 1
+
+para actualizar el documento adjunto le damos a los tres puntos que aparecen junto al nombre del archivo adjunto, luego 
+le damos a la opcion Actualizar Version, adjuntamos un nuevo documento y le damos 'Grabar'
+> la version del documento, segun el sistema, deberia actualizar el numero de la version automaticamente en la vista de los detalles del documento en la plataforma.
