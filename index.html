@@ -9,8 +9,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/kaple-css/dist/kaple.css">
     <style>
+        :root{
+            --font-sans: 'Inter', sans-serif;
+            --tracking-snug: -0.015em;
+            --color: #eb5a25;
+        }
         body {
-            font-family: 'Inter', var(--font-sans);
+            font-family: var(--font-sans);
             letter-spacing: var(--tracking-snug);
         }
 
@@ -19,6 +24,8 @@
             border-bottom: 1px solid var(--color-border);
         }
         .link-warning{ color: #eb5a25; text-decoration: underline; }
+
+        .button-main { background-color: var(--color); border-color: var(--color); }
         .page-eyebrow {
             display: inline-flex;
             align-items: center;
@@ -433,7 +440,7 @@
             <p class="text-lg text-secondary">
                 Para facilitar la interacción con asistentes de inteligencia artificial, se han desarrollado habilidades específicas para cada módulo. Estas habilidades permiten a los usuarios realizar consultas y obtener información relevante de manera eficiente.
             </p>
-            <a href="" class="btn btn-lg btn-primary mt-6">Descargar Habilidades para IA</a>
+            <a href="" class="btn btn-lg btn-primary mt-6 button-main">Descargar Habilidades para IA</a>
             <a href="./almera-IA/index.html" class="btn btn-lg btn-outline mt-6">Ver paso a paso</a>
         </section>
         <hr class="my-10 border-t border-border">
