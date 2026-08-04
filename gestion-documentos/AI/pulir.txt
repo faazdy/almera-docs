@@ -89,3 +89,13 @@ le damos a la opcion Actualizar Version, adjuntamos un nuevo documento y le damo
 > la version del documento, segun el sistema, deberia actualizar el numero de la version automaticamente en la vista de los detalles del documento en la plataforma.
 
 10. Como coloco un responsable una vez se haya aprobado el documento?
+
+11. ¿Qué permisos necesito para anular?
+
+Para anular un documento se necesita:
+    - Ser administrador en el sistema (se puede anular cualquier documento).
+    - Ser el responsable asignado del documento (comprobar con la coordinacion).
+    - Ser usuario designado para administrar documento: 
+        Para ello se necesita que un administrador general o un responsable del documento vaya al documento, luego al boton 'Correcion' y en la pestaña 'Seguridad' agregar al interesado.
+        Dentro de la seccion para agregar al interesado existen los permisos Ver, Editar, Administrar, Exportar, Invitar, Notificar. Se deben activar
+        

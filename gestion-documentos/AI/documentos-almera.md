@@ -316,18 +316,49 @@ Desde el encabezado del listado se puede filtrar por, entre otros:
 - **Origen** (interno / externo).
 - **Proceso** específico (seleccionar el proceso y darle **Filtrar**).
 
-### Exportar a Excel
+## Exportar a Excel
 
-1. Aplicar los filtros que se necesiten (o dejarlo sin filtrar para exportar todo).
-2. Si la lista tiene varias páginas, se puede cambiar la cantidad de registros mostrados por página (p. ej. a 100) para verlos todos en una sola hoja.
-3. Seleccionar los documentos: usar la opción **Seleccionar → Todos** para marcar todo el listado visible, o marcar manualmente.
-4. En **Documentos seleccionados**, elegir **Exportar todos** o **Exportar seleccionados**.
-5. **Advertencia:** en el cuadro de exportación, **nunca marcar la opción "Incluir archivos"** — hace que el reporte se vuelva muy pesado y la descarga puede tardar muchísimo (se mencionó como ejemplo "toda una semana").
+Existen dos formas de exportar la información a Excel.
+
+### Opción 1: Exportar desde la lista de documentos
+
+1. Aplique los filtros que necesite o déjelos vacíos para exportar todos los documentos.
+2. Si la lista tiene varias páginas, aumente la cantidad de registros mostrados por página (por ejemplo, 100) para visualizar más documentos en una sola página.
+3. Seleccione los documentos:
+   - Para exportar todos los documentos visibles, utilice **Seleccionar → Todos**.
+   - Si solo necesita algunos documentos, márquelos manualmente mediante las casillas de selección.
+4. En el menú **Documentos seleccionados**, elija una de las siguientes opciones:
+   - **Exportar todos:** exporta todos los documentos registrados en la plataforma.
+   - **Exportar seleccionados:** exporta únicamente los documentos marcados con la casilla de selección.
+5. En la ventana de exportación, **no marque la opción "Incluir archivos"**.
+   > **Importante:** Esta opción incorpora los archivos adjuntos al reporte, lo que incrementa considerablemente el tamaño del archivo y puede hacer que la generación y descarga tarden mucho tiempo.
+
+---
+
+### Opción 2: Exportar desde el Listado Maestro de Documentos
+
+1. Ingrese a **Gestión de calidad → Listados maestros → Listado maestro de documentos**.
+2. Si desea exportar documentos específicos, complete los filtros según su necesidad:
+
+   | Campo | Descripción |
+   |--------|-------------|
+   | **Tipo** | Seleccione el tipo de documento (Proceso, Documento específico, etc.). |
+   | **Filtro** | Permite buscar documentos por nombre. |
+   | **Proceso** | Seleccione el proceso correspondiente. |
+   | **Origen** | Seleccione el proceso o subproceso de origen. |
+   | **Clase** | Seleccione la clase de documento. |
+   | **Fecha** | Defina el rango de fechas para la búsqueda. |
+
+3. Haga clic en **Buscar** para visualizar los documentos que cumplen con los criterios establecidos.
+4. Si la lista contiene varias páginas, puede aumentar la cantidad de registros mostrados por página (por ejemplo, 100) para visualizar más resultados.
+5. Haga clic en el botón **Exportar** (ícono de Excel), ubicado en la parte superior derecha.
+
+> **Nota:** El archivo de Excel incluirá únicamente los documentos que se encuentren visibles en la lista después de aplicar los filtros. Si no aplica filtros, se exportarán todos los documentos mostrados en el listado.
 
 ### Notas / advertencias
 
 - La única forma de generar un reporte del listado de documentos es exportarlo a Excel; no hay reportes visuales adicionales dentro del módulo.
-- El "listado maestro" que se genera desde arriba del módulo de Documentos solo muestra documentos **vigentes** por defecto — si se necesita ver la traza completa (incluyendo obsoletos/anulados/no publicados), hay que moverse a esas pestañas o quitar filtros según corresponda.
+- El "listado maestro" que se genera en la OPCION 2 solo muestra documentos **vigentes** por defecto — si se necesita ver la traza completa (incluyendo obsoletos/anulados/no publicados), hay que moverse a esas pestañas o quitar filtros según corresponda.
 
 **Fuente:** transcripción cruda de la capacitación, 25 jun 2026 (min ~14–20).
 
