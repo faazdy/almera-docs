@@ -337,7 +337,7 @@ Existen dos formas de exportar la información a Excel.
 
 ### Opción 2: Exportar desde el Listado Maestro de Documentos
 
-1. Ingrese a **Gestión de calidad → Listados maestros → Listado maestro de documentos**.
+1. Desde el menú superior ingrese a **Gestión de calidad → Listados maestros → Listado maestro de documentos**.
 2. Si desea exportar documentos específicos, complete los filtros según su necesidad:
 
    | Campo | Descripción |
