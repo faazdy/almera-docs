@@ -26,31 +26,40 @@
     <nav class="nav-section">
       <div class="nav-label">Conceptos</div>
       <a class="nav-link active" href="#estados"><span class="nav-dot"></span> 1. Estados de un documento</a>
+      <a class="nav-link" href="#tipo-documento"><span class="nav-dot"></span> 2. Adjunto vs. Plantilla</a>
     </nav>
 
     <nav class="nav-section">
       <div class="nav-label">Gestión documental</div>
-      <a class="nav-link" href="#elaboracion"><span class="nav-dot"></span> 2. Elaborar documento</a>
-      <a class="nav-link" href="#emisor"><span class="nav-dot"></span> 3. Crear emisor</a>
-      <a class="nav-link" href="#clase"><span class="nav-dot"></span> 4. Crear clase</a>
-      <a class="nav-link" href="#buscar"><span class="nav-dot"></span> 5. Buscar y exportar</a>
+      <a class="nav-link" href="#elaboracion"><span class="nav-dot"></span> 3. Elaborar documento</a>
+      <a class="nav-link" href="#emisor"><span class="nav-dot"></span> 4. Crear emisor</a>
+      <a class="nav-link" href="#clase"><span class="nav-dot"></span> 5. Crear clase</a>
+      <a class="nav-link" href="#buscar"><span class="nav-dot"></span> 6. Buscar y exportar</a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">Flujo de solicitudes</div>
+      <a class="nav-link" href="#aprobacion"><span class="nav-dot"></span> 7. Aprobar, rechazar o retornar</a>
+      <a class="nav-link" href="#eliminar-solicitud"><span class="nav-dot"></span> 8. Eliminar una solicitud</a>
+      <a class="nav-link" href="#anular"><span class="nav-dot"></span> 9. Anular un documento</a>
+      <a class="nav-link" href="#actualizar-version"><span class="nav-dot"></span> 10. Actualizar versión</a>
     </nav>
 
     <nav class="nav-section">
       <div class="nav-label">Mapa de procesos</div>
-      <a class="nav-link" href="#jerarquia"><span class="nav-dot"></span> 6. Jerarquía de proceso</a>
-      <a class="nav-link" href="#mapa"><span class="nav-dot"></span> 7. Actualizar mapa</a>
+      <a class="nav-link" href="#jerarquia"><span class="nav-dot"></span> 11. Jerarquía de proceso</a>
+      <a class="nav-link" href="#mapa"><span class="nav-dot"></span> 12. Actualizar mapa</a>
     </nav>
 
     <nav class="nav-section">
       <div class="nav-label">Configuración adicional</div>
-      <a class="nav-link" href="#modelos"><span class="nav-dot"></span> 8. Modelos de gestión</a>
-      <a class="nav-link" href="#recursos"><span class="nav-dot"></span> 9. Recursos</a>
+      <a class="nav-link" href="#modelos"><span class="nav-dot"></span> 13. Modelos de gestión</a>
+      <a class="nav-link" href="#recursos"><span class="nav-dot"></span> 14. Recursos</a>
     </nav>
 
     <nav class="nav-section">
       <div class="nav-label">Referencia</div>
-      <a class="nav-link" href="#terminos"><span class="nav-dot"></span> 10. Términos y definiciones</a>
+      <a class="nav-link" href="#terminos"><span class="nav-dot"></span> 15. Términos y definiciones</a>
     </nav>
   </aside>
 
@@ -60,8 +69,9 @@
     <div class="eyebrow">Almera</div>
     <h1>Gestión documental</h1>
     <p class="lede">
-      Cómo elaborar documentos dentro del flujo de aprobación, configurar emisores y
-      clases documentales, y mantener actualizado el mapa de procesos.
+      Cómo elaborar documentos dentro del flujo de aprobación, aprobar/rechazar/anular
+      solicitudes, configurar emisores y clases documentales, y mantener actualizado el
+      mapa de procesos.
     </p>
 
     <div class="download-actions">
@@ -126,6 +136,26 @@
           </p>
         </div>
       </div>
+      <div class="step">
+        <div class="step-body">
+          <p class="step-text">
+            <a class="see-also" href="#aprobacion">
+              ¿Qué pasa si apruebo, rechazo o retorno una solicitud?
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <p class="step-text">
+            <a class="see-also" href="#anular">
+              ¿Cómo anulo un documento para que deje de ser vigente?
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
     </div>
     <br>
     <h2>Reunión de capacitación</h2>
@@ -177,10 +207,43 @@
       </div>
     </section>
 
-    <!-- ============ SECTION 2 — ELABORACIÓN ============ -->
-    <section class="section" id="elaboracion">
+    <!-- ============ SECTION 2 — TIPO DE DOCUMENTO ============ -->
+    <section class="section" id="tipo-documento">
       <div class="section-head">
         <span class="section-num">02</span>
+        <h2>Tipo de documento: Adjunto vs. Plantilla</h2>
+      </div>
+      <p class="section-desc">
+        Almera maneja dos formas de construir un documento. Es importante saber cuál usa la organización antes de elaborar uno nuevo.
+      </p>
+
+      <div class="tab-compare">
+        <div class="tab-card">
+          <div class="tab-card-head">
+            <span class="tab-pill on">Recomendado</span>
+          </div>
+          <div class="tab-card-title">Tipo Adjunto ("Documento específico")</div>
+          <div class="tab-card-desc">Vive como una plantilla Word que se edita <strong>online</strong>, con un editor tipo Google Docs (autoguardado, sin necesidad de descargar). Es el único tipo con el flujo completo de aprobación (solicitud → aprobación → edición → elaboración), y hacia donde se están migrando todos los clientes de Almera.</div>
+        </div>
+        <div class="tab-card">
+          <div class="tab-card-head">
+            <span class="tab-pill off">En desuso</span>
+          </div>
+          <div class="tab-card-title">Tipo Plantilla</div>
+          <div class="tab-card-desc">El documento se diligencia campo por campo directamente en el sistema, sin usar un archivo Word. Al exportar (sobre todo con tablas o imágenes) el formato suele desconfigurarse, lo que generó muchos tickets de soporte — por eso se está reemplazando por el tipo Adjunto.</div>
+        </div>
+      </div>
+
+      <div class="callout note">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div>Si en el listado de clases de documento aparecen varios tipos (instructivo, procedimiento, protocolo, etc.) pero solo uno tiene habilitado el flujo de elaboración, es porque los demás quedaron parametrizados como tipo Plantilla en algún momento y no se han migrado.</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 3 — ELABORACIÓN ============ -->
+    <section class="section" id="elaboracion">
+      <div class="section-head">
+        <span class="section-num">03</span>
         <h2>Creación de un documento (Elaboración)</h2>
       </div>
       <p class="section-desc">
@@ -220,7 +283,7 @@
             <div class="step-marked-label">Clasificación</div>
             <p class="step-marked-text">Elija la clase de documento (guía, manual, política, etc.) del listado desplegable.</p>
             <a class="see-also" href="#clase" style="margin-top:8px; font-size:13px;">
-              ¿No existe la clase que necesita? Ver sección 3
+              ¿No existe la clase que necesita? Ver sección 5
               <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
           </div>
@@ -265,6 +328,11 @@
         <p class="step-marked-text">El código se puede generar <strong>automáticamente</strong> (configuración parametrizable por Almera, no algo que active cada usuario). La estructura típica es inicial del proceso + inicial del subproceso + inicial del tipo de documento + consecutivo, pero es ajustable. Si ya existen documentos codificados manualmente, hay que pedirle a soporte que revise la parametrización antes de activarlo, para no generar códigos duplicados.</p>
       </div>
 
+      <div class="callout warn">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div><strong>Sin confirmar todavía:</strong> soporte confirmó que la estructura del código automático (ej. tipo-consecutivo-siglas del proceso) es parametrizable a la medida, pero pidió que se envíe una solicitud formal a soporte para hacer el ajuste, ya que hay que revisar los códigos existentes antes de activarlo.</div>
+      </div>
+
       <div class="example-card">
         <div class="example-label">Vincular otro documento dentro de la plantilla</div>
         <p class="step-marked-text">Para referenciar un formato o manual relacionado dentro del editor en línea, la única forma disponible es: buscar el documento en el listado de Documentos, copiar su enlace, y pegarlo dentro del texto de la plantilla. No existe vinculación automática por código.</p>
@@ -274,12 +342,17 @@
         <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
         <div>Los documentos antiguos cargados como <strong>PDF</strong> no permiten activar la edición en línea. Hay que reconstruir el contenido en una plantilla Word editable y volver a cargarlo.</div>
       </div>
+
+      <div class="callout note">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div>El historial de versiones anteriores de un documento normalmente solo lo pueden consultar y descargar los <strong>administradores</strong> del sistema, no cualquier usuario.</div>
+      </div>
     </section>
 
-    <!-- ============ SECTION 3 — EMISOR ============ -->
+    <!-- ============ SECTION 4 — EMISOR ============ -->
     <section class="section" id="emisor">
       <div class="section-head">
-        <span class="section-num">03</span>
+        <span class="section-num">04</span>
         <h2>Creación de un emisor (externo o interno)</h2>
       </div>
       <p class="section-desc">
@@ -334,12 +407,17 @@
           </div>
         </div>
       </div>
+
+      <div class="callout note">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div>Cuando un documento es <strong>interno</strong>, el campo de emisor queda por defecto en el nombre de la propia organización — no se elige. Cuando es <strong>externo</strong>, sí se debe elegir el emisor real (INVIMA, un ente de control, etc.). Si el emisor no existe todavía, créelo aquí antes de subir el documento.</div>
+      </div>
     </section>
 
-    <!-- ============ SECTION 4 — CLASE ============ -->
+    <!-- ============ SECTION 5 — CLASE ============ -->
     <section class="section" id="clase">
       <div class="section-head">
-        <span class="section-num">04</span>
+        <span class="section-num">05</span>
         <h2>Creación de una clase de documento (tipos)</h2>
       </div>
       <p class="section-desc">
@@ -408,66 +486,361 @@
       </div>
     </section>
 
-    <!-- ============ SECTION 5 — BUSCAR Y EXPORTAR ============ -->
+    <!-- ============ SECTION 6 — BUSCAR Y EXPORTAR ============ -->
     <section class="section" id="buscar">
       <div class="section-head">
-        <span class="section-num">05</span>
+        <span class="section-num">06</span>
         <h2>Buscar, filtrar y exportar documentos</h2>
       </div>
       <p class="section-desc">
-        Para consultar el listado general de documentos, filtrarlo o sacar un reporte en Excel.
+        Para consultar el listado general de documentos, filtrarlo o sacar un reporte en Excel. Existen dos formas de exportar.
       </p>
 
       <div class="route">
         <span class="route-label">Ruta</span>
-        <span class="route-path">Documentos</span>
+        <span class="route-path">Calidad <span class="seg-arrow">→</span> Documentos</span>
       </div>
 
-      <div class="steps-marked">
-        <div class="step-marked">
-          <span class="step-marker">1</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Filtrar</div>
-            <p class="step-marked-text">Desde el encabezado del listado se puede filtrar por <strong>origen</strong> (interno / externo) o por <strong>proceso</strong> específico. Cada pestaña (vigentes, no publicados, obsoletos, anulados) respeta el filtro activo.</p>
-          </div>
+      <div class="subsection">
+        <div class="subsection-header">
+          <span class="subsection-tag">Opción 1</span>
+          <span class="subsection-title">Exportar desde la lista de documentos</span>
         </div>
-        <div class="step-marked">
-          <span class="step-marker">2</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Ver todos los registros</div>
-            <p class="step-marked-text">Si el listado tiene varias páginas, aumente la cantidad de registros mostrados (por ejemplo a 100) para verlos todos en una sola hoja.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">3</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Seleccionar</div>
-            <p class="step-marked-text">Use <strong>Seleccionar → Todos</strong> para marcar todo el listado visible, o marque manualmente los documentos que necesita.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">4</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Exportar</div>
-            <p class="step-marked-text">En <strong>Documentos seleccionados</strong>, elija <strong>Exportar todos</strong> o <strong>Exportar seleccionados</strong>.</p>
+        <div class="subsection-body">
+          <div class="steps-marked">
+            <div class="step-marked">
+              <span class="step-marker">1</span>
+              <div class="step-marked-body">
+                <div class="step-marked-label">Filtrar</div>
+                <p class="step-marked-text">Desde el encabezado del listado se puede filtrar por <strong>origen</strong> (interno / externo) o por <strong>proceso</strong> específico. Cada pestaña (vigentes, no publicados, obsoletos, anulados) respeta el filtro activo — para ver todo hay que quitarlo.</p>
+              </div>
+            </div>
+            <div class="step-marked">
+              <span class="step-marker">2</span>
+              <div class="step-marked-body">
+                <div class="step-marked-label">Ver todos los registros</div>
+                <p class="step-marked-text">Si el listado tiene varias páginas, aumente la cantidad de registros mostrados (por ejemplo a 100) para verlos todos en una sola hoja.</p>
+              </div>
+            </div>
+            <div class="step-marked">
+              <span class="step-marker">3</span>
+              <div class="step-marked-body">
+                <div class="step-marked-label">Seleccionar</div>
+                <p class="step-marked-text">Use <strong>Seleccionar → Todos</strong> para marcar todo el listado visible, o marque manualmente los documentos que necesita.</p>
+              </div>
+            </div>
+            <div class="step-marked">
+              <span class="step-marker">4</span>
+              <div class="step-marked-body">
+                <div class="step-marked-label">Exportar</div>
+                <p class="step-marked-text">En <strong>Documentos seleccionados</strong>, elija <strong>Exportar todos</strong> o <strong>Exportar seleccionados</strong>.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="callout warn">
         <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-        <div>En el cuadro de exportación, <strong>nunca marque la opción "Incluir archivos"</strong>. El reporte se vuelve muy pesado y la descarga puede tardar muchísimo.</div>
+        <div>En el cuadro de exportación (Opción 1), <strong>nunca marque la opción "Incluir archivos"</strong>. El reporte se vuelve muy pesado y la descarga puede tardar muchísimo.</div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-header">
+          <span class="subsection-tag">Opción 2</span>
+          <span class="subsection-title">Exportar desde el Listado Maestro de Documentos</span>
+        </div>
+        <div class="subsection-body">
+          <div class="route">
+            <span class="route-label">Ruta</span>
+            <span class="route-path">Gestión de calidad <span class="seg-arrow">→</span> Listados maestros <span class="seg-arrow">→</span> Listado maestro de documentos</span>
+          </div>
+          <div class="steps-marked">
+            <div class="step-marked">
+              <span class="step-marker">1</span>
+              <div class="step-marked-body">
+                <div class="step-marked-label">Filtrar (opcional)</div>
+                <p class="step-marked-text">Complete los filtros que necesite: Tipo, Filtro (nombre), Proceso, Origen, Clase y rango de Fecha.</p>
+                <div class="field-list">
+                  <span class="field-chip">Tipo</span>
+                  <span class="field-chip">Filtro</span>
+                  <span class="field-chip">Proceso</span>
+                  <span class="field-chip">Origen</span>
+                  <span class="field-chip">Clase</span>
+                  <span class="field-chip">Fecha</span>
+                </div>
+              </div>
+            </div>
+            <div class="step-marked">
+              <span class="step-marker">2</span>
+              <div class="step-marked-body">
+                <p class="step-marked-text">Haga clic en <strong>Buscar</strong> para visualizar los documentos que cumplen los criterios.</p>
+              </div>
+            </div>
+            <div class="step-marked">
+              <span class="step-marker">3</span>
+              <div class="step-marked-body">
+                <p class="step-marked-text">Si hay varias páginas, aumente la cantidad de registros mostrados (por ejemplo a 100).</p>
+              </div>
+            </div>
+            <div class="step-marked">
+              <span class="step-marker">4</span>
+              <div class="step-marked-body">
+                <p class="step-marked-text">Haga clic en el botón <strong>Exportar</strong> (ícono de Excel), en la parte superior derecha.</p>
+              </div>
+            </div>
+          </div>
+          <div class="callout note">
+            <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+            <div>Este listado, por defecto, solo muestra documentos <strong>vigentes</strong>. Si no aplica filtros, exporta todos los documentos vigentes mostrados en el listado.</div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ============ SECTION 7 — FLUJO DE APROBACIÓN ============ -->
+    <section class="section" id="aprobacion">
+      <div class="section-head">
+        <span class="section-num">07</span>
+        <h2>Aprobar, rechazar o retornar una solicitud</h2>
+      </div>
+      <p class="section-desc">
+        Cuando recibe una solicitud documental para revisar, tiene tres acciones disponibles.
+      </p>
+
+      <div class="route">
+        <span class="route-label">Ruta</span>
+        <span class="route-path">Documentos <span class="seg-arrow">→</span> Mis Solicitudes <span class="seg-arrow">→</span> Solicitudes pendientes</span>
+      </div>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Ir al menú superior <strong>Documentos → Mis Solicitudes → Solicitudes pendientes</strong> y seleccionar la solicitud a revisar.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Elegir una acción: <strong>Editar solicitud</strong>, <strong>Aprobar</strong>, <strong>Retornar</strong> o <strong>Rechazar</strong>.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Registrar las <strong>observaciones</strong> que justifican la decisión y hacer clic en <strong>Grabar</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-header">
+          <span class="subsection-tag">Aprobar</span>
+          <span class="subsection-title">La solicitud vuelve al creador para anexar el documento</span>
+        </div>
+        <div class="subsection-body">
+          <p class="usage-line">Al aprobar, la solicitud queda visible con toda su información (tipo, clase, subproceso, justificación, usuario, fecha). Para anexar el documento:</p>
+          <div class="steps-marked">
+            <div class="step-marked">
+              <span class="step-marker">1</span>
+              <div class="step-marked-body"><p class="step-marked-text">Clic en el nombre de la solicitud, en la columna <strong>Documento asociado</strong>.</p></div>
+            </div>
+            <div class="step-marked">
+              <span class="step-marker">2</span>
+              <div class="step-marked-body"><p class="step-marked-text">Dentro de la solicitud, clic en <strong>Editar</strong> y completar Origen, Emisor, Clase, Código, Fecha, Título, Subproceso y Responsable.</p></div>
+            </div>
+            <div class="step-marked">
+              <span class="step-marker">3</span>
+              <div class="step-marked-body"><p class="step-marked-text">En la sección <strong>Archivos</strong>, adjuntar el documento y hacer clic en <strong>Grabar</strong>.</p></div>
+            </div>
+          </div>
+          <div class="callout note">
+            <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+            <div>Se recomienda acordar previamente con el coordinador quién será el responsable del documento.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-header">
+          <span class="subsection-tag">Rechazar</span>
+          <span class="subsection-title">Cierra el trámite definitivamente</span>
+        </div>
+        <div class="subsection-body">
+          <p class="usage-line">La solicitud se mueve a <strong>Solicitudes históricas</strong> con estado <strong>Rechazado</strong> y no puede reactivarse ni editarse. Si se necesita continuar el trámite, hay que crear una solicitud nueva desde cero.</p>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-header">
+          <span class="subsection-tag">Retornar</span>
+          <span class="subsection-title">Vuelve al creador para correcciones</span>
+        </div>
+        <div class="subsection-body">
+          <p class="usage-line">La solicitud vuelve al creador, que debe ir a <strong>Documentos → Mis Solicitudes → Solicitudes en trámite</strong>, donde la encontrará en estado <strong>Borrador</strong>. Tras corregirla, debe volver a enrutarla al aprobador.</p>
+          <div class="callout note">
+            <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+            <div>Mientras la solicitud esté en Borrador, el aprobador que la retornó no podrá verla de nuevo hasta que el creador la reenvíe para aprobación.</div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- ============ SECTION 6 — JERARQUÍA ============ -->
+    <!-- ============ SECTION 8 — ELIMINAR SOLICITUD ============ -->
+    <section class="section" id="eliminar-solicitud">
+      <div class="section-head">
+        <span class="section-num">08</span>
+        <h2>Eliminar una solicitud en trámite</h2>
+      </div>
+      <p class="section-desc">
+        Solo es posible si la solicitud todavía no ha sido enviada a aprobación.
+      </p>
+
+      <div class="route">
+        <span class="route-label">Ruta</span>
+        <span class="route-path">Documentos <span class="seg-arrow">→</span> Mis Solicitudes <span class="seg-arrow">→</span> Solicitudes en trámite</span>
+      </div>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Ir a <strong>Documentos → Mis Solicitudes → Solicitudes en trámite</strong>.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Verificar que la solicitud esté en estado <strong>Borrador</strong>.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Hacer clic en el ícono del bote de basura, al costado derecho de la solicitud.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div>Si la solicitud ya fue enrutada para revisión o aprobación, ya no se puede borrar. Si necesita eliminarla de todas formas, pídale al aprobador que la <strong>rechace</strong>.</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 9 — ANULAR DOCUMENTO ============ -->
+    <section class="section" id="anular">
+      <div class="section-head">
+        <span class="section-num">09</span>
+        <h2>Anular un documento vigente</h2>
+      </div>
+      <p class="section-desc">
+        Para cuando un documento ya fue publicado pero debe dejar de aparecer como vigente. El sistema no elimina documentos, solo los anula.
+      </p>
+
+      <div class="route">
+        <span class="route-label">Ruta</span>
+        <span class="route-path">Admin <span class="seg-arrow">→</span> Calidad <span class="seg-arrow">→</span> Documentos</span>
+      </div>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Verificar que tiene permisos para administrar documentos.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Ir a <strong>Admin → Calidad → Documentos</strong> y buscar el documento a anular.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Hacer clic en el botón <strong>Anular</strong>, completar la información solicitada y hacer clic en <strong>Grabar</strong>.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">4</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Confirmar</div>
+            <p class="step-marked-text">Regresar a <strong>Admin → Calidad → Documentos</strong>, abrir la pestaña <strong>Anulados</strong> y verificar que el documento aparezca allí.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div><strong>Sin confirmar todavía:</strong> al descargar un documento vigente sale la marca de agua "Copia no controlada". No quedó confirmado en capacitación si los documentos en estado Obsoleto/Anulado descargan con una marca distinta (p. ej. "Derogado") para poder demostrarle a un ente de control que ya no es el vigente.</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 10 — ACTUALIZAR VERSIÓN ============ -->
+    <section class="section" id="actualizar-version">
+      <div class="section-head">
+        <span class="section-num">10</span>
+        <h2>Actualizar la versión de un documento</h2>
+      </div>
+      <p class="section-desc">
+        Para reemplazar el archivo de un documento vigente por una nueva versión, conservando el mismo registro en la plataforma.
+      </p>
+
+      <div class="route">
+        <span class="route-label">Ruta</span>
+        <span class="route-path">Admin <span class="seg-arrow">→</span> Calidad <span class="seg-arrow">→</span> Documentos</span>
+      </div>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Ir a <strong>Admin → Calidad → Documentos</strong> y seleccionar el documento a actualizar.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Hacer clic en el botón <strong>Corrección</strong>, en la parte superior.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">En la sección <strong>Archivos</strong>, ubicar el archivo adjunto actual.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">4</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Hacer clic en los tres puntos (⋮) junto al nombre del archivo y seleccionar <strong>Actualizar versión</strong>.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">5</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Adjuntar el nuevo archivo y hacer clic en <strong>Grabar</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout good">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div>La plataforma debería actualizar automáticamente el número de versión al guardar los cambios. Puede verificarse después en los detalles del documento.</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 11 — JERARQUÍA ============ -->
     <section class="section" id="jerarquia">
       <div class="section-head">
-        <span class="section-num">06</span>
+        <span class="section-num">11</span>
         <h2>Modificación de la jerarquía de un proceso</h2>
       </div>
       <p class="section-desc">
-        Para trasladar un subproceso a un nuevo "proceso padre".
+        Para trasladar un subproceso a un nuevo "proceso padre". Hay dos formas equivalentes de hacerlo.
       </p>
 
       <div class="route">
@@ -475,29 +848,66 @@
         <span class="route-path">Admin <span class="seg-arrow">→</span> Procesos</span>
       </div>
 
-      <div class="steps-marked">
-        <div class="step-marked">
-          <span class="step-marker">1</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">Vaya a la sección <strong>Procesos</strong> en el menú administrativo.</p>
+      <div class="subsection">
+        <div class="subsection-header">
+          <span class="subsection-tag">Opción A</span>
+          <span class="subsection-title">Desde la sección Procesos</span>
+        </div>
+        <div class="subsection-body">
+          <div class="steps-marked">
+            <div class="step-marked">
+              <span class="step-marker">1</span>
+              <div class="step-marked-body">
+                <p class="step-marked-text">Vaya a la sección <strong>Procesos</strong> en el menú administrativo.</p>
+              </div>
+            </div>
+            <div class="step-marked">
+              <span class="step-marker">2</span>
+              <div class="step-marked-body">
+                <p class="step-marked-text">Busque y seleccione el subproceso que desea mover.</p>
+              </div>
+            </div>
+            <div class="step-marked">
+              <span class="step-marker">3</span>
+              <div class="step-marked-body">
+                <p class="step-marked-text">En el campo <strong>Padre</strong>, elimine el proceso actual y busque el nuevo proceso del cual dependerá.</p>
+              </div>
+            </div>
+            <div class="step-marked">
+              <span class="step-marker">4</span>
+              <div class="step-marked-body">
+                <p class="step-marked-text">Haga clic en <strong>Grabar</strong>.</p>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="step-marked">
-          <span class="step-marker">2</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">Busque y seleccione el subproceso que desea mover.</p>
-          </div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-header">
+          <span class="subsection-tag">Opción B</span>
+          <span class="subsection-title">Desde el mapa de procesos</span>
         </div>
-        <div class="step-marked">
-          <span class="step-marker">3</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">En el campo <strong>Padre</strong>, elimine el proceso actual y busque el nuevo proceso del cual dependerá.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">4</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">Haga clic en <strong>Grabar</strong>.</p>
+        <div class="subsection-body">
+          <div class="steps-marked">
+            <div class="step-marked">
+              <span class="step-marker">1</span>
+              <div class="step-marked-body">
+                <p class="step-marked-text">Ir al mapa de procesos y ubicar el subproceso.</p>
+              </div>
+            </div>
+            <div class="step-marked">
+              <span class="step-marker">2</span>
+              <div class="step-marked-body">
+                <p class="step-marked-text">Hacer clic en <strong>Editar</strong> sobre el subproceso — esto habilita la pestaña <strong>Administración</strong> en la parte superior.</p>
+              </div>
+            </div>
+            <div class="step-marked">
+              <span class="step-marker">3</span>
+              <div class="step-marked-body">
+                <p class="step-marked-text">Desde ahí, cambiar el campo <strong>Padre</strong> de la misma forma que en la Opción A.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -506,12 +916,22 @@
         <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <div>El cambio se refleja automáticamente en el mapa de procesos. No requiere actualización manual de la imagen.</div>
       </div>
+
+      <div class="callout note">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div>Si un proceso quedó obsoleto o cambió de nombre, lo correcto es cambiarle el estado a <strong>Anulado</strong> — no eliminarlo — siempre que no tenga documentos ni indicadores asociados todavía. Valide eso antes de anular o unificar procesos.</div>
+      </div>
+
+      <div class="callout warn">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div><strong>Sin confirmar todavía:</strong> se detectaron procesos donde el mapa apunta al ID de un proceso "padre" en vez del subproceso correspondiente, generando enlaces al lugar equivocado. Soporte Almera indicó que hay que validarlo caso por caso — si vuelve a surgir, contactar a soporte con el ID del proceso en cuestión.</div>
+      </div>
     </section>
 
-    <!-- ============ SECTION 7 — MAPA ============ -->
+    <!-- ============ SECTION 12 — MAPA ============ -->
     <section class="section" id="mapa">
       <div class="section-head">
-        <span class="section-num">07</span>
+        <span class="section-num">12</span>
         <h2>Actualización y vinculación del mapa de procesos</h2>
       </div>
       <p class="section-desc">
@@ -559,12 +979,17 @@
         <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
         <div>Cada área del mapa debe enlazarse manualmente a la URL de seguimiento de su proceso correspondiente. Si sube una imagen nueva, las áreas anteriores no se conservan automáticamente.</div>
       </div>
+
+      <div class="callout note">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div>El listado de "Administrar áreas" solo carga <strong>procesos</strong>, no subprocesos. Si un área del mapa corresponde en realidad a un subproceso, lo correcto es que tanto el proceso como el subproceso existan como entidades separadas en la sección Procesos — no vincular el subproceso directamente ahí.</div>
+      </div>
     </section>
 
-    <!-- ============ SECTION 8 — MODELOS DE GESTIÓN ============ -->
+    <!-- ============ SECTION 13 — MODELOS DE GESTIÓN ============ -->
     <section class="section" id="modelos">
       <div class="section-head">
-        <span class="section-num">08</span>
+        <span class="section-num">13</span>
         <h2>Modelos de gestión</h2>
       </div>
       <p class="section-desc">
@@ -603,10 +1028,10 @@
       </div>
     </section>
 
-    <!-- ============ SECTION 9 — RECURSOS ============ -->
+    <!-- ============ SECTION 14 — RECURSOS ============ -->
     <section class="section" id="recursos">
       <div class="section-head">
-        <span class="section-num">09</span>
+        <span class="section-num">14</span>
         <h2>Recursos</h2>
       </div>
       <p class="section-desc">
@@ -647,10 +1072,10 @@
       </div>
     </section>
 
-    <!-- ============ SECTION 10 — TÉRMINOS ============ -->
+    <!-- ============ SECTION 15 — TÉRMINOS ============ -->
     <section class="section" id="terminos">
       <div class="section-head">
-        <span class="section-num">10</span>
+        <span class="section-num">15</span>
         <h2>Gestión de términos y definiciones</h2>
       </div>
       <p class="section-desc">
@@ -687,6 +1112,11 @@
             <p class="step-marked-text">Haga clic en <strong>Grabar</strong>.</p>
           </div>
         </div>
+      </div>
+
+      <div class="callout good">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div>Una vez construido el listado, al redactar un documento no hay que volver a escribir la definición: se elige el término ya existente en el glosario y se vincula al documento.</div>
       </div>
     </section>
 
