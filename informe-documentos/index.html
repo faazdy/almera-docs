@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informe de Documentos — Almera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/main.css">
+<link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="brand-name"><a href="../index.html">Almera</a></span>
+    </div>
+    <div class="brand-sub">Informe de Documentos</div>
+
+    <nav class="nav-section">
+      <div class="nav-label">Datos</div>
+      <a class="nav-link active" href="#upload"><span class="nav-dot"></span> 1. Cargar Excel</a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">Resumen</div>
+      <a class="nav-link" href="#kpis"><span class="nav-dot"></span> 2. Indicadores</a>
+      <a class="nav-link" href="#antiguedad"><span class="nav-dot"></span> 3. Antigüedad</a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">Análisis</div>
+      <a class="nav-link" href="#graficos"><span class="nav-dot"></span> 4. Gráficos</a>
+      <a class="nav-link" href="#calidad"><span class="nav-dot"></span> 5. Calidad de datos</a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">Detalle</div>
+      <a class="nav-link" href="#tabla"><span class="nav-dot"></span> 6. Tabla completa</a>
+    </nav>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main main--wide">
+
+    <div class="eyebrow">Almera · Gestión documental</div>
+    <h1>Informe de Documentos</h1>
+    <p class="lede">
+      Sube el <strong>Listado Maestro de Documentos</strong> exportado desde Almera y obtén al instante
+      indicadores de salud documental, antigüedad y calidad de datos. Haz clic en cualquier indicador
+      para ver exactamente qué documentos lo componen.
+    </p>
+
+    <!-- ============ UPLOAD ============ -->
+    <section class="section" id="upload">
+      <div class="section-head">
+        <span class="section-num">01</span>
+        <h2>Cargar el listado maestro</h2>
+      </div>
+      <p class="section-desc">
+        Ruta en Almera para exportarlo: <strong>Gestión de calidad → Listados maestros → Listado maestro de documentos</strong>, botón Exportar (ícono de Excel).
+      </p>
+
+      <div id="uploadZone" class="upload-zone">
+        <div class="upload-icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3V15M12 3L7 8M12 3L17 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 15V18C4 19.1 4.9 20 6 20H18C19.1 20 20 19.1 20 18V15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="upload-title">Arrastra aquí el Excel del Listado Maestro</div>
+        <div class="upload-sub">o haz clic para seleccionarlo (.xlsx)</div>
+      </div>
+      <input type="file" id="fileInput" accept=".xlsx,.xls" style="display:none">
+
+      <div class="upload-privacy">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L4 5V11C4 16 7.5 20.5 12 22C16.5 20.5 20 16 20 11V5L12 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        Funciona sin conexión: el Excel se procesa en tu navegador con librerías incluidas en esta misma carpeta, nunca se sube a ningún servidor.
+      </div>
+    </section>
+
+    <!-- ============ CONTENIDO (oculto hasta cargar datos) ============ -->
+    <div id="dashboardContent" class="dash-hidden">
+
+      <!-- KPIs -->
+      <section class="section" id="kpis">
+        <div class="section-head">
+          <span class="section-num">02</span>
+          <h2>Indicadores generales</h2>
+        </div>
+        <p class="section-desc" id="kpiScope">Mostrando todos los documentos. <strong>Haz clic en cualquier tarjeta</strong> para ver el listado de documentos detrás de ese número.</p>
+        <div class="kpi-grid" id="kpiGrid"></div>
+      </section>
+
+      <!-- ANTIGÜEDAD -->
+      <section class="section" id="antiguedad">
+        <div class="section-head">
+          <span class="section-num">03</span>
+          <h2>Antigüedad de los documentos</h2>
+        </div>
+        <p class="section-desc">
+          Calculada sobre el campo de fecha que elijas. Por defecto usa <strong>Fecha modificación</strong> (la última vez que se tocó el documento).
+        </p>
+
+        <div class="filter-group" style="margin-bottom:18px;">
+          <label>Calcular antigüedad usando</label>
+          <div class="filter-pills" id="ageFieldPills">
+            <button class="filter-pill active" data-field="Fecha modificación" type="button">Fecha modificación</button>
+            <button class="filter-pill" data-field="Fecha documento" type="button">Fecha documento</button>
+            <button class="filter-pill" data-field="Fecha creación" type="button">Fecha creación</button>
+          </div>
+        </div>
+
+        <div class="chart-card wide">
+          <div class="chart-card-title">Documentos por rango de antigüedad</div>
+          <div class="chart-card-sub">Haz clic en una barra para ver la lista de esos documentos.</div>
+          <div class="chart-canvas-wrap hero"><canvas id="chartAntiguedad"></canvas></div>
+        </div>
+      </section>
+
+      <!-- GRÁFICOS -->
+      <section class="section" id="graficos">
+        <div class="section-head">
+          <span class="section-num">04</span>
+          <h2>Distribución por categoría</h2>
+        </div>
+        <p class="section-desc">Haz clic en cualquier sector o barra para ver los documentos de esa categoría.</p>
+        <div class="charts-grid">
+          <div class="chart-card">
+            <div class="chart-card-title">Por clasificación</div>
+            <div class="chart-card-sub">Estratégicos / Misionales / Apoyo / Evaluación y Mejora</div>
+            <div class="chart-canvas-wrap"><canvas id="chartClasificacion"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-card-title">Por tipo de archivo</div>
+            <div class="chart-card-sub">A partir de la extensión en "Nombres archivos"</div>
+            <div class="chart-canvas-wrap"><canvas id="chartExtension"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-card-title">Top 10 procesos con más documentos</div>
+            <div class="chart-card-sub">Campo "Asociado a"</div>
+            <div class="chart-canvas-wrap tall"><canvas id="chartProceso"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-card-title">Top 10 clases documentales</div>
+            <div class="chart-card-sub">Campo "Clase"</div>
+            <div class="chart-canvas-wrap tall"><canvas id="chartClase"></canvas></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CALIDAD DE DATOS -->
+      <section class="section" id="calidad">
+        <div class="section-head">
+          <span class="section-num">05</span>
+          <h2>Calidad de datos</h2>
+        </div>
+        <p class="section-desc">Cosas que vale la pena revisar en el listado, detectadas automáticamente sobre el archivo completo (sin filtros).</p>
+        <div class="dq-grid" id="dqGrid"></div>
+      </section>
+
+      <!-- TABLA -->
+      <section class="section" id="tabla">
+        <div class="section-head">
+          <span class="section-num">06</span>
+          <h2>Detalle de documentos</h2>
+        </div>
+
+        <div class="filter-bar">
+          <div class="filter-group">
+            <label>Clasificación</label>
+            <select id="fClasificacion"><option value="">Todas</option></select>
+          </div>
+          <div class="filter-group">
+            <label>Tipo</label>
+            <select id="fTipo"><option value="">Todos</option></select>
+          </div>
+          <div class="filter-group">
+            <label>Proceso</label>
+            <select id="fProceso"><option value="">Todos</option></select>
+          </div>
+          <div class="filter-group">
+            <label>Clase</label>
+            <select id="fClase"><option value="">Todas</option></select>
+          </div>
+          <div class="filter-group">
+            <label>Antigüedad</label>
+            <select id="fAntiguedad">
+              <option value="">Todas</option>
+              <option value="&lt; 6 meses">&lt; 6 meses</option>
+              <option value="6 meses - 1 año">6 meses - 1 año</option>
+              <option value="1 - 2 años">1 - 2 años</option>
+              <option value="2 - 3 años">2 - 3 años</option>
+              <option value="&gt; 3 años">&gt; 3 años</option>
+              <option value="Sin fecha">Sin fecha</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Buscar</label>
+            <input type="text" id="fSearch" placeholder="Nombre o código...">
+          </div>
+          <div class="filter-actions">
+            <button class="btn-ghost" id="btnClearFilters" type="button">Limpiar filtros</button>
+            <button class="btn-primary" id="btnExport" type="button">Exportar vista (.xlsx)</button>
+          </div>
+        </div>
+
+        <div class="table-toolbar">
+          <span class="table-count" id="tableCount"></span>
+        </div>
+
+        <div class="data-table-wrap">
+          <table class="data-table" id="dataTable">
+            <thead>
+              <tr>
+                <th data-key="Código">Código</th>
+                <th data-key="Nombre">Nombre</th>
+                <th data-key="Clasificación">Clasificación</th>
+                <th data-key="Clase">Clase</th>
+                <th data-key="Asociado a">Proceso</th>
+                <th data-key="Emisor">Emisor</th>
+                <th data-key="Versión">Versión</th>
+                <th data-key="_fechaDocumento">Fecha documento</th>
+                <th data-key="_fechaModificacion">Fecha modificación</th>
+                <th data-key="_antiguedad">Antigüedad</th>
+                <th data-key="_extension">Archivo</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+
+        <div class="pagination" id="pagination"></div>
+      </section>
+
+    </div>
+
+    <div class="footer">
+      <span>Informe de Documentos — Calidad</span>
+      <span class="mono">Almera SGI</span>
+    </div>
+
+  </main>
+</div>
+
+<script src="./vendor/xlsx.full.min.js"></script>
+<script src="./vendor/chart.umd.min.js"></script>
+<script src="./main.js"></script>
+</body>
+</html>
