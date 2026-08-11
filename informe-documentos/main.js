@@ -57,7 +57,15 @@
       }catch(e){ return null; }
     }
     if(typeof v === 'string'){
-      const d = new Date(v);
+      const s = v.trim();
+      const m = s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
+      if(m){
+        const day = Number(m[1]), month = Number(m[2]), year = Number(m[3]);
+        if(month < 1 || month > 12 || day < 1 || day > 31) return null;
+        const d = new Date(year, month - 1, day);
+        return isNaN(d.getTime()) ? null : d;
+      }
+      const d = new Date(s);
       return isNaN(d.getTime()) ? null : d;
     }
     return null;
@@ -563,6 +571,13 @@
     renderTable();
   }
 
+  function resetFilterControls(){
+    ['fClasificacion','fTipo','fProceso','fClase','fAntiguedad'].forEach(function(id){
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('fSearch').value = '';
+  }
+
   function populateFilterOptions(){
     fillSelect('fClasificacion', uniqueSorted(rawData, 'Clasificación'), 'Todas');
     fillSelect('fTipo', uniqueSorted(rawData, 'Tipo'), 'Todos');
@@ -644,8 +659,10 @@
         const dupSet = computeDuplicateCodes(rawData);
         rawData.forEach(function(r){ r._codigoDuplicado = r['Código'] ? dupSet.has(r['Código']) : false; });
         filtered = rawData.slice();
+        currentPage = 1;
 
         showLoadedState(file.name, rawData.length);
+        resetFilterControls();
         populateFilterOptions();
         document.getElementById('dashboardContent').classList.remove('dash-hidden');
 
@@ -682,10 +699,7 @@
   document.getElementById('fSearch').addEventListener('input', debounce(applyFilters, 250));
 
   document.getElementById('btnClearFilters').addEventListener('click', function(){
-    ['fClasificacion','fTipo','fProceso','fClase','fAntiguedad'].forEach(function(id){
-      document.getElementById(id).value = '';
-    });
-    document.getElementById('fSearch').value = '';
+    resetFilterControls();
     applyFilters();
   });
 
