@@ -707,6 +707,11 @@
     exportRows(filtered, 'filtrado');
   });
 
+  // ---------- descargar informe en PDF (impresión del navegador) ----------
+  document.getElementById('btnPrintPdf').addEventListener('click', function(){
+    window.print();
+  });
+
   // ---------- eventos: antigüedad (pills) ----------
   document.querySelectorAll('#ageFieldPills .filter-pill').forEach(function(btn){
     btn.addEventListener('click', function(){

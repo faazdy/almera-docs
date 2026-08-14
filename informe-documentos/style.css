@@ -152,6 +152,12 @@
     display: none !important;
 }
 
+.report-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
 .kpi-grid {
     display: flex;
     flex-direction: column;
@@ -795,5 +801,66 @@ table.data-table tbody tr:last-child td {
 
     .kpi-hero-hint {
         margin-left: 0;
+    }
+}
+
+/* ---------- Impresión / Descarga en PDF ---------- */
+@media print {
+    .sidebar,
+    .upload-zone,
+    .upload-privacy,
+    .lede,
+    .report-toolbar,
+    .filter-bar,
+    .pagination,
+    .modal-overlay,
+    .footer,
+    #tabla {
+        display: none !important;
+    }
+
+    .shell {
+        display: block;
+        max-width: 100%;
+    }
+
+    .main {
+        padding: 0;
+        max-width: 100%;
+    }
+
+    .section {
+        page-break-inside: avoid;
+        margin-bottom: 24px;
+    }
+
+    .chart-card,
+    .kpi-hero,
+    .kpi-card,
+    .callout {
+        page-break-inside: avoid;
+    }
+
+    .charts-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .data-table-wrap {
+        max-height: none;
+        overflow: visible;
+        border: none;
+    }
+
+    table.data-table thead th {
+        position: static;
+    }
+
+    table.data-table tbody tr {
+        page-break-inside: avoid;
+    }
+
+    .table-count {
+        margin-bottom: 8px;
+        display: block;
     }
 }

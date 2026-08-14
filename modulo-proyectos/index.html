@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proyectos — Almera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/main.css">
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="brand-name"><a href="../index.html">Almera</a></span>
+    </div>
+    <div class="brand-sub">Guía de operación</div>
+
+    <nav class="nav-section">
+      <div class="nav-label">Parametrización (Tipo de Proyecto)</div>
+      <a class="nav-link active" href="#jerarquia"><span class="nav-dot"></span> 1. Jerarquía y acceso</a>
+      <a class="nav-link" href="#tipo-proyecto"><span class="nav-dot"></span> 2. Configurar el tipo</a>
+      <a class="nav-link" href="#flujo"><span class="nav-dot"></span> 3. Flujo — estados y transiciones</a>
+      <a class="nav-link" href="#privilegios"><span class="nav-dot"></span> 4. Privilegios</a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">Operación diaria</div>
+      <a class="nav-link" href="#crear-proyecto"><span class="nav-dot"></span> 5. Proyecto, cronogramas y actividades</a>
+      <a class="nav-link" href="#presupuesto"><span class="nav-dot"></span> 6. Presupuesto</a>
+      <a class="nav-link" href="#seguimiento"><span class="nav-dot"></span> 7. Seguimiento y cierre</a>
+      <a class="nav-link" href="#indicadores"><span class="nav-dot"></span> 8. Indicadores asociados</a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">Resultados e integración</div>
+      <a class="nav-link" href="#resumen"><span class="nav-dot"></span> 9. Resumen y resultados</a>
+      <a class="nav-link" href="#organizacion"><span class="nav-dot"></span> 10. Organizar tipos de proyecto</a>
+      <a class="nav-link" href="#plan-estrategico"><span class="nav-dot"></span> 11. Plan estratégico (BSC)</a>
+    </nav>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+
+    <div class="eyebrow">Almera</div>
+    <h1>Proyectos</h1>
+    <p class="lede">
+      Cómo parametrizar tipos de proyecto, crear cronogramas y actividades, controlar presupuesto,
+      hacer seguimiento y vincular proyectos al plan estratégico.
+    </p>
+
+    <div class="download-actions">
+      <a class="download-pill skill" href="./AI/almera-proyectos.skill" download title="Descargar habilidad para Claude">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.4 9.2L22 12L14.4 14.8L12 22L9.6 14.8L2 12L9.6 9.2L12 2Z" fill="currentColor"/></svg>
+        Descargar .skill <span class="pill-sub">para Claude</span>
+      </a>
+      <a class="download-pill md" href="./AI/proyectos-almera.md" download title="Descargar documento de referencia">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 2V8H20" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 13H16M8 17H13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        Descargar .md <span class="pill-sub">para cualquier IA</span>
+      </a>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-body">
+          <p class="step-text">
+            <a class="see-also" href="#tipo-proyecto">
+              ¿Cómo creo un tipo de proyecto y su codificación?
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <p class="step-text">
+            <a class="see-also" href="#crear-proyecto">
+              ¿Cómo creo un proyecto, sus cronogramas y actividades?
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <p class="step-text">
+            <a class="see-also" href="#presupuesto">
+              ¿Cómo controlo el presupuesto de un proyecto?
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <p class="step-text">
+            <a class="see-also" href="#plan-estrategico">
+              ¿Cómo vinculo un proyecto al plan estratégico?
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider-hero">
+
+    <!-- ============ SECTION 1 — JERARQUÍA ============ -->
+    <section class="section" id="jerarquia">
+      <div class="section-head">
+        <span class="section-num">01</span>
+        <h2>Jerarquía y acceso</h2>
+      </div>
+      <p class="section-desc">
+        El módulo opera bajo una jerarquía de cuatro niveles que debe respetarse para que reportes y
+        seguimiento funcionen correctamente.
+      </p>
+
+      <div class="priv-table">
+        <div class="priv-row">
+          <span class="priv-name">1. Tipo de Proyecto</span>
+          <span class="priv-desc">Define las "reglas de juego": campos, flujo, codificación, qué pestañas de actividad se habilitan.</span>
+        </div>
+        <div class="priv-row">
+          <span class="priv-name">2. Proyecto</span>
+          <span class="priv-desc">La iniciativa específica, asociada a un tipo, con nombre y fechas globales.</span>
+        </div>
+        <div class="priv-row">
+          <span class="priv-name">3. Cronogramas</span>
+          <span class="priv-desc">Fases o etapas del proyecto, cada una con su propio peso porcentual.</span>
+        </div>
+        <div class="priv-row">
+          <span class="priv-name">4. Actividades</span>
+          <span class="priv-desc">Tareas puntuales dentro de un cronograma, con responsable, fechas y (si se habilita) presupuesto, recursos e indicadores.</span>
+        </div>
+      </div>
+
+      <div class="route">
+        <span class="route-label">Ruta</span>
+        <span class="route-path">Admin <span class="seg-arrow">→</span> Proyectos</span>
+      </div>
+
+      <p class="section-desc">
+        La pantalla se divide en dos: la sección <strong>derecha</strong> configura el <strong>Tipo de Proyecto</strong>;
+        la sección <strong>izquierda</strong> gestiona los <strong>Proyectos</strong> específicos.
+      </p>
+
+      <div class="callout note">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div>Si un usuario ve "Proyectos" pero no ve la pestaña "Tipos de Proyecto", es un tema de <strong>privilegios</strong> — no un error del sistema. Ver sección 4.</div>
+      </div>
+
+      <div class="callout good">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div><strong>Regla obligatoria:</strong> todo proyecto debe estar asociado a un Tipo de Proyecto. El orden siempre es: crear el Tipo → crear el Proyecto → crear Cronogramas → crear Actividades.</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 2 — TIPO DE PROYECTO ============ -->
+    <section class="section" id="tipo-proyecto">
+      <div class="section-head">
+        <span class="section-num">02</span>
+        <h2>Configurar el Tipo de Proyecto</h2>
+      </div>
+      <p class="section-desc">
+        Antes de crear cualquier proyecto de un tipo nuevo, hay que definir su estructura y comportamiento.
+      </p>
+
+      <div class="route">
+        <span class="route-label">Ruta</span>
+        <span class="route-path">Admin <span class="seg-arrow">→</span> Proyectos <span class="seg-arrow">→</span> pantalla derecha <span class="seg-arrow">→</span> Adicionar tipo</span>
+      </div>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Clic en <strong>Adicionar tipo</strong> y registre el nombre del tipo de proyecto.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Parámetros generales</div>
+            <p class="step-marked-text">Todos vienen desactivados por defecto — márquelos si aplican.</p>
+            <div class="field-list">
+              <span class="field-chip">Indicadores asociados</span>
+              <span class="field-chip">Múltiples años</span>
+              <span class="field-chip">Asociar a procesos</span>
+              <span class="field-chip">Marco estratégico</span>
+            </div>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Codificación</div>
+            <p class="step-marked-text">Patrón con <code class="mono">%Y</code> (año) y <code class="mono">%C</code> (consecutivo). Defina el padding (dígitos) y si el consecutivo es <strong>anual</strong> (se reinicia) o <strong>único</strong>.</p>
+            <div class="example-card">
+              <div class="example-label">Ejemplo</div>
+              <div class="example-kv">
+                <div class="example-kv-item"><span class="k">Patrón</span><span class="v">%Y-%C</span></div>
+                <div class="example-kv-item"><span class="k">Padding</span><span class="v">5</span></div>
+                <div class="example-kv-item"><span class="k">Resultado</span><span class="v">2026-00001</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div><strong>No sobreparametrice.</strong> Habilite solo lo que realmente se va a usar — activar opciones de más deja pestañas vacías en el proyecto y confunde al usuario final.</div>
+      </div>
+
+      <div class="subhead">Campos adicionales (Atributos)</div>
+      <p class="section-desc" style="margin-top:-6px;">
+        Ruta: <code class="mono">Tipo de Proyecto → Configuración → Atributos → Nuevo campo adicional</code>.
+        Defina tipo de dato, código, y marque <strong>Requerido</strong> si aplica. El campo aparecerá en la información general del proyecto tras grabar y refrescar.
+      </p>
+    </section>
+
+    <!-- ============ SECTION 3 — FLUJO ============ -->
+    <section class="section" id="flujo">
+      <div class="section-head">
+        <span class="section-num">03</span>
+        <h2>Flujo de trabajo — Estados y transiciones</h2>
+      </div>
+      <p class="section-desc">
+        No todos los tipos de proyecto necesitan flujo — depende de si se requiere trazabilidad o revisión
+        por otro usuario en distintas etapas.
+      </p>
+
+      <div class="route">
+        <span class="route-label">Ruta</span>
+        <span class="route-path">Tipos de Proyecto <span class="seg-arrow">→</span> Configuración <span class="seg-arrow">→</span> Estados / Transiciones</span>
+      </div>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Cree los <strong>estados</strong> (fases) por los que pasará el proyecto — ejemplo real: Registrado → Seguimiento → Cumplimiento → Cerrado.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Marque <strong>"Tiene resumen"</strong> en el estado que corresponda — habilita el resumen de avance (sección 9).</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Cree las <strong>transiciones</strong> (de qué estado sale, a cuál llega) y, si aplica, el <strong>enrutamiento</strong> a un usuario específico con el ícono verde Agregar.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div><strong>"Tiene seguimientos" es por estado, no global.</strong> Si el botón "Adicionar seguimiento" no aparece en un estado del proyecto, hay que entrar a ese estado específico en la configuración y activar la casilla — se repite para cada estado donde se quiera permitir.</div>
+      </div>
+
+      <div class="callout note">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div>No existe una pestaña fija de "segunda/tercera línea" como en Planes de Mejora. Para lograr ese control, se crea un flujo con más estados (ej. Seguimiento → Cumplimiento, validado por otra área).</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 4 — PRIVILEGIOS ============ -->
+    <section class="section" id="privilegios">
+      <div class="section-head">
+        <span class="section-num">04</span>
+        <h2>Privilegios</h2>
+      </div>
+      <p class="section-desc">
+        Existen dos niveles de privilegios, independientes entre sí.
+      </p>
+
+      <div class="priv-table">
+        <div class="priv-row">
+          <span class="priv-name">Sobre el Tipo de Proyecto</span>
+          <span class="priv-desc">Se recomienda limitado. Ruta: Tipos de Proyecto → Privilegios → Administrar privilegios → buscar usuario → definir consulta / administrador / editar / registrar.</span>
+        </div>
+        <div class="priv-row">
+          <span class="priv-name">Sobre un Proyecto específico</span>
+          <span class="priv-desc">Cada proyecto tiene su propia pestaña Privilegios. Buscar usuario, definir administrador / consulta / adicionar seguimientos, y clic en el ícono verde Adicionar.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 5 — CREAR PROYECTO ============ -->
+    <section class="section" id="crear-proyecto">
+      <div class="section-head">
+        <span class="section-num">05</span>
+        <h2>Crear el proyecto, cronogramas y actividades</h2>
+      </div>
+
+      <div class="route">
+        <span class="route-label">Ruta</span>
+        <span class="route-path">Admin <span class="seg-arrow">→</span> Proyectos <span class="seg-arrow">→</span> pantalla izquierda <span class="seg-arrow">→</span> Adicionar</span>
+      </div>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Crear el proyecto</div>
+            <p class="step-marked-text">Elija el Tipo de Proyecto, defina el consecutivo, asocie un proceso si aplica, registre nombre y fechas del proyecto. Grabe.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Adicionar cronograma</div>
+            <p class="step-marked-text">Código, nombre, responsable y <strong>peso</strong> (importancia porcentual sobre el total del proyecto), fecha de inicio y fin. Un proyecto puede tener n cronogramas.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Adicionar actividad (manual)</div>
+            <p class="step-marked-text">Ítem, nombre, descripción, fecha inicio/fin (o una sola fecha si es <strong>Hito</strong>), y usuario responsable. Clic en Adicionar.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">4</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Carga masiva (Excel)</div>
+            <p class="step-marked-text">Descargue la plantilla del sistema, complete siguiendo la misma estructura (responsable = login del usuario, fechas en formato fecha) y vuelva a cargar el archivo.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">5</span>
+          <div class="step-marked-body">
+            <div class="step-marked-label">Campos adicionales de actividad</div>
+            <p class="step-marked-text">Ruta: Configuración → Actividades → Nuevo campo adicional. <strong>Primero cree un Grupo</strong> — el campo debe quedar asociado a él antes de poder crearlo.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 6 — PRESUPUESTO ============ -->
+    <section class="section" id="presupuesto">
+      <div class="section-head">
+        <span class="section-num">06</span>
+        <h2>Gestión presupuestal</h2>
+      </div>
+      <p class="section-desc">
+        Dos maneras de controlar costos, según el nivel de detalle necesario.
+      </p>
+
+      <div class="priv-table">
+        <div class="priv-row">
+          <span class="priv-name">A nivel de Actividad</span>
+          <span class="priv-desc">Pestaña Costos de la actividad: registre el presupuesto planeado. Al reportar el seguimiento de la actividad, registre también el valor ejecutado — el sistema suma automáticamente a nivel de cronograma y proyecto.</span>
+        </div>
+        <div class="priv-row">
+          <span class="priv-name">A nivel de Atributos</span>
+          <span class="priv-desc">Cree dos campos manuales en el Tipo de Proyecto (Atributos): "Presupuesto aprobado" y "Presupuesto ejecutado". Se diligencian a mano, sin suma automática.</span>
+        </div>
+      </div>
+
+      <div class="callout good">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div>Si usa la opción de Atributos (manual), <strong>inactive la opción de presupuesto a nivel de actividad</strong> para ese tipo de proyecto, para no dejar dos lugares distintos donde registrar presupuesto.</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 7 — SEGUIMIENTO ============ -->
+    <section class="section" id="seguimiento">
+      <div class="section-head">
+        <span class="section-num">07</span>
+        <h2>Seguimiento y cierre de actividades</h2>
+      </div>
+      <p class="section-desc">
+        El proyecto se ve en dos visuales: <strong>Edición</strong> (planear) y <strong>Seguimiento</strong> (ejecutar, ver avance ponderado).
+      </p>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <span class="step-marker">1</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Entre a la actividad. Verá <strong>Iniciar actividad</strong> si tiene fecha inicio y fin, o directamente <strong>Terminar actividad</strong> si es Hito (una sola fecha).</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">2</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Registre fecha y porcentaje de avance — <strong>es acumulativo</strong>, se va sumando hasta llegar al 100%. Adjunte evidencias si aplica. Grabe.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <span class="step-marker">3</span>
+          <div class="step-marked-body">
+            <p class="step-marked-text">Al 100%, la actividad se marca finalizada y desaparece del <strong>Plan Individual</strong> del responsable (puede requerir refrescar la pantalla).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div>No hay notificación automática por correo al asignar el responsable de una actividad nueva — siempre debe enviarse manualmente.</div>
+      </div>
+
+      <div class="subhead">Seguimientos generales del proyecto</div>
+      <p class="section-desc" style="margin-top:-6px;">
+        Ruta: visual de Seguimiento → Información general → <strong>Adicionar seguimiento</strong> (registrar fecha, descripción, evidencias). Se pueden crear <strong>estados propios</strong> para los seguimientos en <code class="mono">Configuración → Seguimiento</code> (ej. "Etapa de revisión", "Cumplimiento") para etiquetar a qué etapa corresponde cada registro.
+      </p>
+    </section>
+
+    <!-- ============ SECTION 8 — INDICADORES ============ -->
+    <section class="section" id="indicadores">
+      <div class="section-head">
+        <span class="section-num">08</span>
+        <h2>Indicadores asociados a actividades</h2>
+      </div>
+      <p class="section-desc">
+        Ruta: dentro de la actividad → pestaña <strong>Indicadores</strong>. Busque uno existente o cree uno nuevo (requiere ficha técnica completa).
+      </p>
+
+      <div class="callout warn">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div><strong>El indicador no se mide desde Proyectos.</strong> Vincularlo solo relaciona el indicador con el proyecto — la medición real (variables frente a meta) se hace exclusivamente en el <strong>Módulo de Indicadores</strong>. El porcentaje que se ve en Proyectos es el cumplimiento de actividades, no del indicador.</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 9 — RESUMEN ============ -->
+    <section class="section" id="resumen">
+      <div class="section-head">
+        <span class="section-num">09</span>
+        <h2>Resumen y visualización de resultados</h2>
+      </div>
+
+      <div class="callout good">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div><strong>Parámetro obligatorio:</strong> "Mostrar resumen de cronogramas" (Configuración general) debe estar activo para que se muestre el resumen gráfico de avance.</div>
+      </div>
+
+      <p class="section-desc">Con el parámetro activo, la pestaña Información general / Resumen muestra:</p>
+      <div class="field-list">
+        <span class="field-chip">% avance total del proyecto</span>
+        <span class="field-chip">Avance y peso por cronograma</span>
+        <span class="field-chip">Ejecución real vs. esperada</span>
+        <span class="field-chip">Filtros por rango de fecha</span>
+        <span class="field-chip">Descarga del gráfico</span>
+        <span class="field-chip">Zoom a actividades atrasadas</span>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 10 — ORGANIZACIÓN ============ -->
+    <section class="section" id="organizacion">
+      <div class="section-head">
+        <span class="section-num">10</span>
+        <h2>Organizar tipos de proyecto y reglas del sistema</h2>
+      </div>
+      <p class="section-desc">
+        Si varios tipos de proyecto en realidad pertenecen a la misma iniciativa (por cambios de nombre a
+        lo largo de los años), márquelos como <strong>"Depende de"</strong> un tipo macro, dentro del Tipo de Proyecto.
+      </p>
+
+      <div class="callout warn">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div><strong>Error común:</strong> crear un Tipo de Proyecto distinto por cada variante, en vez de un solo tipo con un campo de <strong>categoría</strong> para clasificar. Crear tipos separados implica varias plantillas distintas y dificulta consolidar la información.</div>
+      </div>
+
+      <div class="subhead">Reglas que no se pueden resolver sin soporte</div>
+      <div class="priv-table">
+        <div class="priv-row">
+          <span class="priv-name">Eliminar un Tipo o Proyecto</span>
+          <span class="priv-desc">No se puede si ya tiene cualquier registro asociado, así se haya eliminado luego. Debe solicitarse a Soporte Almera (lo hacen en base de datos).</span>
+        </div>
+        <div class="priv-row">
+          <span class="priv-name">Cambiar el "Tipo" de un proyecto</span>
+          <span class="priv-desc">Bloqueado si el tipo de destino no tiene exactamente los mismos campos que el de origen. Garantice la misma parametrización y solicite el movimiento a Soporte Almera.</span>
+        </div>
+      </div>
+
+      <div class="callout note">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
+        <div>Si un proyecto no aparece en el listado, revise el filtro superior de <strong>Vigencia</strong> — selecciónelo en "Todas" y haga clic en Filtrar.</div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 11 — PLAN ESTRATÉGICO ============ -->
+    <section class="section" id="plan-estrategico">
+      <div class="section-head">
+        <span class="section-num">11</span>
+        <h2>Integración con Plan Estratégico (Cuadros de Mando)</h2>
+      </div>
+
+      <div class="callout warn">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div><strong>La vinculación NO se hace desde Proyectos.</strong> Se hace al revés: desde un Cuadro de Mando ya creado, se habilita ahí la opción <strong>"Asociar proyectos"</strong>. Si no ve ninguna opción en su proyecto, es porque ningún cuadro de mando tiene esa asociación habilitada para él.</div>
+      </div>
+
+      <div class="callout warn">
+        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div><strong>No lo habilite sin coordinar con el área de Planeación.</strong> Asociar proyectos sin alineación hace que le aparezcan proyectos no vinculados dentro de la estructura ya construida por esa área, entorpeciendo su planeación estratégica.</div>
+      </div>
+
+      <p class="section-desc">
+        Con la asociación correctamente habilitada, el proyecto aparece reflejado en el tablero de mando,
+        permitiendo ver cómo su ejecución física aporta a las metas estratégicas de la entidad.
+      </p>
+    </section>
+
+    <div class="footer">
+      <span>Proyectos — Planeación</span>
+      <span class="mono">Almera SGI</span>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>

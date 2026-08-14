@@ -42,6 +42,7 @@ El `.md` de cada módulo sigue una misma plantilla, para que cualquier IA que lo
 | Indicadores | Completa | Completo | Disponible |
 | Mecanismos de integración | Completa | Completo | Disponible |
 | Planes de mejora | Completa | Completo | **Pendiente de empaquetar** |
+| Proyectos | Completa | Completo | Disponible |
 | Códigos de estructura organizacional | Completa | — | Fuera del sistema de IA (página de referencia) |
 
 ## Cómo se construye cada módulo
@@ -54,6 +55,6 @@ El `.md` de cada módulo sigue una misma plantilla, para que cualquier IA que lo
 ## Lo que falta
 
 - Empaquetar el `.skill` de Planes de mejora (el `.md` ya está listo).
-- Ampliar la cobertura más allá de Calidad, Evaluaciones e Indicadores — las categorías General, Proyectos y Riesgos del árbol de Admin todavía no tienen documentación propia.
+- Ampliar la cobertura más allá de Calidad, Evaluaciones, Indicadores y Proyectos — las categorías General y Riesgos del árbol de Admin todavía no tienen documentación propia.
 
 
