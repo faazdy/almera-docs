@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestión Documental — Almera (preview diseño nuevo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<div class="compare-banner">
+  Vista previa del diseño nuevo — mismo contenido de <strong>Gestión documental</strong>, otra piel visual.
+  Compárala con la <a href="../../modulo-documentos/gestion-documentos/index.html">versión actual</a>.
+</div>
+
+<header>
+  <div id="hdr">
+    <div class="hdr-brand">
+      <span class="hdr-brand-name">Almera</span>
+      <span class="hdr-brand-sub">Docs</span>
+    </div>
+
+    <nav id="hdr-nav">
+      <a href="#">Documentos</a>
+      <a href="#">Proyectos</a>
+      <a href="#">Evaluaciones</a>
+    </nav>
+
+    <div class="hdr-spacer"></div>
+
+    <button id="search" onclick="openPalette()">
+      <span>Buscar</span>
+      <span class="kbd">⌘K</span>
+    </button>
+
+    <div class="hdr-actions">
+      <span class="env-badge">SGI</span>
+      <a class="cta-btn" href="https://sgi.almeraim.com/sgi/?conid=sgicapitalsalud" target="_blank">Abrir Almera</a>
+    </div>
+  </div>
+</header>
+
+<div id="shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside id="sidebar">
+    <div class="nav-group">
+      <div class="nav-label">Conceptos</div>
+      <div class="nav-links">
+        <a class="nav-link" href="#estados">1. Estados de un documento</a>
+        <a class="nav-link" href="#tipo-documento">2. Adjunto vs. Plantilla</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-label">Gestión documental</div>
+      <div class="nav-links">
+        <a class="nav-link" href="#elaboracion">3. Elaborar documento</a>
+        <a class="nav-link" href="#emisor">4. Crear emisor</a>
+        <a class="nav-link" href="#clase">5. Crear clase</a>
+        <a class="nav-link" href="#buscar">6. Buscar y exportar</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-label">Flujo de solicitudes</div>
+      <div class="nav-links">
+        <a class="nav-link" href="#aprobacion">7. Aprobar, rechazar o retornar</a>
+        <a class="nav-link" href="#eliminar-solicitud">8. Eliminar una solicitud</a>
+        <a class="nav-link" href="#anular">9. Anular un documento</a>
+        <a class="nav-link" href="#actualizar-version">10. Actualizar versión</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-label">Mapa de procesos</div>
+      <div class="nav-links">
+        <a class="nav-link" href="#jerarquia">11. Jerarquía de proceso</a>
+        <a class="nav-link" href="#mapa">12. Actualizar mapa</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-label">Configuración adicional</div>
+      <div class="nav-links">
+        <a class="nav-link" href="#modelos">13. Modelos de gestión</a>
+        <a class="nav-link" href="#recursos">14. Recursos</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-label">Referencia</div>
+      <div class="nav-links">
+        <a class="nav-link" href="#terminos">15. Términos y definiciones</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main>
+
+    <div class="eyebrow">Módulo Documentos · Almera</div>
+    <h1>Gestión documental</h1>
+    <p class="lede">
+      Cómo elaborar documentos dentro del flujo de aprobación, aprobar/rechazar/anular
+      solicitudes, configurar emisores y clases documentales, y mantener actualizado el
+      mapa de procesos.
+    </p>
+
+    <div class="download-actions">
+      <a class="download-pill skill" href="../../modulo-documentos/gestion-documentos/AI/almera-documentos.skill" download title="Descargar habilidad para Claude">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.4 9.2L22 12L14.4 14.8L12 22L9.6 14.8L2 12L9.6 9.2L12 2Z" fill="currentColor"/></svg>
+        Descargar habilidad <span class="pill-sub">para Claude</span>
+      </a>
+      <a class="download-pill md" href="../../modulo-documentos/gestion-documentos/AI/documentos-almera.md" download title="Descargar documento de referencia">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 2V8H20" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 13H16M8 17H13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        Descargar .md <span class="pill-sub">para cualquier IA</span>
+      </a>
+    </div>
+
+    <div class="quick-links">
+      <a class="quick-link" href="#elaboracion">
+        <span>¿Cómo crear un documento nuevo?</span>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a class="quick-link" href="#emisor">
+        <span>¿Cómo agrego un nuevo emisor (interno o externo)?</span>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a class="quick-link" href="#clase">
+        <span>¿Cómo creo un nuevo tipo de documento?</span>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a class="quick-link" href="#mapa">
+        <span>¿Cómo actualizo el mapa de procesos?</span>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a class="quick-link" href="#buscar">
+        <span>¿Cómo exporto el listado de documentos a Excel?</span>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a class="quick-link" href="#aprobacion">
+        <span>¿Qué pasa si apruebo, rechazo o retorno una solicitud?</span>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a class="quick-link" href="#anular">
+        <span>¿Cómo anulo un documento para que deje de ser vigente?</span>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <h2 style="margin-bottom:10px">Reunión de capacitación</h2>
+    <p class="section-note">Para ver la operación completa, consulte <a href="" target="_blank">aquí</a> la grabación de la reunión de capacitación.</p>
+
+    <hr class="divider">
+
+    <!-- ============ SECTION 1 — ESTADOS ============ -->
+    <section class="section" id="estados">
+      <div class="section-head"><span class="section-num">01</span><h2>Estados de un documento</h2></div>
+      <p class="section-desc">Todo documento pasa por alguno de estos 4 estados. El sistema nunca elimina un documento por completo — solo lo anula — para no perder trazabilidad.</p>
+
+      <div class="steps-marked">
+        <div class="step-marked">
+          <div class="step-marked-body">
+            <div class="step-marked-label">Vigente</div>
+            <p class="step-marked-text">Es la versión activa y oficial del documento en este momento. Es lo único que se muestra por defecto al entrar al módulo Documentos.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <div class="step-marked-body">
+            <div class="step-marked-label">No publicado</div>
+            <p class="step-marked-text">El documento ya se solicitó o se está construyendo, pero todavía está dentro del flujo de aprobación (por ejemplo, esperando revisión de un líder). Para el sistema aún no es "vigente", aunque ya guarda trazabilidad de a quién se envió y en qué estado va.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <div class="step-marked-body">
+            <div class="step-marked-label">Obsoleto</div>
+            <p class="step-marked-text">Cuando se sube una nueva versión de un documento, la versión anterior pasa automáticamente a este estado. Sigue siendo consultable, pero ya no es la oficial.</p>
+          </div>
+        </div>
+        <div class="step-marked">
+          <div class="step-marked-body">
+            <div class="step-marked-label">Anulado</div>
+            <p class="step-marked-text">El documento ya no aplica. El sistema no permite eliminar documentos, solo anularlos — así se conserva la trazabilidad. Todos estos estados son consultables desde las pestañas superiores del listado de Documentos.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout note">
+        <div>
+          <div class="callout-label">Nota</div>
+          <p>El "listado maestro" que se genera desde arriba del módulo de Documentos solo muestra documentos <strong>vigentes</strong> por defecto. Para ver la traza completa hay que moverse a las otras pestañas o quitar los filtros activos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 2 — TIPO DE DOCUMENTO ============ -->
+    <section class="section" id="tipo-documento">
+      <div class="section-head"><span class="section-num">02</span><h2>Tipo de documento: Adjunto vs. Plantilla</h2></div>
+      <p class="section-desc">Almera maneja dos formas de construir un documento. Es importante saber cuál usa la organización antes de elaborar uno nuevo.</p>
+
+      <div class="tab-compare">
+        <div class="tab-card">
+          <div class="tab-card-head"><span class="tab-pill on">Recomendado</span></div>
+          <div class="tab-card-title">Tipo Adjunto ("Documento específico")</div>
+          <div class="tab-card-desc">Vive como una plantilla Word que se edita <strong>online</strong>, con un editor tipo Google Docs (autoguardado, sin necesidad de descargar). Es el único tipo con el flujo completo de aprobación (solicitud → aprobación → edición → elaboración), y hacia donde se están migrando todos los clientes de Almera.</div>
+        </div>
+        <div class="tab-card">
+          <div class="tab-card-head"><span class="tab-pill off">En desuso</span></div>
+          <div class="tab-card-title">Tipo Plantilla</div>
+          <div class="tab-card-desc">El documento se diligencia campo por campo directamente en el sistema, sin usar un archivo Word. Al exportar (sobre todo con tablas o imágenes) el formato suele desconfigurarse, lo que generó muchos tickets de soporte — por eso se está reemplazando por el tipo Adjunto.</div>
+        </div>
+      </div>
+
+      <div class="callout note">
+        <div>
+          <div class="callout-label">Nota</div>
+          <p>Si en el listado de clases de documento aparecen varios tipos (instructivo, procedimiento, protocolo, etc.) pero solo uno tiene habilitado el flujo de elaboración, es porque los demás quedaron parametrizados como tipo Plantilla en algún momento y no se han migrado.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 3 — ELABORACIÓN ============ -->
+    <section class="section" id="elaboracion">
+      <div class="section-head"><span class="section-num">03</span><h2>Creación de un documento (Elaboración)</h2></div>
+      <p class="section-desc">El proceso para crear un nuevo documento sigue un flujo de aprobación que inicia con una solicitud.</p>
+
+      <div class="route"><span class="route-label">Ruta</span><span class="route-path">Documentos <span class="seg-arrow">→</span> Elaborar <span class="seg-arrow">→</span> documento específico</span></div>
+
+      <div class="steps-marked">
+        <div class="step-marked"><span class="step-marker">1</span><div class="step-marked-body"><div class="step-marked-label">Ingreso</div><p class="step-marked-text">Diríjase a la parte superior en el menú y seleccione <strong>Documentos → Elaborar documento específico</strong>.</p></div></div>
+        <div class="step-marked"><span class="step-marker">2</span><div class="step-marked-body"><div class="step-marked-label">Asociación</div><p class="step-marked-text">Seleccione el proceso o subproceso al cual quedará vinculado el documento.</p></div></div>
+        <div class="step-marked"><span class="step-marker">3</span><div class="step-marked-body"><div class="step-marked-label">Identificación</div><p class="step-marked-text">Ingrese el nombre del documento.</p></div></div>
+        <div class="step-marked"><span class="step-marker">4</span><div class="step-marked-body"><div class="step-marked-label">Clasificación</div><p class="step-marked-text">Elija la clase de documento (guía, manual, política, etc.) del listado desplegable.</p><a class="quick-link field-anchor" href="#clase" style="border:none;padding:8px 0 0">¿No existe la clase que necesita? Ver sección 5 <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div>
+        <div class="step-marked"><span class="step-marker">5</span><div class="step-marked-body"><div class="step-marked-label">Sustentación</div><p class="step-marked-text">Diligencie el campo de justificación: la razón por la cual se crea el documento.</p></div></div>
+        <div class="step-marked"><span class="step-marker">6</span><div class="step-marked-body"><div class="step-marked-label">Envío de solicitud</div><p class="step-marked-text">Haga clic en <strong>Grabar</strong> y luego, en la parte superior, seleccione <strong>Enrutar</strong> para que la solicitud sea aprobada por el responsable.</p></div></div>
+        <div class="step-marked"><span class="step-marker">7</span><div class="step-marked-body"><div class="step-marked-label">Edición</div><p class="step-marked-text">Una vez aprobada la solicitud, el documento aparecerá en la sección <strong>Mis pendientes</strong>. Al abrirlo y darle <strong>Editar</strong>, podrá completar campos adicionales como la fecha y el responsable.</p></div></div>
+        <div class="step-marked"><span class="step-marker">8</span><div class="step-marked-body"><div class="step-marked-label">Redacción online</div><p class="step-marked-text">Abra la plantilla (formato Word) y trabaje directamente en el editor online.</p></div></div>
+      </div>
+
+      <div class="callout logic"><div><div class="callout-label">Automatización</div><p><strong>Guardado automático.</strong> El sistema guarda los cambios del editor online de forma automática, sin necesidad de descargar el archivo.</p></div></div>
+
+      <div class="example-card">
+        <div class="example-label">Código del documento</div>
+        <p>El código se puede generar <strong>automáticamente</strong> (configuración parametrizable por Almera, no algo que active cada usuario). La estructura típica es inicial del proceso + inicial del subproceso + inicial del tipo de documento + consecutivo, pero es ajustable. Si ya existen documentos codificados manualmente, hay que pedirle a soporte que revise la parametrización antes de activarlo, para no generar códigos duplicados.</p>
+      </div>
+
+      <div class="callout warn"><div><div class="callout-label">Sin confirmar</div><p>Soporte confirmó que la estructura del código automático (ej. tipo-consecutivo-siglas del proceso) es parametrizable a la medida, pero pidió que se envíe una solicitud formal a soporte para hacer el ajuste, ya que hay que revisar los códigos existentes antes de activarlo.</p></div></div>
+
+      <div class="example-card">
+        <div class="example-label">Vincular otro documento dentro de la plantilla</div>
+        <p>Para referenciar un formato o manual relacionado dentro del editor en línea, la única forma disponible es: buscar el documento en el listado de Documentos, copiar su enlace, y pegarlo dentro del texto de la plantilla. No existe vinculación automática por código.</p>
+      </div>
+
+      <div class="callout warn"><div><div class="callout-label">Aviso</div><p>Los documentos antiguos cargados como <strong>PDF</strong> no permiten activar la edición en línea. Hay que reconstruir el contenido en una plantilla Word editable y volver a cargarlo.</p></div></div>
+
+      <div class="callout note"><div><div class="callout-label">Nota</div><p>El historial de versiones anteriores de un documento normalmente solo lo pueden consultar y descargar los <strong>administradores</strong> del sistema, no cualquier usuario.</p></div></div>
+    </section>
+
+    <!-- ============ SECTION 4 — EMISOR ============ -->
+    <section class="section" id="emisor">
+      <div class="section-head"><span class="section-num">04</span><h2>Creación de un emisor (externo o interno)</h2></div>
+      <p class="section-desc">Para agregar entidades que emiten documentos, como el INVIMA o entes de control.</p>
+
+      <div class="route"><span class="route-label">Ruta</span><span class="route-path">Admin <span class="seg-arrow">→</span> Calidad <span class="seg-arrow">→</span> Clases y emisores de documentos</span></div>
+
+      <div class="steps-marked">
+        <div class="step-marked"><span class="step-marker">1</span><div class="step-marked-body"><p class="step-marked-text">Vaya al panel lateral izquierdo: <strong>Admin → Calidad → Clases y emisores de documentos</strong>.</p></div></div>
+        <div class="step-marked"><span class="step-marker">2</span><div class="step-marked-body"><p class="step-marked-text">Haga clic en el botón <strong>Crear emisor</strong>, ubicado a la derecha.</p></div></div>
+        <div class="step-marked"><span class="step-marker">3</span><div class="step-marked-body"><p class="step-marked-text">Registre el nombre del emisor.</p></div></div>
+        <div class="step-marked"><span class="step-marker">4</span><div class="step-marked-body"><p class="step-marked-text">Asigne un código (puede ser un número consecutivo o iniciales).</p></div></div>
+        <div class="step-marked"><span class="step-marker">5</span><div class="step-marked-body"><p class="step-marked-text">Defina el origen: si aplica para documentos internos, externos o ambos.</p><div class="field-list"><span class="field-chip">Interno</span><span class="field-chip">Externo</span><span class="field-chip">Ambos</span></div></div></div>
+        <div class="step-marked"><span class="step-marker">6</span><div class="step-marked-body"><p class="step-marked-text">Haga clic en <strong>Grabar</strong>.</p></div></div>
+      </div>
+
+      <div class="callout note"><div><div class="callout-label">Nota</div><p>Cuando un documento es <strong>interno</strong>, el campo de emisor queda por defecto en el nombre de la propia organización — no se elige. Cuando es <strong>externo</strong>, sí se debe elegir el emisor real (INVIMA, un ente de control, etc.). Si el emisor no existe todavía, créelo aquí antes de subir el documento.</p></div></div>
+    </section>
+
+    <!-- ============ SECTION 5 — CLASE ============ -->
+    <section class="section" id="clase">
+      <div class="section-head"><span class="section-num">05</span><h2>Creación de una clase de documento (tipos)</h2></div>
+      <p class="section-desc">Si necesita un nuevo tipo de documento — por ejemplo, un nuevo "Protocolo".</p>
+
+      <div class="route"><span class="route-label">Ruta</span><span class="route-path">Admin <span class="seg-arrow">→</span> Calidad <span class="seg-arrow">→</span> Clases y emisores de documentos</span></div>
+
+      <div class="steps-marked">
+        <div class="step-marked"><span class="step-marker">1</span><div class="step-marked-body"><p class="step-marked-text">Ingrese a <strong>Admin → Calidad → Clases y emisores de documentos</strong>.</p></div></div>
+        <div class="step-marked"><span class="step-marker">2</span><div class="step-marked-body"><p class="step-marked-text">Seleccione <strong>Crear clase</strong>.</p></div></div>
+        <div class="step-marked"><span class="step-marker">3</span><div class="step-marked-body"><p class="step-marked-text">Registre el nombre y asigne un código (siglas del tipo de documento).</p></div></div>
+        <div class="step-marked"><span class="step-marker">4</span><div class="step-marked-body"><p class="step-marked-text">Defina si es interno, externo o ambos.</p></div></div>
+        <div class="step-marked"><span class="step-marker">5</span><div class="step-marked-body"><p class="step-marked-text">Marque si corresponde a un formato y si debe aplicar para solicitudes en el flujo de aprobación.</p></div></div>
+        <div class="step-marked"><span class="step-marker">6</span><div class="step-marked-body"><div class="step-marked-label">Carga de plantilla</div><p class="step-marked-text">En la opción <strong>Adjuntar archivo</strong>, suba el formato estándar en .doc (Word) para que los usuarios puedan usar la edición online sobre esa base.</p></div></div>
+        <div class="step-marked"><span class="step-marker">7</span><div class="step-marked-body"><p class="step-marked-text">Haga clic en <strong>Grabar</strong>.</p></div></div>
+      </div>
+
+      <div class="callout warn"><div><div class="callout-label">Aviso</div><p>Una clase con documentos vinculados <strong>no se puede eliminar</strong>. Primero hay que reclasificar todos los documentos que la usan y solo entonces se puede eliminar la clase.</p></div></div>
+
+      <div class="example-card">
+        <div class="example-label">Orden del listado</div>
+        <p>Las clases siempre aparecen en el orden en que fueron creadas. Se puede reordenar temporalmente haciendo clic en el encabezado de la columna (código o nombre), pero eso no queda guardado como configuración fija.</p>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 6 — BUSCAR Y EXPORTAR ============ -->
+    <section class="section" id="buscar">
+      <div class="section-head"><span class="section-num">06</span><h2>Buscar, filtrar y exportar documentos</h2></div>
+      <p class="section-desc">Para consultar el listado general de documentos, filtrarlo o sacar un reporte en Excel. Existen dos formas de exportar.</p>
+
+      <div class="route"><span class="route-label">Ruta</span><span class="route-path">Calidad <span class="seg-arrow">→</span> Documentos</span></div>
+
+      <div class="subsection">
+        <div class="subsection-header"><span class="subsection-tag">Opción 1</span><span class="subsection-title">Exportar desde la lista de documentos</span></div>
+        <div class="subsection-body">
+          <div class="steps-marked">
+            <div class="step-marked"><span class="step-marker">1</span><div class="step-marked-body"><div class="step-marked-label">Filtrar</div><p class="step-marked-text">Desde el encabezado del listado se puede filtrar por <strong>origen</strong> (interno / externo) o por <strong>proceso</strong> específico. Cada pestaña (vigentes, no publicados, obsoletos, anulados) respeta el filtro activo — para ver todo hay que quitarlo.</p></div></div>
+            <div class="step-marked"><span class="step-marker">2</span><div class="step-marked-body"><div class="step-marked-label">Ver todos los registros</div><p class="step-marked-text">Si el listado tiene varias páginas, aumente la cantidad de registros mostrados (por ejemplo a 100) para verlos todos en una sola hoja.</p></div></div>
+            <div class="step-marked"><span class="step-marker">3</span><div class="step-marked-body"><div class="step-marked-label">Seleccionar</div><p class="step-marked-text">Use <strong>Seleccionar → Todos</strong> para marcar todo el listado visible, o marque manualmente los documentos que necesita.</p></div></div>
+            <div class="step-marked"><span class="step-marker">4</span><div class="step-marked-body"><div class="step-marked-label">Exportar</div><p class="step-marked-text">En <strong>Documentos seleccionados</strong>, elija <strong>Exportar todos</strong> o <strong>Exportar seleccionados</strong>.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout warn"><div><div class="callout-label">Aviso</div><p>En el cuadro de exportación (Opción 1), <strong>nunca marque la opción "Incluir archivos"</strong>. El reporte se vuelve muy pesado y la descarga puede tardar muchísimo.</p></div></div>
+
+      <div class="subsection">
+        <div class="subsection-header"><span class="subsection-tag">Opción 2</span><span class="subsection-title">Exportar desde el Listado Maestro de Documentos</span></div>
+        <div class="subsection-body">
+          <div class="route"><span class="route-label">Ruta</span><span class="route-path">Gestión de calidad <span class="seg-arrow">→</span> Listados maestros <span class="seg-arrow">→</span> Listado maestro de documentos</span></div>
+          <div class="steps-marked">
+            <div class="step-marked"><span class="step-marker">1</span><div class="step-marked-body"><div class="step-marked-label">Filtrar (opcional)</div><p class="step-marked-text">Complete los filtros que necesite: Tipo, Filtro (nombre), Proceso, Origen, Clase y rango de Fecha.</p><div class="field-list"><span class="field-chip">Tipo</span><span class="field-chip">Filtro</span><span class="field-chip">Proceso</span><span class="field-chip">Origen</span><span class="field-chip">Clase</span><span class="field-chip">Fecha</span></div></div></div>
+            <div class="step-marked"><span class="step-marker">2</span><div class="step-marked-body"><p class="step-marked-text">Haga clic en <strong>Buscar</strong> para visualizar los documentos que cumplen los criterios.</p></div></div>
+            <div class="step-marked"><span class="step-marker">3</span><div class="step-marked-body"><p class="step-marked-text">Si hay varias páginas, aumente la cantidad de registros mostrados (por ejemplo a 100).</p></div></div>
+            <div class="step-marked"><span class="step-marker">4</span><div class="step-marked-body"><p class="step-marked-text">Haga clic en el botón <strong>Exportar</strong> (ícono de Excel), en la parte superior derecha.</p></div></div>
+          </div>
+          <div class="callout note"><div><div class="callout-label">Nota</div><p>Este listado, por defecto, solo muestra documentos <strong>vigentes</strong>. Si no aplica filtros, exporta todos los documentos vigentes mostrados en el listado.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 7 — FLUJO DE APROBACIÓN ============ -->
+    <section class="section" id="aprobacion">
+      <div class="section-head"><span class="section-num">07</span><h2>Aprobar, rechazar o retornar una solicitud</h2></div>
+      <p class="section-desc">Cuando recibe una solicitud documental para revisar, tiene tres acciones disponibles.</p>
+
+      <div class="route"><span class="route-label">Ruta</span><span class="route-path">Documentos <span class="seg-arrow">→</span> Mis Solicitudes <span class="seg-arrow">→</span> Solicitudes pendientes</span></div>
+
+      <div class="steps-marked">
+        <div class="step-marked"><span class="step-marker">1</span><div class="step-marked-body"><p class="step-marked-text">Ir al menú superior <strong>Documentos → Mis Solicitudes → Solicitudes pendientes</strong> y seleccionar la solicitud a revisar.</p></div></div>
+        <div class="step-marked"><span class="step-marker">2</span><div class="step-marked-body"><p class="step-marked-text">Elegir una acción: <strong>Editar solicitud</strong>, <strong>Aprobar</strong>, <strong>Retornar</strong> o <strong>Rechazar</strong>.</p></div></div>
+        <div class="step-marked"><span class="step-marker">3</span><div class="step-marked-body"><p class="step-marked-text">Registrar las <strong>observaciones</strong> que justifican la decisión y hacer clic en <strong>Grabar</strong>.</p></div></div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-header"><span class="subsection-tag">Aprobar</span><span class="subsection-title">La solicitud vuelve al creador para anexar el documento</span></div>
+        <div class="subsection-body">
+          <p class="usage-line">Al aprobar, la solicitud queda visible con toda su información (tipo, clase, subproceso, justificación, usuario, fecha). Para anexar el documento:</p>
+          <div class="steps-marked">
+            <div class="step-marked"><span class="step-marker">1</span><div class="step-marked-body"><p class="step-marked-text">Clic en el nombre de la solicitud, en la columna <strong>Documento asociado</strong>.</p></div></div>
+            <div class="step-marked"><span class="step-marker">2</span><div class="step-marked-body"><p class="step-marked-text">Dentro de la solicitud, clic en <strong>Editar</strong> y completar Origen, Emisor, Clase, Código, Fecha, Título, Subproceso y Responsable.</p></div></div>
+            <div class="step-marked"><span class="step-marker">3</span><div class="step-marked-body"><p class="step-marked-text">En la sección <strong>Archivos</strong>, adjuntar el documento y hacer clic en <strong>Grabar</strong>.</p></div></div>
+          </div>
+          <div class="callout note"><div><div class="callout-label">Nota</div><p>Se recomienda acordar previamente con el coordinador quién será el responsable del documento.</p></div></div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-header"><span class="subsection-tag">Rechazar</span><span class="subsection-title">Cierra el trámite definitivamente</span></div>
+        <div class="subsection-body">
+          <p class="usage-line" style="margin-bottom:0">La solicitud se mueve a <strong>Solicitudes históricas</strong> con estado <strong>Rechazado</strong> y no puede reactivarse ni editarse. Si se necesita continuar el trámite, hay que crear una solicitud nueva desde cero.</p>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-header"><span class="subsection-tag">Retornar</span><span class="subsection-title">Vuelve al creador para correcciones</span></div>
+        <div class="subsection-body">
+          <p class="usage-line">La solicitud vuelve al creador, que debe ir a <strong>Documentos → Mis Solicitudes → Solicitudes en trámite</strong>, donde la encontrará en estado <strong>Borrador</strong>. Tras corregirla, debe volver a enrutarla al aprobador.</p>
+          <div class="callout note"><div><div class="callout-label">Nota</div><p>Mientras la solicitud esté en Borrador, el aprobador que la retornó no podrá verla de nuevo hasta que el creador la reenvíe para aprobación.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 8 — ELIMINAR SOLICITUD ============ -->
+    <section class="section" id="eliminar-solicitud">
+      <div class="section-head"><span class="section-num">08</span><h2>Eliminar una solicitud en trámite</h2></div>
+      <p class="section-desc">Solo es posible si la solicitud todavía no ha sido enviada a aprobación.</p>
+
+      <div class="route"><span class="route-label">Ruta</span><span class="route-path">Documentos <span class="seg-arrow">→</span> Mis Solicitudes <span class="seg-arrow">→</span> Solicitudes en trámite</span></div>
+
+      <div class="steps-marked">
+        <div class="step-marked"><span class="step-marker">1</span><div class="step-marked-body"><p class="step-marked-text">Ir a <strong>Documentos → Mis Solicitudes → Solicitudes en trámite</strong>.</p></div></div>
+        <div class="step-marked"><span class="step-marker">2</span><div class="step-marked-body"><p class="step-marked-text">Verificar que la solicitud esté en estado <strong>Borrador</strong>.</p></div></div>
+        <div class="step-marked"><span class="step-marker">3</span><div class="step-marked-body"><p class="step-marked-text">Hacer clic en el ícono del bote de basura, al costado derecho de la solicitud.</p></div></div>
+      </div>
+
+      <div class="callout warn"><div><div class="callout-label">Aviso</div><p>Si la solicitud ya fue enrutada para revisión o aprobación, ya no se puede borrar. Si necesita eliminarla de todas formas, pídale al aprobador que la <strong>rechace</strong>.</p></div></div>
+    </section>
+
+    <!-- ============ SECTION 9 — ANULAR DOCUMENTO ============ -->
+    <section class="section" id="anular">
+      <div class="section-head"><span class="section-num">09</span><h2>Anular un documento vigente</h2></div>
+      <p class="section-desc">Para cuando un documento ya fue publicado pero debe dejar de aparecer como vigente. El sistema no elimina documentos, solo los anula.</p>
+
+      <div class="route"><span class="route-label">Ruta</span><span class="route-path">Admin <span class="seg-arrow">→</span> Calidad <span class="seg-arrow">→</span> Documentos</span></div>
+
+      <div class="steps-marked">
+        <div class="step-marked"><span class="step-marker">1</span><div class="step-marked-body"><p class="step-marked-text">Verificar que tiene permisos para administrar documentos.</p></div></div>
+        <div class="step-marked"><span class="step-marker">2</span><div class="step-marked-body"><p class="step-marked-text">Ir a <strong>Admin → Calidad → Documentos</strong> y buscar el documento a anular.</p></div></div>
+        <div class="step-marked"><span class="step-marker">3</span><div class="step-marked-body"><p class="step-marked-text">Hacer clic en el botón <strong>Anular</strong>, completar la información solicitada y hacer clic en <strong>Grabar</strong>.</p></div></div>
+        <div class="step-marked"><span class="step-marker">4</span><div class="step-marked-body"><div class="step-marked-label">Confirmar</div><p class="step-marked-text">Regresar a <strong>Admin → Calidad → Documentos</strong>, abrir la pestaña <strong>Anulados</strong> y verificar que el documento aparezca allí.</p></div></div>
+      </div>
+
+      <div class="callout warn"><div><div class="callout-label">Sin confirmar</div><p>Al descargar un documento vigente sale la marca de agua "Copia no controlada". No quedó confirmado en capacitación si los documentos en estado Obsoleto/Anulado descargan con una marca distinta (p. ej. "Derogado") para poder demostrarle a un ente de control que ya no es el vigente.</p></div></div>
+    </section>
+
+    <!-- ============ SECTION 10 — ACTUALIZAR VERSIÓN ============ -->
+    <section class="section" id="actualizar-version">
+      <div class="section-head"><span class="section-num">10</span><h2>Actualizar la versión de un documento</h2></div>
+      <p class="section-desc">Para reemplazar el archivo de un documento vigente por una nueva versión, conservando el mismo registro en la plataforma.</p>
+
+      <div class="route"><span class="route-label">Ruta</span><span class="route-path">Admin <span class="seg-arrow">→</span> Calidad <span class="seg-arrow">→</span> Documentos</span></div>
+
+      <div class="steps-marked">
+        <div class="step-marked"><span class="step-marker">1</span><div class="step-marked-body"><p class="step-marked-text">Ir a <strong>Admin → Calidad → Documentos</strong> y seleccionar el documento a actualizar.</p></div></div>
+        <div class="step-marked"><span class="step-marker">2</span><div class="step-marked-body"><p class="step-marked-text">Hacer clic en el botón <strong>Corrección</strong>, en la parte superior.</p></div></div>
+        <div class="step-marked"><span class="step-marker">3</span><div class="step-marked-body"><p class="step-marked-text">En la sección <strong>Archivos</strong>, ubicar el archivo adjunto actual.</p></div></div>
+        <div class="step-marked"><span class="step-marker">4</span><div class="step-marked-body"><p class="step-marked-text">Hacer clic en los tres puntos (⋮) junto al nombre del archivo y seleccionar <strong>Actualizar versión</strong>.</p></div></div>
+        <div class="step-marked"><span class="step-marker">5</span><div class="step-marked-body"><p class="step-marked-text">Adjuntar el nuevo archivo y hacer clic en <strong>Grabar</strong>.</p></div></div>
+      </div>
+
+      <div class="callout good"><div><div class="callout-label">Confirmado</div><p>La plataforma debería actualizar automáticamente el número de versión al guardar los cambios. Puede verificarse después en los detalles del documento.</p></div></div>
+    </section>
+
+    <!-- ============ SECTION 11 — JERARQUÍA ============ -->
+    <section class="section" id="jerarquia">
+      <div class="section-head"><span class="section-num">11</span><h2>Modificación de la jerarquía de un proceso</h2></div>
+      <p class="section-desc">Para trasladar un subproceso a un nuevo "proceso padre". Hay dos formas equivalentes de hacerlo.</p>
+
+      <div class="route"><span class="route-label">Ruta</span><span class="route-path">Admin <span class="seg-arrow">→</span> Procesos</span></div>
+
+      <div class="subsection">
+        <div class="subsection-header"><span class="subsection-tag">Opción A</span><span class="subsection-title">Desde la sección Procesos</span></div>
+        <div class="subsection-body">
+          <div class="steps-marked">
+            <div class="step-marked"><span class="step-marker">1</span><div class="step-marked-body"><p class="step-marked-text">Vaya a la sección <strong>Procesos</strong> en el menú administrativo.</p></div></div>
+            <div class="step-marked"><span class="step-marker">2</span><div class="step-marked-body"><p class="step-marked-text">Busque y seleccione el subproceso que desea mover.</p></div></div>
+            <div class="step-marked"><span class="step-marker">3</span><div class="step-marked-body"><p class="step-marked-text">En el campo <strong>Padre</strong>, elimine el proceso actual y busque el nuevo proceso del cual dependerá.</p></div></div>
+            <div class="step-marked"><span class="step-marker">4</span><div class="step-marked-body"><p class="step-marked-text">Haga clic en <strong>Grabar</strong>.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-header"><span class="subsection-tag">Opción B</span><span class="subsection-title">Desde el mapa de procesos</span></div>
+        <div class="subsection-body">
+          <div class="steps-marked">
+            <div class="step-marked"><span class="step-marker">1</span><div class="step-marked-body"><p class="step-marked-text">Ir al mapa de procesos y ubicar el subproceso.</p></div></div>
+            <div class="step-marked"><span class="step-marker">2</span><div class="step-marked-body"><p class="step-marked-text">Hacer clic en <strong>Editar</strong> sobre el subproceso — esto habilita la pestaña <strong>Administración</strong> en la parte superior.</p></div></div>
+            <div class="step-marked"><span class="step-marker">3</span><div class="step-marked-body"><p class="step-marked-text">Desde ahí, cambiar el campo <strong>Padre</strong> de la misma forma que en la Opción A.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout good"><div><div class="callout-label">Confirmado</div><p>El cambio se refleja automáticamente en el mapa de procesos. No requiere actualización manual de la imagen.</p></div></div>
+
+      <div class="callout note"><div><div class="callout-label">Nota</div><p>Si un proceso quedó obsoleto o cambió de nombre, lo correcto es cambiarle el estado a <strong>Anulado</strong> — no eliminarlo — siempre que no tenga documentos ni indicadores asociados todavía. Valide eso antes de anular o unificar procesos.</p></div></div>
+
+      <div class="callout warn"><div><div class="callout-label">Sin confirmar</div><p>Se detectaron procesos donde el mapa apunta al ID de un proceso "padre" en vez del subproceso correspondiente, generando enlaces al lugar equivocado. Soporte Almera indicó que hay que validarlo caso por caso — si vuelve a surgir, contactar a soporte con el ID del proceso en cuestión.</p></div></div>
+    </section>
+
+    <!-- ============ SECTION 12 — MAPA ============ -->
+    <section class="section" id="mapa">
+      <div class="section-head"><span class="section-num">12</span><h2>Actualización y vinculación del mapa de procesos</h2></div>
+      <p class="section-desc">Para cambiar la imagen del mapa y hacer que sus botones funcionen.</p>
+
+      <div class="steps-marked">
+        <div class="step-marked"><span class="step-marker">1</span><div class="step-marked-body"><div class="step-marked-label">Imagen</div><p class="step-marked-text">En la visual del mapa, seleccione <strong>Administrar archivos</strong>, elimine la imagen anterior y suba la nueva.</p></div></div>
+        <div class="step-marked"><span class="step-marker">2</span><div class="step-marked-body"><div class="step-marked-label">Vinculación</div><p class="step-marked-text">Haga clic en <strong>Administrar áreas</strong>.</p></div></div>
+        <div class="step-marked"><span class="step-marker">3</span><div class="step-marked-body"><div class="step-marked-label">URL de seguimiento</div><p class="step-marked-text">En otra pestaña, abra el proceso específico en el sistema, vaya a la pestaña <strong>Seguimiento</strong> y copie la URL de esa página.</p></div></div>
+        <div class="step-marked"><span class="step-marker">4</span><div class="step-marked-body"><div class="step-marked-label">Enlace</div><p class="step-marked-text">En la ventana de "Administrar áreas", seleccione el área en el mapa y pegue la URL en el campo <strong>Dirección</strong>.</p></div></div>
+        <div class="step-marked"><span class="step-marker">5</span><div class="step-marked-body"><p class="step-marked-text">Haga clic en <strong>Grabar</strong>.</p></div></div>
+      </div>
+
+      <div class="callout warn"><div><div class="callout-label">Aviso</div><p>Cada área del mapa debe enlazarse manualmente a la URL de seguimiento de su proceso correspondiente. Si sube una imagen nueva, las áreas anteriores no se conservan automáticamente.</p></div></div>
+
+      <div class="callout note"><div><div class="callout-label">Nota</div><p>El listado de "Administrar áreas" solo carga <strong>procesos</strong>, no subprocesos. Si un área del mapa corresponde en realidad a un subproceso, lo correcto es que tanto el proceso como el subproceso existan como entidades separadas en la sección Procesos — no vincular el subproceso directamente ahí.</p></div></div>
+    </section>
+
+    <!-- ============ SECTION 13 — MODELOS DE GESTIÓN ============ -->
+    <section class="section" id="modelos">
+      <div class="section-head"><span class="section-num">13</span><h2>Modelos de gestión</h2></div>
+      <p class="section-desc">Para cargar un estándar o norma de gestión (ISO 9001, ISO 45001, etc.) y poder luego seleccionar, desde la caracterización de cada proceso, qué ítems de esa norma le aplican.</p>
+
+      <div class="route"><span class="route-label">Ruta</span><span class="route-path">Admin <span class="seg-arrow">→</span> Calidad <span class="seg-arrow">→</span> Modelos de gestión</span></div>
+
+      <div class="steps-marked">
+        <div class="step-marked"><span class="step-marker">1</span><div class="step-marked-body"><p class="step-marked-text">Vaya a <strong>Admin → Calidad → Modelos de gestión</strong>.</p></div></div>
+        <div class="step-marked"><span class="step-marker">2</span><div class="step-marked-body"><p class="step-marked-text">Adjunte el archivo del modelo o norma que desea cargar.</p></div></div>
+        <div class="step-marked"><span class="step-marker">3</span><div class="step-marked-body"><p class="step-marked-text">Haga clic en <strong>Guardar</strong>. Ya podrá seleccionar sus ítems desde la caracterización de cualquier proceso.</p></div></div>
+      </div>
+
+      <div class="callout logic"><div><div class="callout-label">Sugerencia</div><p><strong>Antes de subir un modelo nuevo</strong>, pregunte a soporte de Almera si ya lo tienen disponible como plantilla — cargarlo desde cero (ítem por ítem) es mucho más operativo que si Almera ya lo tiene pre-armado.</p></div></div>
+    </section>
+
+    <!-- ============ SECTION 14 — RECURSOS ============ -->
+    <section class="section" id="recursos">
+      <div class="section-head"><span class="section-num">14</span><h2>Recursos</h2></div>
+      <p class="section-desc">Para cuando, al caracterizar un proceso, no aparece habilitado el campo para indicar qué tipo de recursos necesita.</p>
+
+      <div class="route"><span class="route-label">Ruta</span><span class="route-path">Admin <span class="seg-arrow">→</span> Calidad <span class="seg-arrow">→</span> Recursos</span></div>
+
+      <div class="steps-marked">
+        <div class="step-marked"><span class="step-marker">1</span><div class="step-marked-body"><div class="step-marked-label">Clasificación</div><p class="step-marked-text">Cree primero la <strong>clasificación</strong> del recurso (categoría general), por ejemplo: Talento Humano, Infraestructura, Tecnológicos.</p></div></div>
+        <div class="step-marked"><span class="step-marker">2</span><div class="step-marked-body"><div class="step-marked-label">Recurso</div><p class="step-marked-text">Cree el <strong>recurso</strong> específico y asócielo a una clasificación, por ejemplo: "Equipos de cómputo" dentro de Infraestructura/Tecnológicos.</p></div></div>
+        <div class="step-marked"><span class="step-marker">3</span><div class="step-marked-body"><p class="step-marked-text">El recurso ya queda disponible para <strong>seleccionarse</strong> desde la caracterización de cualquier proceso.</p></div></div>
+      </div>
+
+      <div class="callout note"><div><div class="callout-label">Nota</div><p>Tener solo la <strong>clasificación</strong> creada no es suficiente. Si el campo sigue sin habilitarse, revise que también exista el <strong>recurso</strong> específico, no solo su categoría.</p></div></div>
+    </section>
+
+    <!-- ============ SECTION 15 — TÉRMINOS ============ -->
+    <section class="section" id="terminos">
+      <div class="section-head"><span class="section-num">15</span><h2>Gestión de términos y definiciones</h2></div>
+      <p class="section-desc">Para alimentar el listado maestro de términos.</p>
+
+      <div class="route"><span class="route-label">Ruta</span><span class="route-path">Admin <span class="seg-arrow">→</span> Calidad <span class="seg-arrow">→</span> Términos y definiciones</span></div>
+
+      <div class="steps-marked">
+        <div class="step-marked"><span class="step-marker">1</span><div class="step-marked-body"><p class="step-marked-text">Vaya a <strong>Admin → Calidad → Términos y definiciones</strong>.</p></div></div>
+        <div class="step-marked"><span class="step-marker">2</span><div class="step-marked-body"><p class="step-marked-text">Registre el nombre del término y su definición.</p></div></div>
+        <div class="step-marked"><span class="step-marker">3</span><div class="step-marked-body"><p class="step-marked-text">Opcionalmente, indique la fuente de donde proviene la definición.</p></div></div>
+        <div class="step-marked"><span class="step-marker">4</span><div class="step-marked-body"><p class="step-marked-text">Haga clic en <strong>Grabar</strong>.</p></div></div>
+      </div>
+
+      <div class="callout good"><div><div class="callout-label">Confirmado</div><p>Una vez construido el listado, al redactar un documento no hay que volver a escribir la definición: se elige el término ya existente en el glosario y se vincula al documento.</p></div></div>
+    </section>
+
+  </main>
+
+  <!-- ============ TOC ============ -->
+  <aside id="toc">
+    <div class="toc-label">En esta página</div>
+    <div class="toc-list" id="tocList"></div>
+  </aside>
+</div>
+
+<footer>
+  <div class="footer-row">
+    <span>Gestión documental — Módulo Documentos</span>
+    <span class="mono">Almera SGI</span>
+  </div>
+</footer>
+
+<!-- ============ PALETTE ============ -->
+<div class="palette-overlay" id="paletteOverlay">
+  <div class="palette" onclick="event.stopPropagation()">
+    <input class="palette-input" id="paletteInput" placeholder="Buscar en Gestión documental…" autocomplete="off">
+    <div class="palette-results" id="paletteResults"></div>
+    <div class="palette-footer"><span>↑↓ navegar</span><span>↵ abrir</span><span>esc cerrar</span></div>
+  </div>
+</div>
+
+<script>
+  const INDEX = [
+    { title: "Estados de un documento", sub: "Conceptos", href: "#estados" },
+    { title: "Adjunto vs. Plantilla", sub: "Conceptos", href: "#tipo-documento" },
+    { title: "Elaborar documento", sub: "Gestión documental", href: "#elaboracion" },
+    { title: "Crear emisor", sub: "Gestión documental", href: "#emisor" },
+    { title: "Crear clase", sub: "Gestión documental", href: "#clase" },
+    { title: "Buscar y exportar", sub: "Gestión documental", href: "#buscar" },
+    { title: "Aprobar, rechazar o retornar", sub: "Flujo de solicitudes", href: "#aprobacion" },
+    { title: "Eliminar una solicitud", sub: "Flujo de solicitudes", href: "#eliminar-solicitud" },
+    { title: "Anular un documento", sub: "Flujo de solicitudes", href: "#anular" },
+    { title: "Actualizar versión", sub: "Flujo de solicitudes", href: "#actualizar-version" },
+    { title: "Jerarquía de proceso", sub: "Mapa de procesos", href: "#jerarquia" },
+    { title: "Actualizar mapa", sub: "Mapa de procesos", href: "#mapa" },
+    { title: "Modelos de gestión", sub: "Configuración adicional", href: "#modelos" },
+    { title: "Recursos", sub: "Configuración adicional", href: "#recursos" },
+    { title: "Términos y definiciones", sub: "Referencia", href: "#terminos" },
+  ];
+
+  const overlay = document.getElementById('paletteOverlay');
+  const input = document.getElementById('paletteInput');
+  const results = document.getElementById('paletteResults');
+
+  function renderResults(items){
+    results.innerHTML = '';
+    if(items.length === 0){
+      results.innerHTML = '<div class="palette-empty">Sin resultados.</div>';
+      return;
+    }
+    items.forEach(r => {
+      const a = document.createElement('a');
+      a.className = 'palette-item';
+      a.href = r.href;
+      a.onclick = closePalette;
+      a.innerHTML = `<span><span class="palette-item-title">${r.title}</span><span class="palette-item-sub">${r.sub}</span></span><span class="palette-item-kind">Sección</span>`;
+      results.appendChild(a);
+    });
+  }
+
+  function openPalette(){
+    overlay.classList.add('open');
+    input.value = '';
+    renderResults(INDEX);
+    setTimeout(() => input.focus(), 10);
+  }
+  function closePalette(){ overlay.classList.remove('open'); }
+
+  overlay.addEventListener('click', closePalette);
+  input.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    renderResults(q ? INDEX.filter(r => (r.title + ' ' + r.sub).toLowerCase().includes(q)) : INDEX);
+  });
+  window.addEventListener('keydown', (e) => {
+    if((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k'){ e.preventDefault(); openPalette(); }
+    if(e.key === 'Escape') closePalette();
+  });
+
+  // TOC autogenerado + scrollspy
+  const tocList = document.getElementById('tocList');
+  const sections = Array.from(document.querySelectorAll('main .section'));
+  sections.forEach(sec => {
+    const h2 = sec.querySelector('h2');
+    const a = document.createElement('a');
+    a.href = '#' + sec.id;
+    a.textContent = h2.textContent;
+    a.dataset.target = sec.id;
+    tocList.appendChild(a);
+  });
+
+  const tocLinks = Array.from(tocList.querySelectorAll('a'));
+  const navLinks = Array.from(document.querySelectorAll('.nav-link'));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const id = entry.target.id;
+        tocLinks.forEach(a => a.classList.toggle('active', a.dataset.target === id));
+        navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+      }
+    });
+  }, { rootMargin: '-15% 0px -70% 0px' });
+  sections.forEach(sec => observer.observe(sec));
+</script>
+
+</body>
+</html>
