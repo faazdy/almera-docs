@@ -1,396 +1,425 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestión de Planes de Mejora — Almera</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/main.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestión de Planes de Mejora — Almera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf9f7;
+    --ink:#171614;
+    --ink-soft:#5f5b52;
+    --ink-soft-2:#6b665c;
+    --ink-soft-3:#3d3a34;
+    --muted:#8a8579;
+    --muted-soft:#a5a096;
+    --muted-soft-2:#c3bdb1;
+    --muted-soft-3:#b3ada1;
+    --line:rgba(23,22,20,.1);
+    --line-soft:rgba(23,22,20,.09);
+    --line-strong:rgba(23,22,20,.14);
+    --accent:#eb5a25;
+    --dark:#17161a;
+  }
+  html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth;text-rendering:optimizeLegibility}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans","Helvetica Neue",Helvetica,sans-serif}
+  a{color:inherit;text-decoration:none}
+  a:hover{color:var(--ink)}
+  ::selection{background:var(--ink);color:var(--bg)}
+
+  .page{background:var(--bg);padding:0 32px 160px}
+  .wrap{max-width:1080px;margin:0 auto}
+
+  /* header */
+  .m-header{display:flex;justify-content:space-between;align-items:baseline;padding:36px 0 0;gap:16px;flex-wrap:wrap}
+  .m-header .eyebrow{display:flex;align-items:center;gap:9px;font:500 10.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .m-header .eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0}
+  .m-header a.back{font:400 13px/1 "DM Sans",sans-serif;color:var(--muted);border-bottom:1px solid rgba(0,0,0,.12);padding-bottom:2px;transition:color .2s ease,border-color .2s ease}
+  .m-header a.back:hover{color:var(--ink);border-color:rgba(0,0,0,.3)}
+
+  /* hero */
+  .m-hero{padding:110px 0 88px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:64px;align-items:end}
+  .m-hero-kicker{font:500 10.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:26px}
+  .m-hero h1{margin:0;font:300 60px/1.06 "DM Sans",sans-serif;letter-spacing:-.035em;text-wrap:balance;color:var(--ink)}
+  .m-hero-side{display:flex;flex-direction:column;gap:30px;padding-bottom:6px}
+  .m-hero-side p{margin:0;font:400 16.5px/1.6 "DM Sans",sans-serif;color:var(--ink-soft);max-width:40ch;text-wrap:pretty}
+  .m-hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+  .dl-pill{display:flex;align-items:center;gap:9px;padding:12px 20px;border-radius:999px;font:400 14px/1 "DM Sans",sans-serif;transition:opacity .25s ease,border-color .25s ease,color .25s ease}
+  .dl-pill .mono{font:500 11px/1 "JetBrains Mono",monospace}
+  .dl-pill.skill{background:var(--dark);color:var(--bg)}
+  .dl-pill.skill:hover{opacity:.78;color:var(--bg)}
+  .dl-pill.skill .mono{opacity:.6}
+  .dl-pill.skill.is-disabled{opacity:.4;pointer-events:none;background:transparent;border:1px dashed rgba(23,22,20,.28);color:var(--muted)}
+  .dl-pill.skill.is-disabled .mono{opacity:1}
+  .dl-pill.md{border:1px solid var(--line-strong);color:var(--ink-soft)}
+  .dl-pill.md:hover{border-color:rgba(23,22,20,.4);color:var(--ink)}
+
+  /* faq */
+  .faq-section{border-top:1px solid var(--line);padding-top:34px}
+  .faq-kicker{font:500 10.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:22px}
+  .faq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:0 44px}
+  .faq-grid a{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:16px 2px;border-bottom:1px solid var(--line-soft);font:400 15px/1.4 "DM Sans",sans-serif;color:var(--ink-soft-3)}
+  .faq-grid a:hover{color:var(--ink)}
+  .faq-num{font:500 10.5px/1 "JetBrains Mono",monospace;color:var(--muted-soft-2)}
+
+  /* body layout */
+  .m-body{display:grid;grid-template-columns:220px minmax(0,1fr);gap:80px;margin-top:110px;align-items:start}
+  .m-toc{position:sticky;top:32px;display:flex;flex-direction:column;gap:26px}
+  .m-toc-group{display:flex;flex-direction:column;gap:9px}
+  .m-toc-label{font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-soft-3)}
+  .m-toc a{display:flex;gap:9px;font:400 13px/1.45 "DM Sans",sans-serif;color:var(--ink-soft-2)}
+  .m-toc a:hover{color:var(--ink)}
+  .m-toc a .num{font:500 10.5px/1.75 "JetBrains Mono",monospace;color:var(--muted-soft-2);flex-shrink:0}
+  .m-toc-sub{display:flex;flex-direction:column;padding-left:19px;margin-top:2px}
+  .m-toc-sub a{font-size:12.5px;color:var(--muted-soft);padding:2px 0}
+  .m-toc-sub a:hover{color:var(--ink)}
+
+  .m-main{display:flex;flex-direction:column;max-width:760px}
+
+  /* sections */
+  .m-section{scroll-margin-top:32px;padding:56px 0 76px;border-top:1px solid var(--line)}
+  .m-section.first{padding-top:0;border-top:none}
+  .m-section-head{display:flex;align-items:baseline;gap:14px;margin-bottom:16px}
+  .m-section-num{font:500 11px/1 "JetBrains Mono",monospace;color:var(--accent);flex-shrink:0}
+  .m-section h2{margin:0;font:400 30px/1.15 "DM Sans",sans-serif;letter-spacing:-.025em;text-wrap:balance;color:var(--ink)}
+  .m-section-intro{margin:0 0 34px;font:400 16px/1.65 "DM Sans",sans-serif;color:var(--ink-soft);max-width:62ch;text-wrap:pretty}
+
+  /* ruta */
+  .ruta{display:flex;align-items:center;gap:12px;padding:13px 16px;background:rgba(23,22,20,.04);border-radius:2px;flex-wrap:wrap;margin-bottom:22px}
+  .ruta-label{font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-soft)}
+  .ruta-path{font:400 13px/1.4 "JetBrains Mono",monospace;color:var(--ink-soft-3)}
+
+  /* group label (subsections) */
+  .step-group{display:flex;flex-direction:column;gap:22px;margin-bottom:34px}
+  .group-label{font:400 15px/1 "DM Sans",sans-serif;color:var(--ink);display:flex;align-items:center;gap:10px}
+  .group-label .dash{width:16px;height:1px;background:var(--accent);flex-shrink:0}
+
+  /* steps list */
+  .steps-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:1px;background:var(--line-soft)}
+  .steps-list li{background:var(--bg);display:grid;grid-template-columns:34px minmax(0,1fr);gap:16px;padding:18px 2px;align-items:baseline}
+  .steps-list .n{font:500 11px/1.5 "JetBrains Mono",monospace;color:var(--muted-soft-2)}
+  .step-content{display:flex;flex-direction:column;gap:6px}
+  .step-label{font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .step-text{font:400 15px/1.6 "DM Sans",sans-serif;color:var(--ink-soft-3);text-wrap:pretty}
+
+  /* field chips */
+  .field-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .field-chip{display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;border:1px solid var(--line-strong);font:400 12px/1 "DM Sans",sans-serif;color:var(--ink-soft-2)}
+  .field-chip.required{border-color:rgba(235,90,37,.3);color:var(--ink-soft-3)}
+  .field-chip.required::after{content:"*";color:var(--accent);margin-left:3px}
+
+  /* inline see-also links inside a step */
+  .step-links{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+  .step-links a{font:400 13px/1.4 "DM Sans",sans-serif;color:var(--ink-soft);border-bottom:1px solid var(--line-strong);width:fit-content;padding-bottom:1px}
+  .step-links a:hover{color:var(--accent);border-color:var(--accent)}
+
+  /* substeps */
+  .substeps{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+  .substep{display:flex;gap:10px;align-items:baseline}
+  .substep-bullet{width:4px;height:4px;border-radius:50%;background:var(--muted-soft-2);flex-shrink:0;position:relative;top:-2px}
+  .substep-text{font:400 14.5px/1.6 "DM Sans",sans-serif;color:var(--ink-soft-3)}
+
+  /* screenshots */
+  .shot{margin-top:14px;border:1px solid var(--line-strong);border-radius:2px;overflow:hidden;background:#fff;max-width:520px}
+  .shot img{display:block;width:100%;height:auto}
+  .shot-caption{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;font:400 11px/1.4 "JetBrains Mono",monospace;letter-spacing:.04em;color:var(--muted-soft);border-top:1px solid var(--line)}
+
+  /* note box */
+  .note-box{padding:20px 22px;background:rgba(23,22,20,.035);border-radius:2px;margin-top:14px}
+  .notes-block{margin-top:26px}
+  .notes-block .note-box{margin-top:0}
+  .notes-block .note-box + .note-box{margin-top:14px}
+  .note-label{font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+  .note-text{margin:0;font:400 14px/1.62 "DM Sans",sans-serif;color:var(--ink-soft-3);text-wrap:pretty}
+
+  /* anexo banner */
+  .anexo-banner{margin-top:56px;padding:28px 30px;border:1px solid var(--line-strong);border-radius:2px;background:rgba(235,90,37,.035);display:flex;flex-direction:column;gap:8px}
+  .anexo-kicker{font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  .anexo-title{font:400 20px/1.25 "DM Sans",sans-serif;letter-spacing:-.02em;color:var(--ink)}
+  .anexo-text{margin:0;font:400 14px/1.62 "DM Sans",sans-serif;color:var(--ink-soft-2);max-width:64ch}
+
+  /* subsection (A.1 / A.2 / A.3) */
+  .subsection{padding:56px 0 0}
+  .subsection-tag{font:500 11px/1 "JetBrains Mono",monospace;color:var(--accent)}
+  .subsection-title{margin:0;font:400 26px/1.2 "DM Sans",sans-serif;letter-spacing:-.02em;color:var(--ink)}
+  .subsection-usage{margin:14px 0 26px;font:400 15px/1.6 "DM Sans",sans-serif;color:var(--ink-soft);max-width:62ch}
+
+  /* option cards (A.2 sub-options) */
+  .option-list{display:flex;flex-direction:column;gap:1px;background:var(--line);margin-top:26px;border-radius:2px;overflow:hidden}
+  .option-card{background:var(--bg);padding:28px 26px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:32px}
+  .option-tab{display:inline-flex;font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(235,90,37,.32);border-radius:999px;padding:5px 12px;width:fit-content}
+  .option-title{font:400 18px/1.3 "DM Sans",sans-serif;color:var(--ink);letter-spacing:-.01em}
+  .option-text{margin:0;font:400 14.5px/1.65 "DM Sans",sans-serif;color:var(--ink-soft-3)}
+  .option-text code{font:500 12.5px/1 "JetBrains Mono",monospace;background:rgba(23,22,20,.06);padding:2px 5px;border-radius:2px}
+  .shot-row{display:flex;gap:16px;flex-wrap:wrap;margin-top:6px}
+
+  /* kv rows (A.3) */
+  .kv-rows{display:flex;flex-direction:column;gap:1px;background:var(--line-soft)}
+  .kv-row{background:var(--bg);display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;padding:16px 2px;align-items:baseline}
+  .kv-key{font:500 10.5px/1 "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .kv-val{font:400 14.5px/1.6 "DM Sans",sans-serif;color:var(--ink-soft-3)}
+
+  /* capacitación CTA */
+  .cta-section{border-top:1px solid var(--line);padding-top:56px;margin-top:56px}
+  .cta-card{background:var(--dark);border-radius:20px;padding:56px 52px;display:flex;flex-direction:column;gap:26px}
+  .cta-kicker{font:500 10.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:rgba(250,249,247,.42)}
+  .cta-card h2{margin:0;font:300 34px/1.15 "DM Sans",sans-serif;letter-spacing:-.03em;color:var(--bg);max-width:24ch}
+  .cta-card p{margin:0;font:400 15px/1.65 "DM Sans",sans-serif;color:rgba(250,249,247,.6);max-width:44ch;text-wrap:pretty}
+  .cta-btn{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:999px;background:var(--accent);color:#fff;font:400 14.5px/1 "DM Sans",sans-serif;transition:opacity .25s ease;width:fit-content}
+  .cta-btn:hover{opacity:.86;color:#fff}
+
+  /* footer */
+  .m-footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font:400 12px/1 "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-soft)}
+
+  @media (max-width:980px){
+    .m-body{grid-template-columns:1fr;margin-top:72px}
+    .m-toc{display:none}
+  }
+  @media (max-width:760px){
+    .page{padding:0 20px 96px}
+    .m-hero{grid-template-columns:1fr;gap:36px;padding:72px 0 56px}
+    .m-hero h1{font-size:38px}
+    .faq-grid{grid-template-columns:1fr}
+    .cta-card{padding:36px 26px;border-radius:14px}
+    .cta-card h2{font-size:28px}
+    .m-footer{flex-direction:column;align-items:flex-start;gap:8px}
+  }
+</style>
 </head>
 <body>
 
-<div class="shell">
+<div class="page">
+  <div class="wrap">
 
-  <!-- ============ SIDEBAR ============ -->
-  <aside class="sidebar">
-    <div class="brand">
-      <div class="brand-mark">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <span class="brand-name"><a href="../../index.html">Almera</a></span>
-    </div>
-    <div class="brand-sub">Guía de operación</div>
+    <!-- ============ HEADER ============ -->
+    <header class="m-header">
+      <div class="eyebrow"><span class="dot"></span>Almera · Guía de operación</div>
+      <a class="back" href="../../index.html#modulos">Todos los módulos</a>
+    </header>
 
-    <nav class="nav-section">
-      <div class="nav-label">Proceso principal</div>
-      <a class="nav-link" href="#informe">
-        <span class="nav-dot"></span> 1. Crear informe
-      </a>
-      <a class="nav-link" href="#hallazgo">
-        <span class="nav-dot"></span> 2. Crear hallazgo
-      </a>
-    </nav>
-
-    <nav class="nav-section">
-      <div class="nav-label">Anexo A — Configuración</div>
-      <a class="nav-link" href="#a1">
-        <span class="nav-dot"></span> A.1 Evaluadores
-      </a>
-      <a class="nav-link" href="#a2">
-        <span class="nav-dot"></span> A.2 Sistema de referencia
-      </a>
-      <div class="nav-sub">
-        <a class="nav-link" href="#a2-transiciones">Transiciones</a>
-        <a class="nav-link" href="#a2-niveles">Niveles de respuesta</a>
-        <a class="nav-link" href="#a2-campos">Campos personalizados</a>
-      </div>
-      <a class="nav-link" href="#a3">
-        <span class="nav-dot"></span> A.3 Puntos de atención
-      </a>
-    </nav>
-  </aside>
-
-  <!-- ============ MAIN ============ -->
-  <main class="main">
-
-    <div class="eyebrow">Almera</div>
-    <h1>Planes de mejora</h1>
-    <p class="lede">
-      Cómo registrar informes de evaluación y sus hallazgos en Almera, y dónde ajustar
-      la configuración cuando un campo, responsable u opción no aparece por defecto.
-    </p>
-
-    <div class="download-actions">
-      <span class="download-pill skill disabled" title="El .skill de este módulo todavía no está disponible">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.4 9.2L22 12L14.4 14.8L12 22L9.6 14.8L2 12L9.6 9.2L12 2Z" fill="currentColor"/></svg>
-        .skill <span class="pill-sub">próximamente</span>
-      </span>
-      <a class="download-pill md" href="./AI/docs-plan-de-mejora.md" download title="Descargar documento de referencia">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 2V8H20" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 13H16M8 17H13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        Descargar .md <span class="pill-sub">para cualquier IA</span>
-      </a>
-    </div>
-
-    <div class="steps">
-      <div class="step">
-        <div class="step-body">
-          <p class="step-text">
-            <a class="see-also" href="#informe">
-              ¿Cómo crear y configurar un informe?
-              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-body">
-          <p class="step-text">
-            <a class="see-also" href="#hallazgo">
-              ¿Cómo crear y configurar un hallazgo?
-              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </p>
-        </div>
-      </div>
-    </div>
-    <br>
-    <h2>Reunion de capacitación</h2>
-    <p class="section-desc">
-      Para ver la operación completa, consulte <a class="see-also" target="_blank" href="https://capitalsaludesp-my.sharepoint.com/personal/profesional_planeacion2_capitalsalud_gov_co/_layouts/15/stream.aspx?id=%2Fpersonal%2Fprofesional%5Fplaneacion2%5Fcapitalsalud%5Fgov%5Fco%2FDocuments%2FGrabaciones%2FPlanes%20de%20Mejora%20%2D%20Almera%2D20260622%5F150200%2DGrabaci%C3%B3n%20de%20la%20reuni%C3%B3n%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2Ebd0a7796%2D5ecd%2D4b91%2Dad4d%2D3b7cb9df6a66">aquí</a> la grabación de la reunión de capacitación.
-    </p>
-    <hr class="divider-hero">
-
-    <!-- ============ SECTION 1 ============ -->
-    <section class="section" id="informe">
-      <div class="section-head">
-        <span class="section-num">01</span>
-        <h2>Crear informe de evaluación</h2>
-      </div>
-      <p class="section-desc">
-        El informe es el contenedor principal. Una vez creado, habilita la opción para
-        cargar los hallazgos asociados.
-      </p>
-
-      <div class="route">
-        <span class="route-label">Ruta</span>
-        <span class="route-path">Admin <span class="seg-arrow">→</span> Evaluaciones <span class="seg-arrow">→</span> Administrar planes</span>
-      </div>
-
-      <div class="steps">
-        <div class="step">
-          <span class="step-marker">1</span>
-          <div class="step-body">
-            <p class="step-text">En la parte superior izquierda de la sección, haga clic en <strong>"Nuevo informe"</strong>.</p>
-          </div>
-        </div>
-        <div class="step">
-          <span class="step-marker">2</span>
-          <div class="step-body">
-            <p class="step-text">Diligencie el formulario. Los campos marcados con asterisco son obligatorios.</p>
-            <div class="field-list">
-              <span class="field-chip required">Nombre</span>
-              <span class="field-chip required">Evaluador</span>
-              <span class="field-chip required">Sistema de referencia</span>
-              <span class="field-chip required">Descripción</span>
-              <span class="field-chip required">Fecha</span>
-            </div>
-            <a class="see-also" href="#a1">
-              ¿No aparece el evaluador que necesita? Ver A.1
-              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-            <br>
-            <a class="see-also" href="#a2">
-              ¿Necesita un sistema de referencia nuevo? Ver A.2
-              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </div>
-        </div>
-        <div class="step">
-          <span class="step-marker">3</span>
-          <div class="step-body">
-            <p class="step-text">Haga clic en el botón <strong>"Grabar"</strong>.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="callout logic">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
-        <div><strong>Lógica de fechas.</strong> Todos los hallazgos dentro del rango cronológico definido en este campo se consolidan automáticamente dentro del informe.</div>
-      </div>
-    </section>
-
-    <!-- ============ SECTION 2 ============ -->
-    <section class="section" id="hallazgo">
-      <div class="section-head">
-        <span class="section-num">02</span>
-        <h2>Crear hallazgo para el informe</h2>
-      </div>
-      <p class="section-desc">
-        Disponible para informes creados y guardados.
-      </p>
-
-      <div class="steps">
-        <div class="step">
-          <span class="step-marker">1</span>
-          <div class="step-body">
-            <p class="step-text">Ingrese al informe creado y haga clic en el botón <strong>"Adicionar"</strong>.</p>
-            <div class="shot-placeholder">
-              <img src="./imgs/image.png" alt="add">
-             
-            </div>
-          </div>
-        </div>
-        <div class="step">
-          <span class="step-marker">2</span>
-          <div class="step-body">
-            <p class="step-text">En el formulario de registro, diligencie los campos requeridos.</p>
-            <div class="field-list">
-              <span class="field-chip">Código</span>
-              <span class="field-chip">Clasificación</span>
-              <span class="field-chip">Nombre</span>
-              <span class="field-chip">Descripción</span>
-            </div>
-          </div>
-        </div>
-        <div class="step">
-          <span class="step-marker">3</span>
-          <div class="step-body">
-            <p class="step-text">Cargue o adicione archivos adjuntos si el proceso lo requiere.</p>
-          </div>
-        </div>
-        <div class="step">
-          <span class="step-marker">4</span>
-          <div class="step-body">
-            <p class="step-text">Utilice el buscador del sistema para encontrar la unidad auditable correspondiente, selecciónela y confirme la asociación.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="callout warn">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-        <div><strong>Vinculación obligatoria.</strong> Todo hallazgo debe estar atado a una Unidad Auditable. No es un campo opcional.</div>
-      </div>
-
-      <div class="field-list" style="margin-top:4px;">
-        <span class="field-chip">Clasificación: 100% parametrizable</span>
-      </div>
-    </section>
-
-    <!-- ============ ANEXO BANNER ============ -->
-    <div class="anexo-banner">
-      <div class="anexo-banner-icon">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M10.5 4.5H6A2 2 0 004 6.5V19A2 2 0 006 21H18A2 2 0 0020 19V13.5M20 4L13 11M20 4H15M20 4V9" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
+    <!-- ============ HERO ============ -->
+    <section class="m-hero">
       <div>
-        <div class="anexo-banner-title">Anexo A — Configuración avanzada</div>
-        <div class="anexo-banner-text">
-          Consulte esta sección únicamente si necesita añadir opciones, responsables o campos
-          personalizados que no aparecen en el proceso principal. Son ajustes de parametrización,
-          no pasos de la operación diaria.
+        <div class="m-hero-kicker">Evaluaciones · Módulo</div>
+        <h1>Planes de mejora</h1>
+      </div>
+      <div class="m-hero-side">
+        <p>Cómo registrar informes de evaluación y sus hallazgos en Almera, y dónde ajustar la configuración cuando un campo, responsable u opción no aparece por defecto.</p>
+        <div class="m-hero-actions">
+          <span class="dl-pill skill is-disabled" title="El .skill de este módulo todavía no está disponible">Descargar habilidad <span class="mono">.skill próximamente</span></span>
+          <a class="dl-pill md" href="./AI/docs-plan-de-mejora.md" download title="Descargar documento de referencia">Descargar <span class="mono">.md</span></a>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- ============ A.1 ============ -->
-    <section class="section" id="a1">
-      <div class="subsection">
-        <div class="subsection-header">
+    <!-- ============ FAQ ============ -->
+    <section class="faq-section">
+      <div class="faq-kicker">Preguntas frecuentes</div>
+      <div class="faq-grid">
+        <a href="#informe"><span>¿Cómo crear y configurar un informe?</span><span class="faq-num">01</span></a>
+        <a href="#hallazgo"><span>¿Cómo crear y configurar un hallazgo?</span><span class="faq-num">02</span></a>
+      </div>
+    </section>
+
+    <!-- ============ BODY ============ -->
+    <div class="m-body">
+
+      <nav class="m-toc">
+        <div class="m-toc-group">
+          <div class="m-toc-label">Proceso principal</div>
+          <a href="#informe"><span class="num">01</span>Crear informe</a>
+          <a href="#hallazgo"><span class="num">02</span>Crear hallazgo</a>
+        </div>
+        <div class="m-toc-group">
+          <div class="m-toc-label">Anexo A · Configuración</div>
+          <a href="#a1"><span class="num">A.1</span>Evaluadores</a>
+          <a href="#a2"><span class="num">A.2</span>Sistema de referencia</a>
+          <div class="m-toc-sub">
+            <a href="#a2-transiciones">Transiciones</a>
+            <a href="#a2-niveles">Niveles de respuesta</a>
+            <a href="#a2-campos">Campos personalizados</a>
+          </div>
+          <a href="#a3"><span class="num">A.3</span>Puntos de atención</a>
+        </div>
+      </nav>
+
+      <main class="m-main">
+
+        <!-- 01 — INFORME -->
+        <section id="informe" class="m-section first">
+          <div class="m-section-head"><span class="m-section-num">01</span><h2>Crear informe de evaluación</h2></div>
+          <p class="m-section-intro">El informe es el contenedor principal. Una vez creado, habilita la opción para cargar los hallazgos asociados.</p>
+
+          <div class="ruta"><span class="ruta-label">Ruta</span><span class="ruta-path">Admin → Evaluaciones → Administrar planes</span></div>
+
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">En la parte superior izquierda de la sección, haga clic en «Nuevo informe».</span></div></li>
+              <li><span class="n">02</span><div class="step-content">
+                <span class="step-text">Diligencie el formulario. Los campos marcados con asterisco son obligatorios.</span>
+                <div class="field-list">
+                  <span class="field-chip required">Nombre</span>
+                  <span class="field-chip required">Evaluador</span>
+                  <span class="field-chip required">Sistema de referencia</span>
+                  <span class="field-chip required">Descripción</span>
+                  <span class="field-chip required">Fecha</span>
+                </div>
+                <div class="step-links">
+                  <a href="#a1">¿No aparece el evaluador que necesita? Ver A.1</a>
+                  <a href="#a2">¿Necesita un sistema de referencia nuevo? Ver A.2</a>
+                </div>
+              </div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text">Haga clic en el botón «Grabar».</span></div></li>
+            </ol>
+          </div>
+
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Automatización</div><p class="note-text">Lógica de fechas: todos los hallazgos dentro del rango cronológico definido en este campo se consolidan automáticamente dentro del informe.</p></div>
+          </div>
+        </section>
+
+        <!-- 02 — HALLAZGO -->
+        <section id="hallazgo" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">02</span><h2>Crear hallazgo para el informe</h2></div>
+          <p class="m-section-intro">Disponible para informes creados y guardados.</p>
+
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content">
+                <span class="step-text">Ingrese al informe creado y haga clic en el botón «Adicionar».</span>
+                <div class="shot"><img src="./imgs/image.png" alt="Botón Adicionar en el informe de evaluación"></div>
+              </div></li>
+              <li><span class="n">02</span><div class="step-content">
+                <span class="step-text">En el formulario de registro, diligencie los campos requeridos.</span>
+                <div class="field-list">
+                  <span class="field-chip">Código</span>
+                  <span class="field-chip">Clasificación</span>
+                  <span class="field-chip">Nombre</span>
+                  <span class="field-chip">Descripción</span>
+                </div>
+              </div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text">Cargue o adicione archivos adjuntos si el proceso lo requiere.</span></div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-text">Utilice el buscador del sistema para encontrar la unidad auditable correspondiente, selecciónela y confirme la asociación.</span></div></li>
+            </ol>
+          </div>
+
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Cuidado</div><p class="note-text">Vinculación obligatoria: todo hallazgo debe estar atado a una Unidad Auditable. No es un campo opcional.</p></div>
+            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">La clasificación del hallazgo es 100% parametrizable.</p></div>
+          </div>
+        </section>
+
+        <!-- ANEXO BANNER -->
+        <div class="anexo-banner">
+          <div class="anexo-kicker">Anexo A</div>
+          <div class="anexo-title">Configuración avanzada</div>
+          <p class="anexo-text">Consulte esta sección únicamente si necesita añadir opciones, responsables o campos personalizados que no aparecen en el proceso principal. Son ajustes de parametrización, no pasos de la operación diaria.</p>
+        </div>
+
+        <!-- A.1 — EVALUADORES -->
+        <section id="a1" class="subsection">
           <span class="subsection-tag">A.1</span>
-          <span class="subsection-title">Adicionar nuevos evaluadores</span>
-        </div>
-        <div class="subsection-body">
-          <p class="usage-line">Use esto si el evaluador que necesita no aparece al crear el informe.</p>
+          <h2 class="subsection-title">Adicionar nuevos evaluadores</h2>
+          <p class="subsection-usage">Use esto si el evaluador que necesita no aparece al crear el informe.</p>
 
-          <div class="route">
-            <span class="route-label">Ruta</span>
-            <span class="route-path">Admin <span class="seg-arrow">→</span> Evaluaciones <span class="seg-arrow">→</span> Parámetros generales evaluación</span>
+          <div class="ruta"><span class="ruta-label">Ruta</span><span class="ruta-path">Admin → Evaluaciones → Parámetros generales evaluación</span></div>
+
+          <div class="step-group" style="margin-bottom:0">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Haga clic en «Crear emisor».</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">Llene los campos requeridos y guarde.</span></div></li>
+            </ol>
           </div>
+        </section>
 
-          <div class="steps">
-            <div class="step">
-              <span class="step-marker">1</span>
-              <div class="step-body"><p class="step-text">Haga clic en <strong>"Crear emisor"</strong>.</p></div>
-            </div>
-            <div class="step">
-              <span class="step-marker">2</span>
-              <div class="step-body"><p class="step-text">Llene los campos requeridos y guarde.</p></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ A.2 ============ -->
-    <section class="section" id="a2">
-      <div class="subsection">
-        <div class="subsection-header">
+        <!-- A.2 — SISTEMA DE REFERENCIA -->
+        <section id="a2" class="subsection">
           <span class="subsection-tag">A.2</span>
-          <span class="subsection-title">Adicionar o ajustar un sistema de referencia</span>
-        </div>
-        <div class="subsection-body">
-          <p class="usage-line">Use esto si requiere estructurar una nueva norma o modificar comportamientos internos.</p>
+          <h2 class="subsection-title">Adicionar o ajustar un sistema de referencia</h2>
+          <p class="subsection-usage">Use esto si requiere estructurar una nueva norma o modificar comportamientos internos.</p>
 
-          <div class="route">
-            <span class="route-label">Ruta</span>
-            <span class="route-path">Admin <span class="seg-arrow">→</span> Evaluaciones <span class="seg-arrow">→</span> Sistema de referencia</span>
+          <div class="ruta"><span class="ruta-label">Ruta</span><span class="ruta-path">Admin → Evaluaciones → Sistema de referencia</span></div>
+
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Haga clic en «Adicionar sistema de referencia».</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">Llene los campos y presione «Grabar».</span></div></li>
+            </ol>
           </div>
 
-          <div class="steps">
-            <div class="step">
-              <span class="step-marker">1</span>
-              <div class="step-body"><p class="step-text">Haga clic en <strong>"Adicionar sistema de referencia"</strong>.</p></div>
-            </div>
-            <div class="step">
-              <span class="step-marker">2</span>
-              <div class="step-body"><p class="step-text">Llene los campos y presione <strong>"Grabar"</strong>.</p></div>
-            </div>
+          <div class="notes-block" style="margin-top:0">
+            <div class="note-box"><div class="note-label">Nota de control</div><p class="note-text">Si un sistema ya contiene hallazgos, el botón «Eliminar» se bloquea automáticamente.</p></div>
           </div>
 
-          <div class="callout note">
-            <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="10" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M7 11V7A5 5 0 0117 7V11" stroke="currentColor" stroke-width="1.6"/></svg>
-            <div><strong>Nota de control.</strong> Si un sistema ya contiene hallazgos, el botón "Eliminar" se bloquea automáticamente.</div>
-          </div>
-
-          <div class="option-grid">
-
+          <div class="option-list">
             <div class="option-card" id="a2-transiciones">
-              <div class="option-head">
-                <span class="option-tab">Transiciones</span>
-                Cambiar a quién pasa el hallazgo
-              </div>
-              <div class="option-body">
-                Estando dentro de un sistema de referencia, vaya a la pestaña <code>Privilegios</code> (parte inferior). En el cuadro
-                "Transiciones", asigne las acciones (enviar, devolver, aprobar...) a un usuario
-                o cargo y presione el ícono verde. Se pueden asignar múltiples responsables.
-                <div class="shot-placeholder">
-                  <img src="./imgs/img2.png" alt="add">
-                  <br>
-                  <h5>Ejemplo:</h5>
-                  <img src="./imgs/img3.png" alt="adds">
-                  <span class="timestamp">35:07</span>
-                </div>
+              <span class="option-tab">Transiciones</span>
+              <div class="option-title">Cambiar a quién pasa el hallazgo</div>
+              <p class="option-text">Estando dentro de un sistema de referencia, vaya a la pestaña <code>Privilegios</code> (parte inferior). En el cuadro «Transiciones», asigne las acciones (enviar, devolver, aprobar…) a un usuario o cargo y presione el ícono verde. Se pueden asignar múltiples responsables.</p>
+              <div class="shot-row">
+                <div class="shot"><img src="./imgs/img2.png" alt="Cuadro de transiciones en privilegios"><div class="shot-caption"><span>Ejemplo</span></div></div>
+                <div class="shot"><img src="./imgs/img3.png" alt="Ejemplo de asignación de transición"><div class="shot-caption"><span>Ejemplo</span><span>35:07</span></div></div>
               </div>
             </div>
-
             <div class="option-card" id="a2-niveles">
-              <div class="option-head">
-                <span class="option-tab">Niveles de respuesta</span>
-                Agregar calificaciones de auditoría
-              </div>
-              <div class="option-body">
-                Vaya a la pestaña <code>Niveles de respuesta</code> → "Nuevo nivel de respuesta".
-                Llene Código, Nombre, Peso y Color. Si activa <strong>"Genera punto de atención"</strong>,
-                el sistema creará un hallazgo automático al marcar esta opción — por ejemplo, "No cumple".
-                <div class="shot-placeholder">
-                  <h5>Ejemplo (auditoría externa):</h5>
-                  <img src="./imgs/img4.png" alt="ss">
-                  <span class="timestamp">25:00</span>
-                </div>
+              <span class="option-tab">Niveles de respuesta</span>
+              <div class="option-title">Agregar calificaciones de auditoría</div>
+              <p class="option-text">Vaya a la pestaña <code>Niveles de respuesta</code> → «Nuevo nivel de respuesta». Llene Código, Nombre, Peso y Color. Si activa «Genera punto de atención», el sistema creará un hallazgo automático al marcar esta opción — por ejemplo, «No cumple».</p>
+              <div class="shot-row">
+                <div class="shot"><img src="./imgs/img4.png" alt="Ejemplo de nivel de respuesta en auditoría externa"><div class="shot-caption"><span>Ejemplo (auditoría externa)</span><span>25:00</span></div></div>
               </div>
             </div>
-
             <div class="option-card" id="a2-campos">
-              <div class="option-head">
-                <span class="option-tab">Campos personalizados</span>
-                Agregar campos extra al registrar un hallazgo
-              </div>
-              <div class="option-body">
-                Vaya a la pestaña <code>Grupos</code> → "Nuevo agrupador" para crear el contenedor
-                (defina su ubicación y desactive "Mostrar nombre"). Luego vaya a "Nuevo campo
-                adicional", llene los datos y elija el tipo de campo — selección múltiple, una línea, etc.
-                <div class="shot-placeholder">
-                  <h5>Ejemplo nuevo agrupador:</h5>
-                  <img src="./imgs/img5.png" alt="add">
-                  <h5>Ejemplo nuevo campo adicional:</h5>
-                  <img src="./imgs/img6.png" alt="add">
-                </div>
+              <span class="option-tab">Campos personalizados</span>
+              <div class="option-title">Agregar campos extra al registrar un hallazgo</div>
+              <p class="option-text">Vaya a la pestaña <code>Grupos</code> → «Nuevo agrupador» para crear el contenedor (defina su ubicación y desactive «Mostrar nombre»). Luego vaya a «Nuevo campo adicional», llene los datos y elija el tipo de campo — selección múltiple, una línea, etc.</p>
+              <div class="shot-row">
+                <div class="shot"><img src="./imgs/img5.png" alt="Ejemplo de nuevo agrupador"><div class="shot-caption"><span>Ejemplo nuevo agrupador</span></div></div>
+                <div class="shot"><img src="./imgs/img6.png" alt="Ejemplo de nuevo campo adicional"><div class="shot-caption"><span>Ejemplo nuevo campo adicional</span></div></div>
               </div>
             </div>
-
           </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <!-- ============ A.3 ============ -->
-    <section class="section" id="a3">
-      <div class="subsection">
-        <div class="subsection-header">
+        <!-- A.3 — PUNTOS DE ATENCIÓN -->
+        <section id="a3" class="subsection" style="padding-bottom:56px">
           <span class="subsection-tag">A.3</span>
-          <span class="subsection-title">Adicionar o ajustar puntos de atención</span>
-        </div>
-        <div class="subsection-body">
-          <p class="usage-line">Use esto para modificar las clasificaciones automáticas del sistema.</p>
+          <h2 class="subsection-title">Adicionar o ajustar puntos de atención</h2>
+          <p class="subsection-usage">Use esto para modificar las clasificaciones automáticas del sistema.</p>
 
-          <div class="route">
-            <span class="route-label">Ruta</span>
-            <span class="route-path">Admin <span class="seg-arrow">→</span> Evaluaciones <span class="seg-arrow">→</span> Parametrización de puntos de atención</span>
-          </div>
+          <div class="ruta"><span class="ruta-label">Ruta</span><span class="ruta-path">Admin → Evaluaciones → Parametrización de puntos de atención</span></div>
 
-          <div class="kv-row">
-            <span class="kv-key">Agregar</span>
-            <span class="kv-val">Haga clic en "Crear clasificación" — se asocia a todo por defecto.</span>
+          <div class="kv-rows">
+            <div class="kv-row"><span class="kv-key">Agregar</span><span class="kv-val">Haga clic en «Crear clasificación» — se asocia a todo por defecto.</span></div>
+            <div class="kv-row"><span class="kv-key">Desactivar</span><span class="kv-val">Ingrese al punto, deseleccione todos los sistemas de referencia y guarde.</span></div>
+            <div class="kv-row"><span class="kv-key">Eliminar</span><span class="kv-val">Haga clic sobre el ícono del bote de basura.</span></div>
           </div>
-          <div class="kv-row">
-            <span class="kv-key">Desactivar</span>
-            <span class="kv-val">Ingrese al punto, deseleccione todos los sistemas de referencia y guarde.</span>
-          </div>
-          <div class="kv-row">
-            <span class="kv-key">Eliminar</span>
-            <span class="kv-val">Haga clic sobre el ícono del bote de basura.</span>
-          </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <div class="footer">
-      <span>Gestión operativa — Evaluaciones</span>
-      <span class="mono">Almera SGI</span>
+        <!-- CAPACITACIÓN -->
+        <section class="cta-section">
+          <div class="cta-card">
+            <div class="cta-kicker">Capacitación</div>
+            <h2>Ver la operación completa en video</h2>
+            <p>Grabación de la reunión de capacitación del módulo, por si necesita ver el flujo en pantalla.</p>
+            <div><a class="cta-btn" href="https://capitalsaludesp-my.sharepoint.com/personal/profesional_planeacion2_capitalsalud_gov_co/_layouts/15/stream.aspx?id=%2Fpersonal%2Fprofesional%5Fplaneacion2%5Fcapitalsalud%5Fgov%5Fco%2FDocuments%2FGrabaciones%2FPlanes%20de%20Mejora%20%2D%20Almera%2D20260622%5F150200%2DGrabaci%C3%B3n%20de%20la%20reuni%C3%B3n%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2Ebd0a7796%2D5ecd%2D4b91%2Dad4d%2D3b7cb9df6a66" target="_blank" rel="noopener">Abrir grabación <span class="mono">↗</span></a></div>
+          </div>
+        </section>
+
+      </main>
     </div>
 
-  </main>
+    <!-- ============ FOOTER ============ -->
+    <footer class="m-footer">
+      <span>Gestión operativa · Evaluaciones</span>
+      <span>Almera SGI</span>
+    </footer>
+
+  </div>
 </div>
 
 </body>

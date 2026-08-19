@@ -256,16 +256,6 @@
     document.addEventListener('keydown', onKey);
   }
 
-  // ---------- iconos de las tarjetas KPI ----------
-  const KPI_ICONS = {
-    total: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>',
-    antiguedad2: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15.5 14"></polyline></svg>',
-    pdf: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="8" y1="13" x2="16" y2="13"></line><line x1="8" y1="17" x2="13" y2="17"></line></svg>',
-    duplicados: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>',
-    sincodigo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><line x1="12" y1="8" x2="12" y2="12.5"></line><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="none"></circle></svg>',
-    sinarchivo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="9.5" y1="12.5" x2="14.5" y2="17.5"></line><line x1="14.5" y1="12.5" x2="9.5" y2="17.5"></line></svg>',
-  };
-
   // ---------- render: KPIs (clicables) ----------
   function renderKPIs(){
     const total = filtered.length;
@@ -286,41 +276,23 @@
     };
 
     const cards = [
-      { key:'total', label:'Total en el listado', value: sets.total.length, sub: 'de ' + totalAll + ' registros', cls:'', iconCls:'neutral', title:'Documentos mostrados' },
-      { key:'antiguedad2', label:'Más de 2 años de antigüedad', value: sets.antiguedad2.length, sub: (total ? (sets.antiguedad2.length/total*100).toFixed(1) : 0) + '% de lo mostrado', cls:'warn', iconCls:'warn', title:'Documentos con más de 2 años de antigüedad (' + ageField + ')' },
-      { key:'pdf', label:'Cargados como PDF', value: sets.pdf.length, sub:'sin edición en línea posible', cls:'blue', iconCls:'blue', title:'Documentos cargados como PDF' },
-      { key:'duplicados', label:'Códigos duplicados', value: sets.duplicados.length, sub:'filas con código repetido', cls:'violet', iconCls:'violet', title:'Documentos con código duplicado' },
-      { key:'sincodigo', label:'Sin código asignado', value: sets.sincodigo.length, sub:'campo Código vacío', cls:'rose', iconCls:'rose', title:'Documentos sin código asignado' },
-      { key:'sinarchivo', label:'Sin archivo adjunto', value: sets.sinarchivo.length, sub:'campo Nombres archivos vacío', cls:'teal', iconCls:'teal', title:'Documentos sin archivo adjunto' },
+      { key:'total', label:'Total en el listado', value: sets.total.length, sub: 'de ' + totalAll + ' registros', title:'Documentos mostrados' },
+      { key:'antiguedad2', label:'Más de 2 años de antigüedad', value: sets.antiguedad2.length, sub: (total ? (sets.antiguedad2.length/total*100).toFixed(1) : 0) + '% de lo mostrado', title:'Documentos con más de 2 años de antigüedad (' + ageField + ')' },
+      { key:'pdf', label:'Cargados como PDF', value: sets.pdf.length, sub:'sin edición en línea posible', title:'Documentos cargados como PDF' },
+      { key:'duplicados', label:'Códigos duplicados', value: sets.duplicados.length, sub:'filas con código repetido', title:'Documentos con código duplicado' },
+      { key:'sincodigo', label:'Sin código asignado', value: sets.sincodigo.length, sub:'campo Código vacío', title:'Documentos sin código asignado' },
+      { key:'sinarchivo', label:'Sin archivo adjunto', value: sets.sinarchivo.length, sub:'campo Nombres archivos vacío', title:'Documentos sin archivo adjunto' },
     ];
 
-    const hero = cards[0];
-    const secondary = cards.slice(1);
-
-    const heroHtml =
-      '<button type="button" class="kpi-hero" data-kpi="' + hero.key + '">' +
-        '<div class="kpi-hero-icon">' + KPI_ICONS[hero.key] + '</div>' +
-        '<div class="kpi-hero-body">' +
-          '<div class="kpi-hero-value">' + hero.value.toLocaleString('es-CO') + '</div>' +
-          '<div class="kpi-hero-label">' + hero.label + '</div>' +
-          '<div class="kpi-hero-sub">' + hero.sub + '</div>' +
-        '</div>' +
-        '<div class="kpi-hero-hint">Ver documentos &rarr;</div>' +
+    document.getElementById('kpiGrid').innerHTML = cards.map(function(c){
+      return '<button type="button" class="kpi-tile" data-kpi="' + c.key + '">' +
+        '<div class="kpi-tile-value">' + c.value.toLocaleString('es-CO') + '</div>' +
+        '<div class="kpi-tile-label">' + c.label + '</div>' +
+        '<div class="kpi-tile-meta">' + c.sub + '</div>' +
       '</button>';
+    }).join('');
 
-    const secondaryHtml = '<div class="kpi-secondary">' + secondary.map(function(c){
-      return '<button type="button" class="kpi-card ' + c.cls + '" data-kpi="' + c.key + '">' +
-        '<div class="kpi-icon ' + c.iconCls + '">' + KPI_ICONS[c.key] + '</div>' +
-        '<div class="kpi-value">' + c.value.toLocaleString('es-CO') + '</div>' +
-        '<div class="kpi-label">' + c.label + '</div>' +
-        '<div class="kpi-sub">' + c.sub + '</div>' +
-        '<div class="kpi-hint">Ver documentos &rarr;</div>' +
-      '</button>';
-    }).join('') + '</div>';
-
-    document.getElementById('kpiGrid').innerHTML = heroHtml + secondaryHtml;
-
-    document.querySelectorAll('#kpiGrid .kpi-card, #kpiGrid .kpi-hero').forEach(function(btn){
+    document.querySelectorAll('#kpiGrid .kpi-tile').forEach(function(btn){
       btn.addEventListener('click', function(){
         const key = btn.dataset.kpi;
         const cfg = cards.filter(function(c){ return c.key === key; })[0];
@@ -471,10 +443,12 @@
 
     items.push({ type:'note', text: 'Los campos <strong>Origen</strong> y <strong>Asociado a</strong> coinciden en el ' + (origenIgualAsociado/total*100).toFixed(0) + '% de las filas de este export — el informe usa <strong>Asociado a</strong> como el proceso/subproceso de referencia en gráficos, filtros y el modal de detalle.' });
 
+    const TYPE_LABEL = { warn: 'Cuidado', good: 'Confirmado', note: 'Nota' };
+    const TYPE_CLASS = { warn: 'is-warn', good: 'is-good', note: '' };
     document.getElementById('dqGrid').innerHTML = items.map(function(i){
-      return '<div class="callout ' + i.type + '">' +
-        '<svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>' +
-        '<div>' + i.text + '</div>' +
+      return '<div class="note-box">' +
+        '<div class="note-label ' + (TYPE_CLASS[i.type] || '') + '">' + (TYPE_LABEL[i.type] || 'Nota') + '</div>' +
+        '<p class="note-text">' + i.text + '</p>' +
       '</div>';
     }).join('');
   }
@@ -603,9 +577,8 @@
     uploadZone.classList.add('loaded');
     uploadZone.innerHTML =
       '<div class="upload-loaded-row">' +
-        '<div class="upload-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>' +
         '<div class="upload-meta">' +
-          '<div class="upload-title">Archivo cargado</div>' +
+          '<div class="upload-title">Archivo cargado <span class="upload-check">✓</span></div>' +
           '<div><span class="upload-filename">' + escapeHtml(name) + '</span> &nbsp;·&nbsp; <span class="upload-count">' + count.toLocaleString('es-CO') + ' registros</span></div>' +
         '</div>' +
       '</div>' +
@@ -683,8 +656,9 @@
         const grid = document.getElementById('graficos');
         if(grid){
           const warnDiv = document.createElement('div');
-          warnDiv.className = 'callout warn';
-          warnDiv.innerHTML = '<svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><div>No se pudieron generar los gráficos en este navegador. Los indicadores, la calidad de datos y la tabla de abajo siguen funcionando con normalidad.</div>';
+          warnDiv.className = 'note-box';
+          warnDiv.style.marginBottom = '26px';
+          warnDiv.innerHTML = '<div class="note-label is-warn">Cuidado</div><p class="note-text">No se pudieron generar los gráficos en este navegador. Los indicadores, la calidad de datos y la tabla de abajo siguen funcionando con normalidad.</p>';
           grid.insertBefore(warnDiv, grid.firstChild.nextSibling);
         }
       }

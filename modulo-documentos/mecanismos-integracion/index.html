@@ -6,612 +6,435 @@
 <title>Mecanismos de Integración — Almera</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../assets/main.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf9f7;
+    --ink:#171614;
+    --ink-soft:#5f5b52;
+    --ink-soft-2:#6b665c;
+    --ink-soft-3:#3d3a34;
+    --muted:#8a8579;
+    --muted-soft:#a5a096;
+    --muted-soft-2:#c3bdb1;
+    --muted-soft-3:#b3ada1;
+    --line:rgba(23,22,20,.1);
+    --line-soft:rgba(23,22,20,.09);
+    --line-strong:rgba(23,22,20,.14);
+    --accent:#eb5a25;
+    --dark:#17161a;
+  }
+  html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth;text-rendering:optimizeLegibility}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans","Helvetica Neue",Helvetica,sans-serif}
+  a{color:inherit;text-decoration:none}
+  a:hover{color:var(--ink)}
+  ::selection{background:var(--ink);color:var(--bg)}
+
+  .page{background:var(--bg);padding:0 32px 160px}
+  .wrap{max-width:1080px;margin:0 auto}
+
+  /* header */
+  .m-header{display:flex;justify-content:space-between;align-items:baseline;padding:36px 0 0;gap:16px;flex-wrap:wrap}
+  .m-header .eyebrow{display:flex;align-items:center;gap:9px;font:500 10.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .m-header .eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0}
+  .m-header a.back{font:400 13px/1 "DM Sans",sans-serif;color:var(--muted);border-bottom:1px solid rgba(0,0,0,.12);padding-bottom:2px;transition:color .2s ease,border-color .2s ease}
+  .m-header a.back:hover{color:var(--ink);border-color:rgba(0,0,0,.3)}
+
+  /* hero */
+  .m-hero{padding:110px 0 88px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:64px;align-items:end}
+  .m-hero-kicker{font:500 10.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:26px}
+  .m-hero h1{margin:0;font:300 52px/1.1 "DM Sans",sans-serif;letter-spacing:-.032em;text-wrap:balance;color:var(--ink)}
+  .m-hero-side{display:flex;flex-direction:column;gap:30px;padding-bottom:6px}
+  .m-hero-side p{margin:0;font:400 16.5px/1.6 "DM Sans",sans-serif;color:var(--ink-soft);max-width:40ch;text-wrap:pretty}
+  .m-hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+  .dl-pill{display:flex;align-items:center;gap:9px;padding:12px 20px;border-radius:999px;font:400 14px/1 "DM Sans",sans-serif;transition:opacity .25s ease,border-color .25s ease,color .25s ease}
+  .dl-pill .mono{font:500 11px/1 "JetBrains Mono",monospace}
+  .dl-pill.skill{background:var(--dark);color:var(--bg)}
+  .dl-pill.skill:hover{opacity:.78;color:var(--bg)}
+  .dl-pill.skill .mono{opacity:.6}
+  .dl-pill.md{border:1px solid var(--line-strong);color:var(--ink-soft)}
+  .dl-pill.md:hover{border-color:rgba(23,22,20,.4);color:var(--ink)}
+
+  /* faq */
+  .faq-section{border-top:1px solid var(--line);padding-top:34px}
+  .faq-kicker{font:500 10.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:22px}
+  .faq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:0 44px}
+  .faq-grid a{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:16px 2px;border-bottom:1px solid var(--line-soft);font:400 15px/1.4 "DM Sans",sans-serif;color:var(--ink-soft-3)}
+  .faq-grid a:hover{color:var(--ink)}
+  .faq-num{font:500 10.5px/1 "JetBrains Mono",monospace;color:var(--muted-soft-2)}
+
+  /* body layout */
+  .m-body{display:grid;grid-template-columns:210px minmax(0,1fr);gap:80px;margin-top:110px;align-items:start}
+  .m-toc{position:sticky;top:32px;display:flex;flex-direction:column;gap:26px}
+  .m-toc-group{display:flex;flex-direction:column;gap:9px}
+  .m-toc-label{font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-soft-3)}
+  .m-toc a{display:flex;gap:9px;font:400 13px/1.45 "DM Sans",sans-serif;color:var(--ink-soft-2)}
+  .m-toc a:hover{color:var(--ink)}
+  .m-toc a .num{font:500 10.5px/1.75 "JetBrains Mono",monospace;color:var(--muted-soft-2);flex-shrink:0}
+
+  .m-main{display:flex;flex-direction:column;max-width:760px}
+
+  /* sections */
+  .m-section{scroll-margin-top:32px;padding:56px 0 76px;border-top:1px solid var(--line)}
+  .m-section.first{padding-top:0;border-top:none}
+  .m-section-head{display:flex;align-items:baseline;gap:14px;margin-bottom:16px}
+  .m-section-num{font:500 11px/1 "JetBrains Mono",monospace;color:var(--accent);flex-shrink:0}
+  .m-section h2{margin:0;font:400 28px/1.2 "DM Sans",sans-serif;letter-spacing:-.022em;text-wrap:balance;color:var(--ink)}
+  .m-section-intro{margin:0 0 34px;font:400 16px/1.65 "DM Sans",sans-serif;color:var(--ink-soft);max-width:62ch;text-wrap:pretty}
+  .body-text{margin:0 0 26px;font:400 15px/1.65 "DM Sans",sans-serif;color:var(--ink-soft);max-width:62ch}
+
+  /* ruta */
+  .ruta{display:flex;align-items:center;gap:12px;padding:13px 16px;background:rgba(23,22,20,.04);border-radius:2px;flex-wrap:wrap;margin-bottom:22px}
+  .ruta-label{font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-soft)}
+  .ruta-path{font:400 13px/1.4 "JetBrains Mono",monospace;color:var(--ink-soft-3)}
+
+  /* subhead / group label */
+  .group-label{font:400 15px/1 "DM Sans",sans-serif;color:var(--ink);display:flex;align-items:center;gap:10px;margin:34px 0 16px}
+  .group-label:first-child{margin-top:0}
+  .group-label .dash{width:16px;height:1px;background:var(--accent);flex-shrink:0}
+
+  /* steps list */
+  .step-group{margin-bottom:34px}
+  .steps-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:1px;background:var(--line-soft)}
+  .steps-list li{background:var(--bg);display:grid;grid-template-columns:34px minmax(0,1fr);gap:16px;padding:18px 2px;align-items:baseline}
+  .steps-list .n{font:500 11px/1.5 "JetBrains Mono",monospace;color:var(--muted-soft-2)}
+  .step-content{display:flex;flex-direction:column;gap:6px}
+  .step-label{font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .step-text{font:400 15px/1.6 "DM Sans",sans-serif;color:var(--ink-soft-3);text-wrap:pretty}
+
+  /* field chips */
+  .field-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .field-chip{display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;border:1px solid var(--line-strong);font:400 12px/1 "DM Sans",sans-serif;color:var(--ink-soft-2)}
+
+  /* inline code */
+  .code-inline{font:500 12.5px/1 "JetBrains Mono",monospace;background:rgba(23,22,20,.06);padding:2px 6px;border-radius:2px;color:var(--ink-soft-3)}
+
+  /* example card */
+  .example-card{padding:18px 20px;border:1px solid var(--line);border-radius:2px;margin-top:14px;background:rgba(23,22,20,.015)}
+  .example-label{font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+  .example-kv{display:flex;flex-direction:column;gap:6px}
+  .example-kv-item{display:flex;gap:10px;align-items:baseline;font:400 13.5px/1.5 "DM Sans",sans-serif}
+  .example-kv-item .k{color:var(--muted);min-width:90px}
+  .example-kv-item .v{color:var(--ink-soft-3);font-family:"JetBrains Mono",monospace;font-size:12.5px}
+
+  /* stacked info rows (privileges / hierarchy / rules) */
+  .priv-rows{display:flex;flex-direction:column;gap:1px;background:var(--line-soft);margin:16px 0 26px}
+  .priv-row{background:var(--bg);padding:18px 20px;display:flex;flex-direction:column;gap:6px}
+  .priv-name{font:500 13.5px/1.3 "DM Sans",sans-serif;color:var(--ink);letter-spacing:-.005em}
+  .priv-desc{font:400 14px/1.62 "DM Sans",sans-serif;color:var(--ink-soft-2)}
+
+  /* variable rows */
+  .var-rows{display:flex;flex-direction:column;gap:1px;background:var(--line-soft);margin:16px 0 26px}
+  .var-row{background:var(--bg);display:grid;grid-template-columns:minmax(170px,240px) minmax(0,1fr);gap:16px;padding:14px 20px;align-items:baseline}
+  .var-code{font:500 12.5px/1.4 "JetBrains Mono",monospace;color:var(--accent);word-break:break-word}
+  .var-desc{font:400 13.5px/1.5 "DM Sans",sans-serif;color:var(--ink-soft-2)}
+
+  /* note box */
+  .note-box{padding:20px 22px;background:rgba(23,22,20,.035);border-radius:2px;margin-top:14px}
+  .notes-block{margin-top:26px}
+  .notes-block .note-box{margin-top:0}
+  .notes-block .note-box + .note-box{margin-top:14px}
+  .note-label{font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+  .note-text{margin:0;font:400 14px/1.62 "DM Sans",sans-serif;color:var(--ink-soft-3);text-wrap:pretty}
+
+  /* footer */
+  .m-footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font:400 12px/1 "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-soft)}
+
+  @media (max-width:980px){
+    .m-body{grid-template-columns:1fr;margin-top:72px}
+    .m-toc{display:none}
+  }
+  @media (max-width:760px){
+    .page{padding:0 20px 96px}
+    .m-hero{grid-template-columns:1fr;gap:36px;padding:72px 0 56px}
+    .m-hero h1{font-size:34px}
+    .faq-grid{grid-template-columns:1fr}
+    .var-row{grid-template-columns:1fr}
+    .m-footer{flex-direction:column;align-items:flex-start;gap:8px}
+  }
+</style>
 </head>
 <body>
 
-<div class="shell">
+<div class="page">
+  <div class="wrap">
 
-  <!-- ============ SIDEBAR ============ -->
-  <aside class="sidebar">
-    <div class="brand">
-      <div class="brand-mark">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <!-- ============ HEADER ============ -->
+    <header class="m-header">
+      <div class="eyebrow"><span class="dot"></span>Almera · Guía de operación</div>
+      <a class="back" href="../../index.html#modulos">Todos los módulos</a>
+    </header>
+
+    <!-- ============ HERO ============ -->
+    <section class="m-hero">
+      <div>
+        <div class="m-hero-kicker">Calidad · Módulo</div>
+        <h1>Mecanismos de Integración — Comités y Actas</h1>
       </div>
-      <span class="brand-name"><a href="../../index.html">Almera</a></span>
-    </div>
-    <div class="brand-sub">Guía de operación</div>
-
-    <nav class="nav-section">
-      <div class="nav-label">Acceso y configuración</div>
-      <a class="nav-link active" href="#privilegios"><span class="nav-dot"></span> 1. Privilegios y acceso</a>
-      <a class="nav-link" href="#crear-comite"><span class="nav-dot"></span> 2. Crear un comité</a>
-      <a class="nav-link" href="#nueva-clasificacion"><span class="nav-dot"></span> 3. Nueva clasificación</a>
-    </nav>
-
-    <nav class="nav-section">
-      <div class="nav-label">Plantilla institucional</div>
-      <a class="nav-link" href="#plantilla"><span class="nav-dot"></span> 4. Configurar plantilla</a>
-      <a class="nav-link" href="#variables"><span class="nav-dot"></span> 5. Variables y tablas</a>
-      <a class="nav-link" href="#edicion-en-linea"><span class="nav-dot"></span> 6. Edición en línea (nuevo)</a>
-    </nav>
-
-    <nav class="nav-section">
-      <div class="nav-label">Operación diaria</div>
-      <a class="nav-link" href="#elaborar-acta"><span class="nav-dot"></span> 7. Elaborar un acta</a>
-      <a class="nav-link" href="#campos-acta-reunion"><span class="nav-dot"></span> 8. Campos: acta vs. reunión</a>
-      <a class="nav-link" href="#autenticacion"><span class="nav-dot"></span> 9. Usuarios externos</a>
-    </nav>
-  </aside>
-
-  <!-- ============ MAIN ============ -->
-  <main class="main">
-
-    <div class="eyebrow">Almera</div>
-    <h1>Mecanismos de Integración — Comités y Actas</h1>
-    <p class="lede">
-      Cómo configurar comités, asignar privilegios, parametrizar el formato institucional de las actas
-      y elaborar reuniones directamente en el sistema.
-    </p>
-
-    <div class="download-actions">
-      <a class="download-pill skill" href="./AI/almera-mecanismos.skill" download title="Descargar habilidad para Claude">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.4 9.2L22 12L14.4 14.8L12 22L9.6 14.8L2 12L9.6 9.2L12 2Z" fill="currentColor"/></svg>
-        Descargar .skill <span class="pill-sub">para Claude</span>
-      </a>
-      <a class="download-pill md" href="./AI/mecanismos-integracion.md" download title="Descargar documento de referencia">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 2V8H20" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 13H16M8 17H13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        Descargar .md <span class="pill-sub">para cualquier IA</span>
-      </a>
-    </div>
-
-    <div class="steps">
-      <div class="step">
-        <div class="step-body">
-          <p class="step-text">
-            <a class="see-also" href="#privilegios">
-              ¿Quién puede crear o editar actas de un comité?
-              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-body">
-          <p class="step-text">
-            <a class="see-also" href="#crear-comite">
-              ¿Cómo creo un comité nuevo y su codificación de actas?
-              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-body">
-          <p class="step-text">
-            <a class="see-also" href="#plantilla">
-              ¿Cómo cargo el formato institucional para un tipo de comité?
-              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-body">
-          <p class="step-text">
-            <a class="see-also" href="#elaborar-acta">
-              ¿Cómo elaboro un acta paso a paso?
-              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <hr class="divider-hero">
-
-    <!-- ============ SECTION 1 — PRIVILEGIOS ============ -->
-    <section class="section" id="privilegios">
-      <div class="section-head">
-        <span class="section-num">01</span>
-        <h2>Privilegios y acceso</h2>
-      </div>
-      <p class="section-desc">
-        Este módulo es privado: cada usuario solo ve los comités en los que participa. El acceso y lo que
-        se puede hacer dentro de cada comité depende del privilegio asignado.
-      </p>
-
-      <div class="callout note">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
-        <div>Los integrantes de un comité acceden desde su <strong>Plan Individual de Trabajo</strong>, en una carpeta llamada "Mecanismos de integración" — no ven el listado completo de comités de la organización, solo los suyos.</div>
-      </div>
-
-      <div class="subhead">Privilegios por comité</div>
-      <div class="priv-table">
-        <div class="priv-row">
-          <span class="priv-name">Miembro</span>
-          <span class="priv-desc">Solo consulta las actas, en modo lectura. No puede crear ni editar.</span>
-        </div>
-        <div class="priv-row">
-          <span class="priv-name">Admin miembro</span>
-          <span class="priv-desc">Puede crear actas nuevas, editarlas y registrar compromisos. Es el privilegio operativo del día a día.</span>
-        </div>
-        <div class="priv-row">
-          <span class="priv-name">Administrador</span>
-          <span class="priv-desc">Pensado para el administrador general del sistema, con acceso a todos los comités para dar soporte. No aparece en el listado de asistentes de las actas, porque no es integrante real del comité.</span>
-        </div>
-      </div>
-
-
-      <div class="subhead">Actualizar integrantes de un comité</div>
-      <div class="steps-marked">
-        <div class="step-marked">
-          <span class="step-marker">1</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">Dentro del comité, un usuario Administrador hace clic en <strong>Editar</strong> → pestaña <strong>Privilegios</strong> → <strong>Administrar privilegios</strong>.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">2</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text"><strong>Quitar</strong> a alguien: ubicarlo en el listado y quitarle el check de selección.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">3</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text"><strong>Agregar</strong> a alguien: buscar el usuario, elegir su privilegio (Miembro o Admin miembro) y hacer clic en el ícono verde de <strong>Adicionar</strong>.</p>
-          </div>
+      <div class="m-hero-side">
+        <p>Cómo configurar comités, asignar privilegios, parametrizar el formato institucional de las actas y elaborar reuniones directamente en el sistema.</p>
+        <div class="m-hero-actions">
+          <a class="dl-pill skill" href="./AI/almera-mecanismos.skill" download title="Descargar habilidad para Claude">Descargar habilidad <span class="mono">.skill</span></a>
+          <a class="dl-pill md" href="./AI/mecanismos-integracion.md" download title="Descargar documento de referencia">Descargar <span class="mono">.md</span></a>
         </div>
       </div>
     </section>
 
-    <!-- ============ SECTION 2 — CREAR COMITÉ ============ -->
-    <section class="section" id="crear-comite">
-      <div class="section-head">
-        <span class="section-num">02</span>
-        <h2>Crear y configurar un comité nuevo</h2>
+    <!-- ============ FAQ ============ -->
+    <section class="faq-section">
+      <div class="faq-kicker">Preguntas frecuentes</div>
+      <div class="faq-grid">
+        <a href="#privilegios"><span>¿Quién puede crear o editar actas de un comité?</span><span class="faq-num">01</span></a>
+        <a href="#crear-comite"><span>¿Cómo creo un comité nuevo y su codificación de actas?</span><span class="faq-num">02</span></a>
+        <a href="#plantilla"><span>¿Cómo cargo el formato institucional para un tipo de comité?</span><span class="faq-num">04</span></a>
+        <a href="#elaborar-acta"><span>¿Cómo elaboro un acta paso a paso?</span><span class="faq-num">07</span></a>
       </div>
-      <p class="section-desc">
-        Solo los administradores del módulo completo (no de un comité en particular) pueden crear comités nuevos.
-      </p>
+    </section>
 
-      <div class="route">
-        <span class="route-label">Ruta</span>
-        <span class="route-path">Admin <span class="seg-arrow">→</span> Calidad <span class="seg-arrow">→</span> Parametrizar Mecanismos de Integración</span>
-      </div>
+    <!-- ============ BODY ============ -->
+    <div class="m-body">
 
-      <div class="steps-marked">
-        <div class="step-marked">
-          <span class="step-marker">1</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">Elija la clasificación (ej. "Comités estratégicos") y haga clic en <strong>Adicionar</strong>.</p>
-          </div>
+      <nav class="m-toc">
+        <div class="m-toc-group">
+          <div class="m-toc-label">Acceso y configuración</div>
+          <a href="#privilegios"><span class="num">01</span>Privilegios y acceso</a>
+          <a href="#crear-comite"><span class="num">02</span>Crear un comité</a>
+          <a href="#nueva-clasificacion"><span class="num">03</span>Nueva clasificación</a>
         </div>
-        <div class="step-marked">
-          <span class="step-marker">2</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Nombre y funcionalidades</div>
-            <p class="step-marked-text">Registre el nombre y habilite <strong>Control de compromisos</strong> y <strong>Aprobación de actas y firmas</strong>. Normalmente no se seleccionan "Realizar seguimiento" ni "Mostrar tipo".</p>
-          </div>
+        <div class="m-toc-group">
+          <div class="m-toc-label">Plantilla institucional</div>
+          <a href="#plantilla"><span class="num">04</span>Configurar plantilla</a>
+          <a href="#variables"><span class="num">05</span>Variables y tablas</a>
+          <a href="#edicion-en-linea"><span class="num">06</span>Edición en línea</a>
         </div>
-        <div class="step-marked">
-          <span class="step-marker">3</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Notificaciones y permisos</div>
-            <p class="step-marked-text">Defina si se notifica por correo el cierre de compromisos (a los Admin miembro) y si los Miembros (no solo Admin miembro) pueden adicionar compromisos.</p>
-          </div>
+        <div class="m-toc-group">
+          <div class="m-toc-label">Operación diaria</div>
+          <a href="#elaborar-acta"><span class="num">07</span>Elaborar un acta</a>
+          <a href="#campos-acta-reunion"><span class="num">08</span>Acta vs. reunión</a>
+          <a href="#autenticacion"><span class="num">09</span>Usuarios externos</a>
         </div>
-        <div class="step-marked">
-          <span class="step-marker">4</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Codificación</div>
-            <p class="step-marked-text">Manual o automática. Si es automática, el patrón combina <code class="mono">%C</code> (consecutivo) y <code class="mono">%Y</code> (año), más el <strong>padding</strong> (cantidad de dígitos).</p>
-            <div class="example-card">
-              <div class="example-label">Ejemplo</div>
-              <div class="example-kv">
-                <div class="example-kv-item"><span class="k">Patrón</span><span class="v">%Y-%C</span></div>
-                <div class="example-kv-item"><span class="k">Padding</span><span class="v">3</span></div>
-                <div class="example-kv-item"><span class="k">Resultado</span><span class="v">2026-001</span></div>
-              </div>
+      </nav>
+
+      <main class="m-main">
+
+        <!-- 01 — PRIVILEGIOS -->
+        <section id="privilegios" class="m-section first">
+          <div class="m-section-head"><span class="m-section-num">01</span><h2>Privilegios y acceso</h2></div>
+          <p class="m-section-intro">Este módulo es privado: cada usuario solo ve los comités en los que participa. El acceso y lo que se puede hacer dentro de cada comité depende del privilegio asignado.</p>
+
+          <div class="notes-block" style="margin-top:0;margin-bottom:30px">
+            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">Los integrantes de un comité acceden desde su Plan Individual de Trabajo, en una carpeta llamada «Mecanismos de integración» — no ven el listado completo de comités de la organización, solo los suyos.</p></div>
+          </div>
+
+          <div class="group-label"><span class="dash"></span>Privilegios por comité</div>
+          <div class="priv-rows">
+            <div class="priv-row"><span class="priv-name">Miembro</span><span class="priv-desc">Solo consulta las actas, en modo lectura. No puede crear ni editar.</span></div>
+            <div class="priv-row"><span class="priv-name">Admin miembro</span><span class="priv-desc">Puede crear actas nuevas, editarlas y registrar compromisos. Es el privilegio operativo del día a día.</span></div>
+            <div class="priv-row"><span class="priv-name">Administrador</span><span class="priv-desc">Pensado para el administrador general del sistema, con acceso a todos los comités para dar soporte. No aparece en el listado de asistentes de las actas, porque no es integrante real del comité.</span></div>
+          </div>
+
+          <div class="group-label"><span class="dash"></span>Actualizar integrantes de un comité</div>
+          <div class="step-group" style="margin-bottom:0">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Dentro del comité, un usuario Administrador hace clic en Editar → pestaña Privilegios → Administrar privilegios.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">Quitar a alguien: ubicarlo en el listado y quitarle el check de selección.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text">Agregar a alguien: buscar el usuario, elegir su privilegio (Miembro o Admin miembro) y hacer clic en el ícono verde de Adicionar.</span></div></li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- 02 — CREAR COMITÉ -->
+        <section id="crear-comite" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">02</span><h2>Crear y configurar un comité nuevo</h2></div>
+          <p class="m-section-intro">Solo los administradores del módulo completo (no de un comité en particular) pueden crear comités nuevos.</p>
+
+          <div class="ruta"><span class="ruta-label">Ruta</span><span class="ruta-path">Admin → Calidad → Parametrizar Mecanismos de Integración</span></div>
+
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Elija la clasificación (ej. «Comités estratégicos») y haga clic en Adicionar.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-label">Nombre y funcionalidades</span><span class="step-text">Registre el nombre y habilite Control de compromisos y Aprobación de actas y firmas. Normalmente no se seleccionan «Realizar seguimiento» ni «Mostrar tipo».</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-label">Notificaciones y permisos</span><span class="step-text">Defina si se notifica por correo el cierre de compromisos (a los Admin miembro) y si los Miembros (no solo Admin miembro) pueden adicionar compromisos.</span></div></li>
+              <li><span class="n">04</span><div class="step-content">
+                <span class="step-label">Codificación</span><span class="step-text">Manual o automática. Si es automática, el patrón combina <span class="code-inline">%C</span> (consecutivo) y <span class="code-inline">%Y</span> (año), más el padding (cantidad de dígitos).</span>
+                <div class="example-card"><div class="example-label">Ejemplo</div><div class="example-kv">
+                  <div class="example-kv-item"><span class="k">Patrón</span><span class="v">%Y-%C</span></div>
+                  <div class="example-kv-item"><span class="k">Padding</span><span class="v">3</span></div>
+                  <div class="example-kv-item"><span class="k">Resultado</span><span class="v">2026-001</span></div>
+                </div></div>
+              </div></li>
+              <li><span class="n">05</span><div class="step-content"><span class="step-text">Defina si restringe la descarga de actas y qué se muestra en el pie de página (quién generó el acta, o el usuario que la descarga en ese momento).</span></div></li>
+              <li><span class="n">06</span><div class="step-content"><span class="step-text">Grabe. Luego complete la información general del comité, adjunte el acto administrativo de conformación, defina cargos (principal/suplente) y agregue integrantes desde Privilegios.</span></div></li>
+            </ol>
+          </div>
+
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Confirmado</div><p class="note-text">Por buenas prácticas de gestión documental, se recomienda que el consecutivo de codificación se reinicie cada año en vez de ser único e indefinido.</p></div>
+          </div>
+        </section>
+
+        <!-- 03 — NUEVA CLASIFICACIÓN -->
+        <section id="nueva-clasificacion" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">03</span><h2>Crear una nueva clasificación de mecanismo</h2></div>
+          <p class="m-section-intro">Para tipos de reunión totalmente nuevos, distintos a los ya existentes (ej. «Grupos primarios»).</p>
+
+          <div class="step-group" style="margin-bottom:0">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">En Parametrizar Mecanismos de Integración, adicione la clasificación: nombre singular, plural, y el nombre que tendrá el documento de reunión (ej. «Acta» o «Soporte»).</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">Cree primero un Grupo (agrupador) — los campos que cree después deben quedar asociados a él.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text">Cree los campos necesarios: texto (una o varias líneas), fecha, selección única o múltiple. Use la opción Múltiple para cargar varias opciones de respuesta de una vez.</span></div></li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- 04 — PLANTILLA -->
+        <section id="plantilla" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">04</span><h2>Configuración de la plantilla institucional</h2></div>
+          <p class="m-section-intro">Para que las actas de comités se elaboren directamente en el sistema Almera usando el formato de Capital Salud, asocie el documento de Word institucional a cada tipo de reunión.</p>
+
+          <div class="ruta"><span class="ruta-label">Ruta</span><span class="ruta-path">Admin → Calidad → Parametrizar Mecanismos de Integración</span></div>
+
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-label">Ingreso</span><span class="step-text">En el panel superior, diríjase a la pestaña Admin.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-label">Selección del módulo</span><span class="step-text">En el menú lateral izquierdo, seleccione Calidad → Parametrizar Mecanismos de Integración.</span></div></li>
+              <li><span class="n">03</span><div class="step-content">
+                <span class="step-label">Tipo de reunión</span><span class="step-text">Elija el tipo de comité que desea configurar.</span>
+                <div class="field-list"><span class="field-chip">Comités de junta</span><span class="field-chip">Comités estratégico</span><span class="field-chip">Otros tipos definidos</span></div>
+              </div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-label">Gestión de la plantilla</span><span class="step-text">Haga clic en la pestaña Plantilla, luego en Elegir archivo y cargue el formato institucional en Word, incluyendo logo, encabezados y estructura requerida.</span></div></li>
+              <li><span class="n">05</span><div class="step-content"><span class="step-label">Guardado</span><span class="step-text">Haga clic en Grabar para que el sistema asocie ese formato a las futuras actas de ese tipo de reunión.</span></div></li>
+            </ol>
+          </div>
+
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Automatización</div><p class="note-text">Un formato por tipo de reunión: la plantilla cargada aplica únicamente al tipo de comité seleccionado; si maneja varios tipos, repita el proceso para cada uno.</p></div>
+            <div class="note-box"><div class="note-label">Cuidado</div><p class="note-text">Ojo con esta pantalla si el comité ya tiene su propia plantilla. Una vez un comité específico tiene una plantilla propia cargada, para editarla hay que hacerlo desde dentro de ese comité puntual — no desde esta parametrización general de tipo. Intentarlo desde aquí puede hacer que la plantilla deje de visualizarse o que aparezca un error al cargar una nueva (comportamiento reportado y aún sin confirmación completa de soporte).</p></div>
+          </div>
+        </section>
+
+        <!-- 05 — VARIABLES -->
+        <section id="variables" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">05</span><h2>Uso de variables y tablas dinámicas</h2></div>
+          <p class="m-section-intro">Para que el sistema rellene automáticamente los datos de la reunión, es vital conservar estas estructuras técnicas dentro del documento de Word que se carga.</p>
+
+          <div class="group-label"><span class="dash"></span>Alias (variables del sistema)</div>
+          <p class="body-text">Valores entre dobles llaves <span class="code-inline">{{ }}</span> que el sistema reemplaza por la información real de la reunión.</p>
+          <div class="var-rows">
+            <div class="var-row"><span class="var-code">{{actaFecha_d}}</span><span class="var-desc">Día de la reunión.</span></div>
+            <div class="var-row"><span class="var-code">{{actaFecha_F}}</span><span class="var-desc">Mes de la reunión.</span></div>
+            <div class="var-row"><span class="var-code">{{actaFecha_Y}}</span><span class="var-desc">Año de la reunión.</span></div>
+            <div class="var-row"><span class="var-code">{{actaHora}}</span><span class="var-desc">Hora de inicio de la sesión.</span></div>
+            <div class="var-row"><span class="var-code">{{actaHoraFin}}</span><span class="var-desc">Hora de finalización de la sesión.</span></div>
+            <div class="var-row"><span class="var-code">{{lugar}}</span><span class="var-desc">Sitio donde se realizó la reunión.</span></div>
+            <div class="var-row"><span class="var-code">{{reunionNombre}}</span><span class="var-desc">Nombre registrado para la sesión.</span></div>
+            <div class="var-row"><span class="var-code">{{observacionesacta}}</span><span class="var-desc">Comentarios generales registrados en el sistema.</span></div>
+          </div>
+
+          <div class="group-label"><span class="dash"></span>Tablas dinámicas</div>
+          <p class="body-text">Se utilizan para listar datos masivos sin intervención manual.</p>
+          <div class="var-rows">
+            <div class="var-row"><span class="var-code">content_asistentes</span><span class="var-desc">Genera automáticamente la lista de quienes asistieron a la reunión.</span></div>
+            <div class="var-row"><span class="var-code">content_actaCronograma_actividades</span><span class="var-desc">Lista los compromisos y tareas pactadas durante la reunión.</span></div>
+          </div>
+
+          <div class="example-card">
+            <div class="example-label">Ejemplo de uso en la plantilla</div>
+            <div class="example-kv">
+              <div class="example-kv-item"><span class="k">Encabezado</span><span class="v">Acta {{reunionNombre}}</span></div>
+              <div class="example-kv-item"><span class="k">Fecha</span><span class="v">{{actaFecha_d}}/{{actaFecha_F}}/{{actaFecha_Y}}</span></div>
+              <div class="example-kv-item"><span class="k">Horario</span><span class="v">{{actaHora}} - {{actaHoraFin}}</span></div>
+              <div class="example-kv-item"><span class="k">Lugar</span><span class="v">{{lugar}}</span></div>
             </div>
           </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">5</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">Defina si restringe la descarga de actas y qué se muestra en el pie de página (quién generó el acta, o el usuario que la descarga en ese momento).</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">6</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">Grabe. Luego complete la información general del comité, adjunte el acto administrativo de conformación, defina cargos (principal/suplente) y agregue integrantes desde <strong>Privilegios</strong>.</p>
-          </div>
-        </div>
-      </div>
 
-      <div class="callout good">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <div>Por buenas prácticas de gestión documental, se recomienda que el consecutivo de codificación <strong>se reinicie cada año</strong> en vez de ser único e indefinido.</div>
-      </div>
-    </section>
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Cuidado</div><p class="note-text">No modifique los códigos entre llaves <span class="code-inline">{{ }}</span>. Si se altera su escritura, el sistema no podrá identificarlos y el campo quedará vacío en el acta generada.</p></div>
+          </div>
+        </section>
 
-    <!-- ============ SECTION 3 — NUEVA CLASIFICACIÓN ============ -->
-    <section class="section" id="nueva-clasificacion">
-      <div class="section-head">
-        <span class="section-num">03</span>
-        <h2>Crear una nueva clasificación de mecanismo</h2>
-      </div>
-      <p class="section-desc">
-        Para tipos de reunión totalmente nuevos, distintos a los ya existentes (ej. "Grupos primarios").
-      </p>
+        <!-- 06 — EDICIÓN EN LÍNEA -->
+        <section id="edicion-en-linea" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">06</span><h2>Edición en línea del contenido (función nueva)</h2></div>
+          <p class="m-section-intro">Almera está migrando el desarrollo del acta (hoy la pestaña «Contenido») hacia un documento Word editable en línea, igual que en el módulo de Documentos.</p>
 
-      <div class="steps-marked">
-        <div class="step-marked">
-          <span class="step-marker">1</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">En <strong>Parametrizar Mecanismos de Integración</strong>, adicione la clasificación: nombre singular, plural, y el nombre que tendrá el documento de reunión (ej. "Acta" o "Soporte").</p>
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">En vez de la pestaña Contenido, se habilita una plantilla Word en la pestaña Archivos, con la opción Editar online.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">Solo se edita el contenido — el encabezado con los datos de planeación usa las mismas variables de la sección 5, ya insertadas como código dentro del documento.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text">Funciona con autoguardado (como un documento de Google) y permite comentarios anclados a un punto específico del contenido, no solo comentarios generales.</span></div></li>
+            </ol>
           </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">2</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">Cree primero un <strong>Grupo</strong> (agrupador) — los campos que cree después deben quedar asociados a él.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">3</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">Cree los <strong>campos</strong> necesarios: texto (una o varias líneas), fecha, selección única o múltiple. Use la opción <strong>Múltiple</strong> para cargar varias opciones de respuesta de una vez.</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- ============ SECTION 4 — PLANTILLA ============ -->
-    <section class="section" id="plantilla">
-      <div class="section-head">
-        <span class="section-num">04</span>
-        <h2>Configuración de la plantilla institucional</h2>
-      </div>
-      <p class="section-desc">
-        Para que las actas de comités se elaboren directamente en el sistema Almera usando el formato
-        de Capital Salud, asocie el documento de Word institucional a cada tipo de reunión.
-      </p>
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Sin confirmar</div><p class="note-text">Solo disponible para clientes nuevos por ahora. Para activarla hay que solicitarlo a soporte, y quedaron sin confirmar: si tiene costo, y qué pasa con las actas históricas ya elaboradas con el sistema de «Contenido» tradicional.</p></div>
+          </div>
+        </section>
 
-      <div class="route">
-        <span class="route-label">Ruta</span>
-        <span class="route-path">Admin <span class="seg-arrow">→</span> Calidad <span class="seg-arrow">→</span> Parametrizar Mecanismos de Integración</span>
-      </div>
+        <!-- 07 — ELABORAR ACTA -->
+        <section id="elaborar-acta" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">07</span><h2>Elaborar un acta</h2></div>
+          <p class="m-section-intro">Solo usuarios con privilegio Admin miembro (o Administrador) pueden iniciar un acta, con el botón Adicionar soportes.</p>
 
-      <div class="steps-marked">
-        <div class="step-marked">
-          <span class="step-marker">1</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Ingreso</div>
-            <p class="step-marked-text">En el panel superior, diríjase a la pestaña <strong>Admin</strong>.</p>
+          <div class="step-group" style="margin-bottom:0">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-label">Planeación</span><span class="step-text">Fecha, hora de inicio, hora de fin y lugar. Se puede planear con anticipación y retomar después con «Editar soportes». Al grabar, el sistema genera el consecutivo del acta.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-label">Asistentes</span><span class="step-text">El sistema carga los integrantes del comité; se marca asistió/no asistió. Se pueden agregar invitados (usuario del sistema o externo) y enviar un correo recordatorio editable (no se agenda en calendario).</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-label">Archivos</span><span class="step-text">Adjunte evidencias. Después de seleccionar el archivo, debe hacer clic en Iniciar carga — si no lo hace, no queda subido.</span></div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-label">Contenido</span><span class="step-text">Redacte el desarrollo de la reunión. Inserte imágenes/tablas directamente desde el editor (no copie y pegue desde Word) para no perder resolución.</span></div></li>
+              <li><span class="n">05</span><div class="step-content"><span class="step-label">Compromisos</span><span class="step-text">Agregue tareas con fecha de cierre y responsable. No se notifica automáticamente — use el ícono del sobre «Enviar notificaciones», seleccione el compromiso (el sistema carga todos los abiertos, incluso de reuniones pasadas) y envíe.</span></div></li>
+              <li><span class="n">06</span><div class="step-content"><span class="step-label">Comentarios</span><span class="step-text">Ícono de nube en la parte superior derecha, visible en modo «Ver» (no en «Editar»). Permite comentarios generales con hilo de respuestas.</span></div></li>
+              <li><span class="n">07</span><div class="step-content"><span class="step-label">Generar informe</span><span class="step-text">Produce el acta final en Word o PDF, combinando lo diligenciado en el sistema con el formato de la plantilla institucional.</span></div></li>
+            </ol>
           </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">2</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Selección del módulo</div>
-            <p class="step-marked-text">En el menú lateral izquierdo, seleccione <strong>Calidad → Parametrizar Mecanismos de Integración</strong>.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">3</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Tipo de reunión</div>
-            <p class="step-marked-text">Elija el tipo de comité que desea configurar.</p>
-            <div class="field-list">
-              <span class="field-chip">Comités de junta</span>
-              <span class="field-chip">Comités estratégico</span>
-              <span class="field-chip">Otros tipos definidos</span>
-            </div>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">4</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Gestión de la plantilla</div>
-            <p class="step-marked-text">Haga clic en la pestaña <strong>Plantilla</strong>, luego en <strong>Elegir archivo</strong> y cargue el formato institucional en Word, incluyendo logo, encabezados y estructura requerida.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">5</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Guardado</div>
-            <p class="step-marked-text">Haga clic en <strong>Grabar</strong> para que el sistema asocie ese formato a las futuras actas de ese tipo de reunión.</p>
-          </div>
-        </div>
-      </div>
+        </section>
 
-      <div class="callout logic">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
-        <div><strong>Un formato por tipo de reunión.</strong> La plantilla cargada aplica únicamente al tipo de comité seleccionado; si maneja varios tipos, repita el proceso para cada uno.</div>
-      </div>
+        <!-- 08 — CAMPOS ACTA VS REUNIÓN -->
+        <section id="campos-acta-reunion" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">08</span><h2>Campos «de cara al acta» vs. «de cara a la reunión»</h2></div>
+          <p class="m-section-intro">Si un campo personalizado no aparece donde se esperaba, revise esta clasificación.</p>
 
-      <div class="callout warn">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-        <div><strong>Ojo con esta pantalla si el comité ya tiene su propia plantilla.</strong> Una vez un comité específico tiene una plantilla propia cargada, para editarla hay que hacerlo desde dentro de ese comité puntual — no desde esta parametrización general de tipo. Intentarlo desde aquí puede hacer que la plantilla deje de visualizarse o que aparezca un error al cargar una nueva (comportamiento reportado y aún sin confirmación completa de soporte).</div>
-      </div>
-    </section>
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-label">De cara al acta</span><span class="step-text">El campo se pide cada vez que se crea una nueva acta — útil para datos que cambian de una reunión a otra.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-label">De cara a la reunión</span><span class="step-text">El campo aparece una sola vez, en la información general del comité — útil para datos fijos (ej. «miembros con voz y voto»).</span></div></li>
+            </ol>
+          </div>
 
-    <!-- ============ SECTION 5 — VARIABLES ============ -->
-    <section class="section" id="variables">
-      <div class="section-head">
-        <span class="section-num">05</span>
-        <h2>Uso de variables y tablas dinámicas</h2>
-      </div>
-      <p class="section-desc">
-        Para que el sistema rellene automáticamente los datos de la reunión, es vital conservar estas
-        estructuras técnicas dentro del documento de Word que se carga.
-      </p>
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">Para corregirlo: entre al tipo de comité en Parametrizar Mecanismos de Integración, ubique el campo y cambie su clasificación entre las dos opciones.</p></div>
+          </div>
+        </section>
 
-      <div class="subhead">Alias (variables del sistema)</div>
-      <p class="section-desc" style="margin-top:-6px;">
-        Valores entre dobles llaves <code class="mono">{{ }}</code> que el sistema reemplaza por la información real de la reunión.
-      </p>
-      <div class="var-table">
-        <div class="var-row">
-          <span class="var-code">{{actaFecha_d}}</span>
-          <span class="var-desc">Día de la reunión.</span>
-        </div>
-        <div class="var-row">
-          <span class="var-code">{{actaFecha_F}}</span>
-          <span class="var-desc">Mes de la reunión.</span>
-        </div>
-        <div class="var-row">
-          <span class="var-code">{{actaFecha_Y}}</span>
-          <span class="var-desc">Año de la reunión.</span>
-        </div>
-        <div class="var-row">
-          <span class="var-code">{{actaHora}}</span>
-          <span class="var-desc">Hora de inicio de la sesión.</span>
-        </div>
-        <div class="var-row">
-          <span class="var-code">{{actaHoraFin}}</span>
-          <span class="var-desc">Hora de finalización de la sesión.</span>
-        </div>
-        <div class="var-row">
-          <span class="var-code">{{lugar}}</span>
-          <span class="var-desc">Sitio donde se realizó la reunión.</span>
-        </div>
-        <div class="var-row">
-          <span class="var-code">{{reunionNombre}}</span>
-          <span class="var-desc">Nombre registrado para la sesión.</span>
-        </div>
-        <div class="var-row">
-          <span class="var-code">{{observacionesacta}}</span>
-          <span class="var-desc">Comentarios generales registrados en el sistema.</span>
-        </div>
-      </div>
+        <!-- 09 — AUTENTICACIÓN -->
+        <section id="autenticacion" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">09</span><h2>Autenticación de usuarios externos</h2></div>
+          <p class="m-section-intro">Para comités de junta u otros con integrantes que no pertenecen a la organización.</p>
 
-      <div class="subhead">Tablas dinámicas</div>
-      <p class="section-desc" style="margin-top:-6px;">
-        Se utilizan para listar datos masivos sin intervención manual.
-      </p>
-      <div class="var-table">
-        <div class="var-row">
-          <span class="var-code">content_asistentes</span>
-          <span class="var-desc">Genera automáticamente la lista de quienes asistieron a la reunión.</span>
-        </div>
-        <div class="var-row">
-          <span class="var-code">content_actaCronograma_actividades</span>
-          <span class="var-desc">Lista los compromisos y tareas pactadas durante la reunión.</span>
-        </div>
-      </div>
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-label">Correo institucional</span><span class="step-text">Use autenticación externa, seleccionando el dominio institucional. No requiere contraseña en Almera — usa las credenciales del dominio.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-label">Correo externo/personal</span><span class="step-text">Use autenticación SGI (propia del sistema): defina login y contraseña dentro de Almera.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text">Agregue al usuario como integrante del comité desde Privilegios (normalmente con privilegio Miembro, para consulta y/o firma).</span></div></li>
+            </ol>
+          </div>
 
-      <div class="example-card">
-        <div class="example-label">Ejemplo de uso en la plantilla</div>
-        <div class="example-kv">
-          <div class="example-kv-item">
-            <span class="k">Encabezado</span>
-            <span class="v">Acta {{reunionNombre}}</span>
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Cuidado</div><p class="note-text">La autenticación externa con dominio solo aplica si el correo del usuario realmente pertenece a ese dominio institucional. Con un correo personal, debe usarse autenticación SGI.</p></div>
           </div>
-          <div class="example-kv-item">
-            <span class="k">Fecha</span>
-            <span class="v">{{actaFecha_d}}/{{actaFecha_F}}/{{actaFecha_Y}}</span>
-          </div>
-          <div class="example-kv-item">
-            <span class="k">Horario</span>
-            <span class="v">{{actaHora}} - {{actaHoraFin}}</span>
-          </div>
-          <div class="example-kv-item">
-            <span class="k">Lugar</span>
-            <span class="v">{{lugar}}</span>
-          </div>
-        </div>
-      </div>
+        </section>
 
-      <div class="callout warn">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-        <div>No modifique los códigos entre llaves <code class="mono">{{ }}</code>. Si se altera su escritura, el sistema no podrá identificarlos y el campo quedará vacío en el acta generada.</div>
-      </div>
-    </section>
-
-    <!-- ============ SECTION 6 — EDICIÓN EN LÍNEA (NUEVO) ============ -->
-    <section class="section" id="edicion-en-linea">
-      <div class="section-head">
-        <span class="section-num">06</span>
-        <h2>Edición en línea del contenido (función nueva)</h2>
-      </div>
-      <p class="section-desc">
-        Almera está migrando el desarrollo del acta (hoy la pestaña "Contenido") hacia un documento Word
-        editable en línea, igual que en el módulo de Documentos.
-      </p>
-
-      <div class="steps-marked">
-        <div class="step-marked">
-          <span class="step-marker">1</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">En vez de la pestaña Contenido, se habilita una plantilla Word en la pestaña <strong>Archivos</strong>, con la opción <strong>Editar online</strong>.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">2</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">Solo se edita el contenido — el encabezado con los datos de planeación usa las mismas variables de la sección 5, ya insertadas como código dentro del documento.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">3</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">Funciona con autoguardado (como un documento de Google) y permite comentarios anclados a un punto específico del contenido, no solo comentarios generales.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="callout warn">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-        <div><strong>Solo disponible para clientes nuevos</strong> por ahora. Para activarla hay que solicitarlo a soporte, y quedaron sin confirmar: si tiene costo, y qué pasa con las actas históricas ya elaboradas con el sistema de "Contenido" tradicional.</div>
-      </div>
-    </section>
-
-    <!-- ============ SECTION 7 — ELABORAR ACTA ============ -->
-    <section class="section" id="elaborar-acta">
-      <div class="section-head">
-        <span class="section-num">07</span>
-        <h2>Elaborar un acta</h2>
-      </div>
-      <p class="section-desc">
-        Solo usuarios con privilegio Admin miembro (o Administrador) pueden iniciar un acta, con el botón <strong>Adicionar soportes</strong>.
-      </p>
-
-      <div class="steps-marked">
-        <div class="step-marked">
-          <span class="step-marker">1</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Planeación</div>
-            <p class="step-marked-text">Fecha, hora de inicio, hora de fin y lugar. Se puede planear con anticipación y retomar después con "Editar soportes". Al grabar, el sistema genera el consecutivo del acta.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">2</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Asistentes</div>
-            <p class="step-marked-text">El sistema carga los integrantes del comité; se marca asistió/no asistió. Se pueden agregar invitados (usuario del sistema o externo) y enviar un correo recordatorio editable (no se agenda en calendario).</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">3</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Archivos</div>
-            <p class="step-marked-text">Adjunte evidencias. Después de seleccionar el archivo, debe hacer clic en <strong>Iniciar carga</strong> — si no lo hace, no queda subido.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">4</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Contenido</div>
-            <p class="step-marked-text">Redacte el desarrollo de la reunión. Inserte imágenes/tablas directamente desde el editor (no copie y pegue desde Word) para no perder resolución.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">5</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Compromisos</div>
-            <p class="step-marked-text">Agregue tareas con fecha de cierre y responsable. <strong>No se notifica automáticamente</strong> — use el ícono del sobre "Enviar notificaciones", seleccione el compromiso (el sistema carga todos los abiertos, incluso de reuniones pasadas) y envíe.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">6</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Comentarios</div>
-            <p class="step-marked-text">Ícono de nube en la parte superior derecha, visible en modo "Ver" (no en "Editar"). Permite comentarios generales con hilo de respuestas.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">7</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Generar informe</div>
-            <p class="step-marked-text">Produce el acta final en Word o PDF, combinando lo diligenciado en el sistema con el formato de la plantilla institucional.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ SECTION 8 — CAMPOS ACTA VS REUNIÓN ============ -->
-    <section class="section" id="campos-acta-reunion">
-      <div class="section-head">
-        <span class="section-num">08</span>
-        <h2>Campos "de cara al acta" vs. "de cara a la reunión"</h2>
-      </div>
-      <p class="section-desc">
-        Si un campo personalizado no aparece donde se esperaba, revise esta clasificación.
-      </p>
-
-      <div class="steps-marked">
-        <div class="step-marked">
-          <span class="step-marker">1</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">De cara al acta</div>
-            <p class="step-marked-text">El campo se pide cada vez que se crea una nueva acta — útil para datos que cambian de una reunión a otra.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">2</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">De cara a la reunión</div>
-            <p class="step-marked-text">El campo aparece una sola vez, en la información general del comité — útil para datos fijos (ej. "miembros con voz y voto").</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="callout note">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
-        <div>Para corregirlo: entre al tipo de comité en <strong>Parametrizar Mecanismos de Integración</strong>, ubique el campo y cambie su clasificación entre las dos opciones.</div>
-      </div>
-    </section>
-
-    <!-- ============ SECTION 9 — AUTENTICACIÓN EXTERNOS ============ -->
-    <section class="section" id="autenticacion">
-      <div class="section-head">
-        <span class="section-num">09</span>
-        <h2>Autenticación de usuarios externos</h2>
-      </div>
-      <p class="section-desc">
-        Para comités de junta u otros con integrantes que no pertenecen a la organización.
-      </p>
-
-      <div class="steps-marked">
-        <div class="step-marked">
-          <span class="step-marker">1</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Correo institucional</div>
-            <p class="step-marked-text">Use <strong>autenticación externa</strong>, seleccionando el dominio institucional. No requiere contraseña en Almera — usa las credenciales del dominio.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">2</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Correo externo/personal</div>
-            <p class="step-marked-text">Use <strong>autenticación SGI</strong> (propia del sistema): defina login y contraseña dentro de Almera.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">3</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">Agregue al usuario como integrante del comité desde <strong>Privilegios</strong> (normalmente con privilegio Miembro, para consulta y/o firma).</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="callout warn">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-        <div>La autenticación externa con dominio <strong>solo</strong> aplica si el correo del usuario realmente pertenece a ese dominio institucional. Con un correo personal, debe usarse autenticación SGI.</div>
-      </div>
-    </section>
-
-    <div class="footer">
-      <span>Mecanismo de Integración — Calidad</span>
-      <span class="mono">Almera SGI</span>
+      </main>
     </div>
 
-  </main>
+    <!-- ============ FOOTER ============ -->
+    <footer class="m-footer">
+      <span>Mecanismo de Integración · Calidad</span>
+      <span>Almera SGI</span>
+    </footer>
+
+  </div>
 </div>
 
 </body>

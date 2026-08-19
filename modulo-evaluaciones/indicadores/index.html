@@ -6,615 +6,446 @@
 <title>Indicadores — Almera</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../assets/main.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf9f7;
+    --ink:#171614;
+    --ink-soft:#5f5b52;
+    --ink-soft-2:#6b665c;
+    --ink-soft-3:#3d3a34;
+    --muted:#8a8579;
+    --muted-soft:#a5a096;
+    --muted-soft-2:#c3bdb1;
+    --muted-soft-3:#b3ada1;
+    --line:rgba(23,22,20,.1);
+    --line-soft:rgba(23,22,20,.09);
+    --line-strong:rgba(23,22,20,.14);
+    --accent:#eb5a25;
+    --dark:#17161a;
+  }
+  html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth;text-rendering:optimizeLegibility}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans","Helvetica Neue",Helvetica,sans-serif}
+  a{color:inherit;text-decoration:none}
+  a:hover{color:var(--ink)}
+  ::selection{background:var(--ink);color:var(--bg)}
+
+  .page{background:var(--bg);padding:0 32px 160px}
+  .wrap{max-width:1080px;margin:0 auto}
+
+  /* header */
+  .m-header{display:flex;justify-content:space-between;align-items:baseline;padding:36px 0 0;gap:16px;flex-wrap:wrap}
+  .m-header .eyebrow{display:flex;align-items:center;gap:9px;font:500 10.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .m-header .eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0}
+  .m-header a.back{font:400 13px/1 "DM Sans",sans-serif;color:var(--muted);border-bottom:1px solid rgba(0,0,0,.12);padding-bottom:2px;transition:color .2s ease,border-color .2s ease}
+  .m-header a.back:hover{color:var(--ink);border-color:rgba(0,0,0,.3)}
+
+  /* hero */
+  .m-hero{padding:110px 0 88px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:64px;align-items:end}
+  .m-hero-kicker{font:500 10.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:26px}
+  .m-hero h1{margin:0;font:300 60px/1.06 "DM Sans",sans-serif;letter-spacing:-.035em;text-wrap:balance;color:var(--ink)}
+  .m-hero-side{display:flex;flex-direction:column;gap:30px;padding-bottom:6px}
+  .m-hero-side p{margin:0;font:400 16.5px/1.6 "DM Sans",sans-serif;color:var(--ink-soft);max-width:40ch;text-wrap:pretty}
+  .m-hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+  .dl-pill{display:flex;align-items:center;gap:9px;padding:12px 20px;border-radius:999px;font:400 14px/1 "DM Sans",sans-serif;transition:opacity .25s ease,border-color .25s ease,color .25s ease}
+  .dl-pill .mono{font:500 11px/1 "JetBrains Mono",monospace}
+  .dl-pill.skill{background:var(--dark);color:var(--bg)}
+  .dl-pill.skill:hover{opacity:.78;color:var(--bg)}
+  .dl-pill.skill .mono{opacity:.6}
+  .dl-pill.md{border:1px solid var(--line-strong);color:var(--ink-soft)}
+  .dl-pill.md:hover{border-color:rgba(23,22,20,.4);color:var(--ink)}
+
+  /* faq */
+  .faq-section{border-top:1px solid var(--line);padding-top:34px}
+  .faq-kicker{font:500 10.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:22px}
+  .faq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:0 44px}
+  .faq-grid a{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:16px 2px;border-bottom:1px solid var(--line-soft);font:400 15px/1.4 "DM Sans",sans-serif;color:var(--ink-soft-3)}
+  .faq-grid a:hover{color:var(--ink)}
+  .faq-num{font:500 10.5px/1 "JetBrains Mono",monospace;color:var(--muted-soft-2)}
+
+  /* body layout */
+  .m-body{display:grid;grid-template-columns:200px minmax(0,1fr);gap:80px;margin-top:110px;align-items:start}
+  .m-toc{position:sticky;top:32px;display:flex;flex-direction:column;gap:26px}
+  .m-toc-group{display:flex;flex-direction:column;gap:9px}
+  .m-toc-label{font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-soft-3)}
+  .m-toc a{display:flex;gap:9px;font:400 13px/1.45 "DM Sans",sans-serif;color:var(--ink-soft-2)}
+  .m-toc a:hover{color:var(--ink)}
+  .m-toc a .num{font:500 10.5px/1.75 "JetBrains Mono",monospace;color:var(--muted-soft-2)}
+
+  .m-main{display:flex;flex-direction:column;max-width:760px}
+
+  /* sections */
+  .m-section{scroll-margin-top:32px;padding:56px 0 76px;border-top:1px solid var(--line)}
+  .m-section.first{padding-top:0;border-top:none}
+  .m-section-head{display:flex;align-items:baseline;gap:14px;margin-bottom:16px}
+  .m-section-num{font:500 11px/1 "JetBrains Mono",monospace;color:var(--accent);flex-shrink:0}
+  .m-section h2{margin:0;font:400 30px/1.15 "DM Sans",sans-serif;letter-spacing:-.025em;text-wrap:balance;color:var(--ink)}
+  .m-section-intro{margin:0 0 34px;font:400 16px/1.65 "DM Sans",sans-serif;color:var(--ink-soft);max-width:62ch;text-wrap:pretty}
+
+  /* ruta */
+  .ruta{display:flex;align-items:center;gap:12px;padding:13px 16px;background:rgba(23,22,20,.04);border-radius:2px;flex-wrap:wrap;margin-bottom:22px}
+  .ruta-label{font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-soft)}
+  .ruta-path{font:400 13px/1.4 "JetBrains Mono",monospace;color:var(--ink-soft-3)}
+
+  /* steps list */
+  .step-group{margin-bottom:34px}
+  .steps-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:1px;background:var(--line-soft)}
+  .steps-list li{background:var(--bg);display:grid;grid-template-columns:34px minmax(0,1fr);gap:16px;padding:18px 2px;align-items:baseline}
+  .steps-list .n{font:500 11px/1.5 "JetBrains Mono",monospace;color:var(--muted-soft-2)}
+  .step-content{display:flex;flex-direction:column;gap:6px}
+  .step-label{font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .step-text{font:400 15px/1.6 "DM Sans",sans-serif;color:var(--ink-soft-3);text-wrap:pretty}
+
+  /* field chips */
+  .field-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .field-chip{display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;border:1px solid var(--line-strong);font:400 12px/1 "DM Sans",sans-serif;color:var(--ink-soft-2)}
+
+  /* substeps */
+  .substeps{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+  .substep{display:flex;gap:10px;align-items:baseline}
+  .substep-bullet{width:4px;height:4px;border-radius:50%;background:var(--muted-soft-2);flex-shrink:0;position:relative;top:-2px}
+  .substep-text{font:400 14.5px/1.6 "DM Sans",sans-serif;color:var(--ink-soft-3)}
+
+  /* example card */
+  .example-card{padding:18px 20px;border:1px solid var(--line);border-radius:2px;margin-top:14px;background:rgba(23,22,20,.015)}
+  .example-label{font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+  .example-kv{display:flex;flex-direction:column;gap:6px}
+  .example-kv-item{display:flex;gap:10px;align-items:baseline;font:400 13.5px/1.5 "DM Sans",sans-serif}
+  .example-kv-item .k{color:var(--muted);min-width:110px}
+  .example-kv-item .v{color:var(--ink-soft-3);font-family:"JetBrains Mono",monospace;font-size:12.5px}
+
+  /* semaforo */
+  .semaforo-strip{display:flex;gap:1px;background:var(--line);border-radius:2px;overflow:hidden;margin-top:14px}
+  .semaforo-chip{flex:1;padding:14px 16px;background:#fff;display:flex;flex-direction:column;gap:4px;border-top:3px solid transparent;min-width:120px}
+  .semaforo-chip.red{border-top-color:#b7472a}
+  .semaforo-chip.yellow{border-top-color:#c08a1e}
+  .semaforo-chip.green{border-top-color:#2f7d4f}
+  .semaforo-label{font:500 11px/1 "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+  .semaforo-range{font:400 12.5px/1.4 "DM Sans",sans-serif;color:var(--muted)}
+
+  /* compare (neutral, no recommended/deprecated semantics) */
+  .compare-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin-bottom:34px}
+  .compare-card{padding:26px 24px;border:1px solid var(--line-strong);border-radius:2px;display:flex;flex-direction:column;gap:12px}
+  .compare-tag{font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-soft)}
+  .compare-card h3{margin:0;font:400 19px/1.25 "DM Sans",sans-serif;letter-spacing:-.02em;color:var(--ink)}
+  .compare-card p{margin:0;font:400 14px/1.62 "DM Sans",sans-serif;color:var(--ink-soft-2);text-wrap:pretty}
+
+  /* note box */
+  .note-box{padding:20px 22px;background:rgba(23,22,20,.035);border-radius:2px;margin-top:14px}
+  .notes-block{margin-top:26px}
+  .notes-block .note-box{margin-top:0}
+  .notes-block .note-box + .note-box{margin-top:14px}
+  .note-label{font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+  .note-text{margin:0;font:400 14px/1.62 "DM Sans",sans-serif;color:var(--ink-soft-3);text-wrap:pretty}
+
+  /* footer */
+  .m-footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font:400 12px/1 "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-soft)}
+
+  @media (max-width:980px){
+    .m-body{grid-template-columns:1fr;margin-top:72px}
+    .m-toc{display:none}
+  }
+  @media (max-width:760px){
+    .page{padding:0 20px 96px}
+    .m-hero{grid-template-columns:1fr;gap:36px;padding:72px 0 56px}
+    .m-hero h1{font-size:38px}
+    .faq-grid{grid-template-columns:1fr}
+    .compare-grid{grid-template-columns:1fr}
+    .m-footer{flex-direction:column;align-items:flex-start;gap:8px}
+  }
+</style>
 </head>
 <body>
 
-<div class="shell">
+<div class="page">
+  <div class="wrap">
 
-  <!-- ============ SIDEBAR ============ -->
-  <aside class="sidebar">
-    <div class="brand">
-      <div class="brand-mark">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <!-- ============ HEADER ============ -->
+    <header class="m-header">
+      <div class="eyebrow"><span class="dot"></span>Almera · Guía de operación</div>
+      <a class="back" href="../../index.html#modulos">Todos los módulos</a>
+    </header>
+
+    <!-- ============ HERO ============ -->
+    <section class="m-hero">
+      <div>
+        <div class="m-hero-kicker">Calidad · Módulo</div>
+        <h1>Indicadores</h1>
       </div>
-      <span class="brand-name"><a href="../../index.html">Almera</a></span>
-    </div>
-    <div class="brand-sub">Guía de operación</div>
-
-    <nav class="nav-section">
-      <div class="nav-label">Ficha técnica</div>
-      <a class="nav-link active" href="#campos"><span class="nav-dot"></span> 1. Campos adicionales</a>
-      <a class="nav-link" href="#opciones"><span class="nav-dot"></span> 2. Opciones de un campo</a>
-      <a class="nav-link" href="#unidades"><span class="nav-dot"></span> 3. Unidades de medida</a>
-    </nav>
-
-    <nav class="nav-section">
-      <div class="nav-label">Medición</div>
-      <a class="nav-link" href="#metas"><span class="nav-dot"></span> 4. Metas y semaforización</a>
-      <a class="nav-link" href="#privilegios"><span class="nav-dot"></span> 5. Privilegios y responsables</a>
-      <a class="nav-link" href="#fechas"><span class="nav-dot"></span> 6. Control de fechas</a>
-      <a class="nav-link" href="#notificaciones"><span class="nav-dot"></span> 7. Notificaciones de atraso</a>
-    </nav>
-
-    <nav class="nav-section">
-      <div class="nav-label">Reportes</div>
-      <a class="nav-link" href="#clasificacion"><span class="nav-dot"></span> 8. Clasificar y filtrar</a>
-    </nav>
-  </aside>
-
-  <!-- ============ MAIN ============ -->
-  <main class="main">
-
-    <div class="eyebrow">Almera</div>
-    <h1>Indicadores</h1>
-    <p class="lede">
-      Cómo personalizar la ficha técnica de un indicador, configurar unidades de medida,
-      definir metas con semaforización dinámica y administrar quién puede medir y consultar.
-    </p>
-
-    <div class="download-actions">
-      <a class="download-pill skill" href="./AI/almera-indicadores.skill" download title="Descargar habilidad para Claude">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.4 9.2L22 12L14.4 14.8L12 22L9.6 14.8L2 12L9.6 9.2L12 2Z" fill="currentColor"/></svg>
-        Descargar .skill <span class="pill-sub">para Claude</span>
-      </a>
-      <a class="download-pill md" href="./AI/indicadores.md" download title="Descargar documento de referencia">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 2V8H20" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 13H16M8 17H13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        Descargar .md <span class="pill-sub">para cualquier IA</span>
-      </a>
-    </div>
-
-    <div class="steps">
-      <div class="step">
-        <div class="step-body">
-          <p class="step-text">
-            <a class="see-also" href="#campos">
-              ¿Cómo agrego un campo nuevo a la ficha técnica?
-              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </p>
+      <div class="m-hero-side">
+        <p>Cómo personalizar la ficha técnica de un indicador, configurar unidades de medida, definir metas con semaforización dinámica y administrar quién puede medir y consultar.</p>
+        <div class="m-hero-actions">
+          <a class="dl-pill skill" href="./AI/almera-indicadores.skill" download title="Descargar habilidad para Claude">Descargar habilidad <span class="mono">.skill</span></a>
+          <a class="dl-pill md" href="./AI/indicadores.md" download title="Descargar documento de referencia">Descargar <span class="mono">.md</span></a>
         </div>
       </div>
-      <div class="step">
-        <div class="step-body">
-          <p class="step-text">
-            <a class="see-also" href="#metas">
-              ¿Cómo configuro correctamente las metas para no perder el histórico?
-              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-body">
-          <p class="step-text">
-            <a class="see-also" href="#privilegios">
-              ¿Cómo asigno acciones a un usuario específico?
-              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-body">
-          <p class="step-text">
-            <a class="see-also" href="#fechas">
-              ¿Qué pasa cuando llega la fecha de corte del indicador?
-              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-body">
-          <p class="step-text">
-            <a class="see-also" href="#notificaciones">
-              ¿Quién recibe la alerta cuando un indicador está atrasado?
-              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </p>
-        </div>
-      </div>
-    </div>
-    <br>
-    <h2>Reunión de capacitación</h2>
-    <p class="section-desc">
-      Para ver la operación completa, consulte 
-      <a class="see-also" target="_blank" href="">aquí</a> la grabación de la reunión de capacitación.
-    </p>
-    <hr class="divider-hero">
+    </section>
 
-    <!-- ============ SECTION 1 — CAMPOS ADICIONALES ============ -->
-    <section class="section" id="campos">
-      <div class="section-head">
-        <span class="section-num">01</span>
-        <h2>Creación de campos adicionales en la ficha técnica</h2>
+    <!-- ============ FAQ ============ -->
+    <section class="faq-section">
+      <div class="faq-kicker">Preguntas frecuentes</div>
+      <div class="faq-grid">
+        <a href="#campos"><span>¿Cómo agrego un campo nuevo a la ficha técnica?</span><span class="faq-num">01</span></a>
+        <a href="#metas"><span>¿Cómo configuro correctamente las metas para no perder el histórico?</span><span class="faq-num">04</span></a>
+        <a href="#privilegios"><span>¿Cómo asigno acciones a un usuario específico?</span><span class="faq-num">05</span></a>
+        <a href="#fechas"><span>¿Qué pasa cuando llega la fecha de corte del indicador?</span><span class="faq-num">06</span></a>
+        <a href="#notificaciones"><span>¿Quién recibe la alerta cuando un indicador está atrasado?</span><span class="faq-num">07</span></a>
       </div>
-      <p class="section-desc">
-        Para personalizar la información que se solicita al crear un indicador — por ejemplo,
-        para añadir una categorización propia.
-      </p>
+    </section>
 
-      <div class="route">
-        <span class="route-label">Ruta</span>
-        <span class="route-path">Admin <span class="seg-arrow">→</span> Indicadores <span class="seg-arrow">→</span> Categorías y tipos de indicador</span>
-      </div>
+    <!-- ============ BODY ============ -->
+    <div class="m-body">
 
-      <div class="steps-marked">
-        <div class="step-marked">
-          <span class="step-marker">1</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Selección del componente</div>
-            <p class="step-marked-text">Entre a la opción llamada <strong>Indicador</strong>.</p>
+      <nav class="m-toc">
+        <div class="m-toc-group">
+          <div class="m-toc-label">Ficha técnica</div>
+          <a href="#campos"><span class="num">01</span>Campos adicionales</a>
+          <a href="#opciones"><span class="num">02</span>Opciones de un campo</a>
+          <a href="#unidades"><span class="num">03</span>Unidades de medida</a>
+        </div>
+        <div class="m-toc-group">
+          <div class="m-toc-label">Medición</div>
+          <a href="#metas"><span class="num">04</span>Metas y semaforización</a>
+          <a href="#privilegios"><span class="num">05</span>Privilegios y responsables</a>
+          <a href="#fechas"><span class="num">06</span>Control de fechas</a>
+          <a href="#notificaciones"><span class="num">07</span>Notificaciones de atraso</a>
+        </div>
+        <div class="m-toc-group">
+          <div class="m-toc-label">Reportes</div>
+          <a href="#clasificacion"><span class="num">08</span>Clasificar y filtrar</a>
+        </div>
+      </nav>
+
+      <main class="m-main">
+
+        <!-- 01 — CAMPOS ADICIONALES -->
+        <section id="campos" class="m-section first">
+          <div class="m-section-head"><span class="m-section-num">01</span><h2>Creación de campos adicionales en la ficha técnica</h2></div>
+          <p class="m-section-intro">Para personalizar la información que se solicita al crear un indicador — por ejemplo, para añadir una categorización propia.</p>
+
+          <div class="ruta"><span class="ruta-label">Ruta</span><span class="ruta-path">Admin → Indicadores → Categorías y tipos de indicador</span></div>
+
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-label">Selección del componente</span><span class="step-text">Entre a la opción llamada Indicador.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-label">Gestión de campos</span><span class="step-text">Diríjase a la pestaña Campos adicionales.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-label">Nuevo registro</span><span class="step-text">Haga clic en Nuevo campo.</span></div></li>
+              <li><span class="n">04</span><div class="step-content">
+                <span class="step-label">Configuración</span>
+                <div class="substeps">
+                  <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Seleccione el tipo de campo (selección múltiple, texto, etc.).</span></div>
+                  <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Asigne un código o consecutivo, siguiendo el orden existente.</span></div>
+                  <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Escriba el nombre del campo.</span></div>
+                  <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Elija el agrupador: seleccione «Definición» si desea que aparezca en la primera pestaña de la ficha técnica.</span></div>
+                </div>
+              </div></li>
+              <li><span class="n">05</span><div class="step-content"><span class="step-label">Obligatoriedad</span><span class="step-text">Marque si el diligenciamiento de este campo es obligatorio o no.</span></div></li>
+              <li><span class="n">06</span><div class="step-content"><span class="step-text">Haga clic en Grabar para guardar los cambios.</span></div></li>
+            </ol>
           </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">2</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Gestión de campos</div>
-            <p class="step-marked-text">Diríjase a la pestaña <strong>Campos adicionales</strong>.</p>
+        </section>
+
+        <!-- 02 — OPCIONES -->
+        <section id="opciones" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">02</span><h2>Actualización de opciones en campos existentes</h2></div>
+          <p class="m-section-intro">Si desea añadir nuevas opciones a un campo de selección múltiple — por ejemplo, clasificar entre indicadores «normativos» o «de gestión».</p>
+
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">En la misma sección de Campos adicionales, busque el campo que desea modificar (ej. «Clase»).</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-label">Entrar al campo</span><span class="step-text">Haga clic sobre el nombre del campo para ver sus opciones actuales.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-label">Adicionar opción</span><span class="step-text">Seleccione Nuevo ítem.</span></div></li>
+              <li><span class="n">04</span><div class="step-content">
+                <span class="step-label">Diligenciar datos</span><span class="step-text">Ingrese el orden, el código y el nombre de la nueva opción.</span>
+                <div class="example-card"><div class="example-label">Ejemplo</div><div class="example-kv"><div class="example-kv-item"><span class="k">Nombre</span><span class="v">Indicador de gestión</span></div></div></div>
+              </div></li>
+              <li><span class="n">05</span><div class="step-content">
+                <span class="step-label">Peso (opcional)</span><span class="step-text">Si el campo es de selección múltiple, puede asignar un peso para que el sistema genere una calificación automática basada en esa respuesta.</span>
+                <div class="example-card"><div class="example-label">Ejemplo de pesos</div><div class="example-kv">
+                  <div class="example-kv-item"><span class="k">Cumple</span><span class="v">peso = 1</span></div>
+                  <div class="example-kv-item"><span class="k">No cumple</span><span class="v">peso = 0</span></div>
+                </div></div>
+              </div></li>
+              <li><span class="n">06</span><div class="step-content"><span class="step-text">Guarde el nuevo ítem.</span></div></li>
+            </ol>
           </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">3</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Nuevo registro</div>
-            <p class="step-marked-text">Haga clic en <strong>Nuevo campo</strong>.</p>
+
+          <div class="notes-block" style="margin-top:0">
+            <div class="note-box"><div class="note-label">Eliminar vs. inactivar</div><p class="note-text">Si una opción tiene el ícono de papelera habilitado, ningún indicador la está usando y se puede eliminar. Si no tiene papelera, ya hay indicadores usando esa opción — solo se puede inactivar (quitarle el check), no eliminar.</p></div>
           </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">4</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Configuración</div>
-            <div class="substeps">
-              <div class="substep">
-                <span class="substep-bullet"></span>
-                <span class="substep-text">Seleccione el <strong>tipo de campo</strong> (selección múltiple, texto, etc.).</span>
-              </div>
-              <div class="substep">
-                <span class="substep-bullet"></span>
-                <span class="substep-text">Asigne un <strong>código o consecutivo</strong>, siguiendo el orden existente.</span>
-              </div>
-              <div class="substep">
-                <span class="substep-bullet"></span>
-                <span class="substep-text">Escriba el <strong>nombre</strong> del campo.</span>
-              </div>
-              <div class="substep">
-                <span class="substep-bullet"></span>
-                <span class="substep-text">Elija el <strong>agrupador</strong>: seleccione "Definición" si desea que aparezca en la primera pestaña de la ficha técnica.</span>
-              </div>
+        </section>
+
+        <!-- 03 — UNIDADES -->
+        <section id="unidades" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">03</span><h2>Configuración de unidades de medida</h2></div>
+          <p class="m-section-intro">Para definir cómo se medirá el indicador — porcentaje, pesos, tasas, etc.</p>
+
+          <div class="ruta"><span class="ruta-label">Ruta</span><span class="ruta-path">Admin → Indicadores → Unidades y categorías</span></div>
+
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Haga clic en Adicionar unidad, en la esquina superior derecha.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-label">Identificación</span><span class="step-text">Asigne el nombre a la unidad.</span></div></li>
+              <li><span class="n">03</span><div class="step-content">
+                <span class="step-label">Formato</span><span class="step-text">Utilice el formato de llaves y, si lo desea, añada siglas al final para que aparezcan en los resultados.</span>
+                <div class="example-card"><div class="example-label">Ejemplo 1 (tasa)</div><div class="example-kv">
+                  <div class="example-kv-item"><span class="k">Nombre</span><span class="v">Tasa</span></div>
+                  <div class="example-kv-item"><span class="k">Formato</span><span class="v">{valor} TZ</span></div>
+                </div></div>
+                <div class="example-card"><div class="example-label">Ejemplo 2 (moneda)</div><div class="example-kv">
+                  <div class="example-kv-item"><span class="k">Nombre</span><span class="v">COP</span></div>
+                  <div class="example-kv-item"><span class="k">Formato</span><span class="v">$ {valor}</span></div>
+                </div></div>
+              </div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-label">Decimales</span><span class="step-text">Defina (en números) cuántos decimales tendrá la medición.</span></div></li>
+              <li><span class="n">05</span><div class="step-content"><span class="step-text">Haga clic en Grabar para que la unidad esté disponible en la ficha técnica.</span></div></li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- 04 — METAS -->
+        <section id="metas" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">04</span><h2>Gestión de metas y semaforización</h2></div>
+          <p class="m-section-intro">Es fundamental configurar correctamente las metas para no afectar el historial del indicador.</p>
+
+          <div class="notes-block" style="margin-top:0;margin-bottom:26px">
+            <div class="note-box"><div class="note-label">Automatización</div><p class="note-text">Recomendación técnica: utilice siempre Meta periódica con Semáforo dinámico.</p></div>
+          </div>
+
+          <div class="example-card" style="margin-top:0;margin-bottom:26px">
+            <div class="example-label">Meta única vs. Meta periódica</div>
+            <p class="note-text">Con <strong>Meta única</strong>, si el valor de la meta cambia en el futuro, el sistema recalcula todo el histórico con la meta nueva. Con <strong>Meta periódica</strong>, cada período conserva la meta que tenía en su momento — el histórico no se altera. El sistema toma siempre el valor de la meta como el 100% para el cálculo porcentual.</p>
+          </div>
+
+          <div class="notes-block" style="margin-top:0;margin-bottom:34px">
+            <div class="note-box"><div class="note-label">Cuidado</div><p class="note-text">Migrar de meta única a periódica: hay que reingresar, período por período, la meta que estuvo vigente en ese momento — si se deja la meta nueva aplicada a todo el histórico, el sistema sí modifica las mediciones ya registradas.</p></div>
+          </div>
+
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-label">Configuración en la ficha</span><span class="step-text">En el campo de meta, elija Periódica.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-label">Definición de valores</span><span class="step-text">Haga clic en Definir metas.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-label">Carga mes a mes</span><span class="step-text">Ingrese la meta específica para cada periodo: enero, febrero, etc.</span></div></li>
+              <li><span class="n">04</span><div class="step-content">
+                <span class="step-label">Rangos del semáforo</span><span class="step-text">Defina los valores para el cumplimiento. El sistema toma el valor de la meta como el 100% para los cálculos porcentuales.</span>
+                <div class="semaforo-strip">
+                  <div class="semaforo-chip red"><div class="semaforo-label">Rojo</div><div class="semaforo-range">Bajo cumplimiento</div></div>
+                  <div class="semaforo-chip yellow"><div class="semaforo-label">Amarillo</div><div class="semaforo-range">Cumplimiento parcial</div></div>
+                  <div class="semaforo-chip green"><div class="semaforo-label">Verde</div><div class="semaforo-range">Meta cumplida</div></div>
+                </div>
+              </div></li>
+            </ol>
+          </div>
+
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Confirmado</div><p class="note-text">Por qué importa: si la meta cambia en el futuro — por ejemplo, sube de 90% a 95% en junio — el sistema conserva el histórico de los meses anteriores con la meta antigua y no recalcula todo el año.</p></div>
+            <div class="note-box"><div class="note-label">Sin confirmar</div><p class="note-text">Cuando el resultado supera la meta (ej. 125%), el sistema hoy lo muestra tal cual, sin tope en 100%. Existe un parámetro para limitarlo, pero quedó pendiente de validación con soporte Almera — no se confirmó cómo activarlo.</p></div>
+          </div>
+        </section>
+
+        <!-- 05 — PRIVILEGIOS -->
+        <section id="privilegios" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">05</span><h2>Asignación de privilegios y responsables</h2></div>
+          <p class="m-section-intro">Distinga entre responsables por cargo y permisos para personas específicas. Dentro de un indicador puede haber un cargo responsable y, a la vez, usuarios específicos que pueden medir o analizar.</p>
+
+          <div class="compare-grid">
+            <div class="compare-card">
+              <div class="compare-tag">Información adicional</div>
+              <h3>Cargos responsables</h3>
+              <p>Define qué cargo es responsable del indicador, no una persona en particular.</p>
+            </div>
+            <div class="compare-card">
+              <div class="compare-tag">Privilegios</div>
+              <h3>Usuarios específicos</h3>
+              <p>Define qué persona puede consultar, medir o analizar este indicador en particular.</p>
             </div>
           </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">5</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Obligatoriedad</div>
-            <p class="step-marked-text">Marque si el diligenciamiento de este campo es obligatorio o no.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">6</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">Haga clic en <strong>Grabar</strong> para guardar los cambios.</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- ============ SECTION 2 — OPCIONES (ÍTEMS) ============ -->
-    <section class="section" id="opciones">
-      <div class="section-head">
-        <span class="section-num">02</span>
-        <h2>Actualización de opciones en campos existentes (ítems)</h2>
-      </div>
-      <p class="section-desc">
-        Si desea añadir nuevas opciones a un campo de selección múltiple — por ejemplo,
-        clasificar entre indicadores "normativos" o "de gestión".
-      </p>
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-label">Privilegios específicos</span><span class="step-text">Dentro de su indicador, vaya a la pestaña Editar → Privilegios y haga clic en Administrar.</span></div></li>
+              <li><span class="n">02</span><div class="step-content">
+                <span class="step-label">Selección</span><span class="step-text">Busque al usuario específico y asígnele acciones.</span>
+                <div class="field-list"><span class="field-chip">Consultar</span><span class="field-chip">Agregar medición</span><span class="field-chip">Hacer análisis</span></div>
+              </div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text">Haga clic en Agregar para finalizar.</span></div></li>
+            </ol>
+          </div>
 
-      <div class="steps-marked">
-        <div class="step-marked">
-          <span class="step-marker">1</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">En la misma sección de <strong>Campos adicionales</strong>, busque el campo que desea modificar (ej. "Clase").</p>
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">El campo de responsable en «Información adicional» solo admite un cargo por campo. Si varias personas específicas necesitan poder cargar mediciones (ej. un titular y un suplente), asígnalas por nombre desde Privilegios, que sí admite múltiples usuarios.</p></div>
           </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">2</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Entrar al campo</div>
-            <p class="step-marked-text">Haga clic sobre el nombre del campo para ver sus opciones actuales.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">3</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Adicionar opción</div>
-            <p class="step-marked-text">Seleccione <strong>Nuevo ítem</strong>.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">4</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Diligenciar datos</div>
-            <p class="step-marked-text">Ingrese el orden, el código y el nombre de la nueva opción.</p>
-            <div class="example-card">
-              <div class="example-label">Ejemplo</div>
-              <div class="example-kv">
-                <div class="example-kv-item"><span class="k">Nombre</span><span class="v">Indicador de gestión</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">5</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Peso (opcional)</div>
-            <p class="step-marked-text">Si el campo es de selección múltiple, puede asignar un peso para que el sistema genere una calificación automática basada en esa respuesta.</p>
-            <div class="example-card">
-              <div class="example-label">Ejemplo de pesos</div>
-              <div class="example-kv">
-                <div class="example-kv-item"><span class="k">Cumple</span><span class="v">peso = 1</span></div>
-                <div class="example-kv-item"><span class="k">No cumple</span><span class="v">peso = 0</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">6</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">Guarde el nuevo ítem.</p>
-          </div>
-        </div>
-      </div>
+        </section>
 
-      <div class="callout note">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
-        <div><strong>Eliminar vs. inactivar.</strong> Si una opción tiene el ícono de papelera habilitado, ningún indicador la está usando y se puede eliminar. Si no tiene papelera, ya hay indicadores usando esa opción — solo se puede <strong>inactivar</strong> (quitarle el check), no eliminar.</div>
-      </div>
-    </section>
+        <!-- 06 — FECHAS -->
+        <section id="fechas" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">06</span><h2>Control de fechas del indicador</h2></div>
+          <p class="m-section-intro">Las fechas determinan cuándo un indicador empieza y deja de aceptar mediciones.</p>
 
-    <!-- ============ SECTION 3 — UNIDADES DE MEDIDA ============ -->
-    <section class="section" id="unidades">
-      <div class="section-head">
-        <span class="section-num">03</span>
-        <h2>Configuración de unidades de medida</h2>
-      </div>
-      <p class="section-desc">
-        Para definir cómo se medirá el indicador — porcentaje, pesos, tasas, etc.
-      </p>
-
-      <div class="route">
-        <span class="route-label">Ruta</span>
-        <span class="route-path">Admin <span class="seg-arrow">→</span> Indicadores <span class="seg-arrow">→</span> Unidades y categorías</span>
-      </div>
-
-      <div class="steps-marked">
-        <div class="step-marked">
-          <span class="step-marker">1</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">Haga clic en <strong>Adicionar unidad</strong>, en la esquina superior derecha.</p>
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-label">Fecha válido</span><span class="step-text">Ingrese la fecha en la que el indicador debe comenzar a reportarse.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-label">Fecha de corte</span><span class="step-text">Ingrese la fecha en la que el indicador finaliza su vigencia.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-label">Periodos en cero</span><span class="step-text">Si un indicador puede tener meses sin datos, marque Permitir periodos sin medición para que el sistema muestre el mes en las tablas aunque el valor sea cero.</span></div></li>
+            </ol>
           </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">2</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Identificación</div>
-            <p class="step-marked-text">Asigne el nombre a la unidad.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">3</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Formato</div>
-            <p class="step-marked-text">Utilice el formato de llaves y, si lo desea, añada siglas al final para que aparezcan en los resultados.</p>
-            <div class="example-card">
-              <span class="example-label">Ejemplo 1 (tasa)</span>
-              <div class="example-kv">
-                <div class="example-kv-item"><span class="k">Nombre</span><span class="v">Tasa</span></div>
-                <div class="example-kv-item"><span class="k">Formato</span><span class="v">{valor} TZ</span></div>
-              </div>
-            </div>
-            <div class="example-card">
-              <span class="example-label">Ejemplo 2 (moneda)</span>
-              <div class="example-kv">
-                <div class="example-kv-item"><span class="k">Nombre</span><span class="v">COP</span></div>
-                <div class="example-kv-item"><span class="k">Formato</span><span class="v">$ {valor}</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">4</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Decimales</div>
-            <p class="step-marked-text">Defina (en números) cuántos decimales tendrá la medición.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">5</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">Haga clic en <strong>Grabar</strong> para que la unidad esté disponible en la ficha técnica.</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- ============ SECTION 4 — METAS Y SEMÁFORO ============ -->
-    <section class="section" id="metas">
-      <div class="section-head">
-        <span class="section-num">04</span>
-        <h2>Gestión de metas y semaforización</h2>
-      </div>
-      <p class="section-desc">
-        Es fundamental configurar correctamente las metas para no afectar el historial del indicador.
-      </p>
-
-      <div class="callout logic">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
-        <div><strong>Recomendación técnica.</strong> Utilice siempre Meta periódica con Semáforo dinámico.</div>
-      </div>
-
-      <div class="example-card">
-        <div class="example-label">Meta única vs. Meta periódica</div>
-        <p class="step-marked-text">Con <strong>Meta única</strong>, si el valor de la meta cambia en el futuro, el sistema <strong>recalcula todo el histórico</strong> con la meta nueva. Con <strong>Meta periódica</strong>, cada período conserva la meta que tenía en su momento — el histórico no se altera. El sistema toma siempre el valor de la meta como el 100% para el cálculo porcentual.</p>
-      </div>
-
-      <div class="callout warn">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-        <div><strong>Migrar de meta única a periódica:</strong> hay que reingresar, período por período, la meta que estuvo vigente en ese momento — si se deja la meta nueva aplicada a todo el histórico, el sistema sí modifica las mediciones ya registradas.</div>
-      </div>
-
-      <div class="steps-marked">
-        <div class="step-marked">
-          <span class="step-marker">1</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Configuración en la ficha</div>
-            <p class="step-marked-text">En el campo de meta, elija <strong>Periódica</strong>.</p>
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Cuidado</div><p class="note-text">Bloqueo automático: a partir de la fecha de corte, el sistema bloquea el indicador y los usuarios ya no podrán registrar más mediciones.</p></div>
           </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">2</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Definición de valores</div>
-            <p class="step-marked-text">Haga clic en <strong>Definir metas</strong>.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">3</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Carga mes a mes</div>
-            <p class="step-marked-text">Ingrese la meta específica para cada periodo: enero, febrero, etc.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">4</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Rangos del semáforo</div>
-            <p class="step-marked-text">Defina los valores para el cumplimiento. El sistema toma el valor de la meta como el 100% para los cálculos porcentuales.</p>
-            <div class="semaforo-strip">
-              <div class="semaforo-chip red">
-                <div class="semaforo-label">Rojo</div>
-                <div class="semaforo-range">Bajo cumplimiento</div>
-              </div>
-              <div class="semaforo-chip yellow">
-                <div class="semaforo-label">Amarillo</div>
-                <div class="semaforo-range">Cumplimiento parcial</div>
-              </div>
-              <div class="semaforo-chip green">
-                <div class="semaforo-label">Verde</div>
-                <div class="semaforo-range">Meta cumplida</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        </section>
 
-      <div class="callout good">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <div><strong>Por qué importa.</strong> Si la meta cambia en el futuro — por ejemplo, sube de 90% a 95% en junio — el sistema conserva el histórico de los meses anteriores con la meta antigua y no recalcula todo el año.</div>
-      </div>
+        <!-- 07 — NOTIFICACIONES -->
+        <section id="notificaciones" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">07</span><h2>Notificaciones y alertas de atraso</h2></div>
+          <p class="m-section-intro">Cómo está diseñado el aviso automático cuando un indicador no se ha medido a tiempo.</p>
 
-      <div class="callout warn">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-        <div><strong>Sin confirmar todavía:</strong> cuando el resultado supera la meta (ej. 125%), el sistema hoy lo muestra tal cual, sin tope en 100%. Existe un parámetro para limitarlo, pero quedó pendiente de validación con soporte Almera — no se confirmó cómo activarlo.</div>
-      </div>
-    </section>
-
-    <!-- ============ SECTION 5 — PRIVILEGIOS ============ -->
-    <section class="section" id="privilegios">
-      <div class="section-head">
-        <span class="section-num">05</span>
-        <h2>Asignación de privilegios y responsables</h2>
-      </div>
-      <p class="section-desc">
-        Distinga entre responsables por cargo y permisos para personas específicas. Dentro de algún indicador, puede haber un cargo responsable y, a la vez, usuarios específicos que pueden medir o analizar el indicador.
-      </p>
-
-      <div class="tab-compare">
-        <div class="tab-card">
-          <div class="tab-card-head">
-            <span class="tab-pill off">Información adicional</span>
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-label">Frecuencia</span><span class="step-text">El sistema no avisa apenas se vence un indicador. Hace un barrido semanal, todos los lunes, y envía un solo correo consolidado con todos los indicadores vencidos.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-label">Destinatario</span><span class="step-text">La notificación llega únicamente al responsable del indicador. No existe una opción de copia automática para un coordinador — para recibir esas alertas, esa persona tendría que estar marcada como responsable en cada indicador.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-label">Envío manual</span><span class="step-text">Un administrador puede disparar un envío masivo manual de la notificación de atraso a todos los usuarios con indicadores vencidos, como acción puntual.</span></div></li>
+            </ol>
           </div>
-          <div class="tab-card-title">Cargos responsables</div>
-          <div class="tab-card-desc">Define qué cargo es responsable del indicador, no una persona en particular.</div>
-        </div>
-        <div class="tab-card">
-          <div class="tab-card-head">
-            <span class="tab-pill on">Privilegios</span>
-          </div>
-          <div class="tab-card-title">Usuarios específicos</div>
-          <div class="tab-card-desc">Define qué persona puede consultar, medir o analizar este indicador en particular.</div>
-        </div>
-      </div>
 
-      <div class="steps-marked">
-        <div class="step-marked">
-          <span class="step-marker">1</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Privilegios específicos</div>
-            <p class="step-marked-text">Dentro de su indicador, vaya a la pestaña <strong>Editar</strong> -> <strong>Privilegios</strong> y haga clic en <strong>Administrar</strong>.</p>
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Sin confirmar</div><p class="note-text">En la última revisión, varios usuarios con indicadores atrasados desde meses atrás no habían recibido ninguna alerta semanal. Quedó pendiente que soporte Almera valide la causa (correo mal registrado, o usuario no marcado como responsable). No trate esta función como confiable hasta confirmarlo.</p></div>
           </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">2</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Selección</div>
-            <p class="step-marked-text">Busque al usuario específico y asígnele acciones.</p>
-            <div class="field-list">
-              <span class="field-chip">Consultar</span>
-              <span class="field-chip">Agregar medición</span>
-              <span class="field-chip">Hacer análisis</span>
-            </div>
+        </section>
+
+        <!-- 08 — CLASIFICACIÓN -->
+        <section id="clasificacion" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">08</span><h2>Clasificar indicadores y generar reportes filtrados</h2></div>
+          <p class="m-section-intro">Para separar tipos de indicadores (por ejemplo, normativos vs. de gestión propia del proceso) sin que se mezclen al evaluar el cumplimiento.</p>
+
+          <div class="notes-block" style="margin-top:0;margin-bottom:26px">
+            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">Almera no tiene una función de carpetas para separar visualmente los indicadores de un subproceso. La alternativa es etiquetar y filtrar.</p></div>
           </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">3</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">Haga clic en <strong>Agregar</strong> para finalizar.</p>
+
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-label">Etiquetar</span><span class="step-text">Use o cree un campo de selección en la ficha técnica (por ejemplo, el campo Clase) con ítems como «Indicador normativo» e «Indicador de gestión».</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-label">Asignar</span><span class="step-text">Al crear o editar cada indicador, seleccione la etiqueta que le corresponde.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-label">Filtrar y exportar</span><span class="step-text">Al generar el listado, filtre por esa etiqueta antes de exportar — así se puede sacar el reporte de un solo tipo sin que el otro afecte el cálculo de cumplimiento.</span></div></li>
+            </ol>
           </div>
-        </div>
-      </div>
 
-      <div class="callout note">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
-        <div>El campo de responsable en "Información adicional" solo admite <strong>un cargo</strong> por campo. Si varias personas específicas necesitan poder cargar mediciones (ej. un titular y un suplente), asígnalas por nombre desde <strong>Privilegios</strong>, que sí admite múltiples usuarios.</div>
-      </div>
-    </section>
-
-    <!-- ============ SECTION 6 — FECHAS ============ -->
-    <section class="section" id="fechas">
-      <div class="section-head">
-        <span class="section-num">06</span>
-        <h2>Control de fechas del indicador</h2>
-      </div>
-      <p class="section-desc">
-        Las fechas determinan cuándo un indicador empieza y deja de aceptar mediciones.
-      </p>
-
-      <div class="steps-marked">
-        <div class="step-marked">
-          <span class="step-marker">1</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Fecha válido</div>
-            <p class="step-marked-text">Ingrese la fecha en la que el indicador debe comenzar a reportarse.</p>
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Cuidado</div><p class="note-text">No existe un reporte consolidado automático (ej. promedio trimestral o semestral de cumplimiento). Hay que descargar los meses y promediarlos manualmente, o escribir a soporte para solicitar un reporte específico.</p></div>
           </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">2</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Fecha de corte</div>
-            <p class="step-marked-text">Ingrese la fecha en la que el indicador finaliza su vigencia.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">3</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Periodos en cero</div>
-            <p class="step-marked-text">Si un indicador puede tener meses sin datos, marque <strong>Permitir periodos sin medición</strong> para que el sistema muestre el mes en las tablas aunque el valor sea cero.</p>
-          </div>
-        </div>
-      </div>
+        </section>
 
-      <div class="callout warn">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-        <div><strong>Bloqueo automático.</strong> A partir de la fecha de corte, el sistema bloquea el indicador y los usuarios ya no podrán registrar más mediciones.</div>
-      </div>
-    </section>
-
-    <!-- ============ SECTION 7 — NOTIFICACIONES ============ -->
-    <section class="section" id="notificaciones">
-      <div class="section-head">
-        <span class="section-num">07</span>
-        <h2>Notificaciones y alertas de atraso</h2>
-      </div>
-      <p class="section-desc">
-        Cómo está diseñado el aviso automático cuando un indicador no se ha medido a tiempo.
-      </p>
-
-      <div class="steps-marked">
-        <div class="step-marked">
-          <span class="step-marker">1</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Frecuencia</div>
-            <p class="step-marked-text">El sistema no avisa apenas se vence un indicador. Hace un barrido <strong>semanal, todos los lunes</strong>, y envía un solo correo consolidado con todos los indicadores vencidos.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">2</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Destinatario</div>
-            <p class="step-marked-text">La notificación llega únicamente al <strong>responsable del indicador</strong>. No existe una opción de copia automática para un coordinador — para recibir esas alertas, esa persona tendría que estar marcada como responsable en cada indicador.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">3</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Envío manual</div>
-            <p class="step-marked-text">Un administrador puede disparar un <strong>envío masivo manual</strong> de la notificación de atraso a todos los usuarios con indicadores vencidos, como acción puntual.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="callout warn">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-        <div><strong>Sin confirmar todavía:</strong> en la última revisión, varios usuarios con indicadores atrasados desde meses atrás no habían recibido ninguna alerta semanal. Quedó pendiente que soporte Almera valide la causa (correo mal registrado, o usuario no marcado como responsable). No trates esta función como confiable hasta confirmarlo.</div>
-      </div>
-    </section>
-
-    <!-- ============ SECTION 8 — CLASIFICACIÓN Y REPORTES ============ -->
-    <section class="section" id="clasificacion">
-      <div class="section-head">
-        <span class="section-num">08</span>
-        <h2>Clasificar indicadores y generar reportes filtrados</h2>
-      </div>
-      <p class="section-desc">
-        Para separar tipos de indicadores (por ejemplo, normativos vs. de gestión propia del proceso) sin que se mezclen al evaluar el cumplimiento.
-      </p>
-
-      <div class="callout note">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
-        <div>Almera no tiene una función de carpetas para separar visualmente los indicadores de un subproceso. La alternativa es etiquetar y filtrar.</div>
-      </div>
-
-      <div class="steps-marked">
-        <div class="step-marked">
-          <span class="step-marker">1</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Etiquetar</div>
-            <p class="step-marked-text">Use o cree un campo de selección en la ficha técnica (por ejemplo, el campo <strong>Clase</strong>) con ítems como "Indicador normativo" e "Indicador de gestión".</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">2</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Asignar</div>
-            <p class="step-marked-text">Al crear o editar cada indicador, seleccione la etiqueta que le corresponde.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">3</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Filtrar y exportar</div>
-            <p class="step-marked-text">Al generar el listado, filtre por esa etiqueta antes de exportar — así se puede sacar el reporte de un solo tipo sin que el otro afecte el cálculo de cumplimiento.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="callout warn">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-        <div>No existe un reporte consolidado automático (ej. promedio trimestral o semestral de cumplimiento). Hay que descargar los meses y promediarlos manualmente, o escribir a soporte para solicitar un reporte específico.</div>
-      </div>
-    </section>
-
-    <div class="footer">
-      <span>Indicadores — Calidad</span>
-      <span class="mono">Almera SGI</span>
+      </main>
     </div>
 
-  </main>
+    <!-- ============ FOOTER ============ -->
+    <footer class="m-footer">
+      <span>Indicadores · Calidad</span>
+      <span>Almera SGI</span>
+    </footer>
+
+  </div>
 </div>
 
 </body>

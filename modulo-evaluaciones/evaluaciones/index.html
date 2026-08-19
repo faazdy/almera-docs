@@ -6,421 +6,325 @@
 <title>Evaluaciones (Auditorías) — Almera</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../assets/main.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf9f7;
+    --ink:#171614;
+    --ink-soft:#5f5b52;
+    --ink-soft-2:#6b665c;
+    --ink-soft-3:#3d3a34;
+    --muted:#8a8579;
+    --muted-soft:#a5a096;
+    --muted-soft-2:#c3bdb1;
+    --muted-soft-3:#b3ada1;
+    --line:rgba(23,22,20,.1);
+    --line-soft:rgba(23,22,20,.09);
+    --line-strong:rgba(23,22,20,.14);
+    --accent:#eb5a25;
+    --dark:#17161a;
+  }
+  html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth;text-rendering:optimizeLegibility}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans","Helvetica Neue",Helvetica,sans-serif}
+  a{color:inherit;text-decoration:none}
+  a:hover{color:var(--ink)}
+  ::selection{background:var(--ink);color:var(--bg)}
+
+  .page{background:var(--bg);padding:0 32px 160px}
+  .wrap{max-width:1080px;margin:0 auto}
+
+  /* header */
+  .m-header{display:flex;justify-content:space-between;align-items:baseline;padding:36px 0 0;gap:16px;flex-wrap:wrap}
+  .m-header .eyebrow{display:flex;align-items:center;gap:9px;font:500 10.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .m-header .eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0}
+  .m-header a.back{font:400 13px/1 "DM Sans",sans-serif;color:var(--muted);border-bottom:1px solid rgba(0,0,0,.12);padding-bottom:2px;transition:color .2s ease,border-color .2s ease}
+  .m-header a.back:hover{color:var(--ink);border-color:rgba(0,0,0,.3)}
+
+  /* hero */
+  .m-hero{padding:110px 0 88px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:64px;align-items:end}
+  .m-hero-kicker{font:500 10.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:26px}
+  .m-hero h1{margin:0;font:300 56px/1.08 "DM Sans",sans-serif;letter-spacing:-.035em;text-wrap:balance;color:var(--ink)}
+  .m-hero-side{display:flex;flex-direction:column;gap:30px;padding-bottom:6px}
+  .m-hero-side p{margin:0;font:400 16.5px/1.6 "DM Sans",sans-serif;color:var(--ink-soft);max-width:40ch;text-wrap:pretty}
+  .m-hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+  .dl-pill{display:flex;align-items:center;gap:9px;padding:12px 20px;border-radius:999px;font:400 14px/1 "DM Sans",sans-serif;transition:opacity .25s ease,border-color .25s ease,color .25s ease}
+  .dl-pill .mono{font:500 11px/1 "JetBrains Mono",monospace}
+  .dl-pill.skill{background:var(--dark);color:var(--bg)}
+  .dl-pill.skill:hover{opacity:.78;color:var(--bg)}
+  .dl-pill.skill .mono{opacity:.6}
+  .dl-pill.md{border:1px solid var(--line-strong);color:var(--ink-soft)}
+  .dl-pill.md:hover{border-color:rgba(23,22,20,.4);color:var(--ink)}
+
+  /* faq */
+  .faq-section{border-top:1px solid var(--line);padding-top:34px}
+  .faq-kicker{font:500 10.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:22px}
+  .faq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:0 44px}
+  .faq-grid a{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:16px 2px;border-bottom:1px solid var(--line-soft);font:400 15px/1.4 "DM Sans",sans-serif;color:var(--ink-soft-3)}
+  .faq-grid a:hover{color:var(--ink)}
+  .faq-num{font:500 10.5px/1 "JetBrains Mono",monospace;color:var(--muted-soft-2)}
+
+  /* body layout */
+  .m-body{display:grid;grid-template-columns:200px minmax(0,1fr);gap:80px;margin-top:110px;align-items:start}
+  .m-toc{position:sticky;top:32px;display:flex;flex-direction:column;gap:26px}
+  .m-toc-group{display:flex;flex-direction:column;gap:9px}
+  .m-toc-label{font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-soft-3)}
+  .m-toc a{display:flex;gap:9px;font:400 13px/1.45 "DM Sans",sans-serif;color:var(--ink-soft-2)}
+  .m-toc a:hover{color:var(--ink)}
+  .m-toc a .num{font:500 10.5px/1.75 "JetBrains Mono",monospace;color:var(--muted-soft-2)}
+
+  .m-main{display:flex;flex-direction:column;max-width:760px}
+
+  /* sections */
+  .m-section{scroll-margin-top:32px;padding:56px 0 76px;border-top:1px solid var(--line)}
+  .m-section.first{padding-top:0;border-top:none}
+  .m-section-head{display:flex;align-items:baseline;gap:14px;margin-bottom:16px}
+  .m-section-num{font:500 11px/1 "JetBrains Mono",monospace;color:var(--accent);flex-shrink:0}
+  .m-section h2{margin:0;font:400 30px/1.15 "DM Sans",sans-serif;letter-spacing:-.025em;text-wrap:balance;color:var(--ink)}
+  .m-section-intro{margin:0 0 34px;font:400 16px/1.65 "DM Sans",sans-serif;color:var(--ink-soft);max-width:62ch;text-wrap:pretty}
+
+  /* ruta */
+  .ruta{display:flex;align-items:center;gap:12px;padding:13px 16px;background:rgba(23,22,20,.04);border-radius:2px;flex-wrap:wrap;margin-bottom:22px}
+  .ruta-label{font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-soft)}
+  .ruta-path{font:400 13px/1.4 "JetBrains Mono",monospace;color:var(--ink-soft-3)}
+
+  /* steps list */
+  .step-group{margin-bottom:34px}
+  .steps-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:1px;background:var(--line-soft)}
+  .steps-list li{background:var(--bg);display:grid;grid-template-columns:34px minmax(0,1fr);gap:16px;padding:18px 2px;align-items:baseline}
+  .steps-list .n{font:500 11px/1.5 "JetBrains Mono",monospace;color:var(--muted-soft-2)}
+  .step-content{display:flex;flex-direction:column;gap:6px}
+  .step-label{font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .step-text{font:400 15px/1.6 "DM Sans",sans-serif;color:var(--ink-soft-3);text-wrap:pretty}
+  .step-text a{border-bottom:1px solid var(--line-strong)}
+  .step-text a:hover{color:var(--accent);border-color:var(--accent)}
+
+  /* field chips */
+  .field-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .field-chip{display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;border:1px solid var(--line-strong);font:400 12px/1 "DM Sans",sans-serif;color:var(--ink-soft-2)}
+  .field-chip.required{border-color:rgba(235,90,37,.3);color:var(--ink-soft-3)}
+  .field-chip.required::after{content:"*";color:var(--accent);margin-left:3px}
+
+  /* note box */
+  .note-box{padding:20px 22px;background:rgba(23,22,20,.035);border-radius:2px;margin-top:14px}
+  .notes-block{margin-top:26px}
+  .notes-block .note-box{margin-top:0}
+  .notes-block .note-box + .note-box{margin-top:14px}
+  .note-label{font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+  .note-text{margin:0;font:400 14px/1.62 "DM Sans",sans-serif;color:var(--ink-soft-3);text-wrap:pretty}
+
+  /* footer */
+  .m-footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font:400 12px/1 "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-soft)}
+
+  @media (max-width:980px){
+    .m-body{grid-template-columns:1fr;margin-top:72px}
+    .m-toc{display:none}
+  }
+  @media (max-width:760px){
+    .page{padding:0 20px 96px}
+    .m-hero{grid-template-columns:1fr;gap:36px;padding:72px 0 56px}
+    .m-hero h1{font-size:34px}
+    .faq-grid{grid-template-columns:1fr}
+    .m-footer{flex-direction:column;align-items:flex-start;gap:8px}
+  }
+</style>
 </head>
 <body>
 
-<div class="shell">
+<div class="page">
+  <div class="wrap">
 
-  <!-- ============ SIDEBAR ============ -->
-  <aside class="sidebar">
-    <div class="brand">
-      <div class="brand-mark">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <!-- ============ HEADER ============ -->
+    <header class="m-header">
+      <div class="eyebrow"><span class="dot"></span>Almera · Guía de operación</div>
+      <a class="back" href="../../index.html#modulos">Todos los módulos</a>
+    </header>
+
+    <!-- ============ HERO ============ -->
+    <section class="m-hero">
+      <div>
+        <div class="m-hero-kicker">Calidad · Módulo</div>
+        <h1>Evaluaciones (Auditorías)</h1>
       </div>
-      <span class="brand-name"><a href="../../index.html">Almera</a></span>
-    </div>
-    <div class="brand-sub">Guía de operación</div>
-
-    <nav class="nav-section">
-      <div class="nav-label">Evaluaciones (Auditorías)</div>
-      <a class="nav-link active" href="#creacion"><span class="nav-dot"></span> A. Crear auditoría</a>
-      <a class="nav-link" href="#plantillas"><span class="nav-dot"></span> B. Crear plantillas</a>
-      <a class="nav-link" href="#cuestionario"><span class="nav-dot"></span> C. Elaborar cuestionario</a>
-      <a class="nav-link" href="#ejecucion"><span class="nav-dot"></span> D. Ejecución y hallazgos</a>
-      <a class="nav-link" href="#sistema-referencia"><span class="nav-dot"></span> E. Sistema de referencia</a>
-      <a class="nav-link" href="#reportes"><span class="nav-dot"></span> F. Reportes y privilegios</a>
-    </nav>
-  </aside>
-
-  <!-- ============ MAIN ============ -->
-  <main class="main">
-
-    <div class="eyebrow">Almera</div>
-    <h1>Evaluaciones (Auditorías)</h1>
-    <p class="lede">
-      Este componente permite gestionar auditorías internas o externas (donde la entidad es el auditor)
-      y sus planes de mejora, desde la creación hasta la generación automática de hallazgos.
-    </p>
-
-    <div class="download-actions">
-      <a class="download-pill skill" href="./AI/almera-evaluaciones.skill" download title="Descargar habilidad para Claude">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.4 9.2L22 12L14.4 14.8L12 22L9.6 14.8L2 12L9.6 9.2L12 2Z" fill="currentColor"/></svg>
-        Descargar .skill <span class="pill-sub">para Claude</span>
-      </a>
-      <a class="download-pill md" href="./AI/evaluaciones-almera.md" download title="Descargar documento de referencia">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 2V8H20" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 13H16M8 17H13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        Descargar .md <span class="pill-sub">para cualquier IA</span>
-      </a>
-    </div>
-
-    <div class="steps">
-      <div class="step">
-        <div class="step-body">
-          <p class="step-text">
-            <a class="see-also" href="#creacion">
-              ¿Cómo creo una auditoría desde cero?
-              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </p>
+      <div class="m-hero-side">
+        <p>Este componente permite gestionar auditorías internas o externas (donde la entidad es el auditor) y sus planes de mejora, desde la creación hasta la generación automática de hallazgos.</p>
+        <div class="m-hero-actions">
+          <a class="dl-pill skill" href="./AI/almera-evaluaciones.skill" download title="Descargar habilidad para Claude">Descargar habilidad <span class="mono">.skill</span></a>
+          <a class="dl-pill md" href="./AI/evaluaciones-almera.md" download title="Descargar documento de referencia">Descargar <span class="mono">.md</span></a>
         </div>
-      </div>
-      <div class="step">
-        <div class="step-body">
-          <p class="step-text">
-            <a class="see-also" href="#plantillas">
-              ¿Cómo configuro una plantilla para auditorías recurrentes?
-              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-body">
-          <p class="step-text">
-            <a class="see-also" href="#cuestionario">
-              ¿Cómo cargo la lista de chequeo (masiva o manual)?
-              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-body">
-          <p class="step-text">
-            <a class="see-also" href="#ejecucion">
-              ¿Cómo se generan los hallazgos y planes de mejora?
-              <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <hr class="divider-hero">
-
-    <!-- ============ SECTION A — CREACIÓN ============ -->
-    <section class="section" id="creacion">
-      <div class="section-head">
-        <span class="section-num">A</span>
-        <h2>Creación de una auditoría desde cero</h2>
-      </div>
-      <p class="section-desc">
-        Configure una auditoría nueva definiendo su alcance, evaluador y periodo de ejecución.
-      </p>
-
-      <div class="route">
-        <span class="route-label">Ruta</span>
-        <span class="route-path">Admin <span class="seg-arrow">→</span> Evaluaciones <span class="seg-arrow">→</span> Evaluaciones</span>
-      </div>
-
-      <div class="steps-marked">
-        <div class="step-marked">
-          <span class="step-marker">1</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Ingreso</div>
-            <p class="step-marked-text">Vaya a <strong>Admin → Evaluaciones → Evaluaciones</strong>.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">2</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Adición</div>
-            <p class="step-marked-text">Haga clic en el botón <strong>Adicionar</strong>, ubicado en la parte superior.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">3</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Evaluación</div>
-            <p class="step-marked-text">
-              Seleccione el <strong> Tipo de Evaluación</strong> correspondiente. En caso de no ver la evaluación que requiera, puede crear una nueva.
-              <br>
-              <br>
-              <strong>Nota:</strong> Si la evaluación que necesita no existe, puede crearla desde <strong>Admin → Evaluaciones → Tipos de evaluación</strong>. Puede ver los pasos detallados en la sección: <a class="see-also" href="#plantillas">B. Creación de plantillas para auditorías recurrentes</a>.
-            </p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">4</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Configuración inicial</div>
-            <p class="step-marked-text">Diligencie los siguientes campos:</p>
-            <div class="field-list">
-              <span class="field-chip required">Año de ejecución</span>
-              <span class="field-chip required">Evaluador</span>
-              <span class="field-chip required">Nombre</span>
-              <span class="field-chip">Código (opcional)</span>
-              <span class="field-chip required">Sistema de referencia</span>
-              <span class="field-chip required">Periodo de tiempo</span>
-            </div>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">5</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Guardado</div>
-            <p class="step-marked-text">Haga clic en <strong>Grabar</strong>.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="callout warn">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-        <div><strong>Campo bloqueado tras grabar.</strong> Sea cuidadoso al seleccionar el Sistema de referencia: este campo no se puede modificar después de guardar la auditoría.</div>
-      </div>
-
-      <div class="callout note">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
-        <div>Si el evaluador que necesita no existe en el listado, puede crearlo desde <strong>Parámetros generales de evaluación</strong>.</div>
       </div>
     </section>
 
-    <!-- ============ SECTION B — PLANTILLAS ============ -->
-    <section class="section" id="plantillas">
-      <div class="section-head">
-        <span class="section-num">B</span>
-        <h2>Creación de plantillas para auditorías recurrentes</h2>
-      </div>
-      <p class="section-desc">
-        Diligencie la información técnica una sola vez para que el sistema la traiga automáticamente
-        en futuras auditorías del mismo tipo.
-      </p>
-
-      <div class="route">
-        <span class="route-label">Ruta</span>
-        <span class="route-path">Admin <span class="seg-arrow">→</span> Evaluaciones <span class="seg-arrow">→</span> Tipos de evaluación</span>
-      </div>
-
-      <div class="steps-marked">
-        <div class="step-marked">
-          <span class="step-marker">1</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">Vaya a <strong>Admin → Evaluaciones → Tipos de evaluación</strong>.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">2</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">Seleccione <strong>Evaluación</strong> o <strong>Programa anual de auditorías</strong>, según corresponda.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">3</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">En la pestaña <strong>Plantillas</strong>, haga clic en <strong>Adicionar plantilla</strong>.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">4</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">Diligencie la información técnica una sola vez; el sistema la traerá automáticamente en futuras auditorías.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="callout note">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
-        <div><strong>Jerarquía.</strong> Primero se crea la plantilla del <strong>Programa anual de auditorías</strong> (si aplica); las auditorías individuales se agregan luego dentro de la pestaña "Auditorías" de ese programa, cada una con su propia plantilla. Las auditorías no programadas (visitas sorpresa) se crean sueltas, fuera del programa. Las auditorías que un ente externo aplica a la organización <strong>no se crean en el sistema</strong> — solo se registra el hallazgo resultante como plan de mejora.</div>
+    <!-- ============ FAQ ============ -->
+    <section class="faq-section">
+      <div class="faq-kicker">Preguntas frecuentes</div>
+      <div class="faq-grid">
+        <a href="#creacion"><span>¿Cómo creo una auditoría desde cero?</span><span class="faq-num">A</span></a>
+        <a href="#plantillas"><span>¿Cómo configuro una plantilla para auditorías recurrentes?</span><span class="faq-num">B</span></a>
+        <a href="#cuestionario"><span>¿Cómo cargo la lista de chequeo (masiva o manual)?</span><span class="faq-num">C</span></a>
+        <a href="#ejecucion"><span>¿Cómo se generan los hallazgos y planes de mejora?</span><span class="faq-num">D</span></a>
       </div>
     </section>
 
-    <!-- ============ SECTION C — CUESTIONARIO ============ -->
-    <section class="section" id="cuestionario">
-      <div class="section-head">
-        <span class="section-num">C</span>
-        <h2>Elaboración del cuestionario (lista de chequeo)</h2>
-      </div>
-      <p class="section-desc">
-        Defina las preguntas de evaluación y las unidades auditables (procesos) a las que aplican,
-        de forma manual o masiva.
-      </p>
+    <!-- ============ BODY ============ -->
+    <div class="m-body">
 
-      <div class="steps-marked">
-        <div class="step-marked">
-          <span class="step-marker">1</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">Dentro de la auditoría o plantilla, vaya a la pestaña <strong>Cuestionario</strong>.</p>
-          </div>
+      <nav class="m-toc">
+        <div class="m-toc-group">
+          <div class="m-toc-label">Evaluaciones (Auditorías)</div>
+          <a href="#creacion"><span class="num">A</span>Crear auditoría</a>
+          <a href="#plantillas"><span class="num">B</span>Crear plantillas</a>
+          <a href="#cuestionario"><span class="num">C</span>Elaborar cuestionario</a>
+          <a href="#ejecucion"><span class="num">D</span>Ejecución y hallazgos</a>
+          <a href="#sistema-referencia"><span class="num">E</span>Sistema de referencia</a>
+          <a href="#reportes"><span class="num">F</span>Reportes y privilegios</a>
         </div>
-        <div class="step-marked">
-          <span class="step-marker">2</span>
-          <div class="step-marked-body">
-            <p class="step-marked-text">Haga clic en <strong>Adicionar cuestionario</strong>, asígnele un nombre y seleccione las <strong>Unidades auditables</strong> (procesos) a las que aplica.</p>
+      </nav>
+
+      <main class="m-main">
+
+        <!-- A — CREACIÓN -->
+        <section id="creacion" class="m-section first">
+          <div class="m-section-head"><span class="m-section-num">A</span><h2>Creación de una auditoría desde cero</h2></div>
+          <p class="m-section-intro">Configure una auditoría nueva definiendo su alcance, evaluador y periodo de ejecución.</p>
+
+          <div class="ruta"><span class="ruta-label">Ruta</span><span class="ruta-path">Admin → Evaluaciones → Evaluaciones</span></div>
+
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-label">Ingreso</span><span class="step-text">Vaya a Admin → Evaluaciones → Evaluaciones.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-label">Adición</span><span class="step-text">Haga clic en el botón Adicionar, ubicado en la parte superior.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-label">Evaluación</span><span class="step-text">Seleccione el Tipo de Evaluación correspondiente. Si la evaluación que necesita no existe, puede crearla desde Admin → Evaluaciones → Tipos de evaluación — ver <a href="#plantillas">sección B</a>.</span></div></li>
+              <li><span class="n">04</span><div class="step-content">
+                <span class="step-label">Configuración inicial</span><span class="step-text">Diligencie los siguientes campos:</span>
+                <div class="field-list">
+                  <span class="field-chip required">Año de ejecución</span>
+                  <span class="field-chip required">Evaluador</span>
+                  <span class="field-chip required">Nombre</span>
+                  <span class="field-chip">Código (opcional)</span>
+                  <span class="field-chip required">Sistema de referencia</span>
+                  <span class="field-chip required">Periodo de tiempo</span>
+                </div>
+              </div></li>
+              <li><span class="n">05</span><div class="step-content"><span class="step-label">Guardado</span><span class="step-text">Haga clic en Grabar.</span></div></li>
+            </ol>
           </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">3</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Carga de preguntas</div>
-            <p class="step-marked-text"><strong>Manual:</strong> use <strong>Adicionar pregunta</strong>, asigne un código y escriba la pregunta.</p>
+
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Cuidado</div><p class="note-text">Campo bloqueado tras grabar: sea cuidadoso al seleccionar el Sistema de referencia — este campo no se puede modificar después de guardar la auditoría.</p></div>
+            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">Si el evaluador que necesita no existe en el listado, puede crearlo desde Parámetros generales de evaluación.</p></div>
           </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">4</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Carga de preguntas</div>
-            <p class="step-marked-text"><strong>Masiva (Excel):</strong> haga clic en el icono <strong>Descargar plantilla</strong>, complete el Excel manteniendo la estructura de numeración y súbalo con el icono <strong>Cargar desde archivo Excel</strong>.</p>
+        </section>
+
+        <!-- B — PLANTILLAS -->
+        <section id="plantillas" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">B</span><h2>Creación de plantillas para auditorías recurrentes</h2></div>
+          <p class="m-section-intro">Diligencie la información técnica una sola vez para que el sistema la traiga automáticamente en futuras auditorías del mismo tipo.</p>
+
+          <div class="ruta"><span class="ruta-label">Ruta</span><span class="ruta-path">Admin → Evaluaciones → Tipos de evaluación</span></div>
+
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Vaya a Admin → Evaluaciones → Tipos de evaluación.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">Seleccione Evaluación o Programa anual de auditorías, según corresponda.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text">En la pestaña Plantillas, haga clic en Adicionar plantilla.</span></div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-text">Diligencie la información técnica una sola vez; el sistema la traerá automáticamente en futuras auditorías.</span></div></li>
+            </ol>
           </div>
-        </div>
-      </div>
 
-      <div class="callout logic">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
-        <div><strong>Preguntas jerárquicas.</strong> Si una pregunta es en realidad una sección (ej. "3. Parámetros generales"), créela con su código normal — el sistema no la cuenta como pregunta evaluable. Las preguntas reales que dependen de ella se crean con código tipo "3.1", "3.2", seleccionando esa sección como su <strong>Grupo</strong> (pregunta padre).</div>
-      </div>
-
-      <div class="callout note">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
-        <div>Una auditoría puede tener <strong>varios cuestionarios</strong>, cada uno aplicado a distintas unidades auditables — útil para separar preguntas generales (aplican a todos los procesos) de preguntas propias de cada proceso.</div>
-      </div>
-    </section>
-
-    <!-- ============ SECTION D — EJECUCIÓN ============ -->
-    <section class="section" id="ejecucion">
-      <div class="section-head">
-        <span class="section-num">D</span>
-        <h2>Ejecución y generación de hallazgos</h2>
-      </div>
-      <p class="section-desc">
-        Asigne el equipo auditor, ejecute la evaluación y deje que el sistema genere los planes
-        de mejora a partir de los puntos de atención.
-      </p>
-
-      <div class="steps-marked">
-        <div class="step-marked">
-          <span class="step-marker">1</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Asignación</div>
-            <p class="step-marked-text">Defina el <strong>Equipo auditor</strong> (Líder y editores) en su pestaña respectiva.</p>
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Jerarquía</div><p class="note-text">Primero se crea la plantilla del Programa anual de auditorías (si aplica); las auditorías individuales se agregan luego dentro de la pestaña «Auditorías» de ese programa, cada una con su propia plantilla. Las auditorías no programadas (visitas sorpresa) se crean sueltas, fuera del programa. Las auditorías que un ente externo aplica a la organización no se crean en el sistema — solo se registra el hallazgo resultante como plan de mejora.</p></div>
           </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">2</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Responsable</div>
-            <p class="step-marked-text">Regrese a la pestaña <strong>General</strong> y elija al <strong>Responsable</strong> (esta opción se habilita solo después de definir el equipo).</p>
+        </section>
+
+        <!-- C — CUESTIONARIO -->
+        <section id="cuestionario" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">C</span><h2>Elaboración del cuestionario (lista de chequeo)</h2></div>
+          <p class="m-section-intro">Defina las preguntas de evaluación y las unidades auditables (procesos) a las que aplican, de forma manual o masiva.</p>
+
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Dentro de la auditoría o plantilla, vaya a la pestaña Cuestionario.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">Haga clic en Adicionar cuestionario, asígnele un nombre y seleccione las Unidades auditables (procesos) a las que aplica.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-label">Carga manual</span><span class="step-text">Use Adicionar pregunta, asigne un código y escriba la pregunta.</span></div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-label">Carga masiva (Excel)</span><span class="step-text">Haga clic en el icono Descargar plantilla, complete el Excel manteniendo la estructura de numeración y súbalo con el icono Cargar desde archivo Excel.</span></div></li>
+            </ol>
           </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">3</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Transición</div>
-            <p class="step-marked-text">Cambie el estado de la auditoría a <strong>Ejecución</strong> mediante el botón <strong>Aplicar transición</strong>.</p>
+
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Automatización</div><p class="note-text">Preguntas jerárquicas: si una pregunta es en realidad una sección (ej. «3. Parámetros generales»), créela con su código normal — el sistema no la cuenta como pregunta evaluable. Las preguntas reales que dependen de ella se crean con código tipo «3.1», «3.2», seleccionando esa sección como su Grupo (pregunta padre).</p></div>
+            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">Una auditoría puede tener varios cuestionarios, cada uno aplicado a distintas unidades auditables — útil para separar preguntas generales (aplican a todos los procesos) de preguntas propias de cada proceso.</p></div>
           </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">4</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Evaluar</div>
-            <p class="step-marked-text">En la pestaña Cuestionario, use el icono <strong>Evaluar</strong> para calificar con "Cumple/No cumple" según la configuración de su sistema de referencia.</p>
+        </section>
+
+        <!-- D — EJECUCIÓN -->
+        <section id="ejecucion" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">D</span><h2>Ejecución y generación de hallazgos</h2></div>
+          <p class="m-section-intro">Asigne el equipo auditor, ejecute la evaluación y deje que el sistema genere los planes de mejora a partir de los puntos de atención.</p>
+
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-label">Asignación</span><span class="step-text">Defina el Equipo auditor (Líder y editores) en su pestaña respectiva.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-label">Responsable</span><span class="step-text">Regrese a la pestaña General y elija al Responsable (esta opción se habilita solo después de definir el equipo).</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-label">Transición</span><span class="step-text">Cambie el estado de la auditoría a Ejecución mediante el botón Aplicar transición.</span></div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-label">Evaluar</span><span class="step-text">En la pestaña Cuestionario, use el icono Evaluar para calificar con «Cumple/No cumple» según la configuración de su sistema de referencia.</span></div></li>
+              <li><span class="n">05</span><div class="step-content"><span class="step-label">Hallazgos automáticos</span><span class="step-text">Si un ítem no cumple, marque la casilla Punto de atención para que el sistema genere automáticamente un plan de mejora en el módulo correspondiente.</span></div></li>
+            </ol>
           </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">5</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Hallazgos automáticos</div>
-            <p class="step-marked-text">Si un ítem no cumple, marque la casilla <strong>Punto de atención</strong> para que el sistema genere automáticamente un plan de mejora en el módulo correspondiente.</p>
+
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Automatización</div><p class="note-text">Generación automática: marcar «Punto de atención» es lo único que se requiere para que el plan de mejora aparezca en su módulo, sin necesidad de crearlo manualmente.</p></div>
+            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">Marcar «Punto de atención» es opcional — no todo no-cumplimiento requiere un hallazgo formal; depende de la política interna (por ejemplo, algunas organizaciones solo generan hallazgo tras incumplimiento recurrente). La pestaña «Plan de trabajo» de la auditoría permite además asignar actividades relacionadas con la ejecución de la auditoría misma, distintas del plan de acción del hallazgo (que se gestiona desde Planes de Mejora).</p></div>
           </div>
-        </div>
-      </div>
+        </section>
 
-      <div class="callout logic">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
-        <div><strong>Generación automática.</strong> Marcar "Punto de atención" es lo único que se requiere para que el plan de mejora aparezca en su módulo, sin necesidad de crearlo manualmente.</div>
-      </div>
+        <!-- E — SISTEMA DE REFERENCIA -->
+        <section id="sistema-referencia" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">E</span><h2>Sistema de referencia: campos y niveles</h2></div>
+          <p class="m-section-intro">Configure, por cada sistema de referencia, qué información se pide y cómo se califica cada auditoría que lo use.</p>
 
-      <div class="callout note">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
-        <div>Marcar "Punto de atención" es opcional — no todo no-cumplimiento requiere un hallazgo formal; depende de la política interna (por ejemplo, algunas organizaciones solo generan hallazgo tras incumplimiento recurrente). La pestaña "Plan de trabajo" de la auditoría permite además asignar actividades relacionadas con la ejecución de la auditoría misma, distintas del plan de acción del hallazgo (que se gestiona desde Planes de Mejora).</div>
-      </div>
-    </section>
+          <div class="ruta"><span class="ruta-label">Ruta</span><span class="ruta-path">Admin → Evaluaciones → Sistemas de referencia</span></div>
 
-    <!-- ============ SECTION E — SISTEMA DE REFERENCIA ============ -->
-    <section class="section" id="sistema-referencia">
-      <div class="section-head">
-        <span class="section-num">E</span>
-        <h2>Sistema de referencia: campos, niveles de respuesta y niveles de gestión</h2>
-      </div>
-      <p class="section-desc">
-        Configure, por cada sistema de referencia, qué información se pide y cómo se califica cada auditoría que lo use.
-      </p>
-
-      <div class="route">
-        <span class="route-label">Ruta</span>
-        <span class="route-path">Admin <span class="seg-arrow">→</span> Evaluaciones <span class="seg-arrow">→</span> Sistemas de referencia</span>
-      </div>
-
-      <div class="steps-marked">
-        <div class="step-marked">
-          <span class="step-marker">1</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Campos adicionales</div>
-            <p class="step-marked-text">En la pestaña <strong>Campos</strong> del sistema de referencia, cree el campo eligiendo con cuidado el <strong>agrupador</strong>: "General" (ficha de la auditoría), "Hallazgo" (ficha del plan de mejora) o "Pregunta" (aparece dentro del cuestionario al evaluar, ej. un campo de Observaciones).</p>
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-label">Campos adicionales</span><span class="step-text">En la pestaña Campos del sistema de referencia, cree el campo eligiendo con cuidado el agrupador: «General» (ficha de la auditoría), «Hallazgo» (ficha del plan de mejora) o «Pregunta» (aparece dentro del cuestionario al evaluar, ej. un campo de Observaciones).</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-label">Niveles de respuesta</span><span class="step-text">Defina cómo se califica cada pregunta: código, nombre (ej. «Cumple»), calificación numérica, color, y si tiene o no peso en el cálculo.</span></div></li>
+            </ol>
           </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">2</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Niveles de respuesta</div>
-            <p class="step-marked-text">Defina cómo se califica cada pregunta: código, nombre (ej. "Cumple"), calificación numérica, color, y si tiene o no peso en el cálculo.</p>
+
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">Además de los niveles de respuesta existen los niveles de gestión, que dan un resultado porcentual/agregado visible en la vista de Seguimiento de la auditoría (no en la de edición).</p></div>
           </div>
-        </div>
-      </div>
+        </section>
 
-      <div class="callout note">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/></svg>
-        <div>Además de los niveles de respuesta existen los <strong>niveles de gestión</strong>, que dan un resultado porcentual/agregado visible en la vista de <strong>Seguimiento</strong> de la auditoría (no en la de edición).</div>
-      </div>
-    </section>
+        <!-- F — REPORTES -->
+        <section id="reportes" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">F</span><h2>Reportes y privilegios</h2></div>
+          <p class="m-section-intro">Cómo consultar los resultados de una auditoría y quién puede generar hallazgos desde otros módulos.</p>
 
-    <!-- ============ SECTION F — REPORTES Y PRIVILEGIOS ============ -->
-    <section class="section" id="reportes">
-      <div class="section-head">
-        <span class="section-num">F</span>
-        <h2>Reportes y privilegios</h2>
-      </div>
-      <p class="section-desc">
-        Cómo consultar los resultados de una auditoría y quién puede generar hallazgos desde otros módulos.
-      </p>
-
-      <div class="steps-marked">
-        <div class="step-marked">
-          <span class="step-marker">1</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Reporte</div>
-            <p class="step-marked-text">En la pestaña Cuestionario, la opción <strong>Reporte</strong> genera el documento completo con la planeación y el detalle de cada respuesta.</p>
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-label">Reporte</span><span class="step-text">En la pestaña Cuestionario, la opción Reporte genera el documento completo con la planeación y el detalle de cada respuesta.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-label">Resultado</span><span class="step-text">La opción Resultado muestra el resumen cuantitativo (cuántas preguntas cumplieron/no cumplieron), según los niveles de respuesta.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-label">Privilegios</span><span class="step-text">El acceso a generar hallazgos desde otros módulos (ej. desde un indicador) se asigna en Sistemas de referencia → [sistema] → Privilegios. Tras otorgar el privilegio, el usuario debe refrescar su sesión para verlo reflejado.</span></div></li>
+            </ol>
           </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">2</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Resultado</div>
-            <p class="step-marked-text">La opción <strong>Resultado</strong> muestra el resumen cuantitativo (cuántas preguntas cumplieron/no cumplieron), según los niveles de respuesta.</p>
-          </div>
-        </div>
-        <div class="step-marked">
-          <span class="step-marker">3</span>
-          <div class="step-marked-body">
-            <div class="step-marked-label">Privilegios</div>
-            <p class="step-marked-text">El acceso a generar hallazgos desde otros módulos (ej. desde un indicador) se asigna en <strong>Sistemas de referencia → [sistema] → Privilegios</strong>. Tras otorgar el privilegio, el usuario debe refrescar su sesión para verlo reflejado.</p>
-          </div>
-        </div>
-      </div>
 
-      <div class="callout warn">
-        <svg class="callout-icon" viewBox="0 0 24 24" fill="none"><path d="M12 9V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor"/><path d="M10.3 4.5L2.7 18A1.5 1.5 0 004 20.3H20A1.5 1.5 0 0021.3 18L13.7 4.5A1.5 1.5 0 0010.3 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-        <div>Incluso los administradores "superusuario" pueden no tener automáticamente todos los privilegios — hay que revisarlos y asignarlos explícitamente por sistema de referencia.</div>
-      </div>
-    </section>
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Cuidado</div><p class="note-text">Incluso los administradores «superusuario» pueden no tener automáticamente todos los privilegios — hay que revisarlos y asignarlos explícitamente por sistema de referencia.</p></div>
+          </div>
+        </section>
 
-    <div class="footer">
-      <span>Evaluaciones (Auditorías) — Calidad</span>
-      <span class="mono">Almera SGI</span>
+      </main>
     </div>
 
-  </main>
+    <!-- ============ FOOTER ============ -->
+    <footer class="m-footer">
+      <span>Evaluaciones (Auditorías) · Calidad</span>
+      <span>Almera SGI</span>
+    </footer>
+
+  </div>
 </div>
 
 </body>

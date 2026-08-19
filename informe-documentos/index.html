@@ -6,115 +6,69 @@
 <title>Informe de Documentos — Almera</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/main.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./style.css">
-
 </head>
 <body>
 
-<div class="shell">
+<div class="page">
+  <div class="wrap">
 
-  <!-- ============ SIDEBAR ============ -->
-  <aside class="sidebar">
-    <div class="brand">
-      <div class="brand-mark">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <!-- ============ HEADER ============ -->
+    <header class="m-header">
+      <div class="eyebrow"><span class="dot"></span>Almera · Gestión documental</div>
+      <a class="back" href="../index.html#modulos">Todos los módulos</a>
+    </header>
+
+    <!-- ============ HERO ============ -->
+    <section class="m-hero">
+      <div>
+        <div class="m-hero-kicker">Informe</div>
+        <h1>Informe de documentos</h1>
       </div>
-      <span class="brand-name"><a href="../index.html">Almera</a></span>
-    </div>
-    <div class="brand-sub">Informe de Documentos</div>
-
-    <nav class="nav-section">
-      <div class="nav-label">Datos</div>
-      <a class="nav-link active" href="#upload"><span class="nav-dot"></span> 1. Cargar Excel</a>
-    </nav>
-
-    <nav class="nav-section">
-      <div class="nav-label">Resumen</div>
-      <a class="nav-link" href="#kpis"><span class="nav-dot"></span> 2. Indicadores</a>
-      <a class="nav-link" href="#antiguedad"><span class="nav-dot"></span> 3. Antigüedad</a>
-    </nav>
-
-    <nav class="nav-section">
-      <div class="nav-label">Análisis</div>
-      <a class="nav-link" href="#graficos"><span class="nav-dot"></span> 4. Gráficos</a>
-      <a class="nav-link" href="#calidad"><span class="nav-dot"></span> 5. Calidad de datos</a>
-    </nav>
-
-    <nav class="nav-section">
-      <div class="nav-label">Detalle</div>
-      <a class="nav-link" href="#tabla"><span class="nav-dot"></span> 6. Tabla completa</a>
-    </nav>
-  </aside>
-
-  <!-- ============ MAIN ============ -->
-  <main class="main main--wide">
-
-    <div class="eyebrow">Almera · Gestión documental</div>
-    <h1>Informe de Documentos</h1>
-    <p class="lede">
-      Sube el <strong>Listado Maestro de Documentos</strong> exportado desde Almera y obtén al instante
-      indicadores de salud documental, antigüedad y calidad de datos. Haz clic en cualquier indicador
-      para ver exactamente qué documentos lo componen.
-    </p>
-
-    <!-- ============ UPLOAD ============ -->
-    <section class="section" id="upload">
-      <div class="section-head">
-        <span class="section-num">01</span>
-        <h2>Cargar el listado maestro</h2>
+      <div class="m-hero-side">
+        <p>Sube el Listado Maestro de Documentos exportado desde Almera y obtén al instante indicadores de salud documental, antigüedad y calidad de datos. Todo se procesa en tu navegador.</p>
       </div>
-      <p class="section-desc">
-        Ruta en Almera para exportarlo: <strong>Gestión de calidad → Listados maestros → Listado maestro de documentos</strong>, botón Exportar (ícono de Excel).
-      </p>
+    </section>
 
-      <div id="uploadZone" class="upload-zone">
-        <div class="upload-icon">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3V15M12 3L7 8M12 3L17 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 15V18C4 19.1 4.9 20 6 20H18C19.1 20 20 19.1 20 18V15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <!-- ============ 01 — CARGAR ============ -->
+    <section class="m-section first" id="upload">
+      <div class="m-section-head"><span class="m-section-num">01</span><h2>Cargar el listado maestro</h2></div>
+      <p class="m-section-intro">El informe se construye sobre el archivo de Excel que exporta Almera. No se guarda nada: el análisis ocurre por completo en tu navegador.</p>
+
+      <div class="upload-grid">
+        <div id="uploadZone" class="upload-zone">
+          <div class="upload-title">Arrastre el archivo aquí</div>
+          <div class="upload-sub">o haga clic para seleccionarlo · .xlsx · .xls</div>
         </div>
-        <div class="upload-title">Arrastra aquí el Excel del Listado Maestro</div>
-        <div class="upload-sub">o haz clic para seleccionarlo (.xlsx)</div>
-      </div>
-      <input type="file" id="fileInput" accept=".xlsx,.xls" style="display:none">
+        <input type="file" id="fileInput" accept=".xlsx,.xls" style="display:none">
 
-      <div class="upload-privacy">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L4 5V11C4 16 7.5 20.5 12 22C16.5 20.5 20 16 20 11V5L12 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-        Funciona sin conexión: el Excel se procesa en tu navegador con librerías incluidas en esta misma carpeta, nunca se sube a ningún servidor.
+        <div class="upload-info">
+          <div class="upload-info-kicker">Ruta de exportación</div>
+          <div class="upload-info-path">Gestión de calidad → Listados maestros → Listado maestro de documentos</div>
+          <div class="upload-info-text">Luego use el botón Exportar (ícono de Excel), arriba a la derecha.</div>
+        </div>
       </div>
+
+      <div class="upload-privacy">Funciona sin conexión: el Excel se procesa con librerías incluidas en esta misma carpeta, nunca se sube a ningún servidor.</div>
     </section>
 
     <!-- ============ CONTENIDO (oculto hasta cargar datos) ============ -->
     <div id="dashboardContent" class="dash-hidden">
 
-      <div class="report-toolbar">
-        <button class="btn-primary" id="btnPrintPdf" type="button">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M6 9V2h9l3 3v4"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
-          Descargar informe (PDF)
-        </button>
-      </div>
-
-      <!-- KPIs -->
-      <section class="section" id="kpis">
-        <div class="section-head">
-          <span class="section-num">02</span>
-          <h2>Indicadores generales</h2>
-        </div>
-        <p class="section-desc" id="kpiScope">Mostrando todos los documentos. <strong>Haz clic en cualquier tarjeta</strong> para ver el listado de documentos detrás de ese número.</p>
-        <div class="kpi-grid" id="kpiGrid"></div>
+      <!-- 02 — KPIs -->
+      <section class="m-section" id="kpis">
+        <div class="m-section-head"><span class="m-section-num">02</span><h2>Indicadores generales</h2></div>
+        <p class="m-section-intro" id="kpiScope">Mostrando todos los documentos. Haz clic en cualquier tarjeta para ver el detalle.</p>
+        <div class="kpi-tiles-grid" id="kpiGrid"></div>
       </section>
 
-      <!-- ANTIGÜEDAD -->
-      <section class="section" id="antiguedad">
-        <div class="section-head">
-          <span class="section-num">03</span>
-          <h2>Antigüedad de los documentos</h2>
-        </div>
-        <p class="section-desc">
-          Calculada sobre el campo de fecha que elijas. Por defecto usa <strong>Fecha modificación</strong> (la última vez que se tocó el documento).
-        </p>
+      <!-- 03 — ANTIGÜEDAD -->
+      <section class="m-section" id="antiguedad">
+        <div class="m-section-head"><span class="m-section-num">03</span><h2>Antigüedad de los documentos</h2></div>
+        <p class="m-section-intro">Calculada sobre el campo de fecha que elijas. Por defecto usa Fecha modificación, la última vez que se tocó el documento.</p>
 
-        <div class="filter-group" style="margin-bottom:18px;">
+        <div class="filter-group" style="margin-bottom:30px">
           <label>Calcular antigüedad usando</label>
           <div class="filter-pills" id="ageFieldPills">
             <button class="filter-pill active" data-field="Fecha modificación" type="button">Fecha modificación</button>
@@ -130,13 +84,10 @@
         </div>
       </section>
 
-      <!-- GRÁFICOS -->
-      <section class="section" id="graficos">
-        <div class="section-head">
-          <span class="section-num">04</span>
-          <h2>Distribución por categoría</h2>
-        </div>
-        <p class="section-desc">Haz clic en cualquier sector o barra para ver los documentos de esa categoría.</p>
+      <!-- 04 — GRÁFICOS -->
+      <section class="m-section" id="graficos">
+        <div class="m-section-head"><span class="m-section-num">04</span><h2>Distribución por categoría</h2></div>
+        <p class="m-section-intro">Haz clic en cualquier sector o barra para ver los documentos de esa categoría.</p>
         <div class="charts-grid">
           <div class="chart-card">
             <div class="chart-card-title">Por clasificación</div>
@@ -145,38 +96,44 @@
           </div>
           <div class="chart-card">
             <div class="chart-card-title">Por tipo de archivo</div>
-            <div class="chart-card-sub">A partir de la extensión en "Nombres archivos"</div>
+            <div class="chart-card-sub">A partir de la extensión en «Nombres archivos»</div>
             <div class="chart-canvas-wrap"><canvas id="chartExtension"></canvas></div>
           </div>
           <div class="chart-card">
             <div class="chart-card-title">Top 10 procesos con más documentos</div>
-            <div class="chart-card-sub">Campo "Asociado a"</div>
+            <div class="chart-card-sub">Campo «Asociado a»</div>
             <div class="chart-canvas-wrap tall"><canvas id="chartProceso"></canvas></div>
           </div>
           <div class="chart-card">
             <div class="chart-card-title">Top 10 clases documentales</div>
-            <div class="chart-card-sub">Campo "Clase"</div>
+            <div class="chart-card-sub">Campo «Clase»</div>
             <div class="chart-canvas-wrap tall"><canvas id="chartClase"></canvas></div>
           </div>
         </div>
       </section>
 
-      <!-- CALIDAD DE DATOS -->
-      <section class="section" id="calidad">
-        <div class="section-head">
-          <span class="section-num">05</span>
-          <h2>Calidad de datos</h2>
-        </div>
-        <p class="section-desc">Cosas que vale la pena revisar en el listado, detectadas automáticamente sobre el archivo completo (sin filtros).</p>
+      <!-- 05 — CALIDAD DE DATOS -->
+      <section class="m-section" id="calidad">
+        <div class="m-section-head"><span class="m-section-num">05</span><h2>Calidad de datos</h2></div>
+        <p class="m-section-intro">Hallazgos detectados automáticamente sobre el archivo completo, sin filtros.</p>
         <div class="dq-grid" id="dqGrid"></div>
+
+        <section class="cta-section">
+          <div class="cta-card">
+            <div class="cta-kicker">Exportar</div>
+            <h2>Llevar el informe a la revisión</h2>
+            <p>Descargue el informe completo en PDF para el comité de calidad. Para exportar solo el detalle filtrado, use el botón «Exportar vista» en la tabla de documentos.</p>
+            <div class="cta-actions">
+              <button class="cta-btn" id="btnPrintPdf" type="button">Descargar informe (PDF) <span class="mono">↓</span></button>
+              <a class="cta-btn-outline" href="#tabla">Ver tabla completa</a>
+            </div>
+          </div>
+        </section>
       </section>
 
-      <!-- TABLA -->
-      <section class="section" id="tabla">
-        <div class="section-head">
-          <span class="section-num">06</span>
-          <h2>Detalle de documentos</h2>
-        </div>
+      <!-- 06 — TABLA -->
+      <section class="m-section" id="tabla">
+        <div class="m-section-head"><span class="m-section-num">06</span><h2>Detalle de documentos</h2></div>
 
         <div class="filter-bar">
           <div class="filter-group">
@@ -247,12 +204,13 @@
 
     </div>
 
-    <div class="footer">
-      <span>Informe de Documentos — Calidad</span>
-      <span class="mono">Almera SGI</span>
-    </div>
+    <!-- ============ FOOTER ============ -->
+    <footer class="m-footer">
+      <span>Informe de documentos · Calidad</span>
+      <span>Almera SGI</span>
+    </footer>
 
-  </main>
+  </div>
 </div>
 
 <script src="./vendor/xlsx.full.min.js"></script>
