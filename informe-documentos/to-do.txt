@@ -1,0 +1,5 @@
+- Arreglar los filtros de CLASE, la idea es que no salgan tambien los procesos y subprocesos, sino 
+que, si quiero tener un listado de los documentos montdaos unicamente (documentos, formatos, etc...) pueda seleccionar los filtros con
+algun checkbox (posiblemete copiar los checkbox de filtro de Almera).
+
+- Arreglar el Grid de las cards KPIs de Indicadores Generales. El propt de diseño: 

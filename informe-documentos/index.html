@@ -37,17 +37,17 @@
       <p class="m-section-intro">El informe se construye sobre el archivo de Excel que exporta Almera. No se guarda nada: el análisis ocurre por completo en tu navegador.</p>
 
       <div class="upload-grid">
-        <div id="uploadZone" class="upload-zone">
-          <div class="upload-title">Arrastre el archivo aquí</div>
-          <div class="upload-sub">o haga clic para seleccionarlo · .xlsx · .xls</div>
-        </div>
-        <input type="file" id="fileInput" accept=".xlsx,.xls" style="display:none">
-
         <div class="upload-info">
           <div class="upload-info-kicker">Ruta de exportación</div>
           <div class="upload-info-path">Gestión de calidad → Listados maestros → Listado maestro de documentos</div>
           <div class="upload-info-text">Luego use el botón Exportar (ícono de Excel), arriba a la derecha.</div>
         </div>
+        <br>
+        <div id="uploadZone" class="upload-zone">
+          <div class="upload-title">Arrastre el archivo aquí</div>
+          <div class="upload-sub">o haga clic para seleccionarlo · .xlsx · .xls</div>
+        </div>
+        <input type="file" id="fileInput" accept=".xlsx,.xls" style="display:none">
       </div>
 
       <div class="upload-privacy">Funciona sin conexión: el Excel se procesa con librerías incluidas en esta misma carpeta, nunca se sube a ningún servidor.</div>
@@ -59,8 +59,8 @@
       <!-- 02 — KPIs -->
       <section class="m-section" id="kpis">
         <div class="m-section-head"><span class="m-section-num">02</span><h2>Indicadores generales</h2></div>
-        <p class="m-section-intro" id="kpiScope">Mostrando todos los documentos. Haz clic en cualquier tarjeta para ver el detalle.</p>
-        <div class="kpi-tiles-grid" id="kpiGrid"></div>
+        <p class="m-section-intro" id="kpiScope">Mostrando todos los documentos. Haz clic en cualquier indicador para ver el detalle.</p>
+        <div class="kpi-panel" id="kpiGrid"></div>
       </section>
 
       <!-- 03 — ANTIGÜEDAD -->
@@ -89,7 +89,7 @@
         <div class="m-section-head"><span class="m-section-num">04</span><h2>Distribución por categoría</h2></div>
         <p class="m-section-intro">Haz clic en cualquier sector o barra para ver los documentos de esa categoría.</p>
         <div class="charts-grid">
-          <div class="chart-card">
+          <div class="chart-card" id="cardClasificacion">
             <div class="chart-card-title">Por clasificación</div>
             <div class="chart-card-sub">Estratégicos / Misionales / Apoyo / Evaluación y Mejora</div>
             <div class="chart-canvas-wrap"><canvas id="chartClasificacion"></canvas></div>
@@ -136,7 +136,7 @@
         <div class="m-section-head"><span class="m-section-num">06</span><h2>Detalle de documentos</h2></div>
 
         <div class="filter-bar">
-          <div class="filter-group">
+          <div class="filter-group" id="groupClasificacion">
             <label>Clasificación</label>
             <select id="fClasificacion"><option value="">Todas</option></select>
           </div>

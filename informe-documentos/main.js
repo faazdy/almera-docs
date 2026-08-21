@@ -18,7 +18,8 @@
 
   const KNOWN_EXT = ['pdf','docx','doc','xlsx','xls','xlsm','xlsb','pptx','ppt','jpg','jpeg','png','url','zip','rtf'];
   const PALETTE = ['#eb5a25','#2563eb','#7c3aed','#16a34a','#f59e0b','#0891b2','#db2777','#64748b','#84cc16','#e11d48'];
-  const REQUIRED_COLS = ['Nombre','Clasificación','Asociado a'];
+  const REQUIRED_COLS = ['Nombre','Asociado a'];
+  let hasClasificacion = true;
 
   const uploadZone = document.getElementById('uploadZone');
   const fileInput = document.getElementById('fileInput');
@@ -256,47 +257,87 @@
     document.addEventListener('keydown', onKey);
   }
 
-  // ---------- render: KPIs (clicables) ----------
+  // ---------- render: KPIs (minimalismo, clicables) ----------
   function renderKPIs(){
     const total = filtered.length;
     const totalAll = rawData.length;
     document.getElementById('kpiScope').innerHTML = (total === totalAll)
-      ? 'Mostrando <strong>todos</strong> los ' + totalAll + ' registros del listado. Haz clic en cualquier tarjeta para ver el detalle.'
-      : 'Mostrando <strong>' + total + '</strong> de ' + totalAll + ' registros (filtros activos). Haz clic en cualquier tarjeta para ver el detalle.';
+      ? 'Mostrando <strong>todos</strong> los ' + totalAll + ' registros del listado. Haz clic en cualquier indicador para ver el detalle.'
+      : 'Mostrando <strong>' + total + '</strong> de ' + totalAll + ' registros (filtros activos). Haz clic en cualquier indicador para ver el detalle.';
 
     const sets = {
-      total: filtered,
-      antiguedad2: filtered.filter(function(r){ const y = getRowYears(r); return y !== null && y > 2; }),
-      pdf: filtered.filter(function(r){ return r._esPDF; }),
+      sincodigo: filtered.filter(function(r){ return r._sinCodigo; }),
       duplicados: filtered.filter(function(r){ return r._codigoDuplicado; }).slice().sort(function(a,b){
         return String(a['Código']||'').localeCompare(String(b['Código']||''));
       }),
-      sincodigo: filtered.filter(function(r){ return r._sinCodigo; }),
       sinarchivo: filtered.filter(function(r){ return r._sinArchivo; }),
+      antiguedad2: filtered.filter(function(r){ const y = getRowYears(r); return y !== null && y > 2; }),
+      pdf: filtered.filter(function(r){ return r._esPDF; }),
     };
 
-    const cards = [
-      { key:'total', label:'Total en el listado', value: sets.total.length, sub: 'de ' + totalAll + ' registros', title:'Documentos mostrados' },
-      { key:'antiguedad2', label:'Más de 2 años de antigüedad', value: sets.antiguedad2.length, sub: (total ? (sets.antiguedad2.length/total*100).toFixed(1) : 0) + '% de lo mostrado', title:'Documentos con más de 2 años de antigüedad (' + ageField + ')' },
-      { key:'pdf', label:'Cargados como PDF', value: sets.pdf.length, sub:'sin edición en línea posible', title:'Documentos cargados como PDF' },
-      { key:'duplicados', label:'Códigos duplicados', value: sets.duplicados.length, sub:'filas con código repetido', title:'Documentos con código duplicado' },
-      { key:'sincodigo', label:'Sin código asignado', value: sets.sincodigo.length, sub:'campo Código vacío', title:'Documentos sin código asignado' },
-      { key:'sinarchivo', label:'Sin archivo adjunto', value: sets.sinarchivo.length, sub:'campo Nombres archivos vacío', title:'Documentos sin archivo adjunto' },
+    const SEV = {
+      problem: { dot:'#b7472a', label:'Requiere acción' },
+      warn:    { dot:'#c08a1e', label:'Atención' },
+      info:    { dot:'var(--muted-soft)', label:'Informativo' }
+    };
+
+    const pct = function(n){ return total ? (n/total*100).toFixed(1).replace('.', ',') + '%' : '0,0%'; };
+
+    const cardDefs = [
+      { key:'sincodigo',   sev:'problem', title:'Sin código asignado', subtitle:'Campo Código vacío', modalTitle:'Documentos sin código asignado' },
+      { key:'duplicados',  sev:'problem', title:'Códigos duplicados', subtitle:'Mismo código repetido', modalTitle:'Documentos con código duplicado' },
+      { key:'sinarchivo',  sev:'problem', title:'Sin archivo adjunto', subtitle:'Campo Nombres archivos vacío', modalTitle:'Documentos sin archivo adjunto' },
+      { key:'antiguedad2', sev:'warn',    title:'Más de 2 años de antigüedad', subtitle:'Sin revisión reciente (' + ageField + ')', modalTitle:'Documentos con más de 2 años de antigüedad (' + ageField + ')' },
+      { key:'pdf',         sev:'info',    title:'Cargados como PDF', subtitle:'Sin edición en línea', modalTitle:'Documentos cargados como PDF' },
     ];
 
-    document.getElementById('kpiGrid').innerHTML = cards.map(function(c){
-      return '<button type="button" class="kpi-tile" data-kpi="' + c.key + '">' +
-        '<div class="kpi-tile-value">' + c.value.toLocaleString('es-CO') + '</div>' +
-        '<div class="kpi-tile-label">' + c.label + '</div>' +
-        '<div class="kpi-tile-meta">' + c.sub + '</div>' +
-      '</button>';
+    const cards = cardDefs.map(function(c){
+      const n = sets[c.key].length;
+      return Object.assign({}, c, {
+        dot: SEV[c.sev].dot,
+        valueFmt: n.toLocaleString('es-CO'),
+        pctStr: pct(n),
+        width: total ? (n/total*100).toFixed(2) + '%' : '0%'
+      });
+    });
+
+    const legendHtml = Object.keys(SEV).map(function(k){
+      return '<span class="kpi-legend-item"><span class="kpi-legend-dot" style="background:' + SEV[k].dot + '"></span>' + SEV[k].label + '</span>';
     }).join('');
 
-    document.querySelectorAll('#kpiGrid .kpi-tile').forEach(function(btn){
+    document.getElementById('kpiGrid').innerHTML =
+      '<div class="kpi-summary">' +
+        '<div class="kpi-summary-total">' +
+          '<span class="kpi-summary-value">' + total.toLocaleString('es-CO') + '</span>' +
+          '<span class="kpi-summary-label">registros totales</span>' +
+        '</div>' +
+        '<div class="kpi-legend">' + legendHtml + '</div>' +
+      '</div>' +
+      '<div class="kpi-list">' +
+        cards.map(function(c){
+          return '<button type="button" class="kpi-row" data-kpi="' + c.key + '">' +
+            '<span class="kpi-row-value-wrap">' +
+              '<span class="kpi-row-dot" style="background:' + c.dot + '" title="' + c.title + '"></span>' +
+              '<span class="kpi-row-value">' + c.valueFmt + '</span>' +
+            '</span>' +
+            '<span class="kpi-row-text">' +
+              '<span class="kpi-row-title">' + c.title + '</span>' +
+              '<span class="kpi-row-subtitle">' + c.subtitle + '</span>' +
+            '</span>' +
+            '<span class="kpi-row-pct-wrap">' +
+              '<span class="kpi-row-pct">' + c.pctStr + '</span>' +
+              '<span class="kpi-row-bar"><span class="kpi-row-bar-fill" style="width:' + c.width + ';background:' + c.dot + '"></span></span>' +
+            '</span>' +
+            '<svg class="kpi-row-chevron" width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>' +
+          '</button>';
+        }).join('') +
+      '</div>';
+
+    document.querySelectorAll('#kpiGrid .kpi-row').forEach(function(btn){
       btn.addEventListener('click', function(){
         const key = btn.dataset.kpi;
         const cfg = cards.filter(function(c){ return c.key === key; })[0];
-        openDetailModal(cfg.title, sets[key]);
+        openDetailModal(cfg.modalTitle, sets[key]);
       });
     });
   }
@@ -382,7 +423,14 @@
   }
 
   function renderCharts(){
-    renderDonut('chartClasificacion', groupCount(filtered, 'Clasificación'), 'Clasificación', 'Clasificación');
+    const clasifCard = document.getElementById('cardClasificacion');
+    if(hasClasificacion){
+      if(clasifCard) clasifCard.style.display = '';
+      renderDonut('chartClasificacion', groupCount(filtered, 'Clasificación'), 'Clasificación', 'Clasificación');
+    }else{
+      destroyChart('chartClasificacion');
+      if(clasifCard) clasifCard.style.display = 'none';
+    }
     renderDonut('chartExtension', groupCount(filtered, '_extension'), '_extension', 'Tipo de archivo');
     renderHBar('chartProceso', topN(groupCount(filtered, 'Asociado a'), 10), 'Asociado a', 'Proceso');
     renderHBar('chartClase', topN(groupCount(filtered, 'Clase'), 10), 'Clase', 'Clase');
@@ -553,7 +601,14 @@
   }
 
   function populateFilterOptions(){
-    fillSelect('fClasificacion', uniqueSorted(rawData, 'Clasificación'), 'Todas');
+    const clasifGroup = document.getElementById('groupClasificacion');
+    if(hasClasificacion){
+      if(clasifGroup) clasifGroup.style.display = '';
+      fillSelect('fClasificacion', uniqueSorted(rawData, 'Clasificación'), 'Todas');
+    }else{
+      if(clasifGroup) clasifGroup.style.display = 'none';
+      document.getElementById('fClasificacion').value = '';
+    }
     fillSelect('fTipo', uniqueSorted(rawData, 'Tipo'), 'Todos');
     fillSelect('fProceso', uniqueSorted(rawData, 'Asociado a'), 'Todos');
     fillSelect('fClase', uniqueSorted(rawData, 'Clase'), 'Todas');
@@ -616,15 +671,16 @@
         return;
       }
 
-      // --- Paso 2: validar que sea el listado correcto ---
+      // --- Paso 2: validar que sea un listado de documentos de Almera ---
       const cols = Object.keys(json[0]);
       const missing = REQUIRED_COLS.filter(function(c){ return cols.indexOf(c) === -1; });
       if(missing.length){
-        alert('Este archivo no parece ser el Listado Maestro de Documentos de Almera.\n\n' +
+        alert('Este archivo no parece ser un listado de documentos de Almera.\n\n' +
               'Faltan las columnas: ' + missing.join(', ') + '.\n\n' +
               'Expórtalo desde: Gestión de calidad → Listados maestros → Listado maestro de documentos.');
         return;
       }
+      hasClasificacion = cols.indexOf('Clasificación') !== -1;
 
       // --- Paso 3: procesar y renderizar (errores aquí no significan archivo inválido) ---
       try{
