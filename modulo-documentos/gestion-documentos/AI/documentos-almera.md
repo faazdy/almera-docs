@@ -349,16 +349,17 @@ Existen dos formas de exportar la información a Excel.
    | **Clase** | Seleccione la clase de documento. |
    | **Fecha** | Defina el rango de fechas para la búsqueda. |
 
-3. Haga clic en **Buscar** para visualizar los documentos que cumplen con los criterios establecidos.
-4. Si la lista contiene varias páginas, puede aumentar la cantidad de registros mostrados por página (por ejemplo, 100) para visualizar más resultados.
-5. Haga clic en el botón **Exportar** (ícono de Excel), ubicado en la parte superior derecha.
+Se recomienda que en el campo **Tipo** se seleccione el tipo de documentos que se desea exportar en Excel, ya que si se omite este paso, en el Excel aparecerán tambien los Procesos y Subprocesos (cosas que no son documentos en sí) y pueden afectar al analisis del estado DOCUMENTAL de Almera. Pero en caso de necesitar tambien Procesos y Subprocesos en el listado, puede omitir esta recomendacion.
+
+3. Si aplicó filtros en el paso anterior: Haga clic en **Buscar** para visualizar los documentos que cumplen con los criterios establecidos.
+4. Haga clic en el botón **Exportar** (ícono de Excel), ubicado en la parte superior derecha.
 
 > **Nota:** El archivo de Excel incluirá únicamente los documentos que se encuentren visibles en la lista después de aplicar los filtros. Si no aplica filtros, se exportarán todos los documentos mostrados en el listado.
 
 ### Notas / advertencias
 
 - La única forma de generar un reporte del listado de documentos es exportarlo a Excel; no hay reportes visuales adicionales dentro del módulo.
-- El "listado maestro" que se genera en la OPCION 2 solo muestra documentos **vigentes** por defecto — si se necesita ver la traza completa (incluyendo obsoletos/anulados/no publicados), hay que moverse a esas pestañas o quitar filtros según corresponda.
+- El "listado maestro" que se genera en la OPCION 2 solo muestra documentos con estado **Vigente** por defecto — si se necesita ver la traza completa (incluyendo obsoletos/anulados/no publicados), hay que moverse a esas pestañas o quitar filtros según corresponda.
 
 **Fuente:** transcripción cruda de la capacitación, 25 jun 2026 (min ~14–20).
 
@@ -689,8 +690,6 @@ Para confirmar la anulación:
 9. Hacer clic en **Grabar** para guardar los cambios.
 
 > **Nota:** La plataforma debería actualizar automáticamente el número de versión del documento una vez se guarden los cambios. Esta información puede verificarse posteriormente en los detalles del documento.
-
----
 
 ## Temas pendientes de validar con soporte Almera
 
