@@ -1,0 +1,7 @@
+antes d ecrear un proyecto se debe crear el 'tipo de proyecto'
+ruta para crear el tipo: Admin -> Proyectos -> Tipos de proyecto
+    - arriba a la izquierda sale el botón 'Adicionar Tipo'
+    - Se rellena y ajusta la informacion necesaria.
+    - EN la pestaña 'COnfiguracion' -> 'Estado' se puede definir el flujo, las transiciones ('COnfiguracion' -> 'Transiciones') son las acciones que se hacen para pasar de un estado a otro. *este paso no es obligatorio, los flujos en proyectos NO son obligatorios, eso depende del contexto*.
+    - Privilegios: Aqui se definen los responsables del proyectos, en donde se definenlos permisos de manejo (administrador, editor, consultor y registro).
+    
