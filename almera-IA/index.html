@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/styles.css">
-<link rel="stylesheet" href="./Styles/style.css">
+<link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
 
@@ -25,7 +25,7 @@
     <section class="m-hero">
       <div>
         <div class="m-hero-kicker">Referencia</div>
-        <h1>Almera + IA</h1>
+        <h1>Almera con Inteligencia Artificial</h1>
       </div>
       <div class="m-hero-side">
         <p>Cada módulo de esta documentación tiene una habilidad de inteligencia artificial asociada, para consultarla directamente desde un asistente en vez de leer la guía completa.</p>
@@ -36,8 +36,8 @@
     <section class="faq-section">
       <div class="faq-kicker">Preguntas frecuentes</div>
       <div class="faq-grid">
-        <a href="#instalar-skill"><span>¿Cómo instalo un archivo .skill en Claude?</span><span class="faq-num">02</span></a>
-        <a href="#usar-md"><span>¿Cómo uso un archivo .md con otro agente de IA?</span><span class="faq-num">04</span></a>
+        <a href="#instalar-skill"><span>¿Cómo instalo un archivo habilidad .skill en Claude?</span><span class="faq-num">02</span></a>
+        <a href="#usar-md"><span>¿Cómo uso un archivo GuIA con otro agente de IA?</span><span class="faq-num">04</span></a>
         <a href="#modulos-disponibles"><span>¿Qué módulos tienen habilidades disponibles para descargar?</span><span class="faq-num">05</span></a>
       </div>
     </section>
@@ -52,7 +52,7 @@
         </div>
         <div class="m-toc-group">
           <div class="m-toc-label">Usar con Claude</div>
-          <a href="#instalar-skill"><span class="num">02</span>Instalar un .skill</a>
+          <a href="#instalar-skill"><span class="num">02</span>Instalar una habilidad/skill</a>
           <a href="#usar-skill"><span class="num">03</span>Usar la habilidad</a>
         </div>
         <div class="m-toc-group">
@@ -70,24 +70,30 @@
 
         <!-- 01 — QUÉ SON -->
         <section id="que-son" class="m-section first">
-          <div class="m-section-head"><span class="m-section-num">01</span><h2>Qué son los archivos .skill y .md</h2></div>
+          <div class="m-section-head"><span class="m-section-num">01</span><h2>Qué son los archivos de habilidad .skill y GuIA</h2></div>
           <p class="m-section-intro">Cada módulo documentado (Evaluaciones, Gestión documental, Indicadores, Mecanismos de integración, Planes de mejora) tiene su conocimiento empaquetado en dos formatos distintos, pensados para dos formas diferentes de usar IA.</p>
 
           <div class="compare-grid">
             <div class="compare-card">
-              <div class="compare-tag">Para Claude</div>
+              <div class="compare-tag">
+                <img src="../assets/claude-ico.webp" alt="Claude icon">
+                Para Claude
+              </div>
               <h3>.skill — Habilidad para Claude</h3>
               <p>Un paquete listo para instalar como Agent Skill. Una vez activado, Claude lo carga automáticamente cuando la conversación lo necesita — no hay que adjuntar nada manualmente en cada chat.</p>
             </div>
             <div class="compare-card">
-              <div class="compare-tag">Para cualquier IA</div>
-              <h3>.md — Documento de referencia</h3>
-              <p>Un archivo de texto plano con toda la guía del módulo. Sirve para cualquier asistente de IA (ChatGPT, Gemini, Copilot, o el propio Claude), pero hay que adjuntarlo o pegarlo manualmente en cada conversación donde se quiera usar.</p>
+              <div class="compare-tag">
+                <img src="../assets/AI-icon.png" alt="AI icon">
+                Para cualquier IA
+              </div>
+              <h3>GuIA.md — Instrucciones estructuradas</h3>
+              <p>Un archivo de texto plano formateado con toda la guía del módulo. Sirve para cualquier asistente de IA (ChatGPT, Gemini, Copilot, o el propio Claude), pero hay que adjuntarlo o pegarlo manualmente en cada conversación donde se quiera usar.</p>
             </div>
           </div>
 
           <div class="notes-block" style="margin-top:0">
-            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">Si usa Claude, el archivo .skill es la opción más cómoda. Si usa otro asistente, o quiere una alternativa más simple, use el archivo .md.</p></div>
+            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">Si usa Claude, el archivo .skill es la opción más cómoda. Si usa otro asistente, o quiere una alternativa más simple, use el archivo GuIA.md.</p></div>
           </div>
         </section>
 
@@ -202,42 +208,56 @@
             <div class="mod-row">
               <span class="mod-name">Evaluaciones</span>
               <div class="mod-actions">
-                <a class="pill pill-skill" href="../modulo-evaluaciones/evaluaciones/AI/almera-evaluaciones.skill" download><span class="mono">.skill</span></a>
-                <a class="pill pill-md" href="../modulo-evaluaciones/evaluaciones/AI/evaluaciones-almera.md" download><span class="mono">.md</span></a>
+                <a class="pill pill-skill" href="../modulo-evaluaciones/evaluaciones/AI/almera-evaluaciones.skill" download>
+                  <img src="../assets/claude-ico.webp" alt="Claude icon">
+                  <span class="mono">Skill</span>
+                </a>
+                <a class="pill pill-md" href="../modulo-evaluaciones/evaluaciones/AI/evaluaciones-almera.md" download>
+                  <img src="../assets/AI-icon.png" alt="AI icon">
+                  <span class="mono">GuIA</span>
+                </a>
               </div>
             </div>
             <div class="mod-row">
               <span class="mod-name">Gestión documental</span>
               <div class="mod-actions">
-                <a class="pill pill-skill" href="../modulo-documentos/gestion-documentos/AI/almera-documentos.skill" download><span class="mono">.skill</span></a>
-                <a class="pill pill-md" href="../modulo-documentos/gestion-documentos/AI/documentos-almera.md" download><span class="mono">.md</span></a>
+                <a class="pill pill-skill" href="../modulo-documentos/gestion-documentos/AI/almera-documentos.skill" download>
+                  <img src="../assets/claude-ico.webp" alt="Claude icon">
+                  <span class="mono">Skill</span>
+                </a>
+                <a class="pill pill-md" href="../modulo-documentos/gestion-documentos/AI/documentos-almera.md" download>
+                  <img src="../assets/AI-icon.png" alt="AI icon">
+                  <span class="mono">GuIA</span>
+                </a>
               </div>
             </div>
             <div class="mod-row">
               <span class="mod-name">Indicadores</span>
               <div class="mod-actions">
-                <a class="pill pill-skill" href="../modulo-evaluaciones/indicadores/AI/almera-indicadores.skill" download><span class="mono">.skill</span></a>
-                <a class="pill pill-md" href="../modulo-evaluaciones/indicadores/AI/indicadores.md" download><span class="mono">.md</span></a>
-              </div>
-            </div>
-            <div class="mod-row">
-              <span class="mod-name">Mecanismos de integración</span>
-              <div class="mod-actions">
-                <a class="pill pill-skill" href="../modulo-documentos/mecanismos-integracion/AI/almera-mecanismos.skill" download><span class="mono">.skill</span></a>
-                <a class="pill pill-md" href="../modulo-documentos/mecanismos-integracion/AI/mecanismos-integracion.md" download><span class="mono">.md</span></a>
+                <a class="pill pill-skill" href="../modulo-evaluaciones/indicadores/AI/almera-indicadores.skill" download>
+                  <img src="../assets/claude-ico.webp" alt="Claude icon">
+                  <span class="mono">Skill</span>
+                </a>
+                <a class="pill pill-md" href="../modulo-evaluaciones/indicadores/AI/indicadores.md" download>
+                  <img src="../assets/AI-icon.png" alt="AI icon">
+                  <span class="mono">GuIA</span>
+                </a>
               </div>
             </div>
             <div class="mod-row">
               <span class="mod-name">Planes de mejora</span>
               <div class="mod-actions">
-                <span class="pill pill-skill is-disabled" title="El .skill de este módulo todavía no está disponible"><span class="mono">.skill</span></span>
-                <a class="pill pill-md" href="../modulo-evaluaciones/planes-de-mejora/AI/docs-plan-de-mejora.md" download><span class="mono">.md</span></a>
+                <span class="pill pill-skill is-disabled" title="El .skill de este módulo todavía no está disponible">
+                  <img src="../assets/claude-ico.webp" alt="Claude icon">
+                  <span class="mono">Skill</span>
+                </span>
+                <a class="pill pill-md" href="../modulo-evaluaciones/planes-de-mejora/AI/docs-plan-de-mejora.md" download><img src="../assets/AI-icon.png" alt="AI icon"><span class="mono">GuIA</span></a>
               </div>
             </div>
           </div>
 
           <div class="notes-block">
-            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">El módulo Planes de mejora todavía no tiene habilidad .skill empaquetada para Claude — por ahora solo está disponible su archivo .md.</p></div>
+            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">El módulo Planes de mejora todavía no tiene habilidad .skill empaquetada para Claude — por ahora solo está disponible su archivo GuIA.</p></div>
           </div>
         </section>
 
