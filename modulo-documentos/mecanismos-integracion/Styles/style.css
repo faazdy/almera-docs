@@ -1,0 +1,52 @@
+/* Mecanismos de Integración — estilos propios de este módulo.
+   Carga después de ../../../assets/styles.css (base compartida). */
+
+.m-hero h1{margin:0;font:300 52px/1.1 "DM Sans",sans-serif;letter-spacing:-.032em;text-wrap:balance;color:var(--ink)}
+.m-hero-side{display:flex;flex-direction:column;gap:30px;padding-bottom:6px}
+.m-hero-side p{margin:0;font:400 16.5px/1.6 "DM Sans",sans-serif;color:var(--ink-soft);max-width:40ch;text-wrap:pretty}
+
+.m-body{grid-template-columns:210px minmax(0,1fr)}
+
+.m-section h2{margin:0;font:400 28px/1.2 "DM Sans",sans-serif;letter-spacing:-.022em;text-wrap:balance;color:var(--ink)}
+.body-text{margin:0 0 26px;font:400 15px/1.65 "DM Sans",sans-serif;color:var(--ink-soft);max-width:62ch}
+
+/* subhead / group label */
+.group-label{font:400 15px/1 "DM Sans",sans-serif;color:var(--ink);display:flex;align-items:center;gap:10px;margin:34px 0 16px}
+.group-label:first-child{margin-top:0}
+.group-label .dash{width:16px;height:1px;background:var(--accent);flex-shrink:0}
+
+/* inline code */
+.code-inline{font:500 12.5px/1 "JetBrains Mono",monospace;background:rgba(23,22,20,.06);padding:2px 6px;border-radius:2px;color:var(--ink-soft-3)}
+
+/* example card */
+.example-card{padding:18px 20px;border:1px solid var(--line);border-radius:2px;margin-top:14px;background:rgba(23,22,20,.015)}
+.example-label{font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.example-kv{display:flex;flex-direction:column;gap:6px}
+.example-kv-item{display:flex;gap:10px;align-items:baseline;font:400 13.5px/1.5 "DM Sans",sans-serif}
+.example-kv-item .k{color:var(--muted);min-width:90px}
+.example-kv-item .v{color:var(--ink-soft-3);font-family:"JetBrains Mono",monospace;font-size:12.5px}
+
+/* stacked info rows (privileges / hierarchy / rules) */
+.priv-rows{display:flex;flex-direction:column;gap:1px;background:var(--line-soft);margin:16px 0 26px}
+.priv-row{background:var(--bg);padding:18px 20px;display:flex;flex-direction:column;gap:6px}
+.priv-name{font:500 13.5px/1.3 "DM Sans",sans-serif;color:var(--ink);letter-spacing:-.005em}
+.priv-desc{font:400 14px/1.62 "DM Sans",sans-serif;color:var(--ink-soft-2)}
+
+/* variable rows */
+.var-rows{display:flex;flex-direction:column;gap:1px;background:var(--line-soft);margin:16px 0 26px}
+.var-row{background:var(--bg);display:grid;grid-template-columns:minmax(170px,240px) minmax(0,1fr);gap:16px;padding:14px 20px;align-items:baseline}
+.var-code{font:500 12.5px/1.4 "JetBrains Mono",monospace;color:var(--accent);word-break:break-word}
+.var-desc{font:400 13.5px/1.5 "DM Sans",sans-serif;color:var(--ink-soft-2)}
+
+@media (max-width:980px){
+  .m-body{grid-template-columns:1fr;margin-top:72px}
+  .m-toc{display:none}
+}
+@media (max-width:760px){
+  .page{padding:0 20px 96px}
+  .m-hero{grid-template-columns:1fr;gap:36px;padding:72px 0 56px}
+  .m-hero h1{font-size:34px}
+  .faq-grid{grid-template-columns:1fr}
+  .var-row{grid-template-columns:1fr}
+  .m-footer{flex-direction:column;align-items:flex-start;gap:8px}
+}

@@ -1,0 +1,86 @@
+/* Planes de mejora — estilos propios de este módulo.
+   Carga después de ../../../assets/styles.css (base compartida). */
+
+.m-hero h1{margin:0;font:300 60px/1.06 "DM Sans",sans-serif;letter-spacing:-.035em;text-wrap:balance;color:var(--ink)}
+.m-hero-side{display:flex;flex-direction:column;gap:30px;padding-bottom:6px}
+.m-hero-side p{margin:0;font:400 16.5px/1.6 "DM Sans",sans-serif;color:var(--ink-soft);max-width:40ch;text-wrap:pretty}
+.dl-pill.skill.is-disabled{opacity:.4;pointer-events:none;background:transparent;border:1px dashed rgba(23,22,20,.28);color:var(--muted)}
+.dl-pill.skill.is-disabled .mono{opacity:1}
+
+.m-body{grid-template-columns:220px minmax(0,1fr)}
+.m-toc-sub{display:flex;flex-direction:column;padding-left:19px;margin-top:2px}
+.m-toc-sub a{font-size:12.5px;color:var(--muted-soft);padding:2px 0}
+.m-toc-sub a:hover{color:var(--ink)}
+
+.m-section h2{margin:0;font:400 30px/1.15 "DM Sans",sans-serif;letter-spacing:-.025em;text-wrap:balance;color:var(--ink)}
+
+/* group label (subsections) */
+.step-group{display:flex;flex-direction:column;gap:22px}
+.group-label{font:400 15px/1 "DM Sans",sans-serif;color:var(--ink);display:flex;align-items:center;gap:10px}
+.group-label .dash{width:16px;height:1px;background:var(--accent);flex-shrink:0}
+
+/* inline see-also links inside a step */
+.step-links{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.step-links a{font:400 13px/1.4 "DM Sans",sans-serif;color:var(--ink-soft);border-bottom:1px solid var(--line-strong);width:fit-content;padding-bottom:1px}
+.step-links a:hover{color:var(--accent);border-color:var(--accent)}
+
+/* substeps */
+.substeps{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.substep{display:flex;gap:10px;align-items:baseline}
+.substep-bullet{width:4px;height:4px;border-radius:50%;background:var(--muted-soft-2);flex-shrink:0;position:relative;top:-2px}
+.substep-text{font:400 14.5px/1.6 "DM Sans",sans-serif;color:var(--ink-soft-3)}
+
+/* screenshots */
+.shot{margin-top:14px;border:1px solid var(--line-strong);border-radius:2px;overflow:hidden;background:#fff;max-width:520px}
+.shot img{display:block;width:100%;height:auto}
+.shot-caption{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;font:400 11px/1.4 "JetBrains Mono",monospace;letter-spacing:.04em;color:var(--muted-soft);border-top:1px solid var(--line)}
+
+/* anexo banner */
+.anexo-banner{margin-top:56px;padding:28px 30px;border:1px solid var(--line-strong);border-radius:2px;background:rgba(235,90,37,.035);display:flex;flex-direction:column;gap:8px}
+.anexo-kicker{font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.anexo-title{font:400 20px/1.25 "DM Sans",sans-serif;letter-spacing:-.02em;color:var(--ink)}
+.anexo-text{margin:0;font:400 14px/1.62 "DM Sans",sans-serif;color:var(--ink-soft-2);max-width:64ch}
+
+/* subsection (A.1 / A.2 / A.3) */
+.subsection{padding:56px 0 0}
+.subsection-tag{font:500 11px/1 "JetBrains Mono",monospace;color:var(--accent)}
+.subsection-title{margin:0;font:400 26px/1.2 "DM Sans",sans-serif;letter-spacing:-.02em;color:var(--ink)}
+.subsection-usage{margin:14px 0 26px;font:400 15px/1.6 "DM Sans",sans-serif;color:var(--ink-soft);max-width:62ch}
+
+/* option cards (A.2 sub-options) */
+.option-list{display:flex;flex-direction:column;gap:1px;background:var(--line);margin-top:26px;border-radius:2px;overflow:hidden}
+.option-card{background:var(--bg);padding:28px 26px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:32px}
+.option-tab{display:inline-flex;font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(235,90,37,.32);border-radius:999px;padding:5px 12px;width:fit-content}
+.option-title{font:400 18px/1.3 "DM Sans",sans-serif;color:var(--ink);letter-spacing:-.01em}
+.option-text{margin:0;font:400 14.5px/1.65 "DM Sans",sans-serif;color:var(--ink-soft-3)}
+.option-text code{font:500 12.5px/1 "JetBrains Mono",monospace;background:rgba(23,22,20,.06);padding:2px 5px;border-radius:2px}
+.shot-row{display:flex;gap:16px;flex-wrap:wrap;margin-top:6px}
+
+/* kv rows (A.3) */
+.kv-rows{display:flex;flex-direction:column;gap:1px;background:var(--line-soft)}
+.kv-row{background:var(--bg);display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;padding:16px 2px;align-items:baseline}
+.kv-key{font:500 10.5px/1 "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.kv-val{font:400 14.5px/1.6 "DM Sans",sans-serif;color:var(--ink-soft-3)}
+
+/* capacitación CTA */
+.cta-section{border-top:1px solid var(--line);padding-top:56px;margin-top:56px}
+.cta-card{background:var(--dark);border-radius:20px;padding:56px 52px;display:flex;flex-direction:column;gap:26px}
+.cta-kicker{font:500 10.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:rgba(250,249,247,.42)}
+.cta-card h2{margin:0;font:300 34px/1.15 "DM Sans",sans-serif;letter-spacing:-.03em;color:var(--bg);max-width:24ch}
+.cta-card p{margin:0;font:400 15px/1.65 "DM Sans",sans-serif;color:rgba(250,249,247,.6);max-width:44ch;text-wrap:pretty}
+.cta-btn{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:999px;background:var(--accent);color:#fff;font:400 14.5px/1 "DM Sans",sans-serif;transition:opacity .25s ease;width:fit-content}
+.cta-btn:hover{opacity:.86;color:#fff}
+
+@media (max-width:980px){
+  .m-body{grid-template-columns:1fr;margin-top:72px}
+  .m-toc{display:none}
+}
+@media (max-width:760px){
+  .page{padding:0 20px 96px}
+  .m-hero{grid-template-columns:1fr;gap:36px;padding:72px 0 56px}
+  .m-hero h1{font-size:38px}
+  .faq-grid{grid-template-columns:1fr}
+  .cta-card{padding:36px 26px;border-radius:14px}
+  .cta-card h2{font-size:28px}
+  .m-footer{flex-direction:column;align-items:flex-start;gap:8px}
+}

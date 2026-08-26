@@ -111,10 +111,12 @@ Estructura de la pestaña 'Admin', donde se alojan las opciones y módulos del s
 
 ## 1. Conceptos básicos y ruta de acceso
 
-**Ruta de acceso:** Panel lateral izquierdo → **Admin → Proyectos**. La pantalla se divide en dos:
+**Ruta de acceso:** Panel lateral izquierdo → **Admin → Proyectos**. El módulo se divide en dos:
 
-- **Sección derecha:** configurar el **Tipo de Proyecto** (parametrización — las "reglas de juego").
-- **Sección izquierda:** gestionar los **Proyectos** específicos (la creación y operación diaria).
+- **Tipo de Proyecto** (parametrización — las "reglas de juego").
+- **Proyectos** específicos (la creación y operación diaria).
+
+> NOTA: Tener en cuenta que para crear un proyecto nuevo hay que tener un 'Tipo de Proyecto'. Si el Tipo de Proyecto ya está creado se puede seguir directamente a Proyectos. (Ver Regla de jerarquía obligatoria)
 
 ### El acceso a "Tipos de Proyecto" es por privilegios
 
@@ -137,7 +139,7 @@ No todos los usuarios que ven la pestaña "Proyectos" ven también "Tipos de Pro
 
 **Cuándo se usa:** antes de crear cualquier proyecto de un tipo nuevo, para definir su estructura y comportamiento.
 
-**Ruta:** `Admin → Proyectos` → pantalla derecha → **Adicionar tipo** (botón en la parte superior).
+**Ruta:** Admin → Proyectos → Tipos de Proyecto → **Adicionar tipo** (botón en la parte superior).
 
 ### Pasos para crear un tipo de proyecto
 
@@ -221,14 +223,12 @@ Una vez creado el proyecto, este también tiene su propia pestaña **Privilegios
 
 ### Crear el proyecto
 
-**Ruta:** `Admin → Proyectos` → pantalla izquierda → **Adicionar**.
+**Ruta:** Admin → Proyectos → Proyectos → **Adicionar**.
 
-1. Elegir a qué **Tipo de Proyecto** va a quedar asociado.
-2. Definir el **consecutivo** (según la codificación del tipo).
-3. Asociar a un **proceso**, si aplica.
-4. Registrar el **nombre** del proyecto.
-5. Registrar las **fechas** del proyecto (puede corresponder a un solo año o abarcar varios, según la duración real de la iniciativa).
-6. **Grabar.**
+1. Al hacer clic en **Adicionar**, seleccionar el **Tipo de Proyecto** al que quedará asociado.
+2. Una vez seleccionado el tipo de proyecto, diligenciar los campos que este solicite (recuerde que dichos campos son configurables desde Tipos de Proyecto, según lo visto en la sección anterior).
+3. Asignar un responsable, si aplica.
+4. Hacer clic en **Grabar**.
 
 Al grabar, se habilitan las pestañas superiores del proyecto: Cronogramas, Actividades (dentro de cada cronograma), Indicadores, Privilegios, Presupuesto (si está habilitado), Seguimiento general, etc.
 
@@ -236,7 +236,7 @@ Al grabar, se habilitan las pestañas superiores del proyecto: Cronogramas, Acti
 
 Un proyecto puede tener **n cantidad de cronogramas**.
 
-**Ruta:** dentro del proyecto → pestaña **Cronogramas** → **Adicionar cronograma**.
+**Ruta:** dentro del proyecto → clic a **Editar** → pestaña **Cronogramas** → **Adicionar cronograma**.
 
 1. **Código** del cronograma (importante definirlo).
 2. **Nombre** del cronograma (ej. "Seguimiento", "Ajustes", "Almera Fase 1").
@@ -518,6 +518,24 @@ Estos son puntos que quedaron **sin resolver o sin confirmar del todo** en las t
 
 ---
 
+## Preguntas frecuentes — Proyectos
+
+### 1. ¿Se puede cambiar el padding u otra opción del tipo de proyecto después de haberlo creado?
+**Cuándo se usa:** cuando se necesita ajustar la cantidad de dígitos del consecutivo de un tipo de proyecto ya creado. (El mismo procedimiento aplica para modificar cualquier otro parámetro de Tipos de Proyecto, no solo el padding).
+
+**Pasos:**
+
+1. Ir a **Tipos de Proyecto** y buscar el tipo de proyecto de interés.
+2. Hacer clic sobre el nombre del tipo de proyecto para ingresar a su configuración.
+3. Una vez dentro, ubicarse en la sección **Parámetros codificación**, donde se encuentran las opciones editables.
+4. Dentro de ese grupo, localizar la opción **Padding** y ajustarla según la necesidad.
+5. Hacer clic en **Aceptar** (botón inferior central) para guardar el cambio.
+
+**Fuente:** Documento de profundización de capacitación (FAQ interno).
+
+
+
+--- 
 ## Preguntas frecuentes puntuales (por correo)
 
 Este espacio se va llenando con dudas específicas sobre Proyectos que lleguen por correo y ya estén resueltas, siguiendo el mismo formato que el resto de la skill:

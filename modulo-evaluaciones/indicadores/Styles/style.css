@@ -1,0 +1,53 @@
+/* Indicadores — estilos propios de este módulo.
+   Carga después de ../../../assets/styles.css (base compartida). */
+
+.m-hero h1{margin:0;font:300 60px/1.06 "DM Sans",sans-serif;letter-spacing:-.035em;text-wrap:balance;color:var(--ink)}
+.m-hero-side{display:flex;flex-direction:column;gap:30px;padding-bottom:6px}
+.m-hero-side p{margin:0;font:400 16.5px/1.6 "DM Sans",sans-serif;color:var(--ink-soft);max-width:40ch;text-wrap:pretty}
+
+.m-body{grid-template-columns:200px minmax(0,1fr)}
+
+.m-section h2{margin:0;font:400 30px/1.15 "DM Sans",sans-serif;letter-spacing:-.025em;text-wrap:balance;color:var(--ink)}
+
+/* substeps */
+.substeps{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.substep{display:flex;gap:10px;align-items:baseline}
+.substep-bullet{width:4px;height:4px;border-radius:50%;background:var(--muted-soft-2);flex-shrink:0;position:relative;top:-2px}
+.substep-text{font:400 14.5px/1.6 "DM Sans",sans-serif;color:var(--ink-soft-3)}
+
+/* example card */
+.example-card{padding:18px 20px;border:1px solid var(--line);border-radius:2px;margin-top:14px;background:rgba(23,22,20,.015)}
+.example-label{font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.example-kv{display:flex;flex-direction:column;gap:6px}
+.example-kv-item{display:flex;gap:10px;align-items:baseline;font:400 13.5px/1.5 "DM Sans",sans-serif}
+.example-kv-item .k{color:var(--muted);min-width:110px}
+.example-kv-item .v{color:var(--ink-soft-3);font-family:"JetBrains Mono",monospace;font-size:12.5px}
+
+/* semaforo */
+.semaforo-strip{display:flex;gap:1px;background:var(--line);border-radius:2px;overflow:hidden;margin-top:14px}
+.semaforo-chip{flex:1;padding:14px 16px;background:#fff;display:flex;flex-direction:column;gap:4px;border-top:3px solid transparent;min-width:120px}
+.semaforo-chip.red{border-top-color:#b7472a}
+.semaforo-chip.yellow{border-top-color:#c08a1e}
+.semaforo-chip.green{border-top-color:#2f7d4f}
+.semaforo-label{font:500 11px/1 "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.semaforo-range{font:400 12.5px/1.4 "DM Sans",sans-serif;color:var(--muted)}
+
+/* compare (neutral, no recommended/deprecated semantics) */
+.compare-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin-bottom:34px}
+.compare-card{padding:26px 24px;border:1px solid var(--line-strong);border-radius:2px;display:flex;flex-direction:column;gap:12px}
+.compare-tag{font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-soft)}
+.compare-card h3{margin:0;font:400 19px/1.25 "DM Sans",sans-serif;letter-spacing:-.02em;color:var(--ink)}
+.compare-card p{margin:0;font:400 14px/1.62 "DM Sans",sans-serif;color:var(--ink-soft-2);text-wrap:pretty}
+
+@media (max-width:980px){
+  .m-body{grid-template-columns:1fr;margin-top:72px}
+  .m-toc{display:none}
+}
+@media (max-width:760px){
+  .page{padding:0 20px 96px}
+  .m-hero{grid-template-columns:1fr;gap:36px;padding:72px 0 56px}
+  .m-hero h1{font-size:38px}
+  .faq-grid{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr}
+  .m-footer{flex-direction:column;align-items:flex-start;gap:8px}
+}

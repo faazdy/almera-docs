@@ -1,0 +1,57 @@
+/* Gestión documental — estilos propios de este módulo.
+   Carga después de ../../../assets/styles.css (base compartida). */
+
+.m-hero h1{margin:0;font:300 60px/1.06 "DM Sans",sans-serif;letter-spacing:-.035em;text-wrap:balance;color:var(--ink)}
+.m-hero-side{display:flex;flex-direction:column;gap:30px;padding-bottom:6px}
+.m-hero-side p{margin:0;font:400 16.5px/1.6 "DM Sans",sans-serif;color:var(--ink-soft);max-width:40ch;text-wrap:pretty}
+
+.m-body{grid-template-columns:200px minmax(0,1fr)}
+
+.m-section h2{margin:0;font:400 30px/1.15 "DM Sans",sans-serif;letter-spacing:-.025em;text-wrap:balance;color:var(--ink)}
+
+/* estados grid (s1) */
+.estados-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border-radius:2px;overflow:hidden}
+.estado-card{background:var(--bg);padding:26px 24px;display:flex;flex-direction:column;gap:10px;transition:background .35s ease}
+.estado-card:hover{background:#fff}
+.estado-name{font:500 10.5px/1 "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+.estado-desc{margin:0;font:400 13.5px/1.6 "DM Sans",sans-serif;color:var(--ink-soft-2);text-wrap:pretty}
+
+/* compare cards (s2) */
+.compare-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+.compare-card{padding:28px 26px;border:1px solid var(--line-strong);border-radius:2px;display:flex;flex-direction:column;gap:14px}
+.compare-card.muted{border-color:var(--line-soft);background:rgba(23,22,20,.02)}
+.compare-tag{font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.compare-tag.off{color:var(--muted-soft)}
+.compare-card h3{margin:0;font:400 20px/1.25 "DM Sans",sans-serif;letter-spacing:-.02em;color:var(--ink)}
+.compare-card.muted h3{color:var(--ink-soft)}
+.compare-card p{margin:0;font:400 14px/1.62 "DM Sans",sans-serif;color:var(--ink-soft-2);text-wrap:pretty}
+.compare-card.muted p{color:var(--muted)}
+
+/* group label (subsections) */
+.step-group{display:flex;flex-direction:column;gap:22px}
+.group-label{font:400 15px/1 "DM Sans",sans-serif;color:var(--ink);display:flex;align-items:center;gap:10px}
+.group-label .dash{width:16px;height:1px;background:var(--accent);flex-shrink:0}
+
+/* capacitación CTA */
+.cta-section{border-top:1px solid var(--line);padding-top:56px}
+.cta-card{background:var(--dark);border-radius:20px;padding:56px 52px;display:flex;flex-direction:column;gap:26px}
+.cta-kicker{font:500 10.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:rgba(250,249,247,.42)}
+.cta-card h2{margin:0;font:300 34px/1.15 "DM Sans",sans-serif;letter-spacing:-.03em;color:var(--bg);max-width:24ch}
+.cta-card p{margin:0;font:400 15px/1.65 "DM Sans",sans-serif;color:rgba(250,249,247,.6);max-width:44ch;text-wrap:pretty}
+.cta-btn{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:999px;background:var(--accent);color:#fff;font:400 14.5px/1 "DM Sans",sans-serif;transition:opacity .25s ease;width:fit-content}
+.cta-btn:hover{opacity:.86;color:#fff}
+
+@media (max-width:980px){
+  .m-body{grid-template-columns:1fr;margin-top:72px}
+  .m-toc{display:none}
+}
+@media (max-width:760px){
+  .page{padding:0 20px 96px}
+  .m-hero{grid-template-columns:1fr;gap:36px;padding:72px 0 56px}
+  .m-hero h1{font-size:38px}
+  .estados-grid,.compare-grid{grid-template-columns:1fr}
+  .faq-grid{grid-template-columns:1fr}
+  .cta-card{padding:36px 26px;border-radius:14px}
+  .cta-card h2{font-size:28px}
+  .m-footer{flex-direction:column;align-items:flex-start;gap:8px}
+}
