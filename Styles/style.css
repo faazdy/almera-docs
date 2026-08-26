@@ -65,6 +65,7 @@ a:hover{color:var(--ink)}
 .module-footer{margin-top:auto;padding-top:26px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .module-sections{font:400 12.5px/1 "DM Sans",sans-serif;color:var(--muted-soft)}
 .module-actions{display:flex;gap:8px}
+.module-actions img{width:13px;height:13px;flex-shrink:0; filter: saturate(100%);}
 .pill{display:flex;align-items:center;gap:7px;padding:8px 13px;border-radius:999px;font:400 12.5px/1 "DM Sans",sans-serif}
 .pill .mono{font:500 11px/1 "JetBrains Mono",monospace}
 .pill-skill{background:var(--dark);color:var(--bg);transition:opacity .25s ease}
