@@ -4,4 +4,17 @@
 - Verificar el Modulo Proyectos
 - Con ayuda de los correos y pruebas, verificar el correcto funcionamiento de los Mecanismos de Integracion.
 
-- Desarrollar una habilidad Claude para hacer diapositivas institucionales, respetanto paleta de colores y plantilla pptx institucional.
+- Desarrollar una skill Claude para hacer diapositivas institucionales, teniendo en cuenta los siguientes parametros:
+    1. respetando paleta de colores y plantilla pptx institucional. Mantener una estetica limpia, donde la informacion respire.
+    2. Flexibilidad de formatos de entrega. El usuario puede escoger entre: PPTX, HTML, PDF.
+    3. Las diapositivas deben tener la información bastante visual y comprensible, no se deben pasar por alto detalles, pero no saturar la diapositiva de informacion.
+    4. La skill tendrá siempre una presentacion de referencia.
+
+- Desarrollar una skill Claude para los diagramas de flujo siguiendo los siguientes parametros:
+    1. Que no pase de 100 caracteres las actividades o acciones.
+    2. Manejar validacion con comentarios manejando colores (Verde: todo correcto. Amarillo: Parcialmente correcto, requere revisar. Rojo: Revisar obligatoriamente.).
+    3. Paleta de colores para consistencia con los demás procedimientos diagramados en Bizaggi Modeler.
+    4. Preguntar la estructura general (si tendra fases, responsables y demás divisiones generales).
+    5. Si el procedimiento tiene variaciones (con ciertas entidades/procesos el procedimiento es diferente) se debe hacer: un diagrama general respetando los pasos, n diagramas segun las variaciones.
+    6. Formatos de entrega del diagrama flexibles. El usuario puede escoger entre: PDF, JPG, PNG.
+    7. La skill tendra siempre un diagrama de referencia.
