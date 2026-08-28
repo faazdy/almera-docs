@@ -9,8 +9,8 @@ Cuando alguien tiene una duda sobre cómo usar Almera, la opción de siempre es 
 Este proyecto reemplaza eso. Por cada módulo de Almera (Gestión documental, Evaluaciones, Indicadores, Mecanismos de integración, Planes de mejora) hay:
 
 - Una **guía web** navegable (`index.html`), con procedimientos paso a paso, rutas exactas dentro del sistema y advertencias de cosas que suelen salir mal.
-- Un **documento de referencia completo** (`.md`) construido a partir de documentación limpia, guías internas y la transcripción completa de las capacitaciones con soporte de Almera.
-- Una **habilidad de IA instalable** (`.skill`), empaquetada para que Claude la cargue automáticamente cuando alguien pregunta por ese módulo — sin tener que adjuntar nada ni buscar nada manualmente.
+- Un **documento de referencia completo** (`GuIA.md`) construido a partir de documentación limpia, guías internas y la transcripción completa de las capacitaciones con soporte de Almera.
+- Una **habilidad de IA instalable** (`Skill`), empaquetada para que Claude la cargue automáticamente cuando alguien pregunta por ese módulo — sin tener que adjuntar nada ni buscar nada manualmente.
 
 El objetivo final: que alguien con una duda sobre un módulo específico se la resuelva un asistente en segundos, con el procedimiento exacto y la fuente de dónde salió, en vez de tener que rastrear una grabación vieja que probablemente ni siquiera recuerda dónde quedó guardada.
 
@@ -22,11 +22,11 @@ Cada módulo sigue la misma estructura:
 modulo/
 ├── index.html          # guía web, para leer en el navegador
 └── AI/
-    ├── modulo.md        # documento de referencia completo (para cualquier IA)
+    ├── modulo.md  (GuIA)      # documento de referencia completo (para cualquier IA)
     └── almera-modulo.skill  # el mismo contenido empaquetado como Agent Skill de Claude
 ```
 
-El `.md` de cada módulo sigue una misma plantilla, para que cualquier IA que lo lea sepa cómo comportarse:
+La `GuIA.md` de cada módulo sigue una misma plantilla, para que cualquier IA que lo lea sepa cómo comportarse:
 
 1. **Instrucciones para la IA** — responder solo con lo documentado, avisar si algo no está cubierto, no inventar botones ni pasos.
 2. **Árbol de navegación de Admin** — el mapa completo de todos los módulos de Almera, no solo el propio, para que la IA pueda ubicar cualquier opción que le pregunten aunque sea de otro módulo.
@@ -35,7 +35,7 @@ El `.md` de cada módulo sigue una misma plantilla, para que cualquier IA que lo
 
 ## Estado actual de los módulos
 
-| Módulo | Guía web | Documento `.md` | Habilidad `.skill` |
+| Módulo | Guía web | GuIA `.md` | Habilidad `.skill` |
 |---|---|---|---|
 | Gestión documental | Completa | Completo | Disponible |
 | Evaluaciones | Completa | Completo | Disponible |
@@ -48,13 +48,13 @@ El `.md` de cada módulo sigue una misma plantilla, para que cualquier IA que lo
 ## Cómo se construye cada módulo
 
 1. Se parte de la grabación de la capacitación con soporte de Almera y de cualquier documentación limpia o guía interna que ya exista.
-2. Se arma el `.md` de referencia: procedimientos, reglas del sistema, y una sección aparte para lo que quedó sin resolver en la capacitación (para no presentarlo como confirmado).
-3. Se empaqueta ese contenido como `.skill` para Claude (el `.md` sirve igual para cualquier otro agente de IA que lo pueda leer).
+2. Se arma la `GuIA.md` de referencia: procedimientos, reglas del sistema, y una sección aparte para lo que quedó sin resolver en la capacitación (para no presentarlo como confirmado).
+3. Se empaqueta ese contenido como `.skill` para Claude (la `GuIA` sirve igual para cualquier otro agente de IA que lo pueda leer).
 4. Se construye la guía web (`index.html`) como versión curada y visual del mismo contenido, para quien prefiera leerlo directamente en el navegador.
 
 ## Lo que falta
 
-- Empaquetar el `.skill` de Planes de mejora (el `.md` ya está listo).
+- Empaquetar el `.skill` de Planes de mejora (la `GuIA.md` ya está listo).
 - Ampliar la cobertura más allá de Calidad, Evaluaciones, Indicadores y Proyectos — las categorías General y Riesgos del árbol de Admin todavía no tienen documentación propia.
 
 
