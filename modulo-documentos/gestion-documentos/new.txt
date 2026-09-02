@@ -1,0 +1,41 @@
+PASOS EN EL FLUJO DE DOCUMENTOS (entorno pruebas)
+
+*elaborar documento (profesional elaborador)
+-ir a la ruta de siempre
+-llenar los campos solicitados
+-se da clic en 'grabar y enrutar' (el paso de buscr la opcion de enrutar se puede omitir si se da el caso)
+-en la interfaz de enrutamiento enlazar al profesional aprobador
+-se llenan los campos requeridos y 'grabar'
+-esperar la respuesta del profesional al que se le asignó/enrutó el documento
+
+
+*siendo el profesional aprobador
+vamos a 'mis solicitudes'
+vemos la solicitud y tomamos la decision si se aprueba, rechaza, retorna o se edita.
+entramos al documento y le damos al hipervinculo de 'Documento asociado' - nombre-del-documento
+le damos 'editar' en el boton superior si vamos a colocar el archivo correspondiente, ademas de poder editar otras caracteristicas (origen, fecha, etc) y le damos 'Grabar'
+luego se manda a revision con el boton Enviar a revision, y dentro de la ruta colocamos al profesional (!!!!!ESTE PASO DEBERIA SALTARSE PARA ENVIARLO DIRECTAMENTE AL COORDINADOR)
+luego vamos a 'Mis pendientes' y alli vemos el documento, entramos y le damos clic al botón 'Enviar al coordinador'
+al darle clic al botpon de enviar al coordinador enrutamos al coordinador correspondiente y llenamos las obervaciones
+luego damos clic en grabar
+
+*coordinador enrutado
+vamos a 'mis pendientes'
+alli encontramos el documento que se va a elaborar
+si todo esta en orden en el documento nos sale el boton de 'Enviar a Direccion', le damos clic
+enrutamos al director correspondiente, llenamos obervaciones y Grabar.
+
+
+
+
+DEROGAR UN DOCUMENTO
+
+entrar al documento
+darle clic al botón de 'Enviar a coordinacion Derogacion'
+enrutar al coordinador, llenar las obervaciones del porqué y Grabar
+esperar respuesta del coordinador enrutado
+
+*coordinador enrutado
+ir a 'Mis pendientes'
+darle clic a la solicitud pendiente
+decidimos si se aprueba la derogacion o se rechaza
