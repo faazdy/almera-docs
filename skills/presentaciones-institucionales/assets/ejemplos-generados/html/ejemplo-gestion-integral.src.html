@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Informe de Gestión Integral — 2T 2026</title>
+<style>
+  /* =====================================================================
+     Ejemplo 4 — deck mixto: talento humano / teletrabajo + financiero.
+     Fondo de contenido: marca/fondos/uso/background.png
+     Paleta: assets/paleta.md · Marca: assets/marca/ (ver marca/README.md)
+     Datos ficticios.
+     ===================================================================== */
+  :root{
+    --primario:#004C97; --azul-encab:#003971; --texto:#000000;
+    --fondo-inst:#D6F0F5; --fondo-pagina:#EAF4FB; --panel-gris:#F3F7FA; --acento:#0085CF;
+    --g1:#004C97; --g2:#0085CF; --g3:#5AB5E6; --g4:#33B4CF; --g5:#B9E5E5; --g6:#9DCDEA;
+    --font-titulo:"Roboto Slab", Arial, "Helvetica Neue", sans-serif;
+    --font-cuerpo:Arial, "Helvetica Neue", Helvetica, sans-serif;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ background:#8a8f94; }
+  body{ font-family:var(--font-cuerpo); color:var(--texto); -webkit-font-smoothing:antialiased; }
+
+  .deck{ height:100vh; overflow-y:scroll; scroll-snap-type:y mandatory; scroll-behavior:smooth; }
+  .slide{ position:relative; width:min(100vw,177.78vh); aspect-ratio:16/9; margin:0 auto;
+          background:var(--fondo-pagina); scroll-snap-align:start; container-type:size;
+          overflow:hidden; display:flex; flex-direction:column; }
+  .slide + .slide{ margin-top:2.2vh; }
+  .deck::after{ content:""; display:block; height:2.2vh; }
+
+  /* marca (solo portada y separadores) */
+  .brand{ position:absolute; top:3cqw; right:4cqw; height:3.4cqw; width:auto; z-index:3; }
+  .brand.blanco{ filter:brightness(0) invert(1); }
+  .vigilado{ position:absolute; left:1cqw; bottom:12cqw; transform:rotate(180deg);
+             writing-mode:vertical-rl; font-size:.85cqw; letter-spacing:.05em; color:#8aa0b3; }
+  .sellos{ position:absolute; left:50%; bottom:1.4cqw; transform:translateX(-50%); height:4.4cqw; width:auto; z-index:3; }
+  .url{ position:absolute; left:4cqw; bottom:2.4cqw; height:2.6cqw; width:auto; z-index:3; }
+
+  .kicker{ font-size:1.5cqw; letter-spacing:.18em; text-transform:uppercase; font-weight:700; }
+  h1.cover-title{ font-family:var(--font-titulo); font-size:5cqw; line-height:1.06; font-weight:700; text-transform:uppercase; }
+  .cover-sub{ font-size:2.1cqw; font-weight:700; }
+  .meta{ font-size:1.55cqw; }
+  h2.section-title{ font-family:var(--font-titulo); font-size:4.2cqw; line-height:1.08; font-weight:700; text-transform:uppercase; }
+  .section-num{ font-family:var(--font-titulo); font-size:2cqw; font-weight:700; opacity:.85; }
+
+  /* portada */
+  .cover{ justify-content:center; padding:0 7cqw; color:#fff;
+    background:linear-gradient(100deg, rgba(0,40,90,.55) 0%, rgba(0,40,90,.30) 40%, rgba(0,40,90,.05) 62%), url("{{fondos/portada.jpg}}");
+    background-size:cover; background-position:center; }
+  .cover .panel{ position:absolute; right:0; top:0; bottom:0; width:52%;
+    background:linear-gradient(120deg, rgba(0,59,113,0) 0%, rgba(0,59,113,.78) 55%); }
+  .cover .halo{ position:absolute; left:3cqw; bottom:7cqw; width:34cqw; height:34cqw; border-radius:50%;
+    background:radial-gradient(circle, rgba(255,255,255,.22), rgba(255,255,255,0) 70%); z-index:1; }
+  .cover .figura-cover{ position:absolute; left:5.5cqw; bottom:9cqw; height:58%; width:auto; z-index:2;
+    filter:drop-shadow(0 .6cqw 1.6cqw rgba(0,0,0,.28)); }
+  .cover-text{ position:absolute; right:7cqw; top:50%; transform:translateY(-55%); width:47%; text-align:right; z-index:2;
+    display:flex; flex-direction:column; gap:1.1cqw; align-items:flex-end; }
+  .cover .kicker{ color:var(--g5); }
+  .cover .rule{ width:12cqw; height:.45cqw; background:var(--g3); }
+  .cover .meta{ color:#cfe6f5; }
+
+  /* separador */
+  .section{ justify-content:center; padding:0 7cqw; color:#fff;
+    background:linear-gradient(125deg, #003971 0%, #004C97 55%, #0069b8 100%); }
+  .section .halo{ position:absolute; left:3cqw; bottom:5cqw; width:40cqw; height:40cqw; border-radius:50%;
+    background:radial-gradient(circle, rgba(255,255,255,.10), rgba(255,255,255,0) 70%); z-index:1; }
+  .section .figura{ position:absolute; left:5cqw; bottom:0; height:84%; width:auto; z-index:2;
+    filter:drop-shadow(0 .5cqw 1.4cqw rgba(0,0,0,.30)); }
+  .section .sec-text{ position:absolute; right:7cqw; top:50%; transform:translateY(-55%); width:52%; text-align:right; z-index:2;
+    display:flex; flex-direction:column; gap:1cqw; align-items:flex-end; }
+  .section .rule{ width:34%; height:.35cqw; background:rgba(255,255,255,.75); }
+
+  /* ---- contenido: fondo = background.png ---- */
+  .page{ background:url("{{fondos/uso/background.png}}") center/cover no-repeat; }
+  .page .topbar{ position:relative; margin:4cqw 16cqw 0 5cqw; z-index:2; background:var(--azul-encab); color:#fff;
+    border-radius:1.4cqw; padding:2cqw 3cqw; }
+  .page .topbar h3{ font-family:var(--font-titulo); font-size:2.4cqw; line-height:1.12; font-weight:700; }
+  .page .topbar .sub{ font-size:1.4cqw; margin-top:.5cqw; color:#cfe0f2; }
+  .page .canvas{ flex:1; padding:2.6cqw 5cqw 12cqw; display:flex; flex-direction:column; gap:2cqw; min-height:0; }
+  .src{ font-size:1.2cqw; color:var(--primario); }
+
+  /* viñetas */
+  ul.bullets{ list-style:none; display:flex; flex-direction:column; gap:1.2cqw; }
+  ul.bullets li{ font-size:1.95cqw; line-height:1.35; display:flex; align-items:flex-start; gap:1.4cqw; }
+  ul.bullets li .ico{ width:3cqw; height:3cqw; object-fit:contain; flex:none; }
+  ul.bullets.plain li{ gap:0; padding-left:2.4cqw; position:relative; }
+  ul.bullets.plain li::before{ content:""; position:absolute; left:0; top:.55em; width:.8cqw; height:.8cqw; background:var(--primario); border-radius:50%; }
+
+  /* dato destacado */
+  .kpi-wrap{ display:flex; align-items:center; gap:3cqw; }
+  .kpi-wrap .ico{ width:10cqw; height:10cqw; object-fit:contain; flex:none; }
+  .kpi-num{ font-family:var(--font-titulo); font-size:7.5cqw; line-height:1; font-weight:700; color:var(--acento); }
+  .kpi-caption{ font-size:1.8cqw; line-height:1.4; margin-top:.8cqw; max-width:80%; }
+
+  /* fichas KPI */
+  .kpirow{ display:flex; gap:2.2cqw; }
+  .tile{ flex:1; background:#fff; border:.12cqw solid #cddae6; border-radius:1cqw; padding:1.7cqw;
+    display:flex; flex-direction:column; gap:.5cqw; }
+  .tile .lbl{ font-size:1.15cqw; color:var(--primario); text-transform:uppercase; letter-spacing:.07em; font-weight:700; }
+  .tile .num{ font-family:var(--font-titulo); font-size:3cqw; font-weight:700; color:var(--azul-encab); line-height:1; }
+  .tile .delta{ font-size:1.25cqw; font-weight:700; }
+  .tile .delta.alert{ color:var(--acento); }
+  .tile .foot{ font-size:1.05cqw; color:#5b6b7a; }
+
+  /* barras verticales (una y dos series) */
+  .plot{ flex:1; display:flex; align-items:flex-end; gap:3cqw; border-bottom:.25cqw solid var(--primario); padding:0 1cqw; min-height:0; }
+  .grp{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; gap:.7cqw; }
+  .grp .pair{ display:flex; align-items:flex-end; gap:.8cqw; height:100%; width:100%; justify-content:center; }
+  .grp .col{ width:24%; background:var(--g1); position:relative; }
+  .grp .col.b{ background:var(--g3); }
+  .grp .col .v{ position:absolute; top:-2.4cqw; left:50%; transform:translateX(-50%); font-size:1.15cqw; font-weight:700; color:var(--primario); white-space:nowrap; }
+  .grp .lab{ font-size:1.3cqw; }
+  .single .grp .col{ width:58%; }
+  .single .grp .col.accent{ background:var(--acento); }
+  .single .grp .col.accent .v{ color:var(--acento); }
+  .legend{ display:flex; gap:2.4cqw; font-size:1.3cqw; align-items:center; }
+  .legend i{ width:1.6cqw; height:1.6cqw; border-radius:.2cqw; display:inline-block; margin-right:.6cqw; vertical-align:-.15cqw; }
+
+  /* barras horizontales */
+  .hbars{ display:flex; flex-direction:column; gap:1.4cqw; }
+  .hrow{ display:grid; grid-template-columns:14cqw 1fr 6cqw; align-items:center; gap:1.6cqw; font-size:1.5cqw; }
+  .hrow .track{ background:#d7e4ef; height:2.6cqw; border-radius:.3cqw; overflow:hidden; }
+  .hrow .fill{ height:100%; background:var(--g1); }
+  .hrow.accent .fill{ background:var(--acento); }
+  .hrow .pct{ text-align:right; font-weight:700; color:var(--primario); }
+
+  /* comparación */
+  .cols{ display:flex; gap:3cqw; flex:1; }
+  .col-card{ flex:1; padding:2.2cqw; border-radius:.8cqw; }
+  .col-card h4{ font-family:var(--font-titulo); font-size:1.7cqw; margin-bottom:1.1cqw; color:var(--azul-encab); }
+  .col-card.antes{ background:#fff; border:.12cqw solid #cddae6; }
+  .col-card.despues{ background:var(--fondo-inst); }
+  .col-card ul{ list-style:none; display:flex; flex-direction:column; gap:1cqw; }
+  .col-card li{ font-size:1.55cqw; line-height:1.35; padding-left:2cqw; position:relative; }
+  .col-card li::before{ content:"—"; position:absolute; left:0; color:var(--acento); }
+
+  /* dona */
+  .donutwrap{ display:flex; align-items:center; gap:4cqw; flex:1; }
+  .donut{ width:28cqh; aspect-ratio:1; border-radius:50%; position:relative; flex:none;
+    background:conic-gradient(var(--g1) 0 92.4%, var(--g2) 92.4% 97.9%, var(--g4) 97.9% 99.2%, var(--g6) 99.2% 100%); }
+  .donut::after{ content:""; position:absolute; inset:28%; background:#eef5fb; border-radius:50%; }
+  .donut .mid{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
+  .donut .mid b{ font-family:var(--font-titulo); font-size:2.2cqw; color:var(--azul-encab); }
+  .donut .mid span{ font-size:1.1cqw; color:#5b6b7a; }
+  .dlegend{ display:flex; flex-direction:column; gap:1.2cqw; font-size:1.45cqw; }
+  .dlegend div{ display:flex; align-items:center; gap:1cqw; }
+  .dlegend i{ width:1.7cqw; height:1.7cqw; border-radius:.25cqw; flex:none; }
+  .dlegend b{ margin-left:auto; color:var(--azul-encab); }
+
+  /* tabla */
+  table{ width:100%; border-collapse:collapse; font-size:1.55cqw; }
+  thead th{ background:var(--primario); color:#fff; text-align:left; padding:1.1cqw 1.6cqw; font-weight:700; }
+  thead th:not(:first-child), tbody td:not(:first-child){ text-align:right; }
+  tbody td{ padding:1cqw 1.6cqw; border-bottom:.12cqw solid #cddae6; background:#fff; }
+  tbody tr:nth-child(even) td{ background:#fbfdfe; }
+  tbody tr.total td{ background:var(--fondo-inst); font-weight:700; }
+
+  .counter{ position:fixed; right:1.4rem; bottom:1.1rem; background:var(--primario); color:#fff;
+    font-size:.85rem; font-weight:700; padding:.35rem .7rem; border-radius:.35rem; letter-spacing:.04em;
+    box-shadow:0 2px 8px rgba(0,0,0,.25); }
+  .hint{ position:fixed; left:1.4rem; bottom:1.1rem; color:#fff; font-size:.78rem; opacity:.75; }
+
+  @media print{
+    @page{ size:landscape; margin:0; }
+    html,body{ background:#fff; }
+    .deck{ height:auto; overflow:visible; display:block; }
+    .deck::after{ display:none; }
+    .slide{ width:100%; height:100vh; margin:0 !important; break-inside:avoid; page-break-after:always;
+      -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .counter,.hint{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+  <!-- 1 · Portada -->
+  <section class="slide cover">
+    <div class="panel"></div>
+    <img class="brand blanco" src="{{logos/te-cuida.png}}" alt="Capital Salud Te Cuida" style="left:4cqw;right:auto;">
+    <div class="halo"></div>
+    <img class="figura-cover" src="{{personajes/trio-computador.png}}" alt="">
+    <div class="cover-text">
+      <span class="kicker">Informe de gestión</span>
+      <h1 class="cover-title">Gestión Integral</h1>
+      <div class="rule"></div>
+      <p class="cover-sub">Segundo trimestre de 2026</p>
+      <p class="meta">Talento Humano &middot; Dirección Administrativa y Financiera</p>
+      <p class="meta">1 de septiembre de 2026 &middot; Comité Directivo</p>
+    </div>
+    <img class="url" src="{{logos/url-blanco.png}}" alt="www.capitalsalud.gov.co">
+    <img class="sellos" src="{{logos/sellos-institucionales.png}}" alt="">
+    <span class="vigilado">Vigilado Supersalud</span>
+  </section>
+
+  <!-- 2 · Resumen ejecutivo (mixto) -->
+  <section class="slide page">
+    <div class="topbar"><h3>El trimestre avanza en productividad y cierra con utilidad neta</h3>
+      <p class="sub">Cifras clave &middot; abril a junio de 2026 &middot; variación frente a 1T-2026</p></div>
+    <div class="canvas">
+      <div class="kpirow">
+        <div class="tile"><span class="lbl">Servidores en teletrabajo</span><span class="num">320</span>
+          <span class="delta">&#9650; 40 vs. 1T</span><span class="foot">Modalidad híbrida</span></div>
+        <div class="tile"><span class="lbl">Productividad áreas vinculadas</span><span class="num">+12 %</span>
+          <span class="delta">Meta +8 %</span><span class="foot">Metas de proceso cumplidas</span></div>
+        <div class="tile"><span class="lbl">Resultado neto 2T</span><span class="num">$31 MM</span>
+          <span class="delta">&#9650; 18 % vs. 1T</span><span class="foot">Margen neto 2,1 %</span></div>
+        <div class="tile"><span class="lbl">Días de cartera</span><span class="num">58</span>
+          <span class="delta alert">&#9650; 3 días &middot; meta &le; 45</span><span class="foot">Rotación de cuentas por cobrar</span></div>
+      </div>
+      <p class="src">Cifras financieras en miles de millones de pesos (MM). Datos ficticios para efectos de demostración.</p>
+    </div>
+  </section>
+
+  <!-- 3 · Separador 01 -->
+  <section class="slide section">
+    <img class="brand blanco" src="{{logos/te-cuida.png}}" alt="" style="left:4cqw;right:auto;">
+    <div class="halo"></div>
+    <img class="figura" src="{{personajes/trio-computador.png}}" alt="">
+    <div class="sec-text"><span class="section-num">01</span><h2 class="section-title">Talento humano y teletrabajo</h2><div class="rule"></div></div>
+    <img class="url" src="{{logos/url-blanco.png}}" alt="">
+    <img class="sellos" src="{{logos/sellos-institucionales.png}}" alt="">
+    <span class="vigilado">Vigilado Supersalud</span>
+  </section>
+
+  <!-- 4 · Teletrabajo texto -->
+  <section class="slide page">
+    <div class="topbar"><h3>El teletrabajo dejó de ser piloto y ya es política permanente</h3>
+      <p class="sub">Estado del programa &middot; primer semestre de 2026</p></div>
+    <div class="canvas">
+      <ul class="bullets plain">
+        <li>320 servidores vinculados en modalidad híbrida</li>
+        <li>Cobertura en las cuatro direcciones misionales</li>
+        <li>Marco normativo interno aprobado en marzo de 2026</li>
+        <li>Acompañamiento de Talento Humano y de Seguridad y Salud</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5 · Solicitudes por mes -->
+  <section class="slide page">
+    <div class="topbar"><h3>Las solicitudes de ingreso al programa se concentraron en marzo</h3>
+      <p class="sub">Solicitudes aprobadas por mes &middot; primer semestre de 2026</p></div>
+    <div class="canvas">
+      <div class="plot single">
+        <div class="grp"><div class="pair"><div class="col" style="height:41%"><span class="v">18</span></div></div><span class="lab">Ene</span></div>
+        <div class="grp"><div class="pair"><div class="col" style="height:59%"><span class="v">26</span></div></div><span class="lab">Feb</span></div>
+        <div class="grp"><div class="pair"><div class="col accent" style="height:100%"><span class="v">44</span></div></div><span class="lab">Mar</span></div>
+        <div class="grp"><div class="pair"><div class="col" style="height:89%"><span class="v">39</span></div></div><span class="lab">Abr</span></div>
+        <div class="grp"><div class="pair"><div class="col" style="height:70%"><span class="v">31</span></div></div><span class="lab">May</span></div>
+        <div class="grp"><div class="pair"><div class="col" style="height:57%"><span class="v">25</span></div></div><span class="lab">Jun</span></div>
+      </div>
+      <p class="src">183 solicitudes aprobadas en total. Fuente: Talento Humano. Datos ficticios.</p>
+    </div>
+  </section>
+
+  <!-- 6 · Productividad KPI -->
+  <section class="slide page">
+    <div class="topbar"><h3>La productividad de las áreas vinculadas subió 12 %</h3>
+      <p class="sub">Cumplimiento de metas de proceso &middot; enero a junio de 2026</p></div>
+    <div class="canvas">
+      <div class="kpi-wrap">
+        <img class="ico" src="{{iconos/diamante.png}}" alt="">
+        <div>
+          <div class="kpi-num">+12&#37;</div>
+          <p class="kpi-caption">Frente a una meta institucional de +8 %. Medido sobre el promedio de las áreas del programa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · Comparación -->
+  <section class="slide page">
+    <div class="topbar"><h3>El cambio se nota en tiempos, en espacio y en costos</h3>
+      <p class="sub">Situación 2025 frente a 2026</p></div>
+    <div class="canvas">
+      <div class="cols">
+        <div class="col-card antes">
+          <h4>Antes &middot; 2025</h4>
+          <ul>
+            <li>45 minutos promedio de traslado por trayecto</li>
+            <li>Dos pisos de sede administrativa en uso</li>
+            <li>Picos de ausentismo en temporada de lluvias</li>
+          </ul>
+        </div>
+        <div class="col-card despues">
+          <h4>Después &middot; 2026</h4>
+          <ul>
+            <li>Dos días presenciales a la semana</li>
+            <li>Un piso liberado: ahorro de $9 MM al trimestre</li>
+            <li>Ausentismo 18&#37; por debajo del año anterior</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · Separador 02 -->
+  <section class="slide section">
+    <img class="brand blanco" src="{{logos/te-cuida.png}}" alt="" style="left:4cqw;right:auto;">
+    <div class="halo"></div>
+    <img class="figura" src="{{personajes/hombre-checklist.png}}" alt="">
+    <div class="sec-text"><span class="section-num">02</span><h2 class="section-title">Resultados financieros</h2><div class="rule"></div></div>
+    <img class="url" src="{{logos/url-blanco.png}}" alt="">
+    <img class="sellos" src="{{logos/sellos-institucionales.png}}" alt="">
+    <span class="vigilado">Vigilado Supersalud</span>
+  </section>
+
+  <!-- 9 · Estado de resultados -->
+  <section class="slide page">
+    <div class="topbar"><h3>Estado de resultados resumido del trimestre</h3>
+      <p class="sub">2T-2026 frente a 2T-2025 &middot; MM de pesos</p></div>
+    <div class="canvas">
+      <table>
+        <thead><tr><th>Concepto</th><th>2T-2026</th><th>2T-2025</th><th>Var. %</th></tr></thead>
+        <tbody>
+          <tr><td>Ingresos operacionales</td><td>1.482</td><td>1.394</td><td>+6,3 %</td></tr>
+          <tr><td>Costo médico y prestación</td><td>1.369</td><td>1.312</td><td>+4,3 %</td></tr>
+          <tr><td>Gastos administrativos</td><td>82</td><td>79</td><td>+3,8 %</td></tr>
+          <tr class="total"><td>Resultado operacional</td><td>45</td><td>16</td><td>+181 %</td></tr>
+          <tr><td>Gastos financieros netos</td><td>14</td><td>11</td><td>+27 %</td></tr>
+          <tr class="total"><td>Resultado neto</td><td>31</td><td>5</td><td>+520 %</td></tr>
+        </tbody>
+      </table>
+      <p class="src">Cifras ficticias, redondeadas. Var. % sobre valores sin redondear.</p>
+    </div>
+  </section>
+
+  <!-- 10 · Ingresos vs egresos -->
+  <section class="slide page">
+    <div class="topbar"><h3>Los ingresos superaron a los egresos los tres meses del trimestre</h3>
+      <p class="sub">Ingresos y egresos operacionales por mes &middot; MM de pesos</p></div>
+    <div class="canvas">
+      <div class="legend"><span><i style="background:var(--g1)"></i>Ingresos</span><span><i style="background:var(--g3)"></i>Egresos</span></div>
+      <div class="plot">
+        <div class="grp"><div class="pair">
+          <div class="col"   style="height:95%"><span class="v">486</span></div>
+          <div class="col b" style="height:92%"><span class="v">472</span></div></div><span class="lab">Abril</span></div>
+        <div class="grp"><div class="pair">
+          <div class="col"   style="height:97%"><span class="v">495</span></div>
+          <div class="col b" style="height:94%"><span class="v">481</span></div></div><span class="lab">Mayo</span></div>
+        <div class="grp"><div class="pair">
+          <div class="col"   style="height:98%"><span class="v">501</span></div>
+          <div class="col b" style="height:95%"><span class="v">484</span></div></div><span class="lab">Junio</span></div>
+      </div>
+      <p class="src">Superávit operacional del trimestre: $45 MM. Fuente: estados financieros internos.</p>
+    </div>
+  </section>
+
+  <!-- 11 · Dona -->
+  <section class="slide page">
+    <div class="topbar"><h3>El costo médico concentra 9 de cada 10 pesos de gasto</h3>
+      <p class="sub">Composición del egreso operacional &middot; 2T-2026</p></div>
+    <div class="canvas">
+      <div class="donutwrap">
+        <div class="donut"><div class="mid"><b>92,4 %</b><span>costo médico</span></div></div>
+        <div class="dlegend">
+          <div><i style="background:var(--g1)"></i>Costo médico y prestación de servicios <b>92,4 %</b></div>
+          <div><i style="background:var(--g2)"></i>Gastos administrativos <b>5,5 %</b></div>
+          <div><i style="background:var(--g4)"></i>Gastos financieros <b>1,3 %</b></div>
+          <div><i style="background:var(--g6)"></i>Otros egresos <b>0,8 %</b></div>
+        </div>
+      </div>
+      <p class="src">Gasto administrativo dentro del límite regulatorio (8 %). Datos ficticios.</p>
+    </div>
+  </section>
+
+  <!-- 12 · Separador 03 -->
+  <section class="slide section">
+    <img class="brand blanco" src="{{logos/te-cuida.png}}" alt="" style="left:4cqw;right:auto;">
+    <div class="halo"></div>
+    <img class="figura" src="{{personajes/mujer-checklist.png}}" alt="">
+    <div class="sec-text"><span class="section-num">03</span><h2 class="section-title">Liquidez, cartera y presupuesto</h2><div class="rule"></div></div>
+    <img class="url" src="{{logos/url-blanco.png}}" alt="">
+    <img class="sellos" src="{{logos/sellos-institucionales.png}}" alt="">
+    <span class="vigilado">Vigilado Supersalud</span>
+  </section>
+
+  <!-- 13 · Cartera por edades -->
+  <section class="slide page">
+    <div class="topbar"><h3>El 80 % de la cartera está al día o con menos de 60 días</h3>
+      <p class="sub">Cartera por edades &middot; participación sobre el saldo total ($214 MM)</p></div>
+    <div class="canvas">
+      <div class="hbars">
+        <div class="hrow"><span>0 a 30 días</span><div class="track"><div class="fill" style="width:62%"></div></div><span class="pct">62 %</span></div>
+        <div class="hrow"><span>31 a 60 días</span><div class="track"><div class="fill" style="width:18%"></div></div><span class="pct">18 %</span></div>
+        <div class="hrow"><span>61 a 90 días</span><div class="track"><div class="fill" style="width:9%"></div></div><span class="pct">9 %</span></div>
+        <div class="hrow"><span>91 a 180 días</span><div class="track"><div class="fill" style="width:7%"></div></div><span class="pct">7 %</span></div>
+        <div class="hrow accent"><span>Más de 180 días</span><div class="track"><div class="fill" style="width:4%"></div></div><span class="pct">4 %</span></div>
+      </div>
+      <p class="src">Provisión constituida sobre cartera &gt; 180 días: 85 %. Datos ficticios.</p>
+    </div>
+  </section>
+
+  <!-- 14 · Ejecución presupuestal -->
+  <section class="slide page">
+    <div class="topbar"><h3>La ejecución de ingresos va sobre lo previsto; inversión, rezagada</h3>
+      <p class="sub">Ejecución presupuestal acumulada a junio &middot; % de lo programado para el semestre</p></div>
+    <div class="canvas">
+      <div class="hbars">
+        <div class="hrow"><span>Ingresos</span><div class="track"><div class="fill" style="width:96%"></div></div><span class="pct">96 %</span></div>
+        <div class="hrow"><span>Costos en salud</span><div class="track"><div class="fill" style="width:95%"></div></div><span class="pct">95 %</span></div>
+        <div class="hrow"><span>Gastos administrativos</span><div class="track"><div class="fill" style="width:91%"></div></div><span class="pct">91 %</span></div>
+        <div class="hrow accent"><span>Plan de inversión</span><div class="track"><div class="fill" style="width:78%"></div></div><span class="pct">78 %</span></div>
+      </div>
+      <p class="src">Rezago de inversión por reprogramación del plan de infraestructura tecnológica. Datos ficticios.</p>
+    </div>
+  </section>
+
+  <!-- 15 · Separador 04 -->
+  <section class="slide section">
+    <img class="brand blanco" src="{{logos/te-cuida.png}}" alt="" style="left:4cqw;right:auto;">
+    <div class="halo"></div>
+    <img class="figura" src="{{personajes/trio-sello.png}}" alt="">
+    <div class="sec-text"><span class="section-num">04</span><h2 class="section-title">Conclusiones y decisiones</h2><div class="rule"></div></div>
+    <img class="url" src="{{logos/url-blanco.png}}" alt="">
+    <img class="sellos" src="{{logos/sellos-institucionales.png}}" alt="">
+    <span class="vigilado">Vigilado Supersalud</span>
+  </section>
+
+  <!-- 16 · Cierre -->
+  <section class="slide page">
+    <div class="topbar"><h3>Conclusiones y decisiones solicitadas</h3>
+      <p class="sub">Para el Comité Directivo</p></div>
+    <div class="canvas">
+      <div class="kpirow">
+        <div class="tile"><span class="lbl">Conclusiones</span>
+          <span class="foot" style="font-size:1.4cqw;color:var(--texto);line-height:1.45">
+            &bull; El teletrabajo cumple sus metas de productividad y ahorro.<br>
+            &bull; Segundo trimestre consecutivo con utilidad neta.<br>
+            &bull; Siniestralidad a la baja, pero aún sobre el 92 %.<br>
+            &bull; Cartera &gt; 90 días y rezago de inversión: los focos.</span></div>
+        <div class="tile"><span class="lbl">Decisiones solicitadas</span>
+          <span class="foot" style="font-size:1.4cqw;color:var(--texto);line-height:1.45">
+            &bull; Aprobar la ampliación del teletrabajo a áreas de apoyo.<br>
+            &bull; Aprobar el plan de saneamiento de cartera &gt; 90 días.<br>
+            &bull; Autorizar la reprogramación del plan de inversión.<br>
+            &bull; Ratificar la meta de siniestralidad de 91 % para el 3T.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 17 · Anexo -->
+  <section class="slide page">
+    <div class="topbar" style="background:#2a3b52"><h3>Anexo · Supuestos y fuentes</h3>
+      <p class="sub">Base de las cifras presentadas</p></div>
+    <div class="canvas">
+      <div class="kpirow"><div class="tile"><span class="foot" style="font-size:1.4cqw;color:var(--texto);line-height:1.5">
+        &bull; Todas las cifras son <b>ficticias</b> y se usan solo para demostrar la plantilla.<br>
+        &bull; Productividad = % de metas de proceso cumplidas, promedio de las áreas vinculadas al teletrabajo.<br>
+        &bull; Valores financieros en miles de millones de pesos (MM), salvo indicación distinta.<br>
+        &bull; Siniestralidad = costo médico y prestación / ingresos operacionales.<br>
+        &bull; Días de cartera = saldo de cuentas por cobrar / ingresos &times; 90.<br>
+        &bull; Ejecución presupuestal contra el programado del semestre, corte 30 de junio de 2026.<br>
+        &bull; Fuentes: Talento Humano, estados financieros internos y tablero presupuestal.</span></div></div>
+    </div>
+  </section>
+
+</div>
+
+<div class="counter" id="counter">1 / 17</div>
+<div class="hint">← → para navegar</div>
+
+<script>
+  const deck=document.getElementById('deck');
+  const slides=Array.from(deck.querySelectorAll('.slide'));
+  const counter=document.getElementById('counter');
+  let current=0;
+  function go(i){ current=Math.max(0,Math.min(slides.length-1,i));
+    slides[current].scrollIntoView({behavior:'smooth',block:'start'});
+    counter.textContent=(current+1)+' / '+slides.length; }
+  document.addEventListener('keydown',(e)=>{
+    if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){ e.preventDefault(); go(current+1); }
+    else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){ e.preventDefault(); go(current-1); }
+    else if(e.key==='Home'){ e.preventDefault(); go(0); }
+    else if(e.key==='End'){ e.preventDefault(); go(slides.length-1); }
+  });
+  const io=new IntersectionObserver((es)=>{ es.forEach((en)=>{ if(en.isIntersecting){
+    current=slides.indexOf(en.target); counter.textContent=(current+1)+' / '+slides.length; }}); },
+    {root:deck,threshold:0.6});
+  slides.forEach(s=>io.observe(s));
+</script>
+
+</body>
+</html>

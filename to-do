@@ -4,6 +4,8 @@
 - Verificar el Modulo Proyectos
 - Con ayuda de los correos y pruebas, verificar el correcto funcionamiento de los Mecanismos de Integracion.
 
+Integraciones:
+
 - Desarrollar una skill Claude para hacer diapositivas institucionales, teniendo en cuenta los siguientes parametros:
     1. respetando paleta de colores y plantilla pptx institucional. Mantener una estetica limpia, donde la informacion respire.
     2. Flexibilidad de formatos de entrega. El usuario puede escoger entre: PPTX, HTML, PDF.

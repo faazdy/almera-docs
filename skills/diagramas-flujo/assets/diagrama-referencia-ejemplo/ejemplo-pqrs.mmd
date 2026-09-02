@@ -1,0 +1,50 @@
+---
+title: Atención de PQRS — General
+---
+flowchart LR
+
+  ini(["PQRS recibida"]):::evInicio
+
+  subgraph L1["Ciudadano"]
+    direction TB
+    A1["Radicar la PQRS por el canal disponible: web, correo, presencial o telefónico"]:::actividad
+    A2["Completar y reenviar la información solicitada"]:::actividad
+  end
+
+  subgraph L2["Ventanilla única"]
+    direction TB
+    B1["Registrar la PQRS en el sistema y asignar número de radicado"]:::actividad
+    D1{"¿La PQRS tiene toda la información requerida?"}:::decision
+    B2["🔴 Solicitar al ciudadano la información faltante"]:::actividad
+    B3["Clasificar la PQRS por tipo y asignarla al proceso responsable"]:::actividad
+    B4["🟡 Enviar la respuesta al ciudadano por el canal registrado"]:::actividad
+    B5["Cerrar el radicado y notificar el cierre al ciudadano"]:::actividad
+  end
+
+  subgraph L3["Analista del proceso"]
+    direction TB
+    C1["Revisar la PQRS y determinar las áreas o personas a consultar"]:::actividad
+    C2["Recopilar la información y preparar el proyecto de respuesta"]:::actividad
+    C3["Ajustar el proyecto de respuesta según las observaciones"]:::actividad
+    C4["Registrar la respuesta y los soportes en el expediente de la PQRS"]:::actividad
+  end
+
+  subgraph L4["Líder de proceso"]
+    direction TB
+    D2{"¿El proyecto de respuesta es adecuado?"}:::decision
+    E1["Aprobar la respuesta definitiva"]:::actividad
+  end
+
+  fin(["PQRS atendida y cerrada"]):::evFin
+
+  ini --> A1 --> B1 --> D1
+  D1 -- "No" --> B2 --> A2 --> D1
+  D1 -- "Sí" --> B3 --> C1 --> C2 --> D2
+  D2 -- "No" --> C3 --> D2
+  D2 -- "Sí" --> E1 --> B4 --> C4 --> B5 --> fin
+
+  classDef evInicio    fill:#D5E8D4,stroke:#2E7D32,stroke-width:2px,color:#1B4332;
+  classDef evFin       fill:#F8CECC,stroke:#C0392B,stroke-width:2px,color:#641E16;
+  classDef actividad   fill:#EAF2FB,stroke:#3C78D8,stroke-width:1.5px,color:#1A2E4A;
+  classDef decision    fill:#FFF2CC,stroke:#D6B656,stroke-width:1.5px,color:#5B4A16;
+  classDef subproceso  fill:#E1D5E7,stroke:#9673A6,stroke-width:1.5px,color:#3D2C47;

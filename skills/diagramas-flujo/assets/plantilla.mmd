@@ -1,0 +1,50 @@
+%% =============================================================================
+%% PLANTILLA BASE — diagrama de flujo de procedimiento
+%% Paleta:  skills/diagramas-flujo/assets/paleta-bizagi.md  (PROVISIONAL)
+%% Reglas:  skills/diagramas-flujo/references/02-reglas-de-diagramacion.md
+%%
+%%  - Actividades / acciones: MÁXIMO 100 caracteres (con espacios).
+%%  - Decisiones: pregunta cerrada terminada en "?".
+%%  - NO usar paréntesis "(" ")" dentro de las etiquetas: rompen Mermaid.
+%%    Si necesitas una aclaración, usa dos puntos:  "... por el canal disponible: web, correo".
+%%  - Validación por colores: marca el nodo con emoji al inicio de la etiqueta
+%%    ("🟡 ..." o "🔴 ..."); 🟢 no lleva marca. El detalle va en la tabla que
+%%    acompaña al diagrama (ver references/03-validacion-por-colores.md).
+%%  - Un subgraph por responsable (carril). Borra los que no apliquen.
+%%  - Las FASES/etapas se documentan en la tabla de pasos (columna "Fase");
+%%    Mermaid no permite anidar carriles y fases de forma legible.
+%%  - Sustituye todo lo que está entre < >.
+%% =============================================================================
+---
+title: <Nombre del procedimiento> — General
+---
+flowchart LR
+
+  ini(["<Evento inicial: algo ocurrió>"]):::evInicio
+
+  subgraph L1["<Responsable 1>"]
+    direction TB
+    A1["<Actividad de máximo 100 caracteres>"]:::actividad
+    G1{"¿<Pregunta cerrada>?"}:::decision
+  end
+
+  subgraph L2["<Responsable 2>"]
+    direction TB
+    A2["<Actividad de máximo 100 caracteres>"]:::actividad
+    S1[["<Subproceso: nombre del procedimiento referenciado>"]]:::subproceso
+  end
+
+  fin(["<Evento final: resultado alcanzado>"]):::evFin
+
+  %% ---- Flujo de secuencia ----
+  ini --> A1 --> G1
+  G1 -- "Sí" --> A2 --> S1 --> fin
+  G1 -- "No" --> A1
+
+  %% ---- Paleta (ver paleta-bizagi.md) ----
+  classDef evInicio    fill:#D5E8D4,stroke:#2E7D32,stroke-width:2px,color:#1B4332;
+  classDef evIntermedio fill:#FDE9D9,stroke:#E67E22,stroke-width:2px,color:#6E3B10;
+  classDef evFin       fill:#F8CECC,stroke:#C0392B,stroke-width:2px,color:#641E16;
+  classDef actividad   fill:#EAF2FB,stroke:#3C78D8,stroke-width:1.5px,color:#1A2E4A;
+  classDef subproceso  fill:#E1D5E7,stroke:#9673A6,stroke-width:1.5px,color:#3D2C47;
+  classDef decision    fill:#FFF2CC,stroke:#D6B656,stroke-width:1.5px,color:#5B4A16;
