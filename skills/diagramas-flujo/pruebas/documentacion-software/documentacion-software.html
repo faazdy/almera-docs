@@ -1,0 +1,276 @@
+<title>Documentación de Software</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg:#F5F7FA;
+  --surface:#FFFFFF;
+  --surface-2:#EBEFF6;
+  --border:#D7DEE9;
+  --ink:#1B2430;
+  --ink-soft:#5B6472;
+  --ink-faint:#8993A3;
+  --accent:#3E5C74;
+  --accent-soft:#E4ECF5;
+  --rojo-fill:#FADBD8; --rojo-stroke:#C0392B; --rojo-text:#7A2A22;
+  --amar-fill:#FCF3CF; --amar-stroke:#C99A1E; --amar-text:#6B531A;
+  --warn-bg:#EAF5EA; --warn-border:#9AC49A; --warn-text:#2E5C2E;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#131A22;
+    --surface:#1A222C;
+    --surface-2:#212B37;
+    --border:#2E3947;
+    --ink:#E7ECF2;
+    --ink-soft:#9FAEC0;
+    --ink-faint:#6E7A8A;
+    --accent:#8FB4D2;
+    --accent-soft:#223140;
+    --rojo-fill:#3A2320; --rojo-stroke:#D9695C; --rojo-text:#F0B8B0;
+    --amar-fill:#39310F; --amar-stroke:#D8B23A; --amar-text:#EED89C;
+    --warn-bg:#1B2B1B; --warn-border:#4A7A4A; --warn-text:#B8DDB8;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131A22;
+  --surface:#1A222C;
+  --surface-2:#212B37;
+  --border:#2E3947;
+  --ink:#E7ECF2;
+  --ink-soft:#9FAEC0;
+  --ink-faint:#6E7A8A;
+  --accent:#8FB4D2;
+  --accent-soft:#223140;
+  --rojo-fill:#3A2320; --rojo-stroke:#D9695C; --rojo-text:#F0B8B0;
+  --amar-fill:#39310F; --amar-stroke:#D8B23A; --amar-text:#EED89C;
+  --warn-bg:#2E2018; --warn-border:#8A5A3A; --warn-text:#E8C4A6;
+}
+
+*{box-sizing:border-box;}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'IBM Plex Sans',system-ui,-apple-system,sans-serif;
+  padding:40px 20px 64px;
+}
+.wrap{max-width:960px;margin:0 auto;display:flex;flex-direction:column;gap:28px;}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace;}
+
+header{display:flex;flex-direction:column;gap:10px;}
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:8px;
+}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;}
+h1{font-size:clamp(26px,4vw,34px);font-weight:700;line-height:1.15;margin:0;text-wrap:balance;}
+.subtitle{color:var(--ink-soft);font-size:15px;line-height:1.55;max-width:66ch;margin:0;}
+
+.callout{
+  display:flex;gap:12px;padding:14px 16px;border-radius:10px;
+  background:var(--warn-bg);border:1px solid var(--warn-border);color:var(--warn-text);
+  font-size:13px;line-height:1.55;
+}
+.callout b{font-weight:600;}
+
+.meta{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden;
+}
+.meta-cell{background:var(--surface);padding:12px 16px;display:flex;flex-direction:column;gap:3px;}
+.meta-label{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);}
+.meta-value{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink);}
+
+.panel{border:1px solid var(--border);border-radius:14px;background:var(--surface);overflow:hidden;}
+.panel-head{
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding:16px 20px;border-bottom:1px solid var(--border);gap:12px;flex-wrap:wrap;
+}
+.panel-title{font-weight:600;font-size:15px;}
+.panel-note{font-size:12px;color:var(--ink-faint);}
+
+.diagram-canvas{background:#FDFDFC;padding:28px 20px 24px;overflow-x:auto;display:flex;justify-content:center;}
+.diagram-canvas pre.mermaid{margin:0;}
+
+.legend-row{
+  display:flex;flex-wrap:wrap;gap:14px 22px;
+  padding:14px 20px 18px;border-top:1px solid var(--border);
+  background:var(--surface-2);
+}
+.legend-item{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink-soft);}
+.swatch{width:13px;height:13px;border-radius:3px;flex:none;}
+
+.section-title{
+  font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--ink-faint);display:flex;align-items:center;gap:10px;
+}
+.section-title::after{content:"";flex:1;height:1px;background:var(--border);}
+
+.notes{display:flex;flex-direction:column;gap:10px;}
+.note{
+  display:grid;grid-template-columns:auto 1fr;gap:12px;
+  padding:13px 16px;border-radius:10px;border:1px solid;font-size:13.5px;line-height:1.5;
+}
+.note.rojo{background:var(--rojo-fill);border-color:var(--rojo-stroke);color:var(--rojo-text);}
+.note.amarillo{background:var(--amar-fill);border-color:var(--amar-stroke);color:var(--amar-text);}
+.note-tag{
+  font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;
+  letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;padding-top:1px;
+}
+.note b{font-weight:600;}
+
+details{border:1px solid var(--border);border-radius:10px;background:var(--surface);}
+summary{
+  cursor:pointer;padding:13px 16px;font-size:13px;font-weight:600;
+  color:var(--ink-soft);list-style:none;display:flex;align-items:center;gap:8px;
+}
+summary::-webkit-details-marker{display:none;}
+summary::before{content:"▸";font-size:11px;color:var(--accent);transition:transform .15s;}
+details[open] summary::before{transform:rotate(90deg);}
+.steps-list{padding:0 16px 16px;display:flex;flex-direction:column;gap:0;border-top:1px solid var(--border);margin-top:-1px;}
+.step-row{
+  display:grid;grid-template-columns:40px 170px 1fr;gap:10px;align-items:baseline;
+  padding:9px 0;border-bottom:1px dashed var(--border);font-size:13px;
+}
+.step-row:last-child{border-bottom:none;}
+.step-num{font-family:'IBM Plex Mono',monospace;color:var(--ink-faint);font-size:12px;font-variant-numeric:tabular-nums;}
+.step-lane{font-size:10.5px;color:var(--accent);font-weight:600;white-space:nowrap;}
+.step-text{color:var(--ink);}
+
+footer{font-size:12px;color:var(--ink-faint);line-height:1.6;padding-top:8px;border-top:1px solid var(--border);}
+footer a{color:var(--accent);}
+</style>
+
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow"><span class="dot"></span>Prueba de skill · diagramas-flujo</div>
+    <h1>Documentación de Software</h1>
+    <p class="subtitle">Diagrama general de <span class="mono">Procedimiento de Documentación de Software</span>
+      (P06-TSI, V2.0-2022 — Capital Salud EPS-S). Sin recuadros de carril — una sola cadena de
+      cajas en orden de ejecución, cada una con su responsable como segunda línea. Cada flecha es
+      un salto directo entre dos vecinos, sin ningún clúster de por medio. Presentación vertical.</p>
+  </header>
+
+  <div class="callout">
+    <span>✅</span>
+    <span><b>Confirmado dos veces:</b> quitar los recuadros de carril resolvió el problema de las
+      flechas que no tocaban la actividad. Y el usuario compartió el diagrama <b>real</b> de este
+      procedimiento (export de Bizagi): confirma los 4 carriles y la secuencia de cruces, y corrigió
+      que los pasos 8 y 12 no debían partirse en dos cajas — vuelve a 12 cajas, 1:1 con las 12
+      actividades fuente.</span>
+  </div>
+
+  <div class="meta">
+    <div class="meta-cell"><span class="meta-label">Pasos fuente</span><span class="meta-value">12</span></div>
+    <div class="meta-cell"><span class="meta-label">Cajas en diagrama</span><span class="meta-value">12</span></div>
+    <div class="meta-cell"><span class="meta-label">Responsables</span><span class="meta-value">4</span></div>
+    <div class="meta-cell"><span class="meta-label">Recuadros de carril</span><span class="meta-value">0</span></div>
+    <div class="meta-cell"><span class="meta-label">Variaciones</span><span class="meta-value">Ninguna</span></div>
+    <div class="meta-cell"><span class="meta-label">Notas</span><span class="meta-value">1 🔴 · 1 🟡</span></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <span class="panel-title">Diagrama general</span>
+      <span class="panel-note">Cadena única, vertical — cada flecha conecta dos vecinos directos, sin clúster</span>
+    </div>
+    <div class="diagram-canvas">
+<pre class="mermaid">
+---
+title: Documentación de Software — General
+---
+flowchart TD
+
+  ini(["Se identifica y justifica la necesidad de un requerimiento de software"]):::evInicio
+
+  A1["1. Presentar la necesidad identificada en el proceso en el que participa<br/>👤 Solicitante"]:::actividad
+  A2["2. Validar el planteamiento del requerimiento según la situación actual<br/>👤 Ingeniero de Requerimientos"]:::actividad
+  A3["3. Diligenciar el alcance del requerimiento en el formato de levantamiento<br/>👤 Ingeniero de Requerimientos"]:::actividad
+  A4["4. Determinar si la documentación del requerimiento cumple las especificaciones<br/>👤 Coordinador de Desarrollo"]:::actividad
+  A5["5. Describir el código en el ambiente de desarrollo con comentarios breves<br/>👤 Ingeniero Programador"]:::actividad
+  A6["6. Realizar los diagramas y modelos de la solución para el manual técnico<br/>👤 Ingeniero Programador"]:::actividad
+  A7["7. Diligenciar el diccionario de datos para el manual técnico<br/>👤 Ingeniero Programador"]:::actividad
+  A8["8. Diseñar el plan de pruebas según el nivel de agrupación correspondiente<br/>👤 Ingeniero de Requerimientos"]:::actividad
+  A9["9. Diligenciar el acta de aprobación de pruebas del requerimiento<br/>👤 Ingeniero de Requerimientos"]:::actividad
+  A10["10. Documentar el manual técnico y el manual de usuario<br/>👤 Ingeniero de Requerimientos"]:::actividad
+  A11["11. Elaborar el instructivo de implementación sobre la infraestructura tecnológica<br/>👤 Ingeniero Programador"]:::actividad
+  A12["12. Diligenciar el formato de aceptación y entrega final del requerimiento<br/>👤 Coordinador de Desarrollo"]:::actividad
+
+  fin(["Requerimiento aprobado y entregado al área solicitante"]):::evFin
+
+  N1["🔴 Paso 4 — Revisar obligatoriamente: no se define qué ocurre si la documentación NO cumple las especificaciones"]:::notaRoja
+  N2["🟡 Paso 8 — Revisar: el rol aparece como «Ingeniero Requerimientos» en los pasos 2-3 y «Ingeniero de Requerimientos» aquí — se asume el mismo responsable"]:::notaAmarilla
+
+  ini --> A1
+  A1 -.-> A2
+  A2 --> A3
+  A3 -.-> A4
+  A4 -.-> A5
+  A5 --> A6 --> A7
+  A7 -.-> A8
+  A8 --> A9 --> A10
+  A10 -.-> A11
+  A11 -.-> A12
+  A12 --> fin
+
+  A4 -.-> N1
+  A8 -.-> N2
+
+  classDef evInicio     fill:#92D050,stroke:#548235,stroke-width:2px,color:#26401A;
+  classDef evFin        fill:#C00000,stroke:#7F0000,stroke-width:2px,color:#FFFFFF;
+  classDef actividad    fill:#EAF0FC,stroke:#6F90AA,stroke-width:1.5px,color:#1A2E4A;
+  classDef notaRoja     fill:#FADBD8,stroke:#C0392B,stroke-width:1.5px,color:#641E16,stroke-dasharray: 3 3;
+  classDef notaAmarilla fill:#FCF3CF,stroke:#F2C037,stroke-width:1.5px,color:#5B4A16,stroke-dasharray: 3 3;
+</pre>
+    </div>
+    <div class="legend-row">
+      <span class="legend-item"><span class="swatch" style="background:#92D050;border:1.5px solid #548235"></span>Evento inicial</span>
+      <span class="legend-item"><span class="swatch" style="background:#EAF0FC;border:1.5px solid #6F90AA"></span>Actividad — 👤 responsable en 2ª línea</span>
+      <span class="legend-item"><span class="swatch" style="background:#C00000;border:1.5px solid #7F0000"></span>Evento final</span>
+      <span class="legend-item">── Mismo responsable que el paso anterior · ┄┄▶ Cambia de responsable</span>
+      <span class="legend-item"><span class="swatch" style="background:#FADBD8;border:1.5px dashed #C0392B"></span>Nota 🔴 revisar obligatorio</span>
+      <span class="legend-item"><span class="swatch" style="background:#FCF3CF;border:1.5px dashed #F2C037"></span>Nota 🟡 revisar</span>
+    </div>
+  </div>
+
+  <div class="section-title">Notas de validación</div>
+  <div class="notes">
+    <div class="note rojo">
+      <span class="note-tag">🔴 Paso 4</span>
+      <span>El texto dice <b>«Determinar si la documentación del requerimiento cumple con las especificaciones necesarias»</b>, redactado como una validación de tipo aprobar/rechazar, pero la tabla no documenta qué ocurre si NO cumple — el flujo pasa directo al paso 5 sin rama alternativa. Vacío que rompe el flujo, confirmar con el área si existe un retorno al Ingeniero de Requerimientos.</span>
+    </div>
+    <div class="note amarillo">
+      <span class="note-tag">🟡 Paso 8</span>
+      <span>El documento nombra el mismo rol de dos formas: <b>«Ingeniero Requerimientos»</b> en los pasos 2 y 3, y <b>«Ingeniero de Requerimientos»</b> en los pasos 8, 9 y 10 — se asumió que es el mismo responsable, no confirmado explícitamente en el texto.</span>
+    </div>
+  </div>
+
+  <details>
+    <summary>Ver los 12 pasos en texto (trazabilidad, numeración del PDF fuente)</summary>
+    <div class="steps-list">
+      <div class="step-row"><span class="step-num">1</span><span class="step-lane">Solicitante</span><span class="step-text">Presentar la necesidad identificada en el proceso en el que participa</span></div>
+      <div class="step-row"><span class="step-num">2</span><span class="step-lane">Ing. Requerimientos</span><span class="step-text">Validar el planteamiento del requerimiento según la situación actual</span></div>
+      <div class="step-row"><span class="step-num">3</span><span class="step-lane">Ing. Requerimientos</span><span class="step-text">Diligenciar el alcance del requerimiento en el formato de levantamiento</span></div>
+      <div class="step-row"><span class="step-num">4</span><span class="step-lane">Coordinador Desarrollo</span><span class="step-text">Determinar si la documentación del requerimiento cumple las especificaciones</span></div>
+      <div class="step-row"><span class="step-num">5</span><span class="step-lane">Ing. Programador</span><span class="step-text">Describir el código en el ambiente de desarrollo con comentarios breves</span></div>
+      <div class="step-row"><span class="step-num">6</span><span class="step-lane">Ing. Programador</span><span class="step-text">Realizar los diagramas y modelos de la solución para el manual técnico</span></div>
+      <div class="step-row"><span class="step-num">7</span><span class="step-lane">Ing. Programador</span><span class="step-text">Diligenciar el diccionario de datos para el manual técnico</span></div>
+      <div class="step-row"><span class="step-num">8</span><span class="step-lane">Ing. Requerimientos</span><span class="step-text">Diseñar el plan de pruebas según el nivel de agrupación correspondiente</span></div>
+      <div class="step-row"><span class="step-num">9</span><span class="step-lane">Ing. Requerimientos</span><span class="step-text">Diligenciar el acta de aprobación de pruebas del requerimiento</span></div>
+      <div class="step-row"><span class="step-num">10</span><span class="step-lane">Ing. Requerimientos</span><span class="step-text">Documentar el manual técnico y el manual de usuario</span></div>
+      <div class="step-row"><span class="step-num">11</span><span class="step-lane">Ing. Programador</span><span class="step-text">Elaborar el instructivo de implementación sobre la infraestructura tecnológica</span></div>
+      <div class="step-row"><span class="step-num">12</span><span class="step-lane">Coordinador Desarrollo</span><span class="step-text">Diligenciar el formato de aceptación y entrega final del requerimiento</span></div>
+    </div>
+    <p style="padding:10px 16px 4px;margin:0;font-size:11.5px;color:var(--ink-faint)">12 cajas, 1:1 con las 12 actividades del PDF original — confirmado contra el diagrama real de Bizagi de este mismo procedimiento. Los formatos referenciados (F04, F10, F11, F17, F24, F25-TSI) se omitieron del texto de cada caja por el límite de ≤100 caracteres/sin paréntesis; ver el PDF fuente para el código exacto de cada uno.</p>
+  </details>
+
+  <footer>
+    Fuente Mermaid: <span class="mono">skills/diagramas-flujo/pruebas/documentacion-software/documentacion-software.mmd</span>
+    (historial v1→v6 documentado en el propio archivo, con el porqué de cada cambio). Paleta:
+    <span class="mono">skills/diagramas-flujo/assets/paleta-bizagi.md</span>. Render nativo de
+    Artifacts — así corre la skill en producción (claude.ai), no como CLI local.
+  </footer>
+
+</div>

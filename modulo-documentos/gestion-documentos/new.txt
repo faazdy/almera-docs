@@ -1,9 +1,9 @@
-PASOS EN EL FLUJO DE DOCUMENTOS (entorno pruebas)
+------------PASOS EN EL FLUJO DE DOCUMENTOS (entorno pruebas)
 
 *elaborar documento (profesional elaborador)
 -ir a la ruta de siempre
 -llenar los campos solicitados
--se da clic en 'grabar y enrutar' (el paso de buscr la opcion de enrutar se puede omitir si se da el caso)
+-se da clic en 'grabar y enrutar'
 -en la interfaz de enrutamiento enlazar al profesional aprobador
 -se llenan los campos requeridos y 'grabar'
 -esperar la respuesta del profesional al que se le asignó/enrutó el documento
@@ -25,6 +25,23 @@ alli encontramos el documento que se va a elaborar
 si todo esta en orden en el documento nos sale el boton de 'Enviar a Direccion', le damos clic
 enrutamos al director correspondiente, llenamos obervaciones y Grabar.
 
+*director enrutado
+vamos a 'mis pendientes'
+alli encontramos el documento que se va a elaborar
+Si se aprueba le damos en 'Aprobar'
+se enruta al profesional de planeacion correspondientepara hacer la publicacion del documento
+le damos clic en 'Grabar'
+
+*profesional planeacion
+vamos a 'mis pendientes'
+alli encontramos el documento que se aprobó
+le damos clic a 'Publicar'
+llenamos los campos correspondientes
+clic en 'Grabar'
+Documento queda publicado en la plataforma
+
+
+
 
 
 
@@ -32,10 +49,27 @@ DEROGAR UN DOCUMENTO
 
 entrar al documento
 darle clic al botón de 'Enviar a coordinacion Derogacion'
-enrutar al coordinador, llenar las obervaciones del porqué y Grabar
+enrutar al coordinador, llenar las observaciones del porqué y Grabar
 esperar respuesta del coordinador enrutado
 
 *coordinador enrutado
 ir a 'Mis pendientes'
 darle clic a la solicitud pendiente
-decidimos si se aprueba la derogacion o se rechaza
+decidimos si se aprueba la derogacion (con el boton Enviar a Direccion) o si se rechaza (boton de rechazar derogacion)
+si se aprueba se debe mandar a la direccion dando clic en el botón 'Enviar a Direccion'
+esperar decision del director asignado
+
+
+*director enrutado
+ir a 'Mis pendientes'
+darle clic a la solicitud pendiente
+decidimos si se aprueba la derogacion, dando clic en 'Aprobar derogacion'
+si se aprueba se enruta al equipo de planeacion o a algun responsable de planeacion
+
+
+*profesional planeacion
+ir a 'Mis pendientes'
+darle clic a la solicitud pendiente
+damos clic en 'Anular'
+el documento finalmente queda anulado.
+

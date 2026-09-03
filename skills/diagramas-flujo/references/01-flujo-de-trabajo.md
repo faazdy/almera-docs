@@ -25,9 +25,19 @@ Devuelve esta lista al usuario para confirmar **antes** de construir el diagrama
 
 ## 3. Construcción
 
-- Un carril por responsable (si se pidió separación por roles).
-- Fases como bandas verticales sobre los carriles (si aplica).
-- Flujo de izquierda a derecha, de arriba abajo dentro del carril.
+- **Primero decide si usar `subgraph` en absoluto.** Si el procedimiento va a tener cruces
+  frecuentes entre responsables o fases (más de 1-2 saltos), **no agrupes con `subgraph`** —
+  cadena única en orden de ejecución, con el responsable/fase de cada paso como segunda línea
+  dentro de la caja. Es un bug confirmado de Mermaid, no una preferencia de estilo: ver "⚠️
+  `subgraph` y flechas que cruzan hacia dentro" en `02-reglas-de-diagramacion.md`.
+- Si los cruces van a ser raros, sí puedes usar `subgraph`, y ahí elige **uno solo** entre fase y
+  responsable como agrupación primaria — Mermaid no anida los dos de forma legible. Ver
+  "Agrupación primaria" en `02-reglas-de-diagramacion.md`. El que no se usa como `subgraph` se
+  muestra como dato dentro de cada caja (ej. "👤 Responsable").
+- Un carril/fase por grupo — nunca el mismo grupo partido en dos `subgraph` con el mismo nombre
+  (ver técnica en `assets/plantilla.mmd`).
+- Flujo de izquierda a derecha (o arriba-abajo si hay muchos grupos), de arriba abajo dentro de
+  cada grupo.
 - Si hay variaciones: general + uno por variación (`04-variaciones-de-procedimiento.md`).
 
 ## 4. Validación por colores

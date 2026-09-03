@@ -1,5 +1,14 @@
 # Formatos de salida
 
+> **Entorno objetivo: Claude web / app (claude.ai), no Claude Code local.** La ruta de generación
+> de abajo (Mermaid + `mmdc`) es la que se documentó primero, pero **no está confirmado** que el
+> sandbox de código de claude.ai permita instalar y correr `@mermaid-js/mermaid-cli` +
+> Chromium headless igual que en un entorno local. Antes de asumir que esta ruta funciona tal cual,
+> probarla directamente en claude.ai. Si el sandbox no lo permite, la alternativa es apoyarse en
+> Artifacts (bloque ```mermaid```, que se renderiza nativo sin CLI) y dejar la exportación a
+> PDF/PNG/JPG a cargo de lo que ofrezca esa UI, no de un comando de la skill. Ver
+> `../assets/PENDIENTE.md`.
+
 El usuario elige entre **PDF, JPG o PNG**. Si no dice nada, **PDF** (mejor para adjuntar a un
 procedimiento) más **PNG** (para incrustar).
 
@@ -37,5 +46,6 @@ procedimiento) más **PNG** (para incrustar).
 | JPG | lo anterior + un conversor de imagen (`sharp` / ImageMagick) |
 | Ruta draw.io | `drawio` CLI (Electron) |
 
-Si el entorno no tiene `mmdc` (p. ej. Windows local sin instalar), avisar y ofrecer entregar el
-código Mermaid + un render provisional, o instalar el toolchain primero.
+Si el sandbox de claude.ai no tiene `mmdc` disponible ni permite instalarlo, avisar y entregar el
+código Mermaid + un render provisional vía Artifact (bloque ```mermaid```), en vez de asumir que el
+export a PDF/JPG/PNG por CLI va a funcionar.

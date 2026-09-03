@@ -1,0 +1,331 @@
+<title>Inducción Nuevos Funcionarios</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg:#F5F7FA;
+  --surface:#FFFFFF;
+  --surface-2:#EBEFF6;
+  --border:#D7DEE9;
+  --ink:#1B2430;
+  --ink-soft:#5B6472;
+  --ink-faint:#8993A3;
+  --accent:#3E5C74;
+  --accent-soft:#E4ECF5;
+  --rojo-fill:#FADBD8; --rojo-stroke:#C0392B; --rojo-text:#7A2A22;
+  --amar-fill:#FCF3CF; --amar-stroke:#C99A1E; --amar-text:#6B531A;
+  --verde-stroke:#6E8A4C;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#131A22;
+    --surface:#1A222C;
+    --surface-2:#212B37;
+    --border:#2E3947;
+    --ink:#E7ECF2;
+    --ink-soft:#9FAEC0;
+    --ink-faint:#6E7A8A;
+    --accent:#8FB4D2;
+    --accent-soft:#223140;
+    --rojo-fill:#3A2320; --rojo-stroke:#D9695C; --rojo-text:#F0B8B0;
+    --amar-fill:#39310F; --amar-stroke:#D8B23A; --amar-text:#EED89C;
+    --verde-stroke:#9AB56F;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131A22;
+  --surface:#1A222C;
+  --surface-2:#212B37;
+  --border:#2E3947;
+  --ink:#E7ECF2;
+  --ink-soft:#9FAEC0;
+  --ink-faint:#6E7A8A;
+  --accent:#8FB4D2;
+  --accent-soft:#223140;
+  --rojo-fill:#3A2320; --rojo-stroke:#D9695C; --rojo-text:#F0B8B0;
+  --amar-fill:#39310F; --amar-stroke:#D8B23A; --amar-text:#EED89C;
+  --verde-stroke:#9AB56F;
+}
+
+*{box-sizing:border-box;}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'IBM Plex Sans',system-ui,-apple-system,sans-serif;
+  padding:40px 20px 64px;
+}
+.wrap{max-width:920px;margin:0 auto;display:flex;flex-direction:column;gap:28px;}
+
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace;}
+
+/* ---- header ---- */
+header{display:flex;flex-direction:column;gap:10px;}
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:8px;
+}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;}
+h1{
+  font-size:clamp(26px,4vw,34px);
+  font-weight:700;line-height:1.15;margin:0;
+  text-wrap:balance;
+}
+.subtitle{color:var(--ink-soft);font-size:15px;line-height:1.55;max-width:62ch;margin:0;}
+
+/* ---- meta strip ---- */
+.meta{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+  gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden;
+}
+.meta-cell{background:var(--surface);padding:12px 16px;display:flex;flex-direction:column;gap:3px;}
+.meta-label{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);}
+.meta-value{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink);}
+
+/* ---- diagram panel ---- */
+.panel{
+  border:1px solid var(--border);border-radius:14px;
+  background:var(--surface);overflow:hidden;
+}
+.panel-head{
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding:16px 20px;border-bottom:1px solid var(--border);gap:12px;flex-wrap:wrap;
+}
+.panel-title{font-weight:600;font-size:15px;}
+.panel-note{font-size:12px;color:var(--ink-faint);}
+
+/* fixed-light diagram canvas: the palette is calibrated against a real Bizagi
+   export, which always sits on a white sheet — keeping that ground constant
+   in both themes preserves the color fidelity that's the point of this test. */
+.diagram-canvas{
+  background:#FDFDFC;
+  padding:28px 20px 24px;
+  overflow-x:auto;
+}
+.diagram-canvas pre.mermaid{margin:0;min-width:960px;}
+
+/* refuerzo: el título de cada carril (subgraph) no siempre hereda el color/negrita
+   del `style` del propio diagrama según el tema mermaid del host — se fuerza aquí
+   para que "Profesional de Capacitación" / "Supervisor PAU..." se noten siempre. */
+.diagram-canvas .cluster rect{fill:#F5F5F5 !important;stroke:#666666 !important;stroke-width:1.5px !important;}
+.diagram-canvas .cluster-label,
+.diagram-canvas .cluster-label *,
+.diagram-canvas .cluster text,
+.diagram-canvas .cluster tspan{
+  fill:#1F2328 !important;color:#1F2328 !important;font-weight:700 !important;font-size:14px !important;
+}
+
+.legend-row{
+  display:flex;flex-wrap:wrap;gap:14px 22px;
+  padding:14px 20px 18px;border-top:1px solid var(--border);
+  background:var(--surface-2);
+}
+.legend-item{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink-soft);}
+.swatch{width:13px;height:13px;border-radius:3px;flex:none;}
+
+/* ---- validation notes ---- */
+.section-title{
+  font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--ink-faint);display:flex;align-items:center;gap:10px;
+}
+.section-title::after{content:"";flex:1;height:1px;background:var(--border);}
+
+.notes{display:flex;flex-direction:column;gap:10px;}
+.note{
+  display:grid;grid-template-columns:auto 1fr;gap:12px;
+  padding:13px 16px;border-radius:10px;border:1px solid;
+  font-size:13.5px;line-height:1.5;
+}
+.note.rojo{background:var(--rojo-fill);border-color:var(--rojo-stroke);color:var(--rojo-text);}
+.note.amarillo{background:var(--amar-fill);border-color:var(--amar-stroke);color:var(--amar-text);}
+.note-tag{
+  font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;
+  letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;padding-top:1px;
+}
+.note b{font-weight:600;}
+
+/* ---- steps traceability ---- */
+details{border:1px solid var(--border);border-radius:10px;background:var(--surface);}
+summary{
+  cursor:pointer;padding:13px 16px;font-size:13px;font-weight:600;
+  color:var(--ink-soft);list-style:none;display:flex;align-items:center;gap:8px;
+}
+summary::-webkit-details-marker{display:none;}
+summary::before{content:"▸";font-size:11px;color:var(--accent);transition:transform .15s;}
+details[open] summary::before{transform:rotate(90deg);}
+.steps-list{padding:0 16px 16px;display:flex;flex-direction:column;gap:0;border-top:1px solid var(--border);margin-top:-1px;}
+.step-row{
+  display:grid;grid-template-columns:44px auto 1fr;gap:10px;align-items:baseline;
+  padding:9px 0;border-bottom:1px dashed var(--border);font-size:13px;
+}
+.step-row:last-child{border-bottom:none;}
+.step-num{font-family:'IBM Plex Mono',monospace;color:var(--ink-faint);font-size:12px;font-variant-numeric:tabular-nums;}
+.step-lane{font-size:10.5px;color:var(--accent);font-weight:600;white-space:nowrap;}
+.step-text{color:var(--ink);}
+
+footer{
+  font-size:12px;color:var(--ink-faint);line-height:1.6;
+  padding-top:8px;border-top:1px solid var(--border);
+}
+footer a{color:var(--accent);}
+</style>
+
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow"><span class="dot"></span>Prueba de skill · diagramas-flujo</div>
+    <h1>Inducción a nuevos funcionarios de Servicio al Cliente</h1>
+    <p class="subtitle">Diagrama general extraído de <span class="mono">test-actividades-diagrama.pdf</span>
+      (P02-AU, V3.0-2023 — Capital Salud EPS-S), con la paleta calibrada por muestreo de píxeles
+      contra el export real de Bizagi Modeler.</p>
+  </header>
+
+  <div class="meta">
+    <div class="meta-cell"><span class="meta-label">Pasos</span><span class="meta-value">12</span></div>
+    <div class="meta-cell"><span class="meta-label">Carriles</span><span class="meta-value">2</span></div>
+    <div class="meta-cell"><span class="meta-label">Variaciones</span><span class="meta-value">Ninguna</span></div>
+    <div class="meta-cell"><span class="meta-label">Fases fuente</span><span class="meta-value">P · H</span></div>
+    <div class="meta-cell"><span class="meta-label">Notas</span><span class="meta-value">2 🔴 · 1 🟡</span></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <span class="panel-title">Diagrama general</span>
+      <span class="panel-note">Cruces de carril con conector numerado ①② en vez de flecha larga — así se lee cuál actividad entrega y cuál recibe</span>
+    </div>
+    <div class="diagram-canvas">
+<pre class="mermaid">
+---
+title: Inducción a nuevos funcionarios de Servicio al Cliente — General
+---
+flowchart LR
+
+  ini(["Funcionario ingresa al área de Servicio al Cliente"]):::evInicio
+  A1["1. Programar la logística del evento y reservar la sala con 15 días de anticipación"]:::actividad
+  A2["2. Elaborar o actualizar el material de los módulos de capacitación"]:::actividad
+  A3["3.1 Realizar la capacitación y socializar el material con el funcionario o grupo"]:::actividad
+  A4["3.2 Verificar el cumplimiento de tiempos y cursos virtuales de la inducción"]:::actividad
+  A5["4. Elaborar y aplicar la evaluación de adherencia a los temas de capacitación"]:::actividad
+  A6["5. Realizar la retroalimentación individual según el resultado de la evaluación"]:::actividad
+  A7["6.1 Solicitar la creación de usuarios: NT, correo, novedades y portal de servicios"]:::actividad
+  A8["6.2 Solicitar el celular corporativo si aplica y el punto de trabajo del funcionario"]:::actividad
+  A9["7. Realizar acompañamiento técnico pasivo al funcionario en su sitio de trabajo"]:::actividad
+  A10["8. Generar el acta y la matriz de capacitación y archivar el proceso documental"]:::actividad
+  A11["9. Realizar la medición de la curva de aprendizaje con los soportes evaluativos"]:::actividad
+  A12["10. Generar y remitir informes a Coordinación, Gestión Humana y Dirección Nacional"]:::actividad
+  fin(["Contenido teórico y práctico de la inducción completado"]):::evFin
+
+  C1out(("①")):::conector
+  C1in(("①")):::conector
+  C2out(("②")):::conector
+  C2in(("②")):::conector
+
+  N1["🔴 Paso 6 — Revisar: el texto original dice «entre otras actividades» sin listarlas, confirmar alcance completo"]:::notaRoja
+  N2["🔴 Paso 4 — Revisar obligatoriamente: exige mínimo 8/10 para aprobar (condición general 3) pero no define qué pasa si no se aprueba"]:::notaRoja
+  N3["🟡 Paso 7 — Revisar: el responsable se indica como «Supervisor PAU y/o Profesionales» sin precisar cuál de los dos"]:::notaAmarilla
+
+  subgraph L1["Profesional de Capacitación"]
+    direction TB
+    ini
+    A1
+    A2
+    A3
+    A4
+    A5
+    N2
+    A6
+    A7
+    A8
+    N1
+    C1out
+    C2in
+    A10
+    A11
+    A12
+    fin
+  end
+
+  subgraph L2["Supervisor PAU y/o Profesionales"]
+    direction TB
+    C1in
+    A9
+    N3
+    C2out
+  end
+
+  style L1 fill:#F5F5F5,stroke:#666666,stroke-width:1.5px,color:#262626
+  style L2 fill:#F5F5F5,stroke:#666666,stroke-width:1.5px,color:#262626
+
+  ini --> A1 --> A2 --> A3 --> A4 --> A5 --> A6 --> A7 --> A8 --> C1out
+  C1in --> A9 --> C2out
+  C2in --> A10 --> A11 --> A12 --> fin
+
+  A8 -.-> N1
+  A5 -.-> N2
+  A9 -.-> N3
+
+  classDef evInicio     fill:#92D050,stroke:#548235,stroke-width:2px,color:#26401A;
+  classDef evFin        fill:#C00000,stroke:#7F0000,stroke-width:2px,color:#FFFFFF;
+  classDef actividad    fill:#EAF0FC,stroke:#6F90AA,stroke-width:1.5px,color:#1A2E4A;
+  classDef conector     fill:#F9F9F9,stroke:#909090,stroke-width:1.5px,color:#404040;
+  classDef notaRoja     fill:#FADBD8,stroke:#C0392B,stroke-width:1.5px,color:#641E16,stroke-dasharray: 3 3;
+  classDef notaAmarilla fill:#FCF3CF,stroke:#F2C037,stroke-width:1.5px,color:#5B4A16,stroke-dasharray: 3 3;
+</pre>
+    </div>
+    <div class="legend-row">
+      <span class="legend-item"><span class="swatch" style="background:#92D050;border:1.5px solid #548235"></span>Evento inicial</span>
+      <span class="legend-item"><span class="swatch" style="background:#EAF0FC;border:1.5px solid #6F90AA"></span>Actividad</span>
+      <span class="legend-item"><span class="swatch" style="background:#C00000;border:1.5px solid #7F0000"></span>Evento final</span>
+      <span class="legend-item"><span class="swatch" style="background:#F9F9F9;border:1.5px solid #909090;border-radius:50%"></span>Conector ①② — cruce de carril</span>
+      <span class="legend-item"><span class="swatch" style="background:#FADBD8;border:1.5px dashed #C0392B"></span>Nota 🔴 revisar obligatorio</span>
+      <span class="legend-item"><span class="swatch" style="background:#FCF3CF;border:1.5px dashed #F2C037"></span>Nota 🟡 revisar</span>
+    </div>
+  </div>
+
+  <div class="section-title">Notas de validación</div>
+  <div class="notes">
+    <div class="note rojo">
+      <span class="note-tag">🔴 Paso 6</span>
+      <span>El texto original dice <b>«entre otras actividades»</b> al listar los accesos a solicitar, sin especificar cuáles — confirmar el alcance completo con Talento Humano antes de publicar.</span>
+    </div>
+    <div class="note rojo">
+      <span class="note-tag">🔴 Paso 4</span>
+      <span>La condición general 3 exige <b>mínimo 8/10</b> para aprobar la evaluación, pero el flujo de actividades no define qué ocurre si el funcionario no la aprueba — vacío que rompe el flujo, confirmar con el área.</span>
+    </div>
+    <div class="note amarillo">
+      <span class="note-tag">🟡 Paso 7</span>
+      <span>El responsable se indica como <b>«Supervisor PAU y/o Profesionales»</b> sin precisar cuál de los dos ejecuta el acompañamiento — interpretación razonable, no confirmada explícitamente.</span>
+    </div>
+  </div>
+
+  <details>
+    <summary>Ver los 12 pasos en texto (trazabilidad, numeración del PDF fuente)</summary>
+    <div class="steps-list">
+      <div class="step-row"><span class="step-num">1</span><span class="step-lane">CAPACITACIÓN</span><span class="step-text">Programar la logística del evento y reservar la sala con 15 días de anticipación</span></div>
+      <div class="step-row"><span class="step-num">2</span><span class="step-lane">CAPACITACIÓN</span><span class="step-text">Elaborar o actualizar el material de los módulos de capacitación</span></div>
+      <div class="step-row"><span class="step-num">3.1</span><span class="step-lane">CAPACITACIÓN</span><span class="step-text">Realizar la capacitación y socializar el material con el funcionario o grupo</span></div>
+      <div class="step-row"><span class="step-num">3.2</span><span class="step-lane">CAPACITACIÓN</span><span class="step-text">Verificar el cumplimiento de tiempos y cursos virtuales de la inducción</span></div>
+      <div class="step-row"><span class="step-num">4</span><span class="step-lane">CAPACITACIÓN</span><span class="step-text">Elaborar y aplicar la evaluación de adherencia a los temas de capacitación</span></div>
+      <div class="step-row"><span class="step-num">5</span><span class="step-lane">CAPACITACIÓN</span><span class="step-text">Realizar la retroalimentación individual según el resultado de la evaluación</span></div>
+      <div class="step-row"><span class="step-num">6.1</span><span class="step-lane">CAPACITACIÓN</span><span class="step-text">Solicitar la creación de usuarios: NT, correo, novedades y portal de servicios</span></div>
+      <div class="step-row"><span class="step-num">6.2</span><span class="step-lane">CAPACITACIÓN</span><span class="step-text">Solicitar el celular corporativo si aplica y el punto de trabajo del funcionario</span></div>
+      <div class="step-row"><span class="step-num">7</span><span class="step-lane">SUPERVISOR PAU</span><span class="step-text">Realizar acompañamiento técnico pasivo al funcionario en su sitio de trabajo</span></div>
+      <div class="step-row"><span class="step-num">8</span><span class="step-lane">CAPACITACIÓN</span><span class="step-text">Generar el acta y la matriz de capacitación y archivar el proceso documental</span></div>
+      <div class="step-row"><span class="step-num">9</span><span class="step-lane">CAPACITACIÓN</span><span class="step-text">Realizar la medición de la curva de aprendizaje con los soportes evaluativos</span></div>
+      <div class="step-row"><span class="step-num">10</span><span class="step-lane">CAPACITACIÓN</span><span class="step-text">Generar y remitir informes a Coordinación, Gestión Humana y Dirección Nacional</span></div>
+    </div>
+    <p style="padding:10px 16px 4px;margin:0;font-size:11.5px;color:var(--ink-faint)">Los pasos 3 y 6 del PDF original se partieron en dos cajas cada uno para cumplir la regla de ≤100 caracteres/sin paréntesis — de ahí el ".1"/".2".</p>
+  </details>
+
+  <footer>
+    Fuente Mermaid: <span class="mono">skills/diagramas-flujo/pruebas/induccion-nuevos-funcionarios/induccion.mmd</span>.
+    Paleta: <span class="mono">skills/diagramas-flujo/assets/paleta-bizagi.md</span> (evento inicial, actividad,
+    decisión y evento final calibrados; sin decisiones en este procedimiento porque el original no tiene
+    bifurcaciones explícitas). El lienzo del diagrama queda en fondo claro fijo en ambos temas, para no alterar
+    los colores calibrados contra el export real. Inicio/fin usan el verde/rojo saturados de un segundo
+    export real (procedimiento de Inducción) — el primer export (Cesantías) dio tonos pastel para esos
+    mismos elementos; los dos son reales y no coinciden, ver <span class="mono">paleta-bizagi.md</span>.
+    La skill de producción corre en claude.ai, no localmente — este render vía Artifact es esa ruta, no un plan B.
+  </footer>
+
+</div>

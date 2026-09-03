@@ -92,6 +92,10 @@
           <a href="#recursos"><span class="num">14</span>Recursos</a>
           <a href="#terminos"><span class="num">15</span>Términos</a>
         </div>
+        <div class="m-toc-group">
+          <div class="m-toc-label">Flujo integrado · pendiente de validar</div>
+          <a href="#flujo-integrado"><span class="num">16</span>Nuevo flujo de documentos</a>
+        </div>
       </nav>
 
       <main class="m-main">
@@ -470,6 +474,112 @@
 
           <div class="notes-block">
             <div class="note-box"><div class="note-label">Confirmado</div><p class="note-text">Una vez construido el listado, al redactar un documento no hay que reescribir la definición: se elige el término del glosario y se vincula.</p></div>
+          </div>
+        </section>
+
+        <!-- 16 — NUEVO FLUJO INTEGRADO (pendiente de validar) -->
+        <section id="flujo-integrado" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">16</span><h2>Nuevo flujo de documentos integrado</h2></div>
+          <p class="m-section-intro">Flujo observado en el entorno de pruebas, todavía sin implementar del todo en producción. Se agrega aquí como referencia adicional — no reemplaza el flujo ya documentado en las secciones 03 y 07 hasta que se valide y se decida oficializarlo.</p>
+
+          <div class="step-group">
+            <div class="group-label"><span class="dash"></span>Profesional elaborador - solicitante</div>
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Vaya a la ruta habitual de elaboración de documentos.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">Diligencie los campos solicitados.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text">Haga clic en Grabar y enrutar.</span></div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-text">En la interfaz de enrutamiento, enlace al profesional aprobador correspondiente.</span></div></li>
+              <li><span class="n">05</span><div class="step-content"><span class="step-text">Complete los campos requeridos y haga clic en Grabar.</span></div></li>
+              <li><span class="n">06</span><div class="step-content"><span class="step-text">Espere la respuesta del profesional al que se enrutó el documento.</span></div></li>
+            </ol>
+          </div>
+
+          <div class="step-group">
+            <div class="group-label"><span class="dash"></span>Profesional aprobador - planeación</div>
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Vaya a Mis solicitudes, abra la solicitud y decida si se aprueba, rechaza, retorna o edita.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">Entre al documento y haga clic en el hipervínculo Documento asociado — nombre del documento.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text">Haga clic en Editar, en el botón superior, para cargar el archivo correspondiente y editar otras características (origen, fecha, etc.); luego haga clic en Grabar.</span></div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-text">Haga clic en Enviar a revisión y, dentro de la ruta, enrute al profesional correspondiente.</span></div></li>
+              <li><span class="n">05</span><div class="step-content"><span class="step-text">Vaya a Mis pendientes, entre al documento y haga clic en Enviar al coordinador.</span></div></li>
+              <li><span class="n">06</span><div class="step-content"><span class="step-text">Enrute al coordinador correspondiente y diligencie las observaciones.</span></div></li>
+              <li><span class="n">07</span><div class="step-content"><span class="step-text">Haga clic en Grabar.</span></div></li>
+            </ol>
+          </div>
+
+          <div class="step-group">
+            <div class="group-label"><span class="dash"></span>Coordinador enrutado</div>
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Vaya a Mis pendientes y ubique el documento.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">Si todo está en orden, haga clic en Enviar a Dirección.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text">Enrute al director correspondiente, diligencie las observaciones y haga clic en Grabar.</span></div></li>
+            </ol>
+          </div>
+
+          <div class="step-group">
+            <div class="group-label"><span class="dash"></span>Director enrutado</div>
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Vaya a Mis pendientes y ubique el documento.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">Si se aprueba, haga clic en Aprobar.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text">El documento se enruta al profesional de planeación correspondiente para su publicación.</span></div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-text">Haga clic en Grabar.</span></div></li>
+            </ol>
+          </div>
+
+          <div class="step-group" style="margin-bottom:0">
+            <div class="group-label"><span class="dash"></span>Profesional de planeación</div>
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Vaya a Mis pendientes y ubique el documento aprobado.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">Haga clic en Publicar.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text">Complete los campos correspondientes.</span></div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-text">Haga clic en Grabar. El documento queda publicado en la plataforma.</span></div></li>
+            </ol>
+          </div>
+
+          <div class="notes-block" style="margin-bottom:34px">
+            <div class="note-box"><div class="note-label">Sin confirmar</div><p class="note-text">En el paso «Enviar a revisión» del profesional aprobador, se anotó que este envío al profesional podría eliminarse para mandar el documento directamente al coordinador. Falta validar si aplica.</p></div>
+          </div>
+
+          <div class="step-group">
+            <div class="group-label"><span class="dash"></span>Derogar un documento · Solicitud de derogación</div>
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Entre al documento que se va a derogar.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">Haga clic en Enviar a coordinación Derogación.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text">Enrute al coordinador, diligencie las observaciones del motivo y haga clic en Grabar.</span></div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-text">Espere la respuesta del coordinador enrutado.</span></div></li>
+            </ol>
+          </div>
+
+          <div class="step-group">
+            <div class="group-label"><span class="dash"></span>Coordinador enrutado</div>
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Vaya a Mis pendientes y abra la solicitud.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">Decida si se aprueba la derogación (Enviar a Dirección) o se rechaza (Rechazar derogación).</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text">Si se aprueba, haga clic en Enviar a Dirección.</span></div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-text">Espere la decisión del director asignado.</span></div></li>
+            </ol>
+          </div>
+
+          <div class="step-group">
+            <div class="group-label"><span class="dash"></span>Director enrutado</div>
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Vaya a Mis pendientes y abra la solicitud.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">Si se aprueba la derogación, haga clic en Aprobar derogación.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text">La solicitud se enruta al equipo de planeación o al responsable correspondiente.</span></div></li>
+            </ol>
+          </div>
+
+          <div class="step-group" style="margin-bottom:0">
+            <div class="group-label"><span class="dash"></span>Profesional de planeación</div>
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Vaya a Mis pendientes y abra la solicitud.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">Haga clic en Anular.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text">El documento queda anulado definitivamente.</span></div></li>
+            </ol>
+          </div>
+
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Sin confirmar</div><p class="note-text">Este flujo completo (elaboración/aprobación y derogación) proviene del entorno de pruebas y aún no está validado. Se mantiene como sección aparte hasta que se confirme si reemplaza a las secciones 03 y 07, momento en el cual también se actualizarán las skills de IA.</p></div>
           </div>
         </section>
 

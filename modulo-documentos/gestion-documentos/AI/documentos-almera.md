@@ -192,7 +192,7 @@ Almera maneja (o manejaba) dos formas de construir un documento. Es importante q
 3. Ingresar el **nombre** del documento.
 4. Elegir la **clase documental** (guía, manual, política, etc.). Si la clase no existe, ver `04-crear-clase-documento.md`.
 5. Diligenciar la **justificación** de creación (por qué se necesita este documento). El campo "descripción" puede quedar en blanco si el contenido real se va a construir en la plantilla — no es obligatorio llenarlo en la solicitud.
-6. Presionar **Grabar** y luego **Enrutar**, en la parte superior, para enviar la solicitud a aprobación. Al enrutar se elige a quién se envía la solicitud para revisión.
+6. Presionar **Grabar y Enrutar**, para enviar la solicitud a aprobación. Al enrutar se elige a quién se envía la solicitud para revisión.
 7. Quien recibe la solicitud tiene 3 opciones: **aprobar**, **rechazar** o **devolver** la solicitud.
 8. Una vez aprobada la solicitud, el documento pasa a **Mis pendientes** del usuario que realizó la solicitud.
    - Abrir el documento y hacer clic en **Editar**.

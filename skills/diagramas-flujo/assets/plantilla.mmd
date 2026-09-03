@@ -1,6 +1,10 @@
 %% =============================================================================
 %% PLANTILLA BASE — diagrama de flujo de procedimiento
-%% Paleta:  skills/diagramas-flujo/assets/paleta-bizagi.md  (PROVISIONAL)
+%% Paleta:  skills/diagramas-flujo/assets/paleta-bizagi.md
+%%          (evInicio/evFin: dos exports reales no coinciden entre sí — ver ese
+%%          archivo antes de asumir estos valores; actividad/decision sí están
+%%          confirmados por muestreo de píxeles. evIntermedio/subproceso siguen
+%%          provisionales.)
 %% Reglas:  skills/diagramas-flujo/references/02-reglas-de-diagramacion.md
 %%
 %%  - Actividades / acciones: MÁXIMO 100 caracteres (con espacios).
@@ -10,10 +14,78 @@
 %%  - Validación por colores: marca el nodo con emoji al inicio de la etiqueta
 %%    ("🟡 ..." o "🔴 ..."); 🟢 no lleva marca. El detalle va en la tabla que
 %%    acompaña al diagrama (ver references/03-validacion-por-colores.md).
-%%  - Un subgraph por responsable (carril). Borra los que no apliquen.
-%%  - Las FASES/etapas se documentan en la tabla de pasos (columna "Fase");
-%%    Mermaid no permite anidar carriles y fases de forma legible.
+%%  - Numeración: cada actividad empieza con el número del paso TAL COMO
+%%    aparece en el documento fuente, no una renumeración propia. Paso partido
+%%    en dos por el límite de 100 caracteres → sufijo decimal ("6.1", "6.2").
+%%  - Notas de validación: el texto del nodo lleva el número de paso de la
+%%    FUENTE ("Paso 6 — ..."), no solo la línea punteada.
 %%  - Sustituye todo lo que está entre < >.
+%%
+%%  ⚠️ ¿`subgraph` de carril/fase, o cadena plana sin agrupación? CONFIRMADO
+%%  con un procedimiento real: una flecha hacia un nodo DENTRO de un
+%%  `subgraph` puede renderizarse terminando en el borde del clúster, no en
+%%  el nodo — pasa con conector numerado y con flecha directa por igual, es
+%%  un límite de Mermaid/dagre, no un error de sintaxis.
+%%    - Cruces FRECUENTES entre responsables/fases (>1-2 saltos) → PLANTILLA 1
+%%      abajo (sin `subgraph`, cadena única). Es el default recomendado.
+%%    - Cruces RAROS o proceso mayormente lineal dentro de cada grupo →
+%%      PLANTILLA 2 (carril) o PLANTILLA 3 (fase) son seguras de usar.
+%%  Ver "⚠️ subgraph y flechas que cruzan hacia dentro" en
+%%  `references/02-reglas-de-diagramacion.md`.
+%% =============================================================================
+
+
+%% =============================================================================
+%% PLANTILLA 1 (DEFAULT) — cadena única, SIN subgraph de carril ni de fase
+%% Úsala si el procedimiento tiene cruces frecuentes entre responsables/fases.
+%% El responsable (o la fase) no desaparece: se muestra como segunda línea
+%% dentro de la caja ("👤 Responsable") con <br/>, que NO cuenta para el
+%% límite de 100 caracteres de la acción (es metadata, no la acción). Cada
+%% flecha conecta dos vecinos directos en la cadena — sólida si sigue el
+%% mismo responsable/fase que el paso anterior, punteada si cambia — sin
+%% geometría de clúster de por medio que pueda interferir.
+%% Ejemplo real: skills/diagramas-flujo/pruebas/documentacion-software/
+%% =============================================================================
+---
+title: <Nombre del procedimiento> — General
+---
+flowchart TD
+
+  ini(["<Evento inicial: algo ocurrió>"]):::evInicio
+  A1["1. <Actividad de máximo 100 caracteres><br/>👤 <Responsable 1>"]:::actividad
+  A2["2. <Actividad de máximo 100 caracteres><br/>👤 <Responsable 2>"]:::actividad
+  A3["3. <Actividad de máximo 100 caracteres><br/>👤 <Responsable 1>"]:::actividad
+  fin(["<Evento final: resultado alcanzado>"]):::evFin
+  N1["🟡 Paso <N> — <qué falta confirmar>"]:::notaAmarilla
+
+  %% ---- Cadena única: sólido = mismo responsable, punteado = cambia ----
+  ini --> A1
+  A1 -.-> A2
+  A2 --> A3
+  A3 --> fin
+
+  %% ---- Nota de validación ----
+  A2 -.-> N1
+
+  %% ---- Paleta (ver paleta-bizagi.md) ----
+  classDef evInicio    fill:#92D050,stroke:#548235,stroke-width:2px,color:#26401A;
+  classDef evIntermedio fill:#FDE9D9,stroke:#E67E22,stroke-width:2px,color:#6E3B10;
+  classDef evFin       fill:#C00000,stroke:#7F0000,stroke-width:2px,color:#FFFFFF;
+  classDef actividad   fill:#EAF0FC,stroke:#6F90AA,stroke-width:1.5px,color:#1A2E4A;
+  classDef subproceso  fill:#E1D5E7,stroke:#9673A6,stroke-width:1.5px,color:#3D2C47;
+  classDef decision    fill:#FFFFCE,stroke:#AEB578,stroke-width:1.5px,color:#5B5A2E;
+  classDef notaRoja     fill:#FADBD8,stroke:#C0392B,stroke-width:1.5px,color:#641E16,stroke-dasharray: 3 3;
+  classDef notaAmarilla fill:#FCF3CF,stroke:#F2C037,stroke-width:1.5px,color:#5B4A16,stroke-dasharray: 3 3;
+
+
+%% =============================================================================
+%% PLANTILLA 2 — agrupación por CARRIL (subgraph), solo si los cruces van a
+%% ser raros. Un responsable es SIEMPRE un solo carril, incluso si el flujo
+%% lo abandona y vuelve más adelante: define cada nodo UNA vez fuera de
+%% cualquier subgraph, y dentro del subgraph del carril solo referencia su
+%% id — así Mermaid agrupa todos los nodos de ese responsable en un único
+%% clúster sin importar dónde caigan en la secuencia. Ver L1: A1 y A3 quedan
+%% en el mismo carril aunque A2 (de otro responsable) se ejecute entre ellos.
 %% =============================================================================
 ---
 title: <Nombre del procedimiento> — General
@@ -21,30 +93,112 @@ title: <Nombre del procedimiento> — General
 flowchart LR
 
   ini(["<Evento inicial: algo ocurrió>"]):::evInicio
+  A1["1. <Actividad de máximo 100 caracteres>"]:::actividad
+  G1{"¿<Pregunta cerrada>?"}:::decision
+  A2["2. <Actividad de máximo 100 caracteres, otro responsable>"]:::actividad
+  A3["5. <Actividad de máximo 100 caracteres, vuelve al responsable 1>"]:::actividad
+  S1[["<Subproceso: nombre del procedimiento referenciado>"]]:::subproceso
+  fin(["<Evento final: resultado alcanzado>"]):::evFin
+  N1["🟡 Paso <N> — <qué falta confirmar>"]:::notaAmarilla
 
   subgraph L1["<Responsable 1>"]
     direction TB
-    A1["<Actividad de máximo 100 caracteres>"]:::actividad
-    G1{"¿<Pregunta cerrada>?"}:::decision
+    ini
+    A1
+    G1
+    N1
+    A3
   end
 
   subgraph L2["<Responsable 2>"]
     direction TB
-    A2["<Actividad de máximo 100 caracteres>"]:::actividad
-    S1[["<Subproceso: nombre del procedimiento referenciado>"]]:::subproceso
+    A2
+    S1
   end
 
-  fin(["<Evento final: resultado alcanzado>"]):::evFin
-
-  %% ---- Flujo de secuencia ----
+  %% ---- Flujo dentro del mismo carril (sólido) ----
   ini --> A1 --> G1
-  G1 -- "Sí" --> A2 --> S1 --> fin
   G1 -- "No" --> A1
+  A2 --> S1
+
+  %% ---- Cruce de carril: flecha directa punteada, actividad a actividad ----
+  G1 -.->|"Sí"| A2
+  S1 -.-> A3
+  A3 --> fin
+
+  %% ---- Nota de validación ----
+  A1 -.-> N1
 
   %% ---- Paleta (ver paleta-bizagi.md) ----
-  classDef evInicio    fill:#D5E8D4,stroke:#2E7D32,stroke-width:2px,color:#1B4332;
+  classDef evInicio    fill:#92D050,stroke:#548235,stroke-width:2px,color:#26401A;
   classDef evIntermedio fill:#FDE9D9,stroke:#E67E22,stroke-width:2px,color:#6E3B10;
-  classDef evFin       fill:#F8CECC,stroke:#C0392B,stroke-width:2px,color:#641E16;
-  classDef actividad   fill:#EAF2FB,stroke:#3C78D8,stroke-width:1.5px,color:#1A2E4A;
+  classDef evFin       fill:#C00000,stroke:#7F0000,stroke-width:2px,color:#FFFFFF;
+  classDef actividad   fill:#EAF0FC,stroke:#6F90AA,stroke-width:1.5px,color:#1A2E4A;
   classDef subproceso  fill:#E1D5E7,stroke:#9673A6,stroke-width:1.5px,color:#3D2C47;
-  classDef decision    fill:#FFF2CC,stroke:#D6B656,stroke-width:1.5px,color:#5B4A16;
+  classDef decision    fill:#FFFFCE,stroke:#AEB578,stroke-width:1.5px,color:#5B5A2E;
+  classDef conector    fill:#F9F9F9,stroke:#909090,stroke-width:1.5px,color:#404040;
+  classDef notaRoja     fill:#FADBD8,stroke:#C0392B,stroke-width:1.5px,color:#641E16,stroke-dasharray: 3 3;
+  classDef notaAmarilla fill:#FCF3CF,stroke:#F2C037,stroke-width:1.5px,color:#5B4A16,stroke-dasharray: 3 3;
+
+%% RESERVA — conector numerado (①②), solo si una re-entrada concreta se ve
+%% ambigua en el render real (no de forma preventiva). En vez de
+%% "S1 -.-> A3" arriba:
+%%   S1 --> C1out(("①")):::conector      %% dentro del carril L2
+%%   C1in(("①")):::conector --> A3       %% dentro del carril L1, sin flecha
+%%                                       %% entre C1out y C1in — el número
+%%                                       %% es lo que los relaciona.
+
+
+%% =============================================================================
+%% PLANTILLA 3 — agrupación por FASE (subgraph), solo si los cruces van a ser
+%% raros Y la fuente define las fases explícitamente (encabezado de sección,
+%% columna propia) — nunca las infieras de una palabra suelta entre
+%% paréntesis. El responsable no desaparece: se muestra como segunda línea
+%% dentro de la caja ("👤 Responsable").
+%% =============================================================================
+---
+title: <Nombre del procedimiento> — General (agrupado por fase)
+---
+flowchart TD
+
+  ini(["<Evento inicial: algo ocurrió>"]):::evInicio
+  A1["1. <Actividad de máximo 100 caracteres><br/>👤 <Responsable 1>"]:::actividad
+  A2["2. <Actividad de máximo 100 caracteres><br/>👤 <Responsable 2>"]:::actividad
+  A3["3. <Actividad de máximo 100 caracteres><br/>👤 <Responsable 1>"]:::actividad
+  fin(["<Evento final: resultado alcanzado>"]):::evFin
+  N1["🟡 Paso <N> — <qué falta confirmar>"]:::notaAmarilla
+
+  subgraph F1["FASE 1 · <Nombre de la etapa>"]
+    direction TB
+    ini
+    A1
+  end
+
+  subgraph F2["FASE 2 · <Nombre de la etapa>"]
+    direction TB
+    A2
+    N1
+    A3
+    fin
+  end
+
+  %% ---- Estilo de banda de fase (paleta-bizagi.md, fila "Fase — banda") ----
+  style F1 fill:#FAFAFA,stroke:#999999,stroke-width:1.5px,color:#333333
+  style F2 fill:#FAFAFA,stroke:#999999,stroke-width:1.5px,color:#333333
+
+  %% ---- Flujo dentro de cada fase (sólido) ----
+  ini --> A1
+  A2 --> A3 --> fin
+
+  %% ---- Transición entre fases (punteado) ----
+  A1 -.-> A2
+
+  %% ---- Nota de validación ----
+  A2 -.-> N1
+
+  %% ---- Paleta (ver paleta-bizagi.md) ----
+  classDef evInicio    fill:#92D050,stroke:#548235,stroke-width:2px,color:#26401A;
+  classDef evFin       fill:#C00000,stroke:#7F0000,stroke-width:2px,color:#FFFFFF;
+  classDef actividad   fill:#EAF0FC,stroke:#6F90AA,stroke-width:1.5px,color:#1A2E4A;
+  classDef notaRoja     fill:#FADBD8,stroke:#C0392B,stroke-width:1.5px,color:#641E16,stroke-dasharray: 3 3;
+  classDef notaAmarilla fill:#FCF3CF,stroke:#F2C037,stroke-width:1.5px,color:#5B4A16,stroke-dasharray: 3 3;

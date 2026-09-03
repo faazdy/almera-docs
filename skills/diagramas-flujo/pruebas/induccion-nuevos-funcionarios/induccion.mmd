@@ -1,0 +1,126 @@
+%% =============================================================================
+%% PRUEBA DE LA SKILL — Inducción a nuevos funcionarios de Servicio al Cliente
+%% Fuente: skills/diagramas-flujo/assets/test-actividades-diagrama.pdf (P02-AU V3.0-2023)
+%% Paleta: skills/diagramas-flujo/assets/paleta-bizagi.md (calibrada)
+%% Validación: estilo "PDF de ejemplo" — solo notas en pasos con problema real,
+%%             sin marca en cada nodo ni tabla aparte.
+%%
+%% v2 — corrección de carril: "Profesional de Capacitación" es UN solo carril
+%% continuo (nodos definidos fuera de cualquier subgraph, el subgraph solo los
+%% referencia por id) — ver plantilla.mmd para la técnica completa.
+%%
+%% v3 — se mantiene la regla de ≤100 caracteres/sin paréntesis; evInicio/evFin
+%% pasan a los valores del segundo export real (verde/rojo saturados) — ver
+%% paleta-bizagi.md.
+%%
+%% v4 — el usuario reportó que, al cruzar de carril (Prof. Capacitación →
+%% Supervisor → Prof. Capacitación otra vez), las flechas de cruce parecían
+%% apuntar al carril completo y no a la actividad puntual — mismo problema con
+%% las notas de validación. Dos correcciones:
+%%  1. Conectores numerados (①/②) en vez de una flecha larga cruzando carriles:
+%%     esto es una convención real ya vista en el export de "cesantías" — un
+%%     círculo gris pequeño con número, para el "retorno de subsanación" (ver
+%%     paleta-bizagi.md, fila "Conector"; colores ya muestreados por píxel en
+%%     esa exploración, no son nuevos). Aquí se reutiliza para marcar el punto
+%%     exacto de salida/entrada de cada carril: A8 sale por ①, el carril de
+%%     Supervisor entra por ese mismo ①; Supervisor sale por ②, Capacitación
+%%     entra por ese mismo ②. Cada conector es un nodo propio, corto, dentro
+%%     del carril que le corresponde — así dagre lo posiciona pegado a su
+%%     actividad en vez de tener que trazar una línea larga a través de todo
+%%     el clúster.
+%%  2. Las notas de validación ahora: (a) llevan el número de paso en el propio
+%%     texto ("Paso N: ..."), para que la referencia sea inequívoca aunque la
+%%     línea punteada se vea ambigua; (b) se asignan al mismo carril que su
+%%     actividad de origen, para que dagre las posicione cerca.
+%%
+%% v5 — cada actividad lleva el número de la tabla ORIGINAL del PDF fuente
+%% (test-actividades-diagrama.pdf), no una renumeración mía secuencial 1-12:
+%% así se puede trazar cada caja directo contra la fila del documento. Donde
+%% un paso original se partió en dos (actividad 3 → A3/A4, actividad 6 →
+%% A7/A8) se usa "3.1"/"3.2" y "6.1"/"6.2". Esto también corrigió las notas de
+%% validación: en v4 decían "Paso 8"/"Paso 5"/"Paso 9" (mi numeración interna
+%% A1-A12), lo cual ya no correspondía a ninguna fila real del PDF — ahora
+%% dicen "Paso 6"/"Paso 4"/"Paso 7", que sí son los números reales del origen.
+%% =============================================================================
+---
+title: Inducción a nuevos funcionarios de Servicio al Cliente — General
+---
+flowchart LR
+
+  ini(["Funcionario ingresa al área de Servicio al Cliente"]):::evInicio
+  A1["1. Programar la logística del evento y reservar la sala con 15 días de anticipación"]:::actividad
+  A2["2. Elaborar o actualizar el material de los módulos de capacitación"]:::actividad
+  A3["3.1 Realizar la capacitación y socializar el material con el funcionario o grupo"]:::actividad
+  A4["3.2 Verificar el cumplimiento de tiempos y cursos virtuales de la inducción"]:::actividad
+  A5["4. Elaborar y aplicar la evaluación de adherencia a los temas de capacitación"]:::actividad
+  A6["5. Realizar la retroalimentación individual según el resultado de la evaluación"]:::actividad
+  A7["6.1 Solicitar la creación de usuarios: NT, correo, novedades y portal de servicios"]:::actividad
+  A8["6.2 Solicitar el celular corporativo si aplica y el punto de trabajo del funcionario"]:::actividad
+  A9["7. Realizar acompañamiento técnico pasivo al funcionario en su sitio de trabajo"]:::actividad
+  A10["8. Generar el acta y la matriz de capacitación y archivar el proceso documental"]:::actividad
+  A11["9. Realizar la medición de la curva de aprendizaje con los soportes evaluativos"]:::actividad
+  A12["10. Generar y remitir informes a Coordinación, Gestión Humana y Dirección Nacional"]:::actividad
+  fin(["Contenido teórico y práctico de la inducción completado"]):::evFin
+
+  %% ---- Conectores de cruce de carril (ver nota v4 arriba) ----
+  C1out(("①")):::conector
+  C1in(("①")):::conector
+  C2out(("②")):::conector
+  C2in(("②")):::conector
+
+  %% ---- Notas de validación (estilo PDF de ejemplo, con número de paso) ----
+  N1["🔴 Paso 6 — Revisar: el texto original dice «entre otras actividades» sin listarlas, confirmar alcance completo"]:::notaRoja
+  N2["🔴 Paso 4 — Revisar obligatoriamente: exige mínimo 8/10 para aprobar (condición general 3) pero no define qué pasa si no se aprueba"]:::notaRoja
+  N3["🟡 Paso 7 — Revisar: el responsable se indica como «Supervisor PAU y/o Profesionales» sin precisar cuál de los dos"]:::notaAmarilla
+
+  %% ---- Carriles: un solo clúster por responsable, aunque el flujo entre y salga ----
+  subgraph L1["Profesional de Capacitación"]
+    direction TB
+    ini
+    A1
+    A2
+    A3
+    A4
+    A5
+    N2
+    A6
+    A7
+    A8
+    N1
+    C1out
+    C2in
+    A10
+    A11
+    A12
+    fin
+  end
+
+  subgraph L2["Supervisor PAU y/o Profesionales"]
+    direction TB
+    C1in
+    A9
+    N3
+    C2out
+  end
+
+  %% ---- Estilo de carril (encabezado de responsable, ver paleta-bizagi.md) ----
+  style L1 fill:#F5F5F5,stroke:#666666,stroke-width:1.5px,color:#262626
+  style L2 fill:#F5F5F5,stroke:#666666,stroke-width:1.5px,color:#262626
+
+  %% ---- Flujo de secuencia ----
+  ini --> A1 --> A2 --> A3 --> A4 --> A5 --> A6 --> A7 --> A8 --> C1out
+  C1in --> A9 --> C2out
+  C2in --> A10 --> A11 --> A12 --> fin
+
+  %% ---- Notas de validación: enlace corto al nodo correspondiente ----
+  A8 -.-> N1
+  A5 -.-> N2
+  A9 -.-> N3
+
+  %% ---- Paleta (ver assets/paleta-bizagi.md) ----
+  classDef evInicio     fill:#92D050,stroke:#548235,stroke-width:2px,color:#26401A;
+  classDef evFin        fill:#C00000,stroke:#7F0000,stroke-width:2px,color:#FFFFFF;
+  classDef actividad    fill:#EAF0FC,stroke:#6F90AA,stroke-width:1.5px,color:#1A2E4A;
+  classDef conector     fill:#F9F9F9,stroke:#909090,stroke-width:1.5px,color:#404040;
+  classDef notaRoja     fill:#FADBD8,stroke:#C0392B,stroke-width:1.5px,color:#641E16,stroke-dasharray: 3 3;
+  classDef notaAmarilla fill:#FCF3CF,stroke:#F2C037,stroke-width:1.5px,color:#5B4A16,stroke-dasharray: 3 3;

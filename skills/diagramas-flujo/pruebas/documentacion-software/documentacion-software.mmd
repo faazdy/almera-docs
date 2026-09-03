@@ -1,0 +1,103 @@
+%% =============================================================================
+%% PRUEBA DE LA SKILL — Documentación de Software
+%% Fuente: PDF "Procedimiento de Documentación de Software" (P06-TSI, V2.0-2022,
+%%         Capital Salud EPS-S). 12 actividades fuente, 4 responsables.
+%% Paleta: skills/diagramas-flujo/assets/paleta-bizagi.md
+%% Validación: estilo "PDF de ejemplo" — solo notas en pasos con problema real.
+%%
+%% v1 (carril + conector ①②③): agrupado por responsable, conectores numerados
+%% para las 3 re-entradas. El usuario: confuso, las flechas no tocan la caja.
+%%
+%% v2 (fase, descartada): se agrupó por fase en vez de carril, copiando un
+%% HTML de referencia de OTRO procedimiento. Error: las "fases" de este PDF
+%% eran menciones sueltas entre paréntesis, no secciones formales — este
+%% procedimiento no tiene fases, solo responsables. Revertido.
+%%
+%% v3 (carril + flecha directa, descartada): mismo carril de v1, pero los
+%% cruces pasaron de conector numerado a flecha punteada directa actividad-a-
+%% actividad (como el HTML de referencia). El usuario reportó el MISMO
+%% problema otra vez: las flechas no tocan las actividades.
+%%
+%% v4 (esta versión) — dos intentos distintos de resolver el cruce de carril
+%% (conector numerado, flecha directa) fallaron de la misma forma. Eso apunta
+%% a que la causa no es el estilo de la flecha sino el `subgraph` de carril en
+%% sí: es un problema conocido de Mermaid/dagre que una flecha hacia un nodo
+%% DENTRO de un clúster a veces se renderiza terminando en el borde del
+%% clúster, no en el nodo — independiente del tipo de flecha usado. No se
+%% pudo confirmar visualmente en esta sesión (sin mmdc local, sin navegador),
+%% así que en vez de seguir probando variantes de flecha a ciegas, se quita
+%% la causa de raíz: SIN subgraph de carril. Una sola cadena de cajas en
+%% orden de ejecución (ini → 1 → 2 → ... → fin), cada una con el responsable
+%% como segunda línea dentro de la propia caja ("👤 Responsable" — metadata,
+%% no cuenta para el límite de 100 caracteres). Cada flecha es ahora un salto
+%% directo entre dos vecinos en una cadena plana, sin geometría de clúster de
+%% por medio que pueda interferir con dónde termina la flecha. Solid = mismo
+%% responsable que el paso anterior; punteada = cambia de responsable.
+%%
+%% v5 — el usuario confirmó que v4 se ve bien (flechas tocan la actividad) y
+%% pidió presentación vertical, misma estructura. Único cambio: flowchart LR
+%% → TD. Nodos, edges, notas y paleta quedan idénticos a v4.
+%%
+%% v6 — el usuario compartió el diagrama REAL de este mismo procedimiento
+%% (export de Bizagi). Confirma: 4 carriles correctos, secuencia de cruces
+%% correcta, paso 4 correctamente NO modelado como decisión (la fuente
+%% tampoco lo hace). CORRIGE un error: los pasos 8 y 12 estaban partidos en
+%% dos cajas (8.1/8.2, 12.1/12.2) por precaución de longitud, pero el
+%% diagrama real usa UNA sola caja para cada uno — la frase de acción
+%% principal ("Diseñar el plan de pruebas según el nivel de agrupación que
+%% corresponda.", "Diligenciar el formato de aceptación y entrega final.")
+%% cabe sobrada en 100 caracteres; el resto (nombre/código de formato, texto
+%% de apoyo) se descarta como referencia adicional, igual que en el resto de
+%% actividades — no ameritaba una segunda caja. Vuelve a 12 cajas (1:1 con
+%% las 12 actividades fuente), sin sufijos decimales.
+%% =============================================================================
+---
+title: Documentación de Software — General
+---
+flowchart TD
+
+  ini(["Se identifica y justifica la necesidad de un requerimiento de software"]):::evInicio
+
+  A1["1. Presentar la necesidad identificada en el proceso en el que participa<br/>👤 Solicitante"]:::actividad
+  A2["2. Validar el planteamiento del requerimiento según la situación actual<br/>👤 Ingeniero de Requerimientos"]:::actividad
+  A3["3. Diligenciar el alcance del requerimiento en el formato de levantamiento<br/>👤 Ingeniero de Requerimientos"]:::actividad
+  A4["4. Determinar si la documentación del requerimiento cumple las especificaciones<br/>👤 Coordinador de Desarrollo"]:::actividad
+  A5["5. Describir el código en el ambiente de desarrollo con comentarios breves<br/>👤 Ingeniero Programador"]:::actividad
+  A6["6. Realizar los diagramas y modelos de la solución para el manual técnico<br/>👤 Ingeniero Programador"]:::actividad
+  A7["7. Diligenciar el diccionario de datos para el manual técnico<br/>👤 Ingeniero Programador"]:::actividad
+  A8["8. Diseñar el plan de pruebas según el nivel de agrupación correspondiente<br/>👤 Ingeniero de Requerimientos"]:::actividad
+  A9["9. Diligenciar el acta de aprobación de pruebas del requerimiento<br/>👤 Ingeniero de Requerimientos"]:::actividad
+  A10["10. Documentar el manual técnico y el manual de usuario<br/>👤 Ingeniero de Requerimientos"]:::actividad
+  A11["11. Elaborar el instructivo de implementación sobre la infraestructura tecnológica<br/>👤 Ingeniero Programador"]:::actividad
+  A12["12. Diligenciar el formato de aceptación y entrega final del requerimiento<br/>👤 Coordinador de Desarrollo"]:::actividad
+
+  fin(["Requerimiento aprobado y entregado al área solicitante"]):::evFin
+
+  %% ---- Notas de validación (estilo PDF de ejemplo, con número de paso fuente) ----
+  N1["🔴 Paso 4 — Revisar obligatoriamente: no se define qué ocurre si la documentación NO cumple las especificaciones"]:::notaRoja
+  N2["🟡 Paso 8 — Revisar: el rol aparece como «Ingeniero Requerimientos» en los pasos 2-3 y «Ingeniero de Requerimientos» aquí — se asume el mismo responsable"]:::notaAmarilla
+
+  %% ---- Cadena única, sin clústeres — flecha directa vecino a vecino ----
+  %% Sólido = mismo responsable que el paso anterior. Punteado = cambia.
+  ini --> A1
+  A1 -.-> A2
+  A2 --> A3
+  A3 -.-> A4
+  A4 -.-> A5
+  A5 --> A6 --> A7
+  A7 -.-> A8
+  A8 --> A9 --> A10
+  A10 -.-> A11
+  A11 -.-> A12
+  A12 --> fin
+
+  %% ---- Notas de validación ----
+  A4 -.-> N1
+  A8 -.-> N2
+
+  %% ---- Paleta (ver assets/paleta-bizagi.md) ----
+  classDef evInicio     fill:#92D050,stroke:#548235,stroke-width:2px,color:#26401A;
+  classDef evFin        fill:#C00000,stroke:#7F0000,stroke-width:2px,color:#FFFFFF;
+  classDef actividad    fill:#EAF0FC,stroke:#6F90AA,stroke-width:1.5px,color:#1A2E4A;
+  classDef notaRoja     fill:#FADBD8,stroke:#C0392B,stroke-width:1.5px,color:#641E16,stroke-dasharray: 3 3;
+  classDef notaAmarilla fill:#FCF3CF,stroke:#F2C037,stroke-width:1.5px,color:#5B4A16,stroke-dasharray: 3 3;
