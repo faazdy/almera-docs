@@ -26,7 +26,7 @@
 
 ### 2.1 Arquitectura
 
-- **Sitio 100% estático**: HTML/CSS/JS plano, sin backend, sin build step, sin `package.json`. Se sirve directo (localmente con `npx serve`, ver `.claude/launch.json`) o desde GitHub Pages.
+- **Sitio 100% estático**: HTML/CSS/JS plano, sin backend, sin build step, sin `package.json`.
 - **Sin base de datos ni servidor propio** → no hay superficie de ataque de almacenamiento de datos que asegurar. Toda la "inteligencia" vive en documentos versionados en Git, no en infraestructura.
 - **Procesamiento 100% en el navegador**: el dashboard de `informe-documentos/` y `control-documentos-sgc/` (Chart.js + SheetJS/xlsx.js, ambos vendored localmente) lee el Excel exportado anclado y calcula todo client-side — el archivo nunca sale del equipo del usuario ni se sube a ningún servidor. Cero riesgo de fuga de datos por esta vía.
 - **Agent Skills como formato de distribución de conocimiento**: cada `.skill` es un paquete comprimido con `SKILL.md` (instrucciones + flujo, lo primero que carga el agente), `references/` (detalle bajo demanda) y `assets/` (plantillas). Es el mismo formato para las skills de módulo (conocimiento) y las skills de producción (generación de entregables).
