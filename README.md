@@ -1,39 +1,78 @@
-# Almera Docs
+# SABIA
 
-Documentación operativa del sistema Almera (SGI), módulo por módulo, con una habilidad de inteligencia artificial asociada a cada uno.
+**S**istema de **A**utomatización, **B**ase de información e **I**nteligencia **A**rtificial — el proyecto de conocimiento y automatización del área de Calidad, construido inicialmente sobre Almera (SGI).
 
-## De qué va esto
+> Nombre de trabajo del proyecto. Hoy vive en este repositorio como documentación de Almera + skills de IA; la reorganización a monorepo (`almera-docs/` + `calidad-ia-agents/` + landing raíz) está en el roadmap (ver más abajo).
 
-Cuando alguien tiene una duda sobre cómo usar Almera, la opción de siempre es ponerse a buscar en un repositorio de grabaciones de capacitación: videos de una hora, de los cuales solo dos minutos responden la pregunta puntual que se tiene. Y casi nadie usa todos los módulos de Almera — un usuario de Evaluaciones probablemente nunca toca Mecanismos de Integración, pero igual tendría que revisar una grabación genérica para encontrar su respuesta.
+---
 
-Este proyecto reemplaza eso. Por cada módulo de Almera (Gestión documental, Evaluaciones, Indicadores, Mecanismos de integración, Planes de mejora) hay:
+## 1. Resumen ejecutivo
 
-- Una **guía web** navegable (`index.html`), con procedimientos paso a paso, rutas exactas dentro del sistema y advertencias de cosas que suelen salir mal.
-- Un **documento de referencia completo** (`GuIA.md`) construido a partir de documentación limpia, guías internas y la transcripción completa de las capacitaciones con soporte de Almera.
-- Una **habilidad de IA instalable** (`Skill`), empaquetada para que Claude la cargue automáticamente cuando alguien pregunta por ese módulo — sin tener que adjuntar nada ni buscar nada manualmente.
+**El problema:** cuando alguien en Capital Salud tiene una duda puntual sobre cómo usar un módulo de Almera, la única fuente disponible son grabaciones de capacitación de una hora, de las cuales dos minutos responden la pregunta real. Y casi nadie usa todos los módulos — un usuario de Evaluaciones nunca toca Mecanismos de Integración, pero igual tendría que revisar una grabación genérica para resolver algo suyo.
 
-El objetivo final: que alguien con una duda sobre un módulo específico se la resuelva un asistente en segundos, con el procedimiento exacto y la fuente de dónde salió, en vez de tener que rastrear una grabación vieja que probablemente ni siquiera recuerda dónde quedó guardada.
+**Qué se construyó:** por cada módulo de Almera hay una guía web navegable, un documento de referencia técnico y una **habilidad de IA instalable** (Claude Agent Skill) que responde preguntas sobre ese módulo con la documentación real del sistema — rutas exactas, procedimientos paso a paso, y avisando explícitamente cuándo algo no está confirmado con soporte de Almera, en vez de inventarlo.
 
-## Cómo está armado
+**Por qué ya no es "solo documentación":** el proyecto creció en tres direcciones:
 
-Cada módulo sigue la misma estructura:
+- **Base de conocimiento** — guías y documentos de referencia por módulo (el núcleo original).
+- **Automatización** — herramientas que generan entregables siguiendo lineamientos institucionales (presentaciones, diagramas de flujo), y un dashboard que procesa el Listado Maestro de Documentos exportado de Almera para dar indicadores de calidad de datos al instante.
+- **Agentes de IA** — cada módulo y cada capacidad de automatización queda empaquetado como skill, instalable en Claude, para que cualquiera con acceso resuelva sus dudas o genere su entregable sin depender de otra persona del equipo.
+
+**Impacto esperado:** menos tiempo de soporte interno para preguntas repetitivas de Almera, curva de aprendizaje más corta para usuarios nuevos de cada módulo, y un canal de autoservicio (vía IA) para tareas de Calidad que hoy dependen de una sola persona (diagramar en Bizagi, armar una presentación institucional, etc.).
+
+---
+
+## 2. Cómo está construido (parte técnica)
+
+### 2.1 Arquitectura
+
+- **Sitio 100% estático**: HTML/CSS/JS plano, sin backend, sin build step, sin `package.json`. Se sirve directo (localmente con `npx serve`, ver `.claude/launch.json`) o desde GitHub Pages.
+- **Sin base de datos ni servidor propio** → no hay superficie de ataque de almacenamiento de datos que asegurar. Toda la "inteligencia" vive en documentos versionados en Git, no en infraestructura.
+- **Procesamiento 100% en el navegador**: el dashboard de `informe-documentos/` (Chart.js + SheetJS/xlsx.js, ambos vendored localmente) lee el Excel exportado de Almera y calcula todo client-side — el archivo nunca sale del equipo del usuario ni se sube a ningún servidor. Cero riesgo de fuga de datos por esta vía.
+- **Agent Skills como formato de distribución de conocimiento**: cada `.skill` es un paquete comprimido con `SKILL.md` (instrucciones + flujo, lo primero que carga el agente), `references/` (detalle bajo demanda) y `assets/` (plantillas). Es el mismo formato para las skills de módulo (conocimiento) y las skills de producción (generación de entregables).
+
+### 2.2 Estructura del repositorio
 
 ```
-modulo/
-├── index.html          # guía web, para leer en el navegador
-└── AI/
-    ├── modulo.md  (GuIA)      # documento de referencia completo (para cualquier IA)
-    └── almera-modulo.skill  # el mismo contenido empaquetado como Agent Skill de Claude
+almera-docs/
+├── index.html                          # landing general, enlaces a todos los módulos
+├── modulo-*/                           # un directorio por módulo de Almera
+│   └── <submódulo>/
+│       ├── index.html                  # guía web navegable
+│       ├── styles/
+│       └── AI/
+│           ├── <modulo>.md             # GuIA: documento de referencia completo
+│           └── almera-<modulo>.skill   # el mismo contenido empaquetado como Agent Skill
+├── skills/                             # skills de producción, no atadas a un módulo
+│   ├── presentaciones-institucionales/ # genera PPTX/HTML/PDF con plantilla institucional
+│   └── diagramas-flujo/                # genera diagramas de flujo validados por colores
+├── informe-documentos/                 # dashboard interactivo (Listado Maestro → KPIs)
+├── codigos-estructura-organizacional/  # referencia de codificación organizacional
+├── design/                             # mockups y canvases de Claude Design
+└── assets/                             # estilos e íconos compartidos
 ```
 
-La `GuIA.md` de cada módulo sigue una misma plantilla, para que cualquier IA que lo lea sepa cómo comportarse:
+Cada `GuIA.md` sigue una plantilla fija para que cualquier IA que la lea sepa cómo comportarse:
 
 1. **Instrucciones para la IA** — responder solo con lo documentado, avisar si algo no está cubierto, no inventar botones ni pasos.
-2. **Árbol de navegación de Admin** — el mapa completo de todos los módulos de Almera, no solo el propio, para que la IA pueda ubicar cualquier opción que le pregunten aunque sea de otro módulo.
-3. **Conceptos básicos, procedimientos paso a paso y preguntas frecuentes** — todo con la ruta exacta dentro del sistema.
-4. **Temas pendientes de validar con soporte Almera** — las dudas que quedaron abiertas en la capacitación. Esto es clave: la IA avisa explícitamente cuando algo no está confirmado, en vez de presentarlo como un hecho.
+2. **Árbol de navegación completo de Admin** — el mapa de todos los módulos de Almera (no solo el propio), para ubicar cualquier opción aunque sea de otro módulo.
+3. **Conceptos, procedimientos paso a paso y preguntas frecuentes**, con ruta exacta dentro del sistema.
+4. **Temas pendientes de validar con soporte Almera** — dudas abiertas en capacitación, marcadas explícitamente como no confirmadas.
 
-## Estado actual de los módulos
+### 2.3 Cómo se construye cada módulo
+
+1. Se parte de la grabación de capacitación con soporte de Almera y de documentación/guías internas existentes.
+2. Se arma la `GuIA.md`: procedimientos, reglas del sistema, y sección aparte de lo no resuelto en la capacitación.
+3. Se empaqueta ese contenido como `.skill` de Claude (la `GuIA.md` sirve igual para cualquier otro agente de IA que la pueda leer — no hay lock-in de proveedor).
+4. Se construye la guía web (`index.html`) como versión curada y visual del mismo contenido.
+
+### 2.4 Dependencias externas
+
+Ninguna que requiera instalación: dos librerías JS vendored (`chart.umd.min.js`, `xlsx.full.min.js`) para el dashboard, fuentes de Google Fonts. Sin frameworks, sin gestor de paquetes, sin pipeline de CI/CD todavía.
+
+---
+
+## 3. Estado actual
 
 | Módulo | Guía web | GuIA `.md` | Habilidad `.skill` |
 |---|---|---|---|
@@ -45,16 +84,23 @@ La `GuIA.md` de cada módulo sigue una misma plantilla, para que cualquier IA qu
 | Proyectos | Completa | Completo | Disponible |
 | Códigos de estructura organizacional | Completa | — | Fuera del sistema de IA (página de referencia) |
 
-## Cómo se construye cada módulo
+**6 módulos documentados · 33 secciones cubiertas.**
 
-1. Se parte de la grabación de la capacitación con soporte de Almera y de cualquier documentación limpia o guía interna que ya exista.
-2. Se arma la `GuIA.md` de referencia: procedimientos, reglas del sistema, y una sección aparte para lo que quedó sin resolver en la capacitación (para no presentarlo como confirmado).
-3. Se empaqueta ese contenido como `.skill` para Claude (la `GuIA` sirve igual para cualquier otro agente de IA que lo pueda leer).
-4. Se construye la guía web (`index.html`) como versión curada y visual del mismo contenido, para quien prefiera leerlo directamente en el navegador.
+Skills de producción (`skills/`): `presentaciones-institucionales` y `diagramas-flujo` — en construcción, falta insumo de referencia (plantilla institucional y paleta/diagramas de Bizagi respectivamente).
 
-## Lo que falta
+---
 
-- Empaquetar el `.skill` de Planes de mejora (la `GuIA.md` ya está listo).
-- Ampliar la cobertura más allá de Calidad, Evaluaciones, Indicadores y Proyectos — las categorías General y Riesgos del árbol de Admin todavía no tienen documentación propia.
+## 4. Roadmap
 
+- **Reorganización a monorepo**: separar `almera-docs/` (documentación pura de Almera) de `calidad-ia-agents/` (skills transversales de Calidad, no atadas a un módulo), con un `index.html` en la raíz como landing único con el mismo diseño.
+- Empaquetar el `.skill` de Planes de mejora.
+- Cerrar `presentaciones-institucionales` y `diagramas-flujo` con sus insumos de referencia pendientes.
+- Ampliar cobertura más allá de Calidad, Evaluaciones, Indicadores y Proyectos — las categorías **General** y **Riesgos** del árbol de Admin de Almera todavía no tienen documentación propia.
 
+---
+
+## 5. Cómo probarlo
+
+- **Producción**: [sgi.almeraim.com/sgi/?conid=sgicapitalsalud](https://sgi.almeraim.com/sgi/?conid=sgicapitalsalud)
+- **Pruebas**: [sgi.almeraim.com/sgi/?conid=sgicapitalsaludpruebas](https://sgi.almeraim.com/sgi/?conid=sgicapitalsaludpruebas)
+- **Skills**: se descargan desde la página de cada módulo (botón `Skill`) y se instalan directamente en Claude — sin configuración adicional.
