@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Control de Documentos SGC — Capital Salud</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./styles/style.css">
+</head>
+<body>
+
+<div class="page">
+  <div class="wrap">
+
+    <!-- ============ HEADER ============ -->
+    <header class="m-header">
+      <div class="eyebrow"><span class="dot"></span>Capital Salud · Sistema de gestión de calidad</div>
+      <a class="back" href="../../index.html">Inicio</a>
+      <a class="back" href="../index.html#modulos">Todos los módulos</a>
+    </header>
+
+    <!-- ============ HERO ============ -->
+    <section class="m-hero">
+      <div>
+        <div class="m-hero-kicker">Informe</div>
+        <h1>Control de documentos del SGC</h1>
+      </div>
+      <div class="m-hero-side">
+        <p>Sube el Listado Maestro de Control de Documentos del SGC (el que se consolida en la carpeta local compartida, no el export de Almera) y obtén al instante indicadores de vigencia, actualización y calidad de datos. Todo se procesa en tu navegador.</p>
+      </div>
+    </section>
+
+    <!-- ============ 01 — CARGAR ============ -->
+    <section class="m-section first" id="upload">
+      <div class="m-section-head"><span class="m-section-num">01</span><h2>Cargar el listado maestro</h2></div>
+      <p class="m-section-intro">El informe se construye sobre el archivo de Excel del Listado Maestro de Control de Documentos del SGC. No se guarda nada: el análisis ocurre por completo en tu navegador.</p>
+
+      <div class="upload-grid">
+        <div class="upload-info">
+          <div class="upload-info-kicker">Archivo esperado</div>
+          <div class="upload-info-path">LISTADO MAESTRO DE CONTROL DE DOCUMENTOS DEL SGC.xls(x)</div>
+          <div class="upload-info-text">La hoja "LISTADO_MAESTRO" del archivo compartido, sin modificar sus encabezados.</div>
+        </div>
+        <br>
+        <div id="uploadZone" class="upload-zone">
+          <div class="upload-title">Arrastre el archivo aquí</div>
+          <div class="upload-sub">o haga clic para seleccionarlo · .xlsx · .xls</div>
+        </div>
+        <input type="file" id="fileInput" accept=".xlsx,.xls" style="display:none">
+      </div>
+
+      <div class="upload-privacy">Funciona sin conexión: el Excel se procesa con librerías incluidas en esta misma carpeta, nunca se sube a ningún servidor.</div>
+    </section>
+
+    <!-- ============ CONTENIDO (oculto hasta cargar datos) ============ -->
+    <div id="dashboardContent" class="dash-hidden">
+
+      <!-- 02 — KPIs -->
+      <section class="m-section" id="kpis">
+        <div class="m-section-head"><span class="m-section-num">02</span><h2>Indicadores generales</h2></div>
+        <p class="m-section-intro" id="kpiScope">Mostrando todos los documentos. Haz clic en cualquier indicador para ver el detalle.</p>
+        <div class="kpi-panel" id="kpiGrid"></div>
+      </section>
+
+      <!-- 03 — ANTIGÜEDAD -->
+      <section class="m-section" id="antiguedad">
+        <div class="m-section-head"><span class="m-section-num">03</span><h2>Antigüedad de los documentos</h2></div>
+        <p class="m-section-intro">Calculada sobre el campo de fecha que elijas. Por defecto usa Fecha de última actualización.</p>
+
+        <div class="filter-group" style="margin-bottom:30px">
+          <label>Calcular antigüedad usando</label>
+          <div class="filter-pills" id="ageFieldPills">
+            <button class="filter-pill active" data-field="ultimaActualizacion" type="button">Fecha última actualización</button>
+            <button class="filter-pill" data-field="elaboracion" type="button">Fecha de elaboración</button>
+          </div>
+        </div>
+
+        <div class="chart-card wide">
+          <div class="chart-card-title">Documentos por rango de antigüedad</div>
+          <div class="chart-card-sub">Haz clic en una barra para ver la lista de esos documentos.</div>
+          <div class="chart-canvas-wrap hero"><canvas id="chartAntiguedad"></canvas></div>
+        </div>
+      </section>
+
+      <!-- 04 — GRÁFICOS -->
+      <section class="m-section" id="graficos">
+        <div class="m-section-head"><span class="m-section-num">04</span><h2>Distribución por categoría</h2></div>
+        <p class="m-section-intro">Haz clic en cualquier sector o barra para ver los documentos de esa categoría.</p>
+        <div class="charts-grid">
+          <div class="chart-card">
+            <div class="chart-card-title">Por estado</div>
+            <div class="chart-card-sub">Vigente / Derogado</div>
+            <div class="chart-canvas-wrap"><canvas id="chartEstado"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-card-title">Por tipo de documento</div>
+            <div class="chart-card-sub">Formato, Procedimiento, Guía, Manual, etc.</div>
+            <div class="chart-canvas-wrap"><canvas id="chartTipo"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-card-title">Top 10 procesos con más documentos</div>
+            <div class="chart-card-sub">Campo «Proceso»</div>
+            <div class="chart-canvas-wrap tall"><canvas id="chartProceso"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-card-title">Top 10 subprocesos con más documentos</div>
+            <div class="chart-card-sub">Campo «SubProceso»</div>
+            <div class="chart-canvas-wrap tall"><canvas id="chartSubproceso"></canvas></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 — CALIDAD DE DATOS -->
+      <section class="m-section" id="calidad">
+        <div class="m-section-head"><span class="m-section-num">05</span><h2>Calidad de datos</h2></div>
+        <p class="m-section-intro">Hallazgos detectados automáticamente sobre el archivo completo, sin filtros.</p>
+        <div class="dq-grid" id="dqGrid"></div>
+
+        <section class="cta-section">
+          <div class="cta-card">
+            <div class="cta-kicker">Exportar</div>
+            <h2>Llevar el informe a la revisión</h2>
+            <p>Descargue el informe completo en PDF para el comité de calidad. Para exportar solo el detalle filtrado, use el botón «Exportar vista» en la tabla de documentos.</p>
+            <div class="cta-actions">
+              <button class="cta-btn" id="btnPrintPdf" type="button">Descargar informe (PDF) <span class="mono">↓</span></button>
+              <a class="cta-btn-outline" href="#tabla">Ver tabla completa</a>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- 06 — TABLA -->
+      <section class="m-section" id="tabla">
+        <div class="m-section-head"><span class="m-section-num">06</span><h2>Detalle de documentos</h2></div>
+
+        <div class="filter-bar">
+          <div class="filter-group">
+            <label>Estado</label>
+            <select id="fEstado"><option value="">Todos</option></select>
+          </div>
+          <div class="filter-group">
+            <label>Tipo de documento</label>
+            <select id="fTipo"><option value="">Todos</option></select>
+          </div>
+          <div class="filter-group">
+            <label>Proceso</label>
+            <select id="fProceso"><option value="">Todos</option></select>
+          </div>
+          <div class="filter-group">
+            <label>SubProceso</label>
+            <select id="fSubproceso"><option value="">Todos</option></select>
+          </div>
+          <div class="filter-group">
+            <label>Requiere actualización</label>
+            <select id="fRequiere">
+              <option value="">Todas</option>
+              <option value="SI">Sí</option>
+              <option value="NO">No</option>
+              <option value="Derogado">Derogado</option>
+              <option value="Otro">En gestión / otro</option>
+              <option value="Sin dato">Sin dato</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Antigüedad</label>
+            <select id="fAntiguedad">
+              <option value="">Todas</option>
+              <option value="&lt; 6 meses">&lt; 6 meses</option>
+              <option value="6 meses - 1 año">6 meses - 1 año</option>
+              <option value="1 - 2 años">1 - 2 años</option>
+              <option value="2 - 3 años">2 - 3 años</option>
+              <option value="&gt; 3 años">&gt; 3 años</option>
+              <option value="Sin fecha">Sin fecha</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Buscar</label>
+            <input type="text" id="fSearch" placeholder="Nombre o código...">
+          </div>
+          <div class="filter-actions">
+            <button class="btn-ghost" id="btnClearFilters" type="button">Limpiar filtros</button>
+            <button class="btn-primary" id="btnExport" type="button">Exportar vista (.xlsx)</button>
+          </div>
+        </div>
+
+        <div class="table-toolbar">
+          <span class="table-count" id="tableCount"></span>
+        </div>
+
+        <div class="data-table-wrap">
+          <table class="data-table" id="dataTable">
+            <thead>
+              <tr>
+                <th data-key="_codigo">Código</th>
+                <th data-key="_nombre">Nombre</th>
+                <th data-key="_proceso">Proceso</th>
+                <th data-key="_subproceso">SubProceso</th>
+                <th data-key="_tipo">Tipo</th>
+                <th data-key="_estado">Estado</th>
+                <th data-key="_fechaUltimaActualizacion">Última actualización</th>
+                <th data-key="_requiereActualizacion">Requiere actualización</th>
+                <th data-key="_antiguedad">Antigüedad</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+
+        <div class="pagination" id="pagination"></div>
+      </section>
+
+    </div>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="m-footer">
+      <span>Control de documentos SGC · Calidad</span>
+      <span>Capital Salud</span>
+    </footer>
+
+  </div>
+</div>
+
+<script src="./vendor/xlsx.full.min.js"></script>
+<script src="./vendor/chart.umd.min.js"></script>
+<script src="./main.js"></script>
+</body>
+</html>
