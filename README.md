@@ -80,7 +80,7 @@ Ninguna que requiera instalación: dos librerías JS vendored (`chart.umd.min.js
 | Evaluaciones | Completa | Completo | Disponible |
 | Indicadores | Completa | Completo | Disponible |
 | Mecanismos de integración | Completa | Completo | Disponible |
-| Planes de mejora | Completa | Completo | **Pendiente de empaquetar** |
+| Planes de mejora | Completa | Completo | Disponible |
 | Proyectos | Completa | Completo | Disponible |
 | Códigos de estructura organizacional | Completa | — | Fuera del sistema de IA (página de referencia) |
 
@@ -93,7 +93,6 @@ Skills de producción (`skills/`): `presentaciones-institucionales` y `diagramas
 ## 4. Roadmap
 
 - **Reorganización a monorepo**: separar `almera-docs/` (documentación pura de Almera) de `calidad-ia-agents/` (skills transversales de Calidad, no atadas a un módulo), con un `index.html` en la raíz como landing único con el mismo diseño.
-- Empaquetar el `.skill` de Planes de mejora.
 - Cerrar `presentaciones-institucionales` y `diagramas-flujo` con sus insumos de referencia pendientes.
 - Ampliar cobertura más allá de Calidad, Evaluaciones, Indicadores y Proyectos — las categorías **General** y **Riesgos** del árbol de Admin de Almera todavía no tienen documentación propia.
 
