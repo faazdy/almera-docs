@@ -73,7 +73,18 @@ coordenadas salvo para ajustes finos.
 | Barras verticales (1 o 2 series; resaltar una) | `grafica_barras(s, cats, [(serie, valores)], highlight=i, legend=True)` |
 | Dona | `grafica_dona(s, [(cat, valor)], centro=("92,4 %", "…"))` — los % van en la leyenda |
 | Barras horizontales | `barras_horizontales(s, [(rótulo, %), …])` |
+| Barra apilada 100% (L06) | `barra_apilada(s, [(nombre, pct, valor, nota), …], total=(label, valor))` |
+| Proceso por etapas (L08) | `etapas(s, [(fecha, nombre, desc, responsable, cumplida), …], hito="…")` |
+| Imagen de contenido (L10) | `imagen(s, ruta, credito="…")` — no es personaje; sin ruta, marcador punteado |
+| Mensaje con vocería (L11) | `cita(s, mensaje, nombre, cargo, avatar=…, chips=[(label, valor), …])` |
 | Línea de fuente / nota al pie | `fuente(s, "…")` |
+
+Diapositiva completa de sólo texto (L12–L14), **no** se compone sobre
+`Deck.contenido`: `Deck.texto_pleno(titulo, encabezado=…, cuerpo=[…], figura=…)`
+— añadir `numerada=True` para puntos con numeral (L13) o `mensaje="…", apoyos=[…]`
+para el mensaje central (L14). Desde "Layouts Gerenciales v2" usa el **mismo
+topbar redondeado estándar** que `Deck.contenido` (dentro del margen, con radio) —
+sin banda a sangre — más el personaje al 34 %.
 
 ## Los otros layouts (ya no están)
 

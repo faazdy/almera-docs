@@ -16,7 +16,7 @@ assets/
   PENDIENTE.md          este archivo
   ejemplos-generados/
     pptx/  ejemplo-gestion-integral-pptx.py  (generador; importa ../../pptx_kit)
-           ejemplo-gestion-integral.pptx     (salida, 17 diapositivas, ~3,2 MB)
+           ejemplo-gestion-integral.pptx     (salida, 20 diapositivas, ~3,2 MB)
            ejemplo-gestion-integral-pptx.pdf (salida opcional; se puede borrar)
     html/  ejemplo-gestion-integral.src.html (fuente con tokens {{ruta}})
            ejemplo-gestion-integral.html     (salida empaquetada)
@@ -34,7 +34,7 @@ assets/
 | `pptx_kit.py` | Utilidades de generación PPTX (`Deck` + helpers de cuerpo). Coloca los personajes desde `marca/personajes/`. | 🟢 Herramienta |
 | `empaquetar-html.js` | Empaquetador Node: `*.src.html` con tokens `{{ruta}}` → HTML con la marca como `data:` URIs. | 🟢 Herramienta |
 | `optimizar-plantilla.ps1` | Regenera `plantilla.pptx` adelgazada vía PowerPoint COM (si cambia la plantilla institucional). | 🟢 Herramienta |
-| `ejemplos-generados/pptx/` | Generador de ejemplo PPTX (`ejemplo-gestion-integral-pptx.py`) + su salida (17 diapositivas, ~3,2 MB). | 🟢 Ejemplo |
+| `ejemplos-generados/pptx/` | Generador de ejemplo PPTX (`ejemplo-gestion-integral-pptx.py`) + su salida (20 diapositivas, ~3,2 MB). | 🟢 Ejemplo |
 | `ejemplos-generados/html/` | Ejemplo HTML: deck mixto talento humano + financiero (fichas KPI, barras 1 y 2 series, dona, tabla, cartera por edades, ejecución presupuestal). Datos ficticios. | 🟢 Ejemplo |
 
 ## Resuelto
@@ -75,6 +75,12 @@ assets/
 - [ ] Añadir a `02-reglas-de-diseno.md` / `04-tipos-de-diapositiva.md` el uso de `marca/`
       (fondo de portada vs. separador, un personaje máx. por diapositiva, iconos en títulos,
       franja de sellos en el pie).
+- [x] Helpers de `pptx_kit.py` que pedía `references/06-recetas-de-composicion.md`:
+      `barra_apilada` (L06 · distribución 100%), `etapas` (L08 · proceso con avance),
+      `imagen` (L10 · imagen de contenido, no personaje), `cita` (L11 · vocería con avatar) y
+      `Deck.texto_pleno` (L12–L14 · marco estándar) — **añadidos y verificados con render**.
+      El deck de ejemplo usa `barra_apilada`, `etapas` y `cita` (diapositivas 15, 16, 18).
+      Quedan por coordenadas L04 (columna lateral), L05 (split) y L09 (bloque de decisión 34%).
 - [ ] Probar la ruta **PDF desde HTML** con puppeteer/Chromium en esta máquina.
 - [ ] `pptx_kit.py`: si se aprueba instalar *Roboto Slab*, cambiar `F_TIT` y recalibrar tamaños
       de título contra `referencia.pptx`.

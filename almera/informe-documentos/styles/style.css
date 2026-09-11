@@ -26,6 +26,7 @@ a:hover{color:var(--ink)}
 
 .page{background:var(--bg);padding:0 32px 160px}
 .wrap{max-width:1120px;margin:0 auto}
+.accent{color: var(--accent)}
 
 /* header */
 .m-header{display:flex;justify-content:space-between;align-items:baseline;padding:36px 0 0;gap:16px;flex-wrap:wrap}

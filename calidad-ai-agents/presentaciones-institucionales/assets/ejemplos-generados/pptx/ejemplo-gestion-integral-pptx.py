@@ -17,7 +17,8 @@ import sys
 _ASSETS = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 sys.path.insert(0, _ASSETS)
 from pptx_kit import (Deck, kpi_tiles, vinetas, tarjetas, tabla, grafica_barras,
-                      grafica_dona, barras_horizontales, kpi_gigante, fuente, G)
+                      grafica_dona, barras_horizontales, kpi_gigante, fuente, G,
+                      barra_apilada, etapas, cita)
 
 OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(
     os.path.dirname(os.path.abspath(__file__)), "ejemplo-gestion-integral.pptx")
@@ -132,10 +133,43 @@ barras_horizontales(s, [
 ])
 fuente(s, "Rezago de inversion por reprogramacion del plan de infraestructura tecnologica. Datos ficticios.")
 
-# 15 - Separador 04
+# 15 - Composicion del plan de inversion (barra apilada 100% - L06)
+s = d.contenido("Infraestructura tecnologica concentra el 58 % del plan de inversion",
+                "Plan de inversion 2026 - participacion sobre $28.000 MM programados")
+barra_apilada(s, [
+    ("Infraestructura tecnologica", 58, "$16.240 MM", "Data center + red"),
+    ("Dotacion asistencial", 22, "$6.160 MM", None),
+    ("Obra fisica", 13, "$3.640 MM", None),
+    ("Otros frentes", 7, "$1.960 MM", None),
+], total=("Total plan de inversion", "$28.000 MM"))
+fuente(s, "Cifras ficticias en millones de pesos (MM). Fuente: tablero presupuestal.")
+
+# 16 - Ruta del plan de saneamiento de cartera (etapas - L08)
+s = d.contenido("El plan de saneamiento de cartera > 90 dias va en la etapa 2 de 5",
+                "Cronograma de recuperacion - horizonte a diciembre de 2026")
+etapas(s, [
+    ("Jun 2026", "Depuracion", "Conciliacion de saldos con 8 EPS", "Cartera", True),
+    ("Ago 2026", "Acuerdos", "Firma de acuerdos de pago con deudores clave", "Cartera + Juridica", True),
+    ("Oct 2026", "Cobro coactivo", "Traslado de cartera sin acuerdo", "Juridica", False),
+    ("Nov 2026", "Provision", "Ajuste de la provision segun recuperacion real", "Contabilidad", False),
+    ("Dic 2026", "Cierre", "Informe final al Comite", "Financiera", False),
+], hito="La firma de acuerdos de agosto define cuanta cartera pasa a cobro coactivo")
+fuente(s, "Saldo objetivo: $41 MM de cartera > 90 dias. Datos ficticios.")
+
+# 17 - Separador 04
 d.separador("04", "Conclusiones y decisiones", figura="trio-sello")
 
-# 16 - Cierre (2 tarjetas)
+# 18 - Voceria de la direccion (cita - L11)
+s = d.contenido("La direccion respalda las tres decisiones que se llevan al Comite",
+                "Cierre de la presentacion de gestion - 2T-2026")
+cita(s,
+     "El trimestre confirma que el modelo hibrido es sostenible: cumplimos metas de "
+     "productividad, cerramos con utilidad y liberamos costo fijo.",
+     "Ana Maria Rojas", "Directora Administrativa y Financiera",
+     chips=[("Utilidad neta 2T", "$31 MM"), ("Ahorro por sede", "$9 MM/trim")])
+fuente(s, "Vocera: Direccion Administrativa y Financiera. Datos ficticios.")
+
+# 19 - Cierre (2 tarjetas)
 s = d.contenido("Conclusiones y decisiones solicitadas", "Para el Comite Directivo")
 tarjetas(s, [
     ("Conclusiones", ["El teletrabajo cumple sus metas de productividad y ahorro.",
@@ -148,7 +182,7 @@ tarjetas(s, [
                                 "Ratificar la meta de siniestralidad de 91 % para el 3T."], "inst"),
 ])
 
-# 17 - Anexo
+# 20 - Anexo
 s = d.contenido("Anexo - Supuestos y fuentes", "Base de las cifras presentadas", dark=True)
 from pptx_kit import caja_texto
 caja_texto(s, "", [

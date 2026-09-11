@@ -2,6 +2,10 @@
 
 Usar los layouts equivalentes de `assets/plantilla.pptx`. Esta lista es la guía de cuándo usar cada uno.
 
+> Lista rápida. Para elegir el layout por la pregunta que responde la diapositiva
+> y ver la receta de composición (slots, proporciones, helper), usar
+> `06-recetas-de-composicion.md` + el catálogo detallado `assets/layouts-gerenciales.md`.
+
 ## Portada
 
 - Título de la presentación, subtítulo/evento, fecha, y el elemento de marca de la plantilla.

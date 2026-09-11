@@ -24,7 +24,9 @@ Uso tipico:
 
     from pptx_kit import (Deck, kpi_tiles, vinetas, tarjetas, tabla,
                           grafica_barras, grafica_dona, barras_horizontales,
-                          kpi_gigante, fuente)
+                          kpi_gigante, fuente,
+                          barra_apilada, etapas, imagen, cita)
+    # Deck.texto_pleno(...) para diapositivas de solo texto (L12-L14)
 
     d = Deck()                                   # abre plantilla.pptx (adelgazada)
     d.portada("Informe de gestion", "Gestion Integral",
@@ -72,6 +74,9 @@ AZUL_CLARO_TX = RGBColor(0xCF, 0xE0, 0xF2)
 # colores de grafica, en orden (assets/paleta.md)
 G = [RGBColor(0x00, 0x4C, 0x97), RGBColor(0x00, 0x85, 0xCF), RGBColor(0x5A, 0xB5, 0xE6),
      RGBColor(0x33, 0xB4, 0xCF), RGBColor(0xB9, 0xE5, 0xE5), RGBColor(0x9D, 0xCD, 0xEA)]
+
+# rampa azul decreciente para barra apilada 100% y barra de avance (L06, L08)
+RAMP = [G[0], G[1], G[2], G[3], G[5]]
 
 F_TIT = "Arial"   # titulos  (poner "Roboto Slab" si esta instalada)
 F_TXT = "Arial"   # cuerpo
@@ -182,6 +187,47 @@ def rect(slide, x, y, w, h, fill=None, line=None, line_w=1.0, rounded=False):
     return shp
 
 
+def _clip_shape(pic, prst="roundRect"):
+    """Recorta una imagen a una forma (`roundRect` o `ellipse`) insertando un
+    prstGeom en su spPr, justo despues de xfrm para respetar el orden del schema."""
+    spPr = pic._element.spPr
+    for tag in ("a:prstGeom", "a:custGeom"):
+        e = spPr.find(qn(tag))
+        if e is not None:
+            spPr.remove(e)
+    g = spPr.makeelement(qn("a:prstGeom"), {"prst": prst})
+    g.append(spPr.makeelement(qn("a:avLst"), {}))
+    xfrm = spPr.find(qn("a:xfrm"))
+    if xfrm is not None:
+        xfrm.addnext(g)
+    else:
+        spPr.insert(0, g)
+    return pic
+
+
+def _numeral(slide, x, y, d, texto, fill=FONDO_INST, fg=AZUL_ENCAB, size=13):
+    """Circulo con un numero (etapas L08, vinetas numeradas L13)."""
+    c = slide.shapes.add_shape(MSO_SHAPE.OVAL, Cm(x), Cm(y), Cm(d), Cm(d))
+    c.fill.solid()
+    c.fill.fore_color.rgb = fill
+    c.line.fill.background()
+    c.shadow.inherit = False
+    tf = c.text_frame
+    tf.word_wrap = False
+    tf.vertical_anchor = MSO_ANCHOR.MIDDLE
+    tf.margin_left = tf.margin_right = Cm(0)
+    tf.margin_top = tf.margin_bottom = Cm(0)
+    p = tf.paragraphs[0]
+    p.alignment = PP_ALIGN.CENTER
+    r = p.add_run()
+    r.text = str(texto)
+    r.font.size = Pt(size)
+    r.font.bold = True
+    r.font.name = F_TIT
+    r.font.color.rgb = fg
+    return c
+
+
 # --------------------------------------------------------------------------- #
 #  Deck
 # --------------------------------------------------------------------------- #
@@ -262,6 +308,66 @@ class Deck:
         if sub:
             lines.append([(sub, 10.5, False, AZUL_CLARO_TX, F_TXT)])
         _set_runs(tf, lines)
+        return s
+
+    def texto_pleno(self, titulo, encabezado=None, cuerpo=(), figura=None,
+                    numerada=False, mensaje=None, apoyos=()):
+        """Diapositiva de SOLO texto con personaje institucional
+        (L12 `plain-text`, L13 `plain-bullets`, L14 `plain-statement`).
+
+        - `cuerpo`: hasta 5 lineas / puntos.
+        - `numerada=True`  -> cada punto con numeral (L13).
+        - `mensaje` (+ `apoyos`) -> mensaje central + viñetas de apoyo (L14).
+        - `figura`: personaje de `marca/personajes/` (sin extension); None rota.
+
+        Desde "Layouts Gerenciales v2": L12-L14 usan **el mismo marco estandar**
+        que el resto (topbar redondeado dentro del margen + logo). No hay banda a
+        sangre. Lo unico propio es la zona de contenido: tarjeta de texto +
+        personaje al 34 %."""
+        s = self._new(LAYOUT_CONTENIDO)
+        if figura is None:
+            figura = _SEP_FIGURAS[self._sep_i % len(_SEP_FIGURAS)]
+            self._sep_i += 1
+        _add_personaje(s, figura, portada=False)
+
+        box = rect(s, MX, TOP_Y, CONTENT_W - 3.0, TOPBAR_H, fill=AZUL_ENCAB,
+                   rounded=True)
+        tf = box.text_frame
+        tf.word_wrap = True
+        tf.vertical_anchor = MSO_ANCHOR.MIDDLE
+        tf.margin_left = tf.margin_right = Cm(0.7)
+        tf.margin_top = tf.margin_bottom = Cm(0.2)
+        _set_runs(tf, [[(str(titulo), 17, True, BLANCO, F_TIT)]])
+
+        cx = 16.8                     # misma referencia que Deck.separador
+        cw = W - cx - MX
+        cy = CANVAS_Y + 0.2
+        chh = CANVAS_H - 0.6
+        card = rect(s, cx, cy, cw, chh, fill=BLANCO, line=GRIS_BORDE, rounded=True)
+        tf = card.text_frame
+        tf.word_wrap = True
+        tf.vertical_anchor = MSO_ANCHOR.MIDDLE if mensaje else MSO_ANCHOR.TOP
+        tf.margin_left = tf.margin_right = Cm(0.7)
+        tf.margin_top = tf.margin_bottom = Cm(0.6)
+        lines = []
+        if encabezado:
+            lines.append([(str(encabezado).upper(), 15, True, PRIMARIO, F_TIT)])
+        if mensaje:
+            lines.append([(str(mensaje), 15, False, TEXTO, F_TIT)])
+            for a in apoyos:
+                lines.append([("•  ", 11, False, ACENTO, F_TXT),
+                              (str(a), 11, False, TEXTO, F_TXT)])
+        elif numerada:
+            for i, pt in enumerate(cuerpo, 1):
+                lines.append([("%d.  " % i, 13, True, ACENTO, F_TIT),
+                              (str(pt), 13, False, TEXTO, F_TXT)])
+        else:
+            for ln in cuerpo:
+                lines.append([(str(ln), 13, False, TEXTO, F_TXT)])
+        _set_runs(tf, lines)
+        for p in tf.paragraphs:
+            p.space_before = Pt(6)
+            p.line_spacing = 1.18
         return s
 
 
@@ -531,3 +637,235 @@ def barras_horizontales(slide, rows, accent_last=True, y=None, h=None):
         textbox(slide, track_x + track_w + 0.15, cy, pct_w, row_h,
                 [[("%g %%" % pct, 12, True, PRIMARIO, F_TXT)]],
                 align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.MIDDLE)
+
+
+def _pct(v):
+    """Formatea un porcentaje: sin decimal si es entero, con uno si no."""
+    return ("%g" % round(v, 1)).replace(".", ",")
+
+
+def barra_apilada(slide, segmentos, total=None, y=None, h=None):
+    """Distribucion del 100% en una barra apilada (L06 `share-100`).
+    Preferida sobre la dona para partes de un total conocido.
+
+    `segmentos`: lista de 2 a 4 tuplas `(nombre, pct, valor|None, nota|None)`.
+    `total`: `(label, valor)` opcional; se rotula arriba a la derecha.
+    Debajo, una tarjeta por segmento con borde superior de su color."""
+    y = CANVAS_Y + 1.0 if y is None else y
+    h = CANVAS_H - 1.6 if h is None else h
+    x = MX
+    w = CONTENT_W
+    bar_h = 1.8
+    gap = 0.12
+    tot_pct = sum(s[1] for s in segmentos) or 100.0
+
+    if total:
+        textbox(slide, x, y - 0.95, w, 0.85,
+                [[(str(total[0]).upper() + "   ", 9, True, GRIS_TX, F_TXT),
+                  (str(total[1]), 13, True, AZUL_ENCAB, F_TIT)]],
+                align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.MIDDLE)
+
+    inner_w = w - (len(segmentos) - 1) * gap
+    cxp = x
+    for i, seg in enumerate(segmentos):
+        pct = seg[1]
+        sw = max(0.3, inner_w * pct / tot_pct)
+        rect(slide, cxp, y, sw, bar_h, fill=RAMP[i % len(RAMP)], rounded=True)
+        if pct >= 10:
+            textbox(slide, cxp, y, sw, bar_h,
+                    [[(_pct(pct) + " %", 11, True, BLANCO, F_TXT)]],
+                    align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+        cxp += sw + gap
+
+    cy = y + bar_h + 0.9
+    ch = min(4.8, (y + h) - cy)
+    n = len(segmentos)
+    cgap = 0.6
+    cw = (w - (n - 1) * cgap) / n
+    for i, seg in enumerate(segmentos):
+        nombre, pct = seg[0], seg[1]
+        valor = seg[2] if len(seg) > 2 else None
+        nota = seg[3] if len(seg) > 3 else None
+        bx = x + i * (cw + cgap)
+        rect(slide, bx, cy, cw, 0.16, fill=RAMP[i % len(RAMP)])
+        card = rect(slide, bx, cy + 0.16, cw, ch - 0.16,
+                    fill=BLANCO, line=GRIS_BORDE, rounded=True)
+        tf = card.text_frame
+        tf.word_wrap = True
+        tf.vertical_anchor = MSO_ANCHOR.TOP
+        tf.margin_left = tf.margin_right = Cm(0.35)
+        tf.margin_top = tf.margin_bottom = Cm(0.3)
+        lines = [[(str(nombre).upper(), 8, True, PRIMARIO, F_TXT)],
+                 [(_pct(pct) + " %", 18, True, AZUL_ENCAB, F_TIT)]]
+        if valor:
+            lines.append([(str(valor), 10, True, GRIS_TX, F_TXT)])
+        if nota:
+            lines.append([(str(nota), 8, False, GRIS_TX, F_TXT)])
+        _set_runs(tf, lines)
+
+
+def etapas(slide, pasos, hito=None, y=None, h=None):
+    """Proceso por etapas con avance y responsable (L08 `stages`).
+
+    `pasos`: lista de 2 a 5 tuplas
+    `(fecha, nombre, desc|"", responsable|"", cumplida_bool)`.
+    Barra de avance segmentada arriba (un tramo por etapa); las pendientes van
+    atenuadas. `hito`: texto de hito critico, en franja azul al pie."""
+    y = CANVAS_Y + 0.2 if y is None else y
+    h = CANVAS_H - 1.0 if h is None else h
+    x = MX
+    w = CONTENT_W
+    n = len(pasos)
+
+    seg_gap = 0.15
+    seg_w = (w - (n - 1) * seg_gap) / n
+    for i, p in enumerate(pasos):
+        done = p[4] if len(p) > 4 else False
+        rect(slide, x + i * (seg_w + seg_gap), y, seg_w, 0.5,
+             fill=ACENTO if done else GRIS_BORDE, rounded=True)
+
+    cy = y + 1.15
+    reserve = 1.5 if hito else 0.0
+    ch = (y + h) - cy - reserve
+    cgap = 0.55
+    cw = (w - (n - 1) * cgap) / n
+    for i, p in enumerate(pasos):
+        fecha, nombre = p[0], p[1]
+        desc = p[2] if len(p) > 2 else ""
+        resp = p[3] if len(p) > 3 else ""
+        done = p[4] if len(p) > 4 else False
+        bx = x + i * (cw + cgap)
+        card = rect(slide, bx, cy, cw, ch,
+                    fill=BLANCO if done else CLARO, line=GRIS_BORDE, rounded=True)
+        tf = card.text_frame
+        tf.word_wrap = True
+        tf.vertical_anchor = MSO_ANCHOR.TOP
+        tf.margin_left = tf.margin_right = Cm(0.4)
+        tf.margin_top = Cm(0.95)
+        tf.margin_bottom = Cm(0.3)
+        tint = TEXTO if done else GRIS_TX
+        lines = [[(str(fecha).upper(), 8, True, PRIMARIO if done else GRIS_TX, F_TXT)],
+                 [(str(nombre), 12, True, AZUL_ENCAB if done else GRIS_TX, F_TIT)]]
+        if desc:
+            lines.append([(str(desc), 9, False, tint, F_TXT)])
+        _set_runs(tf, lines)
+        for pp in tf.paragraphs[1:]:
+            pp.space_before = Pt(4)
+            pp.line_spacing = 1.12
+        _numeral(slide, bx + 0.4, cy - 0.45, 0.9, "%02d" % (i + 1),
+                 fill=ACENTO if done else GRIS_BORDE,
+                 fg=BLANCO if done else GRIS_TX, size=11)
+        if resp:
+            textbox(slide, bx + 0.4, cy + ch - 1.15, cw - 0.8, 1.0,
+                    [[("RESPONSABLE", 6.5, True, GRIS_TX, F_TXT)],
+                     [(str(resp), 9, True, tint, F_TXT)]], line_spacing=1.1)
+
+    if hito:
+        hy = y + h - 1.15
+        bar = rect(slide, x, hy, w, 1.15, fill=AZUL_ENCAB, rounded=True)
+        tf = bar.text_frame
+        tf.vertical_anchor = MSO_ANCHOR.MIDDLE
+        tf.margin_left = tf.margin_right = Cm(0.6)
+        tf.margin_top = tf.margin_bottom = Cm(0.1)
+        _set_runs(tf, [[("HITO CRITICO    ", 8, True, AZUL_CLARO_TX, F_TXT),
+                        (str(hito), 11, True, BLANCO, F_TXT)]])
+
+
+def imagen(slide, ruta=None, x=None, y=None, w=None, h=None, credito=None):
+    """Imagen de CONTENIDO (no personaje) para L10 `text-image`.
+
+    Por defecto ocupa la columna derecha (~38% de la zona util). Si `ruta` no
+    existe, dibuja un marcador punteado con la leyenda [imagen]. `credito` va
+    como nota al pie de la imagen (toda imagen lleva credito)."""
+    if w is None:
+        w = CONTENT_W * 0.38
+    if x is None:
+        x = MX + CONTENT_W - w
+    y = CANVAS_Y + 0.2 if y is None else y
+    if h is None:
+        h = min(CANVAS_H - 1.6, w * 3.0 / 4.0)
+
+    if ruta and os.path.exists(ruta):
+        pic = slide.shapes.add_picture(ruta, Cm(x), Cm(y), Cm(w), Cm(h))
+        _clip_shape(pic, "roundRect")
+    else:
+        ph = rect(slide, x, y, w, h, fill=RGBColor(0xEE, 0xF4, 0xFA),
+                  line=RGBColor(0xB9, 0xCF, 0xE3), line_w=1.0, rounded=True)
+        try:
+            from pptx.enum.line import MSO_LINE_DASH_STYLE
+            ph.line.dash_style = MSO_LINE_DASH_STYLE.DASH
+        except Exception:
+            pass
+        textbox(slide, x, y, w, h,
+                [[("[ imagen ]", 10, True, GRIS_TX, F_TXT)]],
+                align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+    if credito:
+        textbox(slide, x, y + h + 0.12, w, 0.6,
+                [[(str(credito), 7.5, False, GRIS_TX, F_TXT)]],
+                align=PP_ALIGN.RIGHT)
+    return (x, y, w, h)
+
+
+def cita(slide, mensaje, nombre, cargo, avatar=None, chips=(), y=None, h=None):
+    """Mensaje con voceria identificable (L11 `quote-avatar`).
+
+    Avatar circular a la izquierda con nombre y cargo debajo; el mensaje grande
+    (sin cifras nuevas) a la derecha; hasta 2 `chips` `(label, valor)`.
+    Si `avatar` no existe, se dibuja un circulo con las iniciales."""
+    y = CANVAS_Y + 0.5 if y is None else y
+    h = CANVAS_H - 1.4 if h is None else h
+    x = MX
+    av_d = 4.6
+    av_x = x + 0.6
+    av_y = y + (h - av_d) / 2 - 1.0
+
+    if avatar and os.path.exists(avatar):
+        pic = slide.shapes.add_picture(avatar, Cm(av_x), Cm(av_y), Cm(av_d), Cm(av_d))
+        _clip_shape(pic, "ellipse")
+    else:
+        o = slide.shapes.add_shape(MSO_SHAPE.OVAL, Cm(av_x), Cm(av_y),
+                                   Cm(av_d), Cm(av_d))
+        o.fill.solid()
+        o.fill.fore_color.rgb = FONDO_INST
+        o.line.color.rgb = GRIS_BORDE
+        o.line.width = Pt(1)
+        o.shadow.inherit = False
+        ini = "".join(p[0] for p in str(nombre).split()[:2]).upper()
+        tf = o.text_frame
+        tf.vertical_anchor = MSO_ANCHOR.MIDDLE
+        pp = tf.paragraphs[0]
+        pp.alignment = PP_ALIGN.CENTER
+        r = pp.add_run()
+        r.text = ini
+        r.font.size = Pt(20)
+        r.font.bold = True
+        r.font.name = F_TIT
+        r.font.color.rgb = AZUL_ENCAB
+
+    textbox(slide, av_x - 1.0, av_y + av_d + 0.25, av_d + 2.0, 2.0,
+            [[(str(nombre), 11, True, AZUL_ENCAB, F_TIT)],
+             [(str(cargo), 9, False, GRIS_TX, F_TXT)]],
+            align=PP_ALIGN.CENTER, line_spacing=1.15)
+
+    tx = av_x + av_d + 1.4
+    tw = x + CONTENT_W - tx
+    has_chips = bool(chips)
+    textbox(slide, tx, y, tw, h - (2.0 if has_chips else 0.0),
+            [[("“" + str(mensaje) + "”", 18, False, TEXTO, F_TIT)]],
+            anchor=MSO_ANCHOR.MIDDLE, line_spacing=1.25)
+
+    if has_chips:
+        cw = 6.2
+        cg = 0.5
+        cyy = y + h - 1.6
+        for i, ch in enumerate(list(chips)[:2]):
+            lbl, val = ch
+            bx = tx + i * (cw + cg)
+            box = rect(slide, bx, cyy, cw, 1.5,
+                       fill=RGBColor(0xEE, 0xF4, 0xFA), rounded=True)
+            tf = box.text_frame
+            tf.vertical_anchor = MSO_ANCHOR.MIDDLE
+            tf.margin_left = tf.margin_right = Cm(0.45)
+            tf.margin_top = tf.margin_bottom = Cm(0.1)
+            _set_runs(tf, [[(str(lbl).upper() + "   ", 7.5, True, GRIS_TX, F_TXT),
+                            (str(val), 12, True, AZUL_ENCAB, F_TIT)]])

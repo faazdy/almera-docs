@@ -1,0 +1,103 @@
+Qué se agregó a presentaciones-institucionales/
+
+Archivo: assets/layouts-gerenciales.md
+Qué es: El catálogo completo importado del proyecto de Claude Design — cuándo usar/evitar, slots y reglas
+de proporción de cada layout. Con nota arriba: la paleta/marco de la skill mandan sobre los hex  del
+catálogo; de aquí se toma la estructura, no los colores.
+────────────────────────────────────────
+Archivo: references/06-recetas-de-composicion.md
+Qué es: La capa puente: elegir layout por la pregunta del comité, mapeo layout → helpers de pptx_kit.py
+con veredicto, secuencias tipo, reglas transversales.
+────────────────────────────────────────
+Archivo: SKILL.md
+Qué es: Pasos 2–3 del flujo ahora mandan a elegir layout por la pregunta y armar cada diapo con su receta.
+Índice actualizado.
+────────────────────────────────────────
+Archivo: 04-tipos-de-diapositiva.md / PENDIENTE.md
+Qué es: Punteros a 06; backlog de helpers registrado.
+
+.skill reempacado y validado (44 archivos, +2, nada perdido). El botón de la landing ya apunta a este archivo.
+
+Lo que mapea limpio vs. lo que falta
+
+Directo con los helpers actuales: L02 kpi-row (es el helper de referencia del kit), L07 table-lite, y casi L01 kpi-hero y L03 compare-2.
+
+Se compone por coordenadas (⚠️): L04 (barra + panel lateral), L05 (split texto/gráfico), L08 stages, L09 closing, L10–L14 (personajes + banda a sangre).
+
+Falta helper (❌ / aproximado hoy):
+1. barra_apilada — L06 distribución 100% (hoy caería en grafica_dona, que el diseño explícitamente descarta).
+2. etapas — L08 proceso con avance y responsable.
+3. imagen de contenido — L10 (hoy pptx_kit solo coloca personajes).
+4. cita con avatar + chips — L11.
+5. Modo "banda a sangre" / Deck.texto_pleno — L12–L14.
+
+Están listados en 06 y en PENDIENTE.md. Si quieres, el siguiente paso es escribir esos 5 helpers en pptx_kit.py y sumar 2–3 diapos al deck de ejemplo con las recetas menos obvias.
+
+────────────────────────────────────────
+CONTINUACIÓN — 5 helpers escritos
+
+assets/pptx_kit.py: añadidos barra_apilada (L06), etapas (L08), imagen (L10),
+cita (L11) y el método Deck.texto_pleno (L12–L14, banda a sangre al 71% con
+esquinas rectas). Primitivas nuevas de apoyo: _clip_shape (recorta imagen a
+roundRect/ellipse vía prstGeom), _numeral (círculo con número), RAMP (rampa azul
+decreciente para barra apilada y barra de avance). Helpers antiguos intactos.
+
+Verificado con render (PowerPoint COM): los 5 helpers renderan on-brand, dentro
+de la caja de contenido y sin pisar la franja de sellos.
+
+Deck de ejemplo (assets/ejemplos-generados/pptx/ejemplo-gestion-integral-pptx.py):
+de 17 a 20 diapositivas. Nuevas: 15 barra_apilada (plan de inversión), 16 etapas
+(saneamiento de cartera), 18 cita (vocería de la dirección). .pptx regenerado.
+
+Docs actualizadas: 05-mapa-de-layouts.md (tabla de helpers de cuerpo),
+06-recetas-de-composicion.md (tabla de mapeo: L06/L08/L10/L11/L12–L14 pasan a ✅;
+sección "Estado de los helpers"), PENDIENTE.md (helper bullet marcado, conteo de
+diapos). Quedan por coordenadas L04, L05 y L09 (documentado).
+
+.skill reempacado.
+
+Pendiente menor (ver PENDIENTE.md): notas de uso de marca/ en 02/04; probar PDF
+desde HTML con puppeteer; calibrar umbrales de densidad contra referencia.pptx;
+helpers cosméticos (chip de estado en tabla L07, borde de acento en L03).
+
+────────────────────────────────────────
+SYNC — Layouts Gerenciales v2 (Claude Design) + avatares
+
+Origen: proyecto claude.ai/design "Tres diseños de diapositivas gerenciales"
+(id 84e92923-...-5009263b0267), archivo `Layouts Gerenciales v2.dc.html`. Leído
+vía DesignSync (get_file). `support.js` es el runtime dc genérico, no aporta nada
+a la skill.
+
+Cambio real de v2: **L12–L14 dejan de usar banda a sangre**. Ahora usan el marco
+estándar (topbar redondeado dentro del margen + logo), igual que L01–L11; lo
+único propio es la zona de contenido. L12: tarjeta de texto radio 1cqw, borde
+#dbe6f0. El resto del catálogo (L01–L11, L13, L14) sin cambios de fondo.
+
+Aplicado:
+- pptx_kit.py · Deck.texto_pleno: el band pegado al borde (0,0, 71%, esquinas
+  rectas) se reemplazó por el mismo topbar redondeado de Deck.contenido
+  (MX, TOP_Y, CONTENT_W-3, TOPBAR_H, rounded). Docstring actualizado.
+- assets/layouts-gerenciales.md: reimportado de v2 (con la cabecera de precedencia
+  de la skill + nota del cambio).
+- 05-mapa-de-layouts.md y 06-recetas-de-composicion.md: quitadas las menciones a
+  "banda a sangre / 71%" para L12–L14.
+
+Avatares / personajes (assets/marca/personajes/): reescalados a máx 800px de
+ancho con Pillow (LANCZOS, alpha preservado). duo-laptop-ok 1262→800 (951→411 KB),
+trio-computador 1245→800 (1376→464 KB). hombre-checklist, mujer-checklist y
+trio-sello ya estaban ≤800px, sin tocar. Baja el peso de los data: URIs del HTML
+y evita que se rendericen a tamaño original.
+
+.pptx de ejemplo regenerado. .skill reempacado.
+
+────────────────────────────────────────
+FLUJO — pregunta de modalidad
+
+SKILL.md paso 1: tras el formato de entrega se pregunta la MODALIDAD (gerencial /
+informativa / de capacitación). Nueva sección "Modalidad de la presentación" en
+SKILL.md con tabla (enfoque de diseño · layouts a favorecer · evitar) y secuencias
+base por modalidad. Detalle en 06-recetas-de-composicion.md (la vieja sección
+"Secuencias tipo" se reescribió como "Modalidad de la presentación": gerencial
+—con sus 3 sub-secuencias—, informativa, capacitación). 01-flujo-de-trabajo.md:
+fila "Modalidad" en la tabla de arranque; el paso 2 parte de la secuencia base de
+la modalidad. .skill reempacado.

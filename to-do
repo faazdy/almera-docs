@@ -19,3 +19,6 @@ Integraciones:
     5. Si el procedimiento tiene variaciones (con ciertas entidades/procesos el procedimiento es diferente) se debe hacer: un diagrama general respetando los pasos, n diagramas segun las variaciones.
     6. Formatos de entrega del diagrama flexibles. El usuario puede escoger entre: PDF, JPG, PNG.
     7. La skill tendra siempre un diagrama de referencia.
+
+Resume this session with (diapositivas):
+claude --resume 50c475e4-1183-4952-934f-e308a3fcdfaa
