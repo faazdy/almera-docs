@@ -3,311 +3,365 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Parametrización de Códigos de Cargo</title>
+<title>Códigos de Estructura Organizacional — Almera</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/styles.css">
 <link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
+
 <div class="page">
+  <div class="wrap">
 
-  <!-- HEADER -->
-  <header class="header">
-    <p class="eyebrow">Sistema de Gestión Institucional</p>
-    <h1>Parametrización de<br>códigos de cargo</h1>
-    <p class="header-desc">Estructura de identificación única para cada cargo dentro de la organización, compuesta por tres segmentos separados por guiones.</p>
-  </header>
+    <!-- ============ HEADER ============ -->
+    <header class="m-header">
+      <div class="eyebrow"><span class="dot"></span>Almera · Estructura organizacional</div>
+      <a class="back" href="../index.html#otros">Otros elementos</a>
+    </header>
 
-  <!-- FORMULA -->
-  <p class="section-label">Estructura del código</p>
-  <div class="formula-block">
-    <div class="formula-display">
-      <div class="formula-part">
-        <span class="formula-token c-dir">DIR</span>
-        <span class="formula-token-label">Dirección</span>
+    <!-- ============ HERO ============ -->
+    <section class="m-hero">
+      <div>
+        <div class="m-hero-kicker">Referencia</div>
+        <h1>Códigos de estructura<br>organizacional</h1>
       </div>
-      <span class="formula-sep">—</span>
-      <div class="formula-part">
-        <span class="formula-token c-niv">NN</span>
-        <span class="formula-token-label">Nivel</span>
+      <div class="m-hero-side">
+        <p>Estructura de identificación única para cada cargo dentro de la organización, compuesta por tres segmentos separados por guiones.</p>
       </div>
-      <span class="formula-sep">—</span>
-      <div class="formula-part">
-        <span class="formula-token c-seq">SS</span>
-        <span class="formula-token-label">Secuencia</span>
-      </div>
+    </section>
+
+    <!-- ============ BODY ============ -->
+    <div class="m-body">
+
+      <nav class="m-toc">
+        <div class="m-toc-group">
+          <div class="m-toc-label">Estructura</div>
+          <a href="#formula"><span class="num">01</span>Estructura del código</a>
+        </div>
+        <div class="m-toc-group">
+          <div class="m-toc-label">Niveles</div>
+          <a href="#niveles"><span class="num">02</span>Tabla de niveles</a>
+        </div>
+        <div class="m-toc-group">
+          <div class="m-toc-label">Aplicación</div>
+          <a href="#ejemplos"><span class="num">03</span>Ejemplos de aplicación</a>
+        </div>
+        <div class="m-toc-group">
+          <div class="m-toc-label">Asignación</div>
+          <a href="#reglas"><span class="num">04</span>Reglas de asignación</a>
+        </div>
+      </nav>
+
+      <main class="m-main">
+
+        <!-- 01 — ESTRUCTURA DEL CÓDIGO -->
+        <section id="formula" class="m-section first">
+          <div class="m-section-head"><span class="m-section-num">01</span><h2>Estructura del código</h2></div>
+          <p class="m-section-intro">Cada código combina tres segmentos separados por guiones: dirección, nivel y secuencia.</p>
+
+          <div class="formula-block">
+            <div class="formula-display">
+              <div class="formula-part">
+                <span class="formula-token c-dir">DIR</span>
+                <span class="formula-token-label">Dirección</span>
+              </div>
+              <span class="formula-sep">—</span>
+              <div class="formula-part">
+                <span class="formula-token">NN</span>
+                <span class="formula-token-label">Nivel</span>
+              </div>
+              <span class="formula-sep">—</span>
+              <div class="formula-part">
+                <span class="formula-token">SS</span>
+                <span class="formula-token-label">Secuencia</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="tag-rows">
+            <div class="tag-row">
+              <span class="tag-chip">DIR</span>
+              <div>
+                <p class="tag-row-title">Dirección</p>
+                <p class="tag-row-desc">Abreviatura de la dirección o unidad organizacional. Ej: <span class="code-inline">DEP</span>, <span class="code-inline">DME</span>, <span class="code-inline">DAU</span></p>
+              </div>
+            </div>
+            <div class="tag-row">
+              <span class="tag-chip">NN</span>
+              <div>
+                <p class="tag-row-title">Nivel</p>
+                <p class="tag-row-desc">Código de dos caracteres que indica el nivel jerárquico del cargo. En direcciones con subdirecciones, puede incluir una letra identificadora: <span class="code-inline">A1</span>, <span class="code-inline">B2</span>…</p>
+              </div>
+            </div>
+            <div class="tag-row">
+              <span class="tag-chip">SS</span>
+              <div>
+                <p class="tag-row-title">Secuencia</p>
+                <p class="tag-row-desc">Número correlativo del cargo dentro del nivel. Inicia en <span class="code-inline">01</span> y se incrementa por cada encargado adicional.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 02 — TABLA DE NIVELES -->
+        <section id="niveles" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">02</span><h2>Tabla de niveles</h2></div>
+          <p class="m-section-intro">Cada dirección clasifica sus cargos en siete niveles jerárquicos posibles.</p>
+
+          <table class="levels-table">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Nivel</th>
+                <th>Descripción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>01</td>
+                <td>Dirección</td>
+                <td>Director general</td>
+              </tr>
+              <tr>
+                <td>11</td>
+                <td>Subdirección</td>
+                <td>Subdirector — variante del nivel 01 en estructuras con subdependencias</td>
+              </tr>
+              <tr>
+                <td>02</td>
+                <td>Coordinadores</td>
+                <td>Coordinadores de área o proceso</td>
+              </tr>
+              <tr>
+                <td>03</td>
+                <td>Profesionales</td>
+                <td>Profesionales especializados</td>
+              </tr>
+              <tr>
+                <td>04</td>
+                <td>Técnicos</td>
+                <td>Personal técnico de apoyo</td>
+              </tr>
+              <tr>
+                <td>05</td>
+                <td>Auxiliares</td>
+                <td>Personal auxiliar administrativo u operativo</td>
+              </tr>
+              <tr>
+                <td>06</td>
+                <td>Practicantes y otros</td>
+                <td>Practicantes, pasantes y cargos de apoyo no clasificados</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">En direcciones con subdirecciones, el nivel incorpora una letra identificadora antes del dígito de nivel. Ejemplo: la Subdirección A de la Dirección Médica usa <span class="code-inline">A1</span> como nivel de subdirección y <span class="code-inline">A2</span> para sus coordinadores.</p></div>
+          </div>
+        </section>
+
+        <!-- 03 — EJEMPLOS DE APLICACIÓN -->
+        <section id="ejemplos" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">03</span><h2>Ejemplos de aplicación</h2></div>
+          <p class="m-section-intro">Casos reales de codificación, incluyendo una dirección con subdirecciones.</p>
+
+          <div class="example-grid">
+
+            <!-- DEP -->
+            <div class="example-card">
+              <div class="example-card-header">
+                <p class="example-dir-tag">DEP</p>
+                <p class="example-card-title">Dirección de Estrategia y Planeación</p>
+              </div>
+              <div class="code-list">
+                <div class="code-item">
+                  <span class="code-item-label">Director</span>
+                  <span class="code-chip">DEP-01-01</span>
+                </div>
+                <div class="code-item">
+                  <span class="code-item-label">Coordinadores</span>
+                  <div class="code-chips">
+                    <span class="code-chip">DEP-02-01</span>
+                    <span class="code-chip">DEP-02-02</span>
+                  </div>
+                </div>
+                <div class="code-item">
+                  <span class="code-item-label">Profesionales</span>
+                  <div class="code-chips">
+                    <span class="code-chip">DEP-03-01</span>
+                    <span class="code-chip">DEP-03-02</span>
+                  </div>
+                </div>
+                <div class="code-item">
+                  <span class="code-item-label">Auxiliares</span>
+                  <div class="code-chips">
+                    <span class="code-chip">DEP-05-01</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- DAU -->
+            <div class="example-card">
+              <div class="example-card-header">
+                <p class="example-dir-tag">DAU</p>
+                <p class="example-card-title">Dirección de Atención al Usuario</p>
+              </div>
+              <div class="code-list">
+                <div class="code-item">
+                  <span class="code-item-label">Director</span>
+                  <span class="code-chip">DAU-01-01</span>
+                </div>
+                <div class="code-item">
+                  <span class="code-item-label">Coordinadores</span>
+                  <div class="code-chips">
+                    <span class="code-chip">DAU-02-01</span>
+                    <span class="code-chip">DAU-02-02</span>
+                    <span class="code-chip">DAU-02-03</span>
+                  </div>
+                </div>
+                <div class="code-item">
+                  <span class="code-item-label">Profesionales</span>
+                  <div class="code-chips">
+                    <span class="code-chip">DAU-03-01</span>
+                    <span class="code-chip">DAU-03-02</span>
+                  </div>
+                </div>
+                <div class="code-item">
+                  <span class="code-item-label">Técnicos</span>
+                  <div class="code-chips">
+                    <span class="code-chip">DAU-04-01</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- DME - con subdirecciones -->
+            <div class="example-card wide">
+              <div class="example-card-header">
+                <p class="example-dir-tag">DME · Con subdirecciones</p>
+                <p class="example-card-title">Dirección Médica</p>
+              </div>
+
+              <div class="code-item" style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--line)">
+                <span class="code-item-label">Director general</span>
+                <span class="code-chip">DME-01-01</span>
+              </div>
+
+              <div class="sub-grid">
+                <div>
+                  <p class="sub-section-title">Subdirección A</p>
+                  <div class="code-list">
+                    <div class="code-item">
+                      <span class="code-item-label">Subdirector</span>
+                      <span class="code-chip">DME-A1-01</span>
+                    </div>
+                    <div class="code-item">
+                      <span class="code-item-label">Coordinadores</span>
+                      <div class="code-chips">
+                        <span class="code-chip">DME-A2-01</span>
+                        <span class="code-chip">DME-A2-02</span>
+                      </div>
+                    </div>
+                    <div class="code-item">
+                      <span class="code-item-label">Profesionales</span>
+                      <div class="code-chips">
+                        <span class="code-chip">DME-A3-01</span>
+                        <span class="code-chip">DME-A3-02</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <p class="sub-section-title">Subdirección B</p>
+                  <div class="code-list">
+                    <div class="code-item">
+                      <span class="code-item-label">Subdirector</span>
+                      <span class="code-chip">DME-B1-01</span>
+                    </div>
+                    <div class="code-item">
+                      <span class="code-item-label">Coordinadores</span>
+                      <div class="code-chips">
+                        <span class="code-chip">DME-B2-01</span>
+                        <span class="code-chip">DME-B2-02</span>
+                      </div>
+                    </div>
+                    <div class="code-item">
+                      <span class="code-item-label">Profesionales</span>
+                      <div class="code-chips">
+                        <span class="code-chip">DME-B3-01</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sub-divider">
+                <p class="sub-section-title">Coordinadores generales (transversales)</p>
+                <div class="code-item">
+                  <span class="code-item-label">Coordinadores</span>
+                  <div class="code-chips">
+                    <span class="code-chip">DME-02-01</span>
+                    <span class="code-chip">DME-02-02</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /example-grid -->
+        </section>
+
+        <!-- 04 — REGLAS DE ASIGNACIÓN -->
+        <section id="reglas" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">04</span><h2>Reglas de asignación</h2></div>
+          <p class="m-section-intro">Cuatro reglas fijas gobiernan la asignación de códigos a cada cargo.</p>
+
+          <div class="tag-rows" style="margin-top:0">
+            <div class="tag-row">
+              <span class="tag-chip">01</span>
+              <div>
+                <p class="tag-row-title">Un código, un cargo</p>
+                <p class="tag-row-desc">Cada posición recibe un código único. Si hay dos directores en la misma dirección, se generan <span class="code-inline">DIR-01-01</span> y <span class="code-inline">DIR-01-02</span>.</p>
+              </div>
+            </div>
+            <div class="tag-row">
+              <span class="tag-chip">02</span>
+              <div>
+                <p class="tag-row-title">Secuencia correlativa</p>
+                <p class="tag-row-desc">La secuencia inicia en <span class="code-inline">01</span> y crece sin saltos. No se reutilizan números de cargos eliminados; el siguiente cargo libre recibe el consecutivo.</p>
+              </div>
+            </div>
+            <div class="tag-row">
+              <span class="tag-chip">03</span>
+              <div>
+                <p class="tag-row-title">Letra de subdirección</p>
+                <p class="tag-row-desc">Cuando una dirección tiene subdirecciones, se antepone la letra identificadora al dígito de nivel (<span class="code-inline">A1</span>, <span class="code-inline">B2</span>…). Los cargos transversales de la dirección conservan el formato estándar sin letra.</p>
+              </div>
+            </div>
+            <div class="tag-row">
+              <span class="tag-chip">04</span>
+              <div>
+                <p class="tag-row-title">Mayúsculas y formato fijo</p>
+                <p class="tag-row-desc">El código siempre se escribe en mayúsculas con guiones como separadores. No se usan puntos, espacios ni otros delimitadores.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
     </div>
 
-    <div style="display: flex; flex-direction: column; gap: 1px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border);">
-      <div class="comp-row" style="border-bottom: 1px solid var(--border);">
-        <span class="comp-tag blue">DIR</span>
-        <div>
-          <p class="comp-title">Dirección</p>
-          <p class="comp-desc">Abreviatura de la dirección o unidad organizacional. Ej: <span class="inline-code">DEP</span>, <span class="inline-code">DME</span>, <span class="inline-code">DAU</span></p>
-        </div>
-      </div>
-      <div class="comp-row" style="border-bottom: 1px solid var(--border);">
-        <span class="comp-tag green">NN</span>
-        <div>
-          <p class="comp-title">Nivel</p>
-          <p class="comp-desc">Código de dos caracteres que indica el nivel jerárquico del cargo. En direcciones con subdirecciones, puede incluir una letra identificadora: <span class="inline-code">A1</span>, <span class="inline-code">B2</span>…</p>
-        </div>
-      </div>
-      <div class="comp-row">
-        <span class="comp-tag amber">SS</span>
-        <div>
-          <p class="comp-title">Secuencia</p>
-          <p class="comp-desc">Número correlativo del cargo dentro del nivel. Inicia en <span class="inline-code">01</span> y se incrementa por cada encargado adicional.</p>
-        </div>
-      </div>
-    </div>
+    <!-- ============ FOOTER ============ -->
+    <footer class="m-footer">
+      <span>Códigos de Estructura Organizacional · Referencia</span>
+      <span>Almera SGI</span>
+    </footer>
+
   </div>
+</div>
 
-  <hr class="divider">
-
-  <!-- LEVELS TABLE -->
-  <p class="section-label">Tabla de niveles</p>
-  <table class="levels-table">
-    <thead>
-      <tr>
-        <th>Código</th>
-        <th>Nivel</th>
-        <th>Descripción</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>01</td>
-        <td>Dirección</td>
-        <td><span class="level-badge badge-dir">Director general</span></td>
-      </tr>
-      <tr>
-        <td>11</td>
-        <td>Subdirección</td>
-        <td><span class="level-badge badge-sub">Subdirector — variante del nivel 01 en estructuras con subdependencias</span></td>
-      </tr>
-      <tr>
-        <td>02</td>
-        <td>Coordinadores</td>
-        <td><span class="level-badge badge-coord">Coordinadores de área o proceso</span></td>
-      </tr>
-      <tr>
-        <td>03</td>
-        <td>Profesionales</td>
-        <td><span class="level-badge badge-prof">Profesionales especializados</span></td>
-      </tr>
-      <tr>
-        <td>04</td>
-        <td>Técnicos</td>
-        <td><span class="level-badge badge-tec">Personal técnico de apoyo</span></td>
-      </tr>
-      <tr>
-        <td>05</td>
-        <td>Auxiliares</td>
-        <td><span class="level-badge badge-aux">Personal auxiliar administrativo u operativo</span></td>
-      </tr>
-      <tr>
-        <td>06</td>
-        <td>Practicantes y otros</td>
-        <td><span class="level-badge badge-prac">Practicantes, pasantes y cargos de apoyo no clasificados</span></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="note-box">
-    <strong>Nota:</strong> En direcciones con subdirecciones, el nivel incorpora una letra identificadora antes del dígito de nivel. Ejemplo: la Subdirección A de la Dirección Médica usa <span class="inline-code">A1</span> como nivel de subdirección y <span class="inline-code">A2</span> para sus coordinadores.
-  </div>
-
-  <hr class="divider">
-
-  <!-- EXAMPLES -->
-  <p class="section-label">Ejemplos de aplicación</p>
-  <div class="example-grid">
-
-    <!-- DEP -->
-    <div class="example-card">
-      <div class="example-card-header">
-        <p class="example-dir-tag">DEP</p>
-        <p class="example-card-title">Dirección de Estrategia y Planeación</p>
-      </div>
-      <div class="code-list">
-        <div class="code-item">
-          <span class="code-item-label">Director</span>
-          <span class="code-chip">DEP-01-01</span>
-        </div>
-        <div class="code-item">
-          <span class="code-item-label">Coordinadores</span>
-          <div class="code-chips">
-            <span class="code-chip">DEP-02-01</span>
-            <span class="code-chip">DEP-02-02</span>
-          </div>
-        </div>
-        <div class="code-item">
-          <span class="code-item-label">Profesionales</span>
-          <div class="code-chips">
-            <span class="code-chip">DEP-03-01</span>
-            <span class="code-chip">DEP-03-02</span>
-          </div>
-        </div>
-        <div class="code-item">
-          <span class="code-item-label">Auxiliares</span>
-          <div class="code-chips">
-            <span class="code-chip">DEP-05-01</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- DAU -->
-    <div class="example-card">
-      <div class="example-card-header">
-        <p class="example-dir-tag">DAU</p>
-        <p class="example-card-title">Dirección de Atención al Usuario</p>
-      </div>
-      <div class="code-list">
-        <div class="code-item">
-          <span class="code-item-label">Director</span>
-          <span class="code-chip">DAU-01-01</span>
-        </div>
-        <div class="code-item">
-          <span class="code-item-label">Coordinadores</span>
-          <div class="code-chips">
-            <span class="code-chip">DAU-02-01</span>
-            <span class="code-chip">DAU-02-02</span>
-            <span class="code-chip">DAU-02-03</span>
-          </div>
-        </div>
-        <div class="code-item">
-          <span class="code-item-label">Profesionales</span>
-          <div class="code-chips">
-            <span class="code-chip">DAU-03-01</span>
-            <span class="code-chip">DAU-03-02</span>
-          </div>
-        </div>
-        <div class="code-item">
-          <span class="code-item-label">Técnicos</span>
-          <div class="code-chips">
-            <span class="code-chip">DAU-04-01</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- DME - con subdirecciones -->
-    <div class="example-card wide">
-      <div class="example-card-header">
-        <p class="example-dir-tag">DME · Con subdirecciones</p>
-        <p class="example-card-title">Dirección Médica</p>
-      </div>
-
-      <!-- Dirección general -->
-      <div class="code-item" style="margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border);">
-        <span class="code-item-label">Director general</span>
-        <span class="code-chip">DME-01-01</span>
-      </div>
-
-      <div class="sub-grid">
-        <!-- Subdirección A -->
-        <div>
-          <p class="sub-section-title">Subdirección A</p>
-          <div class="code-list">
-            <div class="code-item">
-              <span class="code-item-label">Subdirector</span>
-              <span class="code-chip">DME-A1-01</span>
-            </div>
-            <div class="code-item">
-              <span class="code-item-label">Coordinadores</span>
-              <div class="code-chips">
-                <span class="code-chip">DME-A2-01</span>
-                <span class="code-chip">DME-A2-02</span>
-              </div>
-            </div>
-            <div class="code-item">
-              <span class="code-item-label">Profesionales</span>
-              <div class="code-chips">
-                <span class="code-chip">DME-A3-01</span>
-                <span class="code-chip">DME-A3-02</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Subdirección B -->
-        <div>
-          <p class="sub-section-title">Subdirección B</p>
-          <div class="code-list">
-            <div class="code-item">
-              <span class="code-item-label">Subdirector</span>
-              <span class="code-chip">DME-B1-01</span>
-            </div>
-            <div class="code-item">
-              <span class="code-item-label">Coordinadores</span>
-              <div class="code-chips">
-                <span class="code-chip">DME-B2-01</span>
-                <span class="code-chip">DME-B2-02</span>
-              </div>
-            </div>
-            <div class="code-item">
-              <span class="code-item-label">Profesionales</span>
-              <div class="code-chips">
-                <span class="code-chip">DME-B3-01</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Coordinadores transversales -->
-      <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border);">
-        <p class="sub-section-title">Coordinadores generales (transversales)</p>
-        <div class="code-item">
-          <span class="code-item-label">Coordinadores</span>
-          <div class="code-chips">
-            <span class="code-chip">DME-02-01</span>
-            <span class="code-chip">DME-02-02</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /example-grid -->
-
-  <hr class="divider">
-
-  <!-- RULES -->
-  <p class="section-label">Reglas de asignación</p>
-  <div style="display: flex; flex-direction: column; gap: 1px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border);">
-    <div class="comp-row" style="border-bottom: 1px solid var(--border);">
-      <span class="comp-tag blue" style="white-space:nowrap">01</span>
-      <div>
-        <p class="comp-title">Un código, un cargo</p>
-        <p class="comp-desc">Cada posición recibe un código único. Si hay dos directores en la misma dirección, se generan <span class="inline-code">DIR-01-01</span> y <span class="inline-code">DIR-01-02</span>.</p>
-      </div>
-    </div>
-    <div class="comp-row" style="border-bottom: 1px solid var(--border);">
-      <span class="comp-tag blue">02</span>
-      <div>
-        <p class="comp-title">Secuencia correlativa</p>
-        <p class="comp-desc">La secuencia inicia en <span class="inline-code">01</span> y crece sin saltos. No se reutilizan números de cargos eliminados; el siguiente cargo libre recibe el consecutivo.</p>
-      </div>
-    </div>
-    <div class="comp-row" style="border-bottom: 1px solid var(--border);">
-      <span class="comp-tag blue">03</span>
-      <div>
-        <p class="comp-title">Letra de subdirección</p>
-        <p class="comp-desc">Cuando una dirección tiene subdirecciones, se antepone la letra identificadora al dígito de nivel (<span class="inline-code">A1</span>, <span class="inline-code">B2</span>…). Los cargos transversales de la dirección conservan el formato estándar sin letra.</p>
-      </div>
-    </div>
-    <div class="comp-row">
-      <span class="comp-tag blue">04</span>
-      <div>
-        <p class="comp-title">Mayúsculas y formato fijo</p>
-        <p class="comp-desc">El código siempre se escribe en mayúsculas con guiones como separadores. No se usan puntos, espacios ni otros delimitadores.</p>
-      </div>
-    </div>
-  </div>
-
-</div><!-- /page -->
 </body>
 </html>

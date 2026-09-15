@@ -55,6 +55,11 @@ Si falta alguno, díselo al usuario. Ver `assets/PENDIENTE.md`.
 - Con variaciones: siempre diagrama general **+** los diagramas de cada variación. No mezclar todas
   las variaciones en un solo diagrama con mil compuertas.
 - Preguntar la estructura general **antes** de dibujar, no después.
+- **Sintaxis Mermaid válida, siempre**: nunca un salto de línea real dentro de una etiqueta
+  (usa `<br/>`); en aristas con etiqueta, el tipo de línea de apertura y cierre debe coincidir
+  (sólida↔sólida, punteada↔punteada — nunca `-- "texto" -.->`). Relee el `.mmd` completo contra
+  esto antes de entregarlo: un solo carácter mal puesto hace que el cliente muestre el código en
+  vez del diagrama. Ver `references/02-reglas-de-diagramacion.md` → "bug confirmado".
 
 ## Índice de referencias
 

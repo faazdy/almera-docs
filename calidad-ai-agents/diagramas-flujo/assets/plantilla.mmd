@@ -11,6 +11,12 @@
 %%  - Decisiones: pregunta cerrada terminada en "?".
 %%  - NO usar paréntesis "(" ")" dentro de las etiquetas: rompen Mermaid.
 %%    Si necesitas una aclaración, usa dos puntos:  "... por el canal disponible: web, correo".
+%%  - NO metas un salto de línea real (Enter) dentro de una etiqueta entre comillas: usa
+%%    SIEMPRE <br/>. Un Enter ahí rompe el parser -> el cliente muestra el código, no el
+%%    diagrama. Ver "bug confirmado" en references/02-reglas-de-diagramacion.md y fix.md.
+%%  - En una arista CON ETIQUETA, el tipo de línea de apertura y cierre debe coincidir:
+%%    sólida  = "-- texto -->" o "-->|texto|" ;  punteada = "-.->|texto|" o "-. texto .->".
+%%    NUNCA mezcles ("-- texto -.->" rompe el parser igual que el punto anterior).
 %%  - Validación por colores: marca el nodo con emoji al inicio de la etiqueta
 %%    ("🟡 ..." o "🔴 ..."); 🟢 no lleva marca. El detalle va en la tabla que
 %%    acompaña al diagrama (ver references/03-validacion-por-colores.md).

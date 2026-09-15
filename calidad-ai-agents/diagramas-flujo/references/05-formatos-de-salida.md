@@ -49,3 +49,15 @@ procedimiento) más **PNG** (para incrustar).
 Si el sandbox de claude.ai no tiene `mmdc` disponible ni permite instalarlo, avisar y entregar el
 código Mermaid + un render provisional vía Artifact (bloque ```mermaid```), en vez de asumir que el
 export a PDF/JPG/PNG por CLI va a funcionar.
+
+## Si el diagrama sale como código y no como dibujo (Claude Desktop / claude.ai sin `mmdc`)
+
+Antes de sospechar del cliente, **revisa la sintaxis** — casi siempre es la causa real: ver
+`02-reglas-de-diagramacion.md` → "⚠️ Etiquetas y flechas rotas: bug confirmado" (saltos de línea
+reales en vez de `<br/>`, o aristas con etiqueta que mezclan tipo de línea). Con sintaxis válida,
+Mermaid se renderiza solo al pegar el bloque ```mermaid``` en la conversación.
+
+Si aun con sintaxis válida el cliente sigue mostrando el código: publícalo como **Artifact**
+(Mermaid se renderiza nativo ahí) en vez de dejar el bloque suelto en la respuesta de chat — es el
+render provisional al que ya apunta la nota de arriba. Solo si tampoco funciona así, considerar una
+ruta alterna (p. ej. el diagrama como HTML autocontenido) — es el último recurso, no el primero.

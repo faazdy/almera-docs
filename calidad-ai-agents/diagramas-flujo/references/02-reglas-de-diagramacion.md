@@ -78,6 +78,48 @@ completo. Es un límite de Mermaid/dagre con grafos compuestos, no un error de s
 - Para armar un carril de todos modos: declarar cada nodo una vez fuera de cualquier `subgraph` y,
   dentro del `subgraph` del carril, solo referenciar su id (ver `assets/plantilla.mmd`).
 
+### ⚠️ Etiquetas y flechas rotas: "se ve el código, no el diagrama" — bug confirmado
+
+**Confirmado con `fix.md`:** el usuario pegó el `.mmd` generado en Claude Desktop y, en vez del
+diagrama, salió el código en texto plano — señal de que el parser de Mermaid no pudo leer el
+archivo. Se encontraron dos desviaciones de la sintaxis frente a `assets/plantilla.mmd` (que sí
+está probada), las dos en el mismo archivo:
+
+1. **Salto de línea real (Enter) dentro de una etiqueta entre comillas**, en vez de `<br/>`:
+
+   ```
+   ❌  A1["1. Identificar la necesidad...
+   👤 Líder/Referente del Proceso Solicitante · 🔄 P"]:::actividad
+
+   ✅  A1["1. Identificar la necesidad...<br/>👤 Líder/Referente del Proceso Solicitante · 🔄 P"]:::actividad
+   ```
+
+   Todo el texto de una etiqueta (entre `[`/`{` y `]`/`}`) va en **una sola línea física** del
+   archivo. El salto visual dentro de la caja se logra solo con `<br/>` — nunca con Enter.
+
+2. **Mezclar el tipo de flecha al abrir y cerrar una arista con etiqueta**: abrir con `--`
+   (sólida) y cerrar con `-.->` (punteada) en la misma arista:
+
+   ```
+   ❌  G4 -- "Sí" -.-> A1
+
+   ✅  G4 -.->|"Sí"| A1
+   ```
+
+   El tipo de línea de apertura y cierre **debe coincidir siempre**. Para una arista **punteada**
+   con etiqueta, usa la forma con barras `-.->|"texto"|` (es la que ya usa `assets/plantilla.mmd`
+   en PLANTILLA 2, `G1 -.->|"Sí"| A2` — no inventes la variante `-- "texto" -.->`). Para una
+   arista **sólida** con etiqueta, `-- "texto" -->` o `-->|"texto"|` sí son válidas y equivalentes.
+
+- **Regla:** antes de entregar cualquier `.mmd`, revisa que (a) ninguna etiqueta entre comillas
+  tenga un salto de línea real — solo `<br/>` — y (b) toda arista con etiqueta abra y cierre con
+  el mismo tipo de línea (sólida↔sólida, punteada↔punteada). Un solo carácter mal puesto aquí
+  hace que Mermaid no renderice nada y el cliente (Claude Desktop/claude.ai) muestre el código
+  crudo en vez del diagrama — no es un problema del cliente, es sintaxis inválida.
+- Antes de entregar, relee el `.mmd` completo línea por línea contra esta regla; no asumas que
+  quedó bien solo porque siguió el patrón de la plantilla en las primeras cajas.
+- Ver `fix.md` para el caso real completo (roto y corregido).
+
 ### Agrupación primaria (solo si decidiste usar `subgraph`): ¿fase o carril?
 
 Mermaid no permite anidar carriles y fases de forma legible (dos niveles de `subgraph` con
