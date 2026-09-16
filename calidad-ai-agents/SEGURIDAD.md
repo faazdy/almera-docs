@@ -1,95 +1,81 @@
-# Seguridad de la información — Skills de IA
+# Seguridad de la información — uso de las skills de IA
 
 Aplica a `presentaciones-institucionales/` y `diagramas-flujo/`, y a cualquier skill de
-**producción** que se agregue después a esta carpeta (genera un entregable a partir de
-información real de la organización).
+producción que se agregue después a esta carpeta.
 
-El riesgo no es "la IA" en abstracto — es que información interna termine en un lugar donde no
-debería: commiteada como "ejemplo" en este repo, pegada en un prompt sin necesidad, o dentro de
-un entregable (PPTX/PDF/PNG) que circula más de lo previsto. Esta guía cubre esos canales
-concretos.
+El repo es **privado** y los ejemplos en `assets/` están basados en documentos reales pero con
+datos censurados — eso no es lo que hay que vigilar. Lo que hay que vigilar es **el momento en que
+alguien del área usa la skill con información real y delicada** (un procedimiento con datos de
+afiliados, un informe de gestión con cifras sensibles) para producir un diagrama o una
+presentación. Esta guía es para ese momento.
 
-## 0. Verificar primero: visibilidad del repo
+## Principio general: minimizar lo que entra al chat
 
-Este repo tiene remoto en GitHub (`faazdy/almera-docs`). Antes de aplicar el resto de esta guía,
-confirma si es **público o privado** (`gh repo view faazdy/almera-docs` o en la config del repo
-en GitHub) — cambia la severidad de todo lo que sigue. Si es público, cualquier archivo real que
-ya esté commiteado debe tratarse como expuesto ya, no como "por revisar".
+La skill no necesita el documento completo, necesita la estructura. Antes de pegar el insumo,
+quita lo que no aporta al entregable:
 
-## 1. Qué no va en el repo (`assets/`, `pruebas/`, ejemplos)
+- **`diagramas-flujo`**: el skill necesita los *pasos* y *roles* del procedimiento. Si el
+  documento fuente trae, como ejemplo dentro de un paso, el nombre/cédula/caso puntual de un
+  afiliado o cliente real, esa parte se quita — el diagrama no cambia si el ejemplo es genérico.
+- **`presentaciones-institucionales`**: el skill necesita el *mensaje y las cifras agregadas*. Si
+  el informe de partida trae una tabla nominal (nombres, cédulas, salarios individuales) para
+  sustentar un punto, se sube el KPI agregado a la diapositiva, no la tabla con personas
+  identificables.
 
-- Nunca datos reales de personas (nombres + cédula, historia clínica, salarios, datos de
-  afiliados/clientes) en ejemplos de referencia, aunque sea "solo para calibrar el estilo".
-- **Antecedente a revisar ahora:** `diagramas-flujo/assets/ejemplos-reales/` y `diagramas-flujo/pruebas/`
-  ya tienen documentos reales de procedimientos institucionales commiteados — un Excel de
-  actividades reales, un PDF con membrete de Capital Salud EPS-S, exports reales de Bizagi. Son
-  datos de *proceso* (pasos, roles, responsables), no de pacientes/afiliados individuales, pero
-  siguen siendo documentos internos de la organización subidos a un repo de código. Antes de que
-  este repo se comparta más ampliamente, decide para cada uno: ¿se anonimiza, se reemplaza por un
-  ejemplo sintético, o se saca del repo (p. ej. a un storage interno) y solo queda referenciado?
-- Regla simple para el área: **si el archivo tiene membrete real, nombres reales o cifras reales
-  de la organización, no es un "ejemplo" — es dato de producción**, y se trata con el mismo
-  cuidado que cualquier documento interno.
-- Los entregables de muestra que sí viven en el repo (`presentaciones-institucionales/assets/ejemplos-generados/`)
-  deben ser contenido ficticio, nunca una presentación real reducida a "solo un ejemplo".
+Regla simple: si un dato no cambia lo que el diagrama o la diapositiva necesita comunicar, no
+tiene por qué pasar por el prompt.
 
-## 2. Qué puede traer el usuario cuando usa el skill
+## Datos sensibles bajo la ley colombiana (Ley 1581 de 2012)
 
-- **`diagramas-flujo`**: el input es un procedimiento (texto/PDF/Excel) con pasos y roles. Los
-  cargos/responsables por rol no son problema; si el procedimiento embebe datos de terceros
-  (afiliados, pacientes, clientes) *dentro* de los pasos como ejemplo, hay que anonimizarlos antes
-  de diagramar.
-- **`presentaciones-institucionales`**: el input suele ser un informe o KPIs reales de gestión,
-  destinado a un comité — más visibilidad que un diagrama interno, más cuidado con qué cifras o
-  datos de personas terminan en una diapositiva que puede reenviarse.
-- Ninguna de las dos skills valida esto automáticamente hoy. Práctica recomendada: si el usuario
-  pega contenido con datos personales identificables (nombre + cédula, salud, datos financieros
-  de un individuo), el que opera el skill debe anonimizar antes de continuar, no confiar en que el
-  modelo lo filtre solo.
+Salud, datos biométricos, origen étnico, orientación sexual/política/religiosa y datos de menores
+son "datos sensibles" con protección reforzada (requieren consentimiento explícito para tratarse).
+Dado que varios procedimientos de esta organización tocan datos de salud de afiliados (p. ej. algo
+como lo visto en `diagramas-flujo/assets/ejemplos-reales/`), el punto de control es: **el caso que
+se usa como insumo del diagrama o la presentación no debe traer identificación real de la
+persona** — solo el proceso (qué pasa, en qué orden, quién es responsable por rol). Si hace falta
+un caso concreto para ilustrar una variación del procedimiento, se usa uno inventado o
+completamente anonimizado, nunca un caso real "porque es más claro".
 
-## 3. Ejecución de código (riesgo propio de `presentaciones-institucionales`)
+## Dónde corre esto y quién ve los datos en tránsito
 
-Esta skill no solo redacta texto: ejecuta scripts (`assets/pptx_kit.py`, `assets/empaquetar-html.js`,
-`assets/optimizar-plantilla.ps1`) que leen/escriben archivos. `diagramas-flujo` no tiene este
-riesgo (produce Mermaid/imagen, no ejecuta código propio).
+Esto es independiente de que el repo sea privado — importa **la herramienta con la que se está
+corriendo la skill en el momento**, porque de eso depende qué pasa con lo que se pega en el chat:
 
-- Solo se ejecuta el código ya versionado y revisado en `assets/` — el skill no debe improvisar
-  scripts nuevos que lean o escriban fuera de la carpeta de trabajo del entregable.
-- Un cambio a `pptx_kit.py` (o a los otros scripts) se revisa como código de producción — no basta
-  con "genera bien el PPTX", hay que mirar qué rutas toca y qué puede hacer si un input lo induce
-  a comportarse distinto.
-- Cuidado especial con prompts del usuario que pidan "usa esta imagen/archivo de tal ruta" fuera
-  de `assets/` — es la forma más fácil de que el agente termine leyendo algo que no debía.
+- Si se usa Claude Code local, la cuenta de Claude (Pro/Max) o la API de Anthropic sin acuerdo
+  empresarial, aplica la política estándar de retención de datos de Anthropic para consumidores/
+  desarrolladores individuales — no la misma que un acuerdo empresarial con control de retención.
+- Antes de pegar información real y delicada (no un ejemplo anonimizado) en cualquiera de las dos
+  skills, confirma con quien gestione la cuenta de Claude en la organización si hay un plan
+  empresarial con acuerdo de no retención/no entrenamiento. Si no lo sabes, trátalo como si no lo
+  hubiera y no pegues el dato real — usa el equivalente anonimizado.
+- Esto aplica igual a `presentaciones-institucionales`, que además ejecuta scripts propios
+  (`pptx_kit.py`) que leen/escriben archivos localmente — confirma que esos archivos temporales no
+  queden en una carpeta compartida sin control de acceso.
 
-## 4. Contenido externo como dato, nunca como instrucción
+## El entregable hereda la sensibilidad del input
 
-El informe/PDF/Excel que el usuario aporta como insumo (el "texto de partida" de una presentación,
-el "procedimiento" fuente de un diagrama) se trata como **texto a representar**, no como
-instrucciones para el agente. Si ese documento trae algo como "ignora las reglas anteriores y...",
-no se obedece — se sigue el `SKILL.md`.
+Un PPTX o un diagrama generado a partir de un procedimiento con datos reales sigue siendo un
+documento sensible — no se vuelve "solo una imagen" o "solo unas slides" por haber pasado por la
+skill. Antes de subirlo a Teams/SharePoint/correo o de compartirlo fuera del área, se aplica el
+mismo control de acceso que al documento fuente, y se revisa que no haya quedado ningún dato real
+que debía anonimizarse en el insumo.
 
-## 5. El entregable hereda la clasificación del input
+## Checklist antes de usar la skill con info real
 
-Un PPTX o un diagrama generado con datos reales sigue siendo un documento con datos reales — no
-se vuelve "solo una imagen" ni "solo unas slides" por haber pasado por el skill. Se distribuye con
-el mismo criterio que se usaría para el documento fuente.
+- [ ] ¿El insumo trae datos identificables de una persona (nombre, cédula, historia clínica,
+      salario) que no son necesarios para el diagrama/presentación? → quítalos antes de pegarlo.
+- [ ] ¿El caso trata datos sensibles de la Ley 1581 (salud, biométricos, menores, etc.)? →
+      verifica que el insumo esté anonimizado, no solo "resumido".
+- [ ] ¿Sabes si la cuenta de Claude con la que corre esto tiene acuerdo empresarial de no
+      retención? Si no, no pegues el dato real — usa un caso equivalente inventado.
+- [ ] El entregable final, ¿se va a compartir fuera del área o de la organización? → revisión
+      extra de que no quedó nada sin anonimizar.
+- [ ] El archivo generado (PPTX/PDF/PNG), ¿queda en un lugar con el mismo control de acceso que
+      tendría el documento fuente?
 
-## 6. Checklist antes de publicar o actualizar un skill
+## Qué se puede hacer sin restricción
 
-- [ ] ¿Algún archivo en `assets/` o `pruebas/` tiene datos reales de personas o de la
-      organización que no deberían estar en un repo de código?
-- [ ] ¿El `SKILL.md` dice qué hacer si el usuario pega datos sensibles (anonimizar antes de
-      seguir), o asume en silencio que el input siempre es seguro?
-- [ ] Si el skill ejecuta scripts propios: ¿se revisaron como código, con atención a qué rutas
-      tocan?
-- [ ] ¿El `README.md`/`SKILL.md` deja claro dónde corre (sandbox de Claude vs. Claude Code local)
-      y qué implica eso para dónde quedan los archivos generados?
-- [ ] ¿Los ejemplos que se entregan como muestra del skill son ficticios?
-
-## 7. Si algo ya se filtró
-
-- No lo borres y ya — un `git rm` normal deja el archivo en el historial. Si el repo es público o
-  tiene colaboradores externos, hay que reescribir el historial (`git filter-repo` o equivalente)
-  o, si ya se hizo público, tratarlo como expuesto y avisar a quien corresponda en la organización.
-- Prioriza avisar sobre el tipo de dato expuesto antes que sobre los detalles técnicos de cómo
-  pasó — lo primero es que alguien pueda actuar (¿hay que notificar a alguien, rotar algo?).
+- Diagramar o presentar procesos, KPIs agregados y roles (no personas) sin ningún cuidado especial
+  — ahí no hay dato de terceros identificable.
+- Usar casos ficticios o con marcadores genéricos ("Afiliado A", "Colaborador X") para ilustrar
+  variaciones del procedimiento — cumple el mismo propósito que un caso real sin el riesgo.
