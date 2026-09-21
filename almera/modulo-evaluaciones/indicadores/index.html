@@ -51,6 +51,7 @@
         <a href="#campos"><span>¿Cómo agrego un campo nuevo a la ficha técnica?</span><span class="faq-num">01</span></a>
         <a href="#metas"><span>¿Cómo configuro correctamente las metas para no perder el histórico?</span><span class="faq-num">04</span></a>
         <a href="#privilegios"><span>¿Cómo asigno acciones a un usuario específico?</span><span class="faq-num">05</span></a>
+        <a href="#privilegios-masivo"><span>¿Cómo pongo permisos a varios indicadores (o a todos) a la vez?</span><span class="faq-num">05</span></a>
         <a href="#fechas"><span>¿Qué pasa cuando llega la fecha de corte del indicador?</span><span class="faq-num">06</span></a>
         <a href="#notificaciones"><span>¿Quién recibe la alerta cuando un indicador está atrasado?</span><span class="faq-num">07</span></a>
       </div>
@@ -242,6 +243,28 @@
 
           <div class="notes-block">
             <div class="note-box"><div class="note-label">Nota</div><p class="note-text">El campo de responsable en «Información adicional» solo admite un cargo por campo. Si varias personas específicas necesitan poder cargar mediciones (ej. un titular y un suplente), asígnalas por nombre desde Privilegios, que sí admite múltiples usuarios.</p></div>
+          </div>
+
+          <!-- 05.1 — ASIGNACIÓN MASIVA DE PRIVILEGIOS -->
+          <div id="privilegios-masivo" class="sub-block">
+            <span class="subsection-tag">Asignación masiva</span>
+            <h3 class="subsection-title">Asignar privilegios a varios indicadores a la vez</h3>
+            <p class="subsection-usage">Use esto cuando necesite dar permisos a un grupo de usuarios (o a una persona) sobre varios indicadores, o sobre todos, en vez de entrar indicador por indicador.</p>
+
+            <div class="ruta"><span class="ruta-label">Ruta</span><span class="ruta-path">Admin → Indicadores → Reporte de indicadores</span></div>
+
+            <div class="step-group">
+              <ol class="steps-list">
+                <li><span class="n">01</span><div class="step-content"><span class="step-label">Seleccionar indicadores</span><span class="step-text">En el listado, marque los indicadores de interés. Para seleccionarlos todos, cambie «Mostrar 20 registros» a 500 y haga clic en Todos, junto a Seleccionar.</span></div></li>
+                <li><span class="n">02</span><div class="step-content"><span class="step-text">En el cuadro de opciones junto al ícono de Excel, elija Asignar privilegios.</span></div></li>
+                <li><span class="n">03</span><div class="step-content"><span class="step-label">Definir a quién</span><span class="step-text">En el buscador del modal, escriba el nombre, cargo o grupo de usuarios, y en la opción Seleccionar marque los permisos que le corresponden.</span></div></li>
+                <li><span class="n">04</span><div class="step-content"><span class="step-text">Haga clic en el ícono verde con «+» para aplicar los permisos, verifique dentro del modal que hayan quedado anclados y haga clic en Cerrar.</span></div></li>
+              </ol>
+            </div>
+
+            <div class="notes-block">
+              <div class="note-box"><div class="note-label">Nota</div><p class="note-text">Este mismo procedimiento (asignación masiva de privilegios desde el listado, seleccionando varios registros o todos) también se puede hacer en los módulos de Documentos y Proyectos.</p></div>
+            </div>
           </div>
         </section>
 

@@ -289,6 +289,31 @@ Si un indicador que ya se venía midiendo con **meta única** se cambia a **meta
 
 **Fuente:** `docs-indicadores.md` + transcripción cruda (min ~1:39–1:41, ~1:59, ~2:44).
 
+### Asignar privilegios de forma masiva (a varios indicadores o a todos a la vez)
+
+**Cuándo se usa:** cuando se requiere colocar permisos de manera masiva sobre los indicadores — por ejemplo, dar a un grupo de usuarios ciertos permisos sobre varios indicadores o sobre todos a la vez, en vez de entrar indicador por indicador.
+
+**Ruta:** `Admin → Indicadores → Reporte de indicadores`
+
+#### Pasos
+
+1. Ir a `Admin → Indicadores → Reporte de indicadores`.
+2. Seleccionar los indicadores de interés. Si son **todos** los indicadores, ver los pasos 3 y 4; si ya se seleccionaron los indicadores de interés, pasar al paso 5.
+3. Dar clic en la opción **Mostrar 20 registros** y cambiar el valor de 20 a 500 (para mostrar todos los indicadores de la plataforma, en caso de que haya menos de 500).
+4. Dar clic en **Todos** junto a **Seleccionar:** para que queden todos seleccionados.
+5. Una vez seleccionados los indicadores de interés, dar clic en el cuadro de opciones junto al ícono de Excel y elegir **Asignar privilegios**.
+6. En el modal que se despliega se muestran los privilegios para los indicadores seleccionados (quién tiene permisos y quién puede administrarlos).
+7. En el buscador, escribir el nombre, cargo o grupo de usuarios al que se le van a asignar los privilegios.
+8. Junto al buscador, en la opción **Seleccionar**, dar clic y marcar los permisos necesarios (después de haber digitado el nombre, cargo o grupo en el paso anterior).
+9. Dar clic en el ícono verde con un **+** junto a las opciones de privilegios.
+10. Dentro del modal, verificar que haya quedado anclado con los permisos de interés y dar clic en **Cerrar**.
+
+#### Notas / advertencias
+
+- Este mismo procedimiento (asignación masiva de privilegios desde el reporte/listado, seleccionando varios o todos los registros) también se puede hacer en el módulo de **Documentos** y en el módulo de **Proyectos**.
+
+**Fuente:** FAQ interna del equipo.
+
 ---
 
 ## Control de fechas del indicador

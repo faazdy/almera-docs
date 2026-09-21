@@ -39,6 +39,12 @@
 .compare-card h3{margin:0;font:400 19px/1.25 "DM Sans",sans-serif;letter-spacing:-.02em;color:var(--ink)}
 .compare-card p{margin:0;font:400 14px/1.62 "DM Sans",sans-serif;color:var(--ink-soft-2);text-wrap:pretty}
 
+/* privilegios — bloque de asignación masiva */
+.sub-block{margin-top:40px;padding-top:40px;border-top:1px solid var(--line)}
+.sub-block .subsection-tag{font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-soft)}
+.sub-block .subsection-title{margin:8px 0 0;font:400 22px/1.22 "DM Sans",sans-serif;letter-spacing:-.02em;color:var(--ink)}
+.sub-block .subsection-usage{margin:10px 0 26px;font:400 15px/1.6 "DM Sans",sans-serif;color:var(--ink-soft);max-width:62ch;text-wrap:pretty}
+
 /* capacitación CTA */
 .cta-section{border-top:1px solid var(--line);padding-top:56px}
 .cta-card{background:var(--dark);border-radius:20px;padding:56px 52px;display:flex;flex-direction:column;gap:26px}

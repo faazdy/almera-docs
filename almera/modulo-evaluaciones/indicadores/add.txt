@@ -1,0 +1,20 @@
+ADD FAQ 
+
+1. ¿Como pongo permisos globales para todos los indicadores o varios a la vez?
+
+Usar cuando el usuario requiera colocar permisos de manera masiva sobre los indicadores (colocar a un grupo de usuarios con X permisos para ciertos indicadores o todos)
+
+Pasos: 
+
+1. Ir a Admin -> Indicadores -> Reporte de Indicadores.
+2. Seleccionar los indicadores de interés. Si son TODOS los indicadores mirar el paso 3 y 4, si ya se seleccionó los indicadores de interés pasar al paso 5.
+3. Darle clic a la opcion 'Mostrar 20 registros', y cambiar el valor de 20 a 500 (para mostrar todos los indicadores de la plataforma, en caso de que haya menos de 500).
+4. Dar clic en 'Todos' junto a 'Seleccionar:' para que TODOS estén seleccionados.
+5. Una vez seleccionados los indicadoresde interés dar clic en el cuadro de opciones junto al icono de Excel, y seleccionar 'Asignar privilegios'.
+6. En el cuadro (modal) que se despliega, se muestran los privilegios para los indicadores seleccionados (quien tiene que permisos y poder administrarlos).
+7. En el buscador colocar el nombre, cargo o grupo de usuarios al que desea colocarle privilegios.
+8. Junto al buscador, en la opcion 'Seleccionar', dar clic y asignar los permisos necesarios despues de haber colocado el nombre, cargo o grupo de usuarios digitado en el paso anterior.
+9. Finalmente, dar clic en el icono verde con un '+' junto a las opciones de privilegios.
+10. Dentro del modal verificar si quedó anclado con los permisos de interés, y dar clic en Cerrar.
+
+NOTA: este mismo procedimiento se puede hacer con los Documentos, y el modulo de proyectos.

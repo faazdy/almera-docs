@@ -24,5 +24,7 @@ Resume this session with (diapositivas):
 claude --resume 50c475e4-1183-4952-934f-e308a3fcdfaa
 
 ---- 
+Adaptar las skills de automatizacion para ChatGPT Pro (mirar como se puede crear un agente especializado para ello).
+
 posible CLI para agente local de IA qwen 3.8 y LM Studio
 Cerebro para el area DEP (se necesita información)
