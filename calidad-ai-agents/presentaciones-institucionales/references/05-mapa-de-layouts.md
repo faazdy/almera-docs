@@ -7,7 +7,7 @@ resuelta en `assets/pptx_kit.py`; este documento explica el porqué.
 ## Regla base
 
 - La base **siempre** es `assets/plantilla.pptx` (tema de color *"Capital 2025
-  octubre"* + fuente *"Fuente Capital" → Arial*). No se crea un `Presentation()`
+  octubre"* + fuente *"Fuente Capital" → Verdana*). No se crea un `Presentation()`
   vacío y **no** se parte de `assets/referencia.pptx` (ese archivo tiene el tema
   Office genérico: azul‑violáceo `#4472C4`, Calibri).
 - **`plantilla.pptx` viene adelgazada** (798 KB, desde los 46 MB originales): sin
@@ -98,10 +98,10 @@ original (queda fuera de la skill) o —mejor— componer el layout sobre
 
 ## Fuentes
 
-Los títulos usan **Arial Bold** (`F_TIT` en `pptx_kit.py`). La presentación de
+Los títulos usan **Verdana Bold** (`F_TIT` en `pptx_kit.py`). La presentación de
 referencia usa además *Roboto Slab* para títulos; si la máquina que genera el
 PPTX la tiene instalada, cambiar `F_TIT = "Roboto Slab"`. PowerPoint la sustituye
-por Arial si no está, así que dejar Arial es seguro. python‑pptx no incrusta
+por otra fuente si no está, así que dejar Verdana es seguro. python‑pptx no incrusta
 fuentes en el archivo.
 
 ## Verificar el resultado

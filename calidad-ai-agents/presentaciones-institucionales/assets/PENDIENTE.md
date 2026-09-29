@@ -11,6 +11,10 @@ assets/
   paleta.md
   marca/                fondos, personajes, iconos, logos. personajes/ los usa HTML y PPTX.
   pptx_kit.py           herramienta PPTX (Deck + helpers). La importan los generadores.
+  consolidar.py         herramienta de consolidacion: pasa presentaciones ya hechas por
+                        otros (con o sin la skill) a la plantilla institucional, sin
+                        cambiar su contenido. Importa pptx_kit. Ver
+                        references/07-consolidar-presentaciones.md.
   empaquetar-html.js    herramienta HTML (usa ./marca/). Debe vivir junto a marca/.
   optimizar-plantilla.ps1   regenera plantilla.pptx adelgazada (PowerPoint COM).
   PENDIENTE.md          este archivo
@@ -26,7 +30,7 @@ assets/
 
 | Archivo | Qué es | Estado |
 |---|---|---|
-| `plantilla.pptx` | Plantilla PPTX **adelgazada** (~0,8 MB desde 46 MB): 6 layouts, sin diapos de ejemplo, sin renders de personaje. Tema "Capital 2025 octubre" + Arial. Base del formato PPTX. | 🟢 Montado |
+| `plantilla.pptx` | Plantilla PPTX **adelgazada** (~0,8 MB desde 46 MB): 6 layouts, sin diapos de ejemplo, sin renders de personaje. Tema "Capital 2025 octubre" + Verdana. Base del formato PPTX. | 🟢 Montado |
 | `referencia.pptx` | Presentación aprobada; guía de estética y densidad. Su *tema* es Office genérico → no es base de generación. | 🟢 Montado |
 | `paleta.md` | Colores oficiales (hex) + tipografías + tamaños. | 🟢 Montado — del tema "Capital 2025 octubre" |
 | `Tema1.thmx` | Tema de Office exportado del pptx. No se usa en runtime; queda fuera del `.skill`. | 🟢 Montado |
@@ -86,3 +90,17 @@ assets/
       de título contra `referencia.pptx`.
 - [ ] Calibrar umbrales de densidad de `02-reglas-de-diseno.md` contra `referencia.pptx`
       (nº máx. de viñetas, líneas por diapositiva, etc.).
+- [x] Modo **consolidar** (`consolidar.py`): pasar presentaciones ya hechas por otros
+      empleados (con o sin la skill) a `plantilla.pptx` sin tocar su contenido —
+      `inventario` (clasifica y arma un plan editable) + `generar` (arma el pptx).
+      Probado con `referencia.pptx` (plantilla vieja, 10 diapositivas) +
+      `ejemplos-generados/pptx/ejemplo-gestion-integral.pptx` (20, generado con la skill):
+      el segundo sale idéntico a como se generó; el primero conserva todo su contenido,
+      reencuadrado bajo la bandera nueva (algunas diapositivas muy densas de la plantilla
+      vieja quedan con letra chica y avisadas para recomponer o partir — decisión del
+      usuario, no de la skill). Documentado en `references/07-consolidar-presentaciones.md`.
+      Feedback de la primera revisión, ya aplicado y verificado con render:
+      separadores saturados (con puntos a tratar) se limpian solos — los puntos se sacan
+      a una diapositiva de contenido aparte (tipo "puntos") — y `inventario` acepta
+      `--portada-consolidada` para anteponer una portada "Consolidado de presentaciones"
+      con las direcciones detectadas.

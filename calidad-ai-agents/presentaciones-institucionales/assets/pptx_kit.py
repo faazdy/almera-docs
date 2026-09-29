@@ -6,7 +6,7 @@ partiendo de `assets/plantilla.pptx`.
 Reglas de la plantilla (detalle en `references/05-mapa-de-layouts.md`):
 
 - La base SIEMPRE es `plantilla.pptx` (tema "Capital 2025 octubre" + fuente
-  Arial). No se crea un `Presentation()` vacio y no se usa `referencia.pptx`
+  Verdana). No se crea un `Presentation()` vacio y no se usa `referencia.pptx`
   (tema Office generico).
 - Los placeholders de `plantilla.pptx` tienen todos `idx=0` y son inservibles
   para posicionar: al instanciar una diapositiva se apilan en la misma
@@ -16,9 +16,9 @@ Reglas de la plantilla (detalle en `references/05-mapa-de-layouts.md`):
   el texto vertical "Vigilado Supersalud".
 - Zona de contenido util:  x  2.2 -> 31.7 cm   |   y  3.8 -> 14.2 cm
   (los ~4.2 cm inferiores los ocupa la franja de sellos del layout).
-- Titulos en Arial Bold. Si la maquina tiene "Roboto Slab" instalada, cambiar
+- Titulos en Verdana Bold. Si la maquina tiene "Roboto Slab" instalada, cambiar
   F_TIT abajo a "Roboto Slab" (es la fuente de titulos de la presentacion de
-  referencia; PowerPoint la sustituye por Arial si no esta).
+  referencia; PowerPoint la sustituye por otra fuente si no esta).
 
 Uso tipico:
 
@@ -78,8 +78,8 @@ G = [RGBColor(0x00, 0x4C, 0x97), RGBColor(0x00, 0x85, 0xCF), RGBColor(0x5A, 0xB5
 # rampa azul decreciente para barra apilada 100% y barra de avance (L06, L08)
 RAMP = [G[0], G[1], G[2], G[3], G[5]]
 
-F_TIT = "Arial"   # titulos  (poner "Roboto Slab" si esta instalada)
-F_TXT = "Arial"   # cuerpo
+F_TIT = "Verdana"   # titulos  (poner "Roboto Slab" si esta instalada)
+F_TXT = "Verdana"   # cuerpo
 
 # --------------------------------------------------------------------------- #
 #  Geometria (diapositiva 33.87 x 19.05 cm, 16:9)
@@ -264,16 +264,18 @@ class Deck:
     def portada(self, kicker, titulo, subtitulo, meta=(), figura="trio-computador"):
         s = self._new(LAYOUT_PORTADA)
         _add_personaje(s, figura, portada=True)
-        lines = [[(kicker.upper(), 12, True, G[4], F_TXT)],
-                 [(titulo, 40, True, CLARO, F_TIT)],
-                 [(subtitulo, 18, True, CLARO, F_TXT)]]
+        lines = [[(kicker.upper(), 12, True, G[4], F_TXT)]] if kicker else []
+        lines += [[(titulo, 40, True, CLARO, F_TIT)],
+                  [(subtitulo, 18, True, CLARO, F_TXT)]]
         for m in meta:
             lines.append([(m, 12, False, AZUL_CLARO_TX, F_TXT)])
         textbox(s, 17.0, 4.6, 14.5, 9.0, lines,
                 align=PP_ALIGN.RIGHT, line_spacing=1.15)
         return s
 
-    def separador(self, num, titulo, figura=None, layout=None):
+    def separador(self, num, titulo, figura=None, layout=None, sub=None):
+        """`sub`: linea secundaria bajo la raya (area, fecha...). La usa el modo
+        consolidar para no perder el texto de separadores de otras plantillas."""
         i = self._sep_i
         self._sep_i += 1
         if layout is None:
@@ -289,7 +291,10 @@ class Deck:
                 [[(titulo.upper(), 26, True, BLANCO, F_TIT)]],
                 align=PP_ALIGN.RIGHT, line_spacing=1.08)
         rect(s, x0 + w - 10.5, 10.1, 10.5, 0.12, fill=RGBColor(0xBF, 0xD9, 0xEC))
-        return s
+        if sub:
+            textbox(s, x0, 10.5, w, 2.6,
+                    [[(sub, 13, False, AZUL_CLARO_TX, F_TXT)]],
+                    align=PP_ALIGN.RIGHT, line_spacing=1.15)
         return s
 
     def contenido(self, titulo, sub=None, dark=False):

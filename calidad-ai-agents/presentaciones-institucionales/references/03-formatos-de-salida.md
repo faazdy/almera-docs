@@ -1,6 +1,6 @@
 # Formatos de salida
 
-El usuario elige — **pregúntale siempre** (PPTX / HTML / PDF). Si no tiene
+El usuario elige — **pregúntale siempre** (PowerPoint PPTX / Web HTML / PDF). Si no tiene
 preferencia: **PPTX**. Entrega solo el archivo del formato pedido; no generes
 PDF ni PNG sin haberlo solicitado previamente.
 
@@ -10,7 +10,7 @@ Se genera con **`assets/pptx_kit.py`** (envuelve `python-pptx`). Detalle de
 layouts y helpers en `references/05-mapa-de-layouts.md`. Lo esencial:
 
 - La base **siempre** es `assets/plantilla.pptx` (tema *"Capital 2025 octubre"* +
-  Arial). No se crea un `Presentation()` vacío y **no** se parte de
+  Verdana). No se crea un `Presentation()` vacío y **no** se parte de
   `assets/referencia.pptx` (tema Office genérico).
 - `pptx_kit.Deck()` abre la plantilla y borra sus 43 diapositivas de ejemplo.
 - **Los placeholders de `plantilla.pptx` no se usan** (todos tienen `idx=0`, se
@@ -18,7 +18,7 @@ layouts y helpers en `references/05-mapa-de-layouts.md`. Lo esencial:
   de eso se encargan los helpers del kit. Cada layout aporta solo el mobiliario
   heredado: fondo, franja de sellos, logo, chip de número, "Vigilado Supersalud".
 - Colores y fuentes: los de `assets/paleta.md`, ya codificados en el kit. Títulos
-  en **Arial Bold** (si la máquina tiene *Roboto Slab*, cambiar `F_TIT` en el kit).
+  en **Verdana Bold** (si la máquina tiene *Roboto Slab*, cambiar `F_TIT` en el kit).
 - Estructura de un generador: ver `assets/ejemplos-generados/pptx/ejemplo-gestion-integral-pptx.py`
   (replica el ejemplo HTML). Se escribe un script nuevo por deck
   que importa el kit y llama `Deck.portada / .separador / .contenido` + helpers de
@@ -66,8 +66,8 @@ PNG consume tokens.
 
 | Formato | Necesita |
 |---|---|
-| PPTX | `python-pptx` (+ `assets/plantilla.pptx`) |
-| HTML | nada (Node solo para `empaquetar-html.js`) |
+| PowerPoint PPTX | `python-pptx` (+ `assets/plantilla.pptx`) |
+| Web HTML | nada (Node solo para `empaquetar-html.js`) |
 | PDF desde HTML | navegador headless (Puppeteer / Chromium) |
 | PDF desde PPTX | PowerPoint (COM, Windows) **o** LibreOffice (`soffice`) |
 | Revisión visual del PPTX | PowerPoint (COM, Windows) |

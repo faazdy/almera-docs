@@ -4,9 +4,12 @@ description: >-
   Genera presentaciones institucionales (diapositivas) respetando la plantilla y la paleta de
   colores oficiales. Úsala siempre que el usuario pida "una presentación", "unas diapositivas",
   "un PPT", "un deck", "slides", pase un texto/informe y pida convertirlo a presentación, o
-  pida exportar una presentación a PPTX, HTML o PDF. La skill produce diapositivas limpias, muy
-  visuales y comprensibles, sin saturar de información, y siempre parte de una presentación de
-  referencia aprobada.
+  pida exportar una presentación a PPTX, HTML o PDF. También úsala para "consolidar",
+  "unificar" o "juntar" varias presentaciones ya hechas (por el usuario o por otros empleados,
+  con o sin esta skill) en un solo deck con la misma plantilla y la misma bandera de títulos,
+  sin cambiar su contenido (ver "Consolidar presentaciones existentes" abajo). La skill produce
+  diapositivas limpias, muy visuales y comprensibles, sin saturar de información, y siempre
+  parte de una presentación de referencia aprobada.
 ---
 
 # Presentaciones institucionales
@@ -150,6 +153,46 @@ Secuencias tipo como punto de partida del esquema:
   no se borra.
 - Estética limpia: márgenes amplios, jerarquía tipográfica clara, la información respira.
 
+## Consolidar presentaciones existentes
+
+Modo aparte de generación: el usuario ya tiene presentaciones **hechas por él o por otros
+empleados** (con la plantilla vieja, otra plantilla, o incluso ya generadas con esta skill) y
+quiere juntarlas en un solo deck con la misma plantilla y la misma bandera de títulos.
+Dispara con pedidos de "consolidar", "unificar" o "juntar/fusionar" varias presentaciones, o
+"poner en la plantilla institucional" algo que alguien ya hizo.
+
+**Regla del modo: por defecto no se cambia el contenido.** No se borra texto, no se quitan
+imágenes ni tablas ni gráficas, no se recorta información. Lo único que se ajusta es la forma:
+el título de cada diapositiva pasa a la bandera institucional (el topbar azul) y el resto del
+contenido se reencuadra tal cual en la zona útil de `plantilla.pptx` — no se recompone con los
+helpers de `pptx_kit.py` ni se le asigna un layout `L01`–`L14` (eso es "recomponer", un paso
+aparte que el usuario debe pedir explícitamente, ver abajo).
+
+Dos ajustes propios del modo (detalle en `references/07-consolidar-presentaciones.md`):
+
+- **Los separadores quedan limpios.** Si el separador de origen trae, además del título, una
+  lista de puntos (no solo una línea corta de metadato como área/fecha), esos puntos se sacan
+  solos a una diapositiva de contenido aparte — el separador nunca queda saturado.
+- **Portada del consolidado (opcional).** Con `--portada-consolidada` en `inventario`, se
+  antepone una portada nueva ("Consolidado de presentaciones" por defecto) con las
+  direcciones/áreas detectadas en el subtítulo, en vez de reutilizar la portada de un solo
+  archivo como la del deck completo.
+
+Herramienta: `assets/consolidar.py`, en dos pasos con aprobación del usuario entre uno y otro
+(igual que el esquema previo del flujo de generación):
+
+1. `python assets/consolidar.py inventario archivo1.pptx archivo2.pptx ... -o plan.json` —
+   analiza cada diapositiva de cada archivo y escribe un plan editable. Muestra la tabla
+   resumen al usuario (títulos detectados, tipo de cada diapositiva, avisos) y **espera su
+   aprobación o sus correcciones** antes de seguir — igual que el esquema del flujo normal.
+2. `python assets/consolidar.py generar plan.json -o consolidado.pptx` — genera el pptx e
+   imprime un informe de qué se hizo con cada diapositiva.
+
+Detalle completo (qué se conserva, qué se descarta y por qué, formato del plan, qué hacer
+cuando una diapositiva no cabe sin achicar demasiado la letra) en
+`references/07-consolidar-presentaciones.md`. Ese archivo es la referencia a abrir antes de
+correr `consolidar.py` la primera vez en una sesión.
+
 ## Índice de referencias
 
 | Tema | Archivo |
@@ -160,6 +203,7 @@ Secuencias tipo como punto de partida del esquema:
 | Catálogo de tipos de diapositiva (portada, sección, contenido, cierre…) | `references/04-tipos-de-diapositiva.md` |
 | Mapa de layouts PPTX: qué layout de `plantilla.pptx` para cada tipo y cómo se compone (`assets/pptx_kit.py`) | `references/05-mapa-de-layouts.md` |
 | Recetas de composición: contenido → layout (L01–L14), elegir por la pregunta del comité, mapeo a helpers | `references/06-recetas-de-composicion.md` |
+| Consolidar presentaciones ya hechas en la plantilla institucional, sin cambiar su contenido | `references/07-consolidar-presentaciones.md` |
 | Catálogo detallado de los 14 layouts gerenciales (slots, reglas, cuándo usar/evitar) | `assets/layouts-gerenciales.md` |
 
 ## Cómo se actualiza esta skill

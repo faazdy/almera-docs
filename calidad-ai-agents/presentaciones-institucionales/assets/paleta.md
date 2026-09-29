@@ -49,19 +49,19 @@ Los 10 colores del esquema del tema, en el orden en que PowerPoint los expone.
 
 ## Tipografías
 
-Esquema de fuentes del tema: **"Fuente Capital"** → **Arial** como fuente mayor y menor.
+Esquema de fuentes del tema: **"Fuente Capital"** → **Verdana** como fuente mayor y menor.
 La presentación de referencia usa además **Roboto Slab** para títulos y encabezados.
 
 | Rol | Fuente | Peso | Notas |
 |---|---|---|---|
-| Título de diapositiva / encabezados | Roboto Slab | Bold | Como en `ejemplo1_presentacion.pptx`. Fallback si no está instalada: **Arial Bold** |
-| Cuerpo de texto, viñetas, tablas | Arial | Regular / Bold para énfasis | Fuente del tema |
-| Cifras destacadas (KPI) | Roboto Slab o Arial | Bold | Consistente con el título de esa diapositiva |
-| Notas al pie / fuentes / pie de página | Arial | Regular | — |
+| Título de diapositiva / encabezados | Roboto Slab | Bold | Como en `ejemplo1_presentacion.pptx`. Fallback si no está instalada: **Verdana Bold** |
+| Cuerpo de texto, viñetas, tablas | Verdana | Regular / Bold para énfasis | Fuente del tema |
+| Cifras destacadas (KPI) | Verdana | Bold | Consistente con el título de esa diapositiva |
+| Notas al pie / fuentes / pie de página | Verdana | Regular | — |
 
 - No sustituir por otras fuentes. Calibri / Aptos aparecen como restos en algunos layouts de la
   plantilla: son solo *fallback* del sistema, no se usan a propósito.
-- No mezclar más de estas dos familias (Roboto Slab + Arial) en una misma presentación.
+- No mezclar más de estas dos familias (Roboto Slab + Verdana) en una misma presentación.
 
 ## Tamaños de referencia
 
