@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Habilidades de entregables — Calidad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../almera/assets/styles.css">
+<link rel="stylesheet" href="./styles/style.css">
+</head>
+<body>
+
+<div class="page">
+  <div class="wrap">
+
+    <!-- ============ HEADER ============ -->
+    <header class="m-header">
+      <div class="eyebrow"><span class="dot"></span>Capital Salud · Agentes de IA para calidad</div>
+      <a class="back" href="../index.html#entregables">Todas las habilidades</a>
+    </header>
+
+    <!-- ============ HERO ============ -->
+    <section class="m-hero">
+      <div>
+        <div class="m-hero-kicker">Familia 02 · Entregables</div>
+        <h1>Habilidades Claude para automatización</h1>
+      </div>
+      <div class="m-hero-side">
+        <p>Dos habilidades para Claude que producen el entregable terminado: la presentación con la plantilla institucional y el diagrama de flujo de un procedimiento con el estilo de Bizagi Modeler.</p>
+        <div class="m-hero-actions">
+          <a class="dl-pill skill" href="#descargas"><img src="../../almera/assets/claude-ico.webp" alt="Claude icon"><span>Ir a descargas</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="faq-section">
+      <div class="faq-kicker">Preguntas frecuentes</div>
+      <div class="faq-grid">
+        <a href="#que-son"><span>¿Para qué sirve cada habilidad?</span><span class="faq-num">01</span></a>
+        <a href="#presentaciones"><span>¿Qué formatos y tipos de presentación puedo pedir?</span><span class="faq-num">02</span></a>
+        <a href="#diagramas"><span>¿Qué reglas aplica el diagrama de flujo?</span><span class="faq-num">03</span></a>
+        <a href="#instalar"><span>¿Cómo las instalo y las uso?</span><span class="faq-num">04</span></a>
+        <a href="#limites"><span>¿Qué no hacen estas habilidades?</span><span class="faq-num">06</span></a>
+      </div>
+    </section>
+
+    <!-- ============ BODY ============ -->
+    <div class="m-body">
+
+      <nav class="m-toc">
+        <div class="m-toc-group">
+          <div class="m-toc-label">Introducción</div>
+          <a href="#que-son"><span class="num">01</span>Qué son</a>
+        </div>
+        <div class="m-toc-group">
+          <div class="m-toc-label">Habilidades</div>
+          <a href="#presentaciones"><span class="num">02</span>Presentaciones institucionales</a>
+          <a href="#diagramas"><span class="num">03</span>Diagramas de flujo</a>
+        </div>
+        <div class="m-toc-group">
+          <div class="m-toc-label">Uso</div>
+          <a href="#instalar"><span class="num">04</span>Instalar y usar</a>
+          <a href="#descargas"><span class="num">05</span>Descargas</a>
+        </div>
+        <div class="m-toc-group">
+          <div class="m-toc-label">Referencia</div>
+          <a href="#limites"><span class="num">06</span>Límites y buenas prácticas</a>
+        </div>
+      </nav>
+
+      <main class="m-main">
+
+        <!-- 01 — QUÉ SON -->
+        <section id="que-son" class="m-section first">
+          <div class="m-section-head"><span class="m-section-num">01</span><h2>Qué son estas habilidades</h2></div>
+          <p class="m-section-intro">A diferencia de las habilidades de los módulos de Almera, que responden preguntas sobre el sistema, estas <strong>generan un archivo</strong>. Siguen los lineamientos institucionales y le hacen al usuario las preguntas necesarias antes de producir nada.</p>
+
+          <div class="compare-grid">
+            <div class="compare-card">
+              <div class="compare-tag">Entregable · Diapositivas</div>
+              <h3>Presentaciones institucionales</h3>
+              <p>Convierte un texto, un informe o una idea en diapositivas con la plantilla y la paleta oficiales. También unifica presentaciones ya hechas en un solo deck.</p>
+              <a class="more" href="#presentaciones">Ver detalle →</a>
+            </div>
+            <div class="compare-card">
+              <div class="compare-tag">Entregable · Diagramas</div>
+              <h3>Diagramas de flujo</h3>
+              <p>Toma la descripción de un procedimiento y lo entrega diagramado con estilo Bizagi, con validación por colores, listo para anexar a la caracterización.</p>
+              <a class="more" href="#diagramas">Ver detalle →</a>
+            </div>
+          </div>
+
+          <div class="notes-block" style="margin-top:0">
+            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">Estas habilidades están disponibles únicamente para Claude. No tienen archivo GuIA.md porque necesitan ejecutar código y usar archivos de plantilla incluidos en el paquete .skill.</p></div>
+          </div>
+        </section>
+
+        <!-- 02 — PRESENTACIONES -->
+        <section id="presentaciones" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">02</span><h2>Presentaciones institucionales</h2></div>
+          <p class="m-section-intro">Produce diapositivas limpias y visuales: una idea por lámina, poco texto, la misma plantilla y la misma paleta que usa la organización. Nunca inventa una plantilla propia.</p>
+
+          <div class="m-sub">Para qué sirve</div>
+          <div class="scope-grid">
+            <div class="scope-col">
+              <div class="scope-label">Casos de uso</div>
+              <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Convertir un informe o texto en presentación.</span></div>
+              <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Armar un comité directivo, una socialización o una inducción.</span></div>
+              <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Consolidar en un solo deck presentaciones hechas por distintas áreas.</span></div>
+            </div>
+            <div class="scope-col">
+              <div class="scope-label">Formatos de salida</div>
+              <div class="field-list" style="margin-top:0">
+                <span class="field-chip">PowerPoint (.pptx) — editable</span>
+                <span class="field-chip">Web (.html)</span>
+                <span class="field-chip">PDF</span>
+              </div>
+              <p class="mini-desc" style="margin:10px 0 0">Si no hay preferencia, entrega PPTX. Solo entrega el formato pedido.</p>
+            </div>
+          </div>
+
+          <div class="m-sub">Cómo se usa</div>
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-label">Pedir la presentación</span><span class="step-text">Adjunte o pegue el texto base, o describa el tema. Indique audiencia y número aproximado de diapositivas si los tiene.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-label">Responder dos preguntas</span><span class="step-text">Claude siempre pregunta el <strong>formato</strong> (PPTX, HTML o PDF) y la <strong>modalidad</strong> (gerencial, informativa o de capacitación).</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-label">Aprobar el esquema</span><span class="step-text">Propone una lista numerada de diapositivas, cada una con su tipo de diseño. No genera el archivo hasta que usted dé el visto bueno o pida cambios.</span></div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-label">Recibir y ajustar</span><span class="step-text">Entrega el archivo y ofrece ajustes: reordenar, condensar o cambiar de formato.</span></div></li>
+            </ol>
+          </div>
+
+          <div class="example-card"><div class="example-label">Ejemplo</div><div class="example-kv">
+            <div class="example-kv-item"><span class="k">Petición</span><span class="v">«Convierte este informe de gestión en una presentación para el comité directivo.»</span></div>
+            <div class="example-kv-item"><span class="k">Claude pregunta</span><span class="v">¿PPTX, HTML o PDF? ¿Gerencial, informativa o capacitación?</span></div>
+          </div></div>
+
+          <div class="m-sub">Modalidades</div>
+          <div class="mini-rows">
+            <div class="mini-row"><span class="mini-name">Gerencial</span><span class="mini-desc">Comité directivo o rendición de cuentas. Un hallazgo por lámina, la cifra a la vista y cierre con la decisión solicitada.</span></div>
+            <div class="mini-row"><span class="mini-name">Informativa</span><span class="mini-desc">Socialización o divulgación. Contexto antes que cifras, una gráfica clara por tema y cierre con un mensaje.</span></div>
+            <div class="mini-row"><span class="mini-name">Capacitación</span><span class="mini-desc">Inducción o instructivo. Paso a paso, procesos por etapas y menos contenido por lámina.</span></div>
+          </div>
+
+          <div class="m-sub">Alcance</div>
+          <div class="scope-grid">
+            <div class="scope-col">
+              <div class="scope-label">Incluye</div>
+              <div class="substep"><span class="substep-bullet"></span><span class="substep-text">14 tipos de diapositiva (cifras, rankings, comparaciones, etapas, citas, texto) elegidos según la pregunta que responde cada lámina.</span></div>
+              <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Plantilla, paleta y tipografías oficiales.</span></div>
+              <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Modo consolidar: unifica varias presentaciones con la misma bandera de títulos, sin cambiar su contenido.</span></div>
+            </div>
+            <div class="scope-col">
+              <div class="scope-label no">No incluye</div>
+              <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Recomponer el diseño de presentaciones existentes, salvo que se pida de forma explícita.</span></div>
+              <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Borrar datos relevantes: lo que no cabe en la lámina pasa a notas del orador o a un anexo.</span></div>
+              <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Generar PDF o imágenes que no se pidieron.</span></div>
+            </div>
+          </div>
+
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">Las diapositivas se mantienen sobrias a propósito: si una lámina necesita más de unas 5 líneas, Claude la divide en dos.</p></div>
+          </div>
+        </section>
+
+        <!-- 03 — DIAGRAMAS -->
+        <section id="diagramas" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">03</span><h2>Diagramas de flujo</h2></div>
+          <p class="m-section-intro">Levanta el flujo de un procedimiento a partir de su descripción y lo entrega con un aspecto consistente con los diagramas del repositorio en Bizagi Modeler.</p>
+
+          <div class="m-sub">Para qué sirve</div>
+          <div class="scope-grid">
+            <div class="scope-col">
+              <div class="scope-label">Casos de uso</div>
+              <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Diagramar un procedimiento nuevo desde su texto.</span></div>
+              <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Revisar o validar un diagrama que ya existe.</span></div>
+              <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Anexar el flujo a la caracterización del proceso.</span></div>
+            </div>
+            <div class="scope-col">
+              <div class="scope-label">Formatos de salida</div>
+              <div class="field-list" style="margin-top:0">
+                <span class="field-chip">PDF</span>
+                <span class="field-chip">PNG</span>
+                <span class="field-chip">JPG</span>
+              </div>
+              <p class="mini-desc" style="margin:10px 0 0">Entrega además la tabla de validación y los pasos en texto.</p>
+            </div>
+          </div>
+
+          <div class="m-sub">Cómo se usa</div>
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-label">Entregar el procedimiento</span><span class="step-text">Pegue la descripción de los pasos o adjunte el archivo, por ejemplo una hoja de Excel con las actividades.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-label">Responder la estructura</span><span class="step-text">Antes de dibujar, Claude pregunta si hay <strong>fases</strong>, <strong>responsables</strong> que separen el flujo en carriles y <strong>variaciones</strong> del procedimiento.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-label">Revisar el diagrama y la validación</span><span class="step-text">Recibe el diagrama con la leyenda de colores y una tabla que indica qué paso está correcto y cuál hay que revisar.</span></div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-label">Corregir y regenerar</span><span class="step-text">Con las correcciones, Claude actualiza el diagrama y los colores, idealmente todo en verde.</span></div></li>
+            </ol>
+          </div>
+
+          <div class="example-card"><div class="example-label">Ejemplo</div><div class="example-kv">
+            <div class="example-kv-item"><span class="k">Petición</span><span class="v">«Diagrama este procedimiento de inducción de funcionarios y expórtalo en PDF.»</span></div>
+            <div class="example-kv-item"><span class="k">Claude pregunta</span><span class="v">¿Tiene fases, roles por carril o variaciones?</span></div>
+          </div></div>
+
+          <div class="m-sub">Reglas que aplica siempre</div>
+          <div class="mini-rows">
+            <div class="mini-row"><span class="mini-name">100 caracteres</span><span class="mini-desc">Cada actividad tiene como máximo 100 caracteres. Si no cabe, se parte en dos pasos o se reescribe; no se abrevia con jerga.</span></div>
+            <div class="mini-row"><span class="mini-name">Paleta Bizagi</span><span class="mini-desc">Colores y estilo por tipo de elemento (evento, actividad, decisión, carril), sin los colores por defecto del renderizador.</span></div>
+            <div class="mini-row"><span class="mini-name">Variaciones</span><span class="mini-desc">Si los pasos cambian según el caso: un diagrama general con el tronco común y un diagrama por cada variación.</span></div>
+          </div>
+
+          <div class="m-sub">Validación por colores</div>
+          <div class="mini-rows">
+            <div class="mini-row"><span class="mini-name"><span class="sem g"></span>Verde</span><span class="mini-desc">Todo correcto.</span></div>
+            <div class="mini-row"><span class="mini-name"><span class="sem y"></span>Amarillo</span><span class="mini-desc">Parcialmente correcto, requiere revisar. Siempre lleva un comentario.</span></div>
+            <div class="mini-row"><span class="mini-name"><span class="sem r"></span>Rojo</span><span class="mini-desc">Revisión obligatoria: error o vacío que rompe el flujo. Siempre lleva un comentario.</span></div>
+          </div>
+
+          <div class="m-sub">Alcance</div>
+          <div class="scope-grid">
+            <div class="scope-col">
+              <div class="scope-label">Incluye</div>
+              <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Diagrama en imagen o PDF con título, leyenda de colores y versión.</span></div>
+              <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Tabla de validación por paso, con comentarios.</span></div>
+              <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Diagrama general y uno por variación.</span></div>
+            </div>
+            <div class="scope-col">
+              <div class="scope-label no">No incluye</div>
+              <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Archivos editables de Bizagi (.bpm): Bizagi no importa BPMN estándar y su formato es propietario.</span></div>
+              <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Inventar pasos: si falta un dato, lo marca en amarillo o rojo.</span></div>
+            </div>
+          </div>
+
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Cuidado</div><p class="note-text">Para exportar a PDF, PNG o JPG, Claude usa un renderizador de diagramas que depende del entorno de ejecución. Si no está disponible, entrega el diagrama en un Artifact para verlo en pantalla, y la exportación se hace desde ahí.</p></div>
+          </div>
+        </section>
+
+        <!-- 04 — INSTALAR Y USAR -->
+        <section id="instalar" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">04</span><h2>Instalar y usar</h2></div>
+          <p class="m-section-intro">Se instalan igual que cualquier habilidad .skill: una sola vez, y quedan disponibles en todas las conversaciones nuevas.</p>
+
+          <div class="ruta"><span class="ruta-label">Ruta</span><span class="ruta-path">Claude → Configuración → Habilidades</span></div>
+
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-label">Descargar</span><span class="step-text">Baje el archivo .skill desde <a href="#descargas">Descargas</a>.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-label">Subir a Claude</span><span class="step-text">En Configuración → Habilidades, use Subir habilidad y seleccione el archivo. Verifique que quede activada.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-label">Pedir el entregable</span><span class="step-text">En un chat nuevo, pida la presentación o el diagrama en lenguaje natural. Claude carga la habilidad solo cuando la necesita.</span></div></li>
+            </ol>
+          </div>
+
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">Las capturas del paso a paso están en la <a href="../../almera/almera-IA/index.html#instalar-skill" style="color:var(--accent)">guía de Almera + IA</a>; el procedimiento es el mismo.</p></div>
+          </div>
+        </section>
+
+        <!-- 05 — DESCARGAS -->
+        <section id="descargas" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">05</span><h2>Descargas</h2></div>
+          <p class="m-section-intro">Cada habilidad viene en un único archivo .skill con sus plantillas y reglas de referencia incluidas.</p>
+
+          <div class="mod-rows">
+            <div class="mod-row">
+              <span class="mod-name">Presentaciones institucionales<small>PPTX · HTML · PDF</small></span>
+              <div class="mod-actions">
+                <a class="pill pill-skill" href="../presentaciones-institucionales/presentaciones-institucionales.skill" download title="Descargar habilidad para Claude (.skill)">
+                  <img src="../../almera/assets/claude-ico.webp" alt="Claude icon">
+                  <span class="mono">Descargar Skill</span>
+                </a>
+              </div>
+            </div>
+            <div class="mod-row">
+              <span class="mod-name">Diagramas de flujo<small>PDF · PNG · JPG</small></span>
+              <div class="mod-actions">
+                <a class="pill pill-skill" href="../diagramas-flujo/diagramas-flujo.skill" download title="Descargar habilidad para Claude (.skill)">
+                  <img src="../../almera/assets/claude-ico.webp" alt="Claude icon">
+                  <span class="mono">Descargar Skill</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 06 — LÍMITES Y BUENAS PRÁCTICAS -->
+        <section id="limites" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">06</span><h2>Límites y buenas prácticas</h2></div>
+
+          <div class="notes-block" style="margin-top:0">
+            <div class="note-box"><div class="note-label">Cuidado</div><p class="note-text">Revise siempre el entregable antes de circularlo. En los diagramas, atienda primero los pasos en rojo y amarillo; en las presentaciones, verifique cifras y nombres contra la fuente.</p></div>
+            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">Entre más contexto entregue (audiencia, fuente, formato), menos preguntas de aclaración y menos ajustes posteriores.</p></div>
+            <div class="note-box"><div class="note-label">Confirmado</div><p class="note-text">Las habilidades preguntan antes de producir, y no generan el archivo final sobre un esquema o una estructura que usted no haya confirmado.</p></div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="m-footer">
+      <span>Entregables con IA · Referencia</span>
+      <span>Agentes de IA · Calidad</span>
+    </footer>
+
+  </div>
+</div>
+
+</body>
+</html>
