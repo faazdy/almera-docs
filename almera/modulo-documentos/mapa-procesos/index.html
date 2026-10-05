@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa de procesos — Almera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/styles.css">
+<link rel="stylesheet" href="./styles/style.css">
+</head>
+<body>
+
+<div class="page">
+  <div class="wrap">
+
+    <!-- ============ HEADER ============ -->
+    <header class="m-header">
+      <div class="eyebrow"><span class="dot"></span>Almera · Guía de operación</div>
+      <a class="back" href="../../index.html#modulos">Todos los módulos</a>
+    </header>
+
+    <!-- ============ HERO ============ -->
+    <section class="m-hero">
+      <div>
+        <div class="m-hero-kicker">Calidad · Módulo</div>
+        <h1>Mapa de procesos</h1>
+      </div>
+      <div class="m-hero-side">
+        <p>Mover un subproceso a otro proceso padre, cambiar la imagen del mapa, vincular sus áreas y montar las Salidas No Conformes (SNC) de cada subproceso.</p>
+        <div class="m-hero-actions">
+          <a class="dl-pill skill" href="./AI/almera-mapa-procesos.skill" download title="Descargar habilidad para Claude">
+            <img src="../../assets/claude-ico.webp" alt="Claude icon">
+            Descargar habilidad
+            <span class="mono">Claude</span>
+          </a>
+          <a class="dl-pill md" href="./AI/mapa-procesos-almera.md" download title="Descargar documento de referencia">
+            <img src="../../assets/AI-icon.png" alt="Markdown icon">
+            Descargar GuIA
+            <span class="mono">Cualquier agente de IA</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="faq-section">
+      <div class="faq-kicker">Preguntas frecuentes</div>
+      <div class="faq-grid">
+        <a href="#jerarquia"><span>¿Cómo muevo un subproceso a otro proceso padre?</span><span class="faq-num">01</span></a>
+        <a href="#mapa"><span>¿Cómo actualizo la imagen del mapa de procesos?</span><span class="faq-num">02</span></a>
+        <a href="#mapa"><span>¿Cómo hago que una zona del mapa lleve a su proceso?</span><span class="faq-num">02</span></a>
+        <a href="#obsoleto"><span>¿Qué hago con un proceso que ya no aplica?</span><span class="faq-num">03</span></a>
+        <a href="#snc"><span>¿Cómo monto la tabla de Salidas No Conformes (SNC) de un subproceso?</span><span class="faq-num">04</span></a>
+      </div>
+    </section>
+
+    <!-- ============ BODY ============ -->
+    <div class="m-body">
+
+      <nav class="m-toc">
+        <div class="m-toc-group">
+          <div class="m-toc-label">Mapa de procesos</div>
+          <a href="#jerarquia"><span class="num">01</span>Jerarquía de proceso</a>
+          <a href="#mapa"><span class="num">02</span>Actualizar mapa</a>
+          <a href="#obsoleto"><span class="num">03</span>Procesos obsoletos</a>
+          <a href="#snc"><span class="num">04</span>Salidas No Conformes</a>
+          <a href="#pendiente"><span class="num">05</span>Pendiente de validar</a>
+        </div>
+      </nav>
+
+      <main class="m-main">
+
+        <!-- 01 — JERARQUÍA -->
+        <section id="jerarquia" class="m-section first">
+          <div class="m-section-head"><span class="m-section-num">01</span><h2>Jerarquía de un proceso</h2></div>
+          <p class="m-section-intro">Para trasladar un subproceso a un nuevo proceso padre. Hay dos formas equivalentes.</p>
+
+          <div class="step-group">
+            <div class="group-label"><span class="dash"></span>Opción A · Desde la sección Procesos</div>
+            <div class="ruta"><span class="ruta-label">Ruta</span><span class="ruta-path">Admin → Procesos</span></div>
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Vaya a la sección Procesos en el menú administrativo.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">Busque y seleccione el subproceso que desea mover.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text">En el campo Padre, elimine el proceso actual y busque el nuevo del cual dependerá.</span></div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-text">Haga clic en Grabar.</span></div></li>
+            </ol>
+          </div>
+
+          <div class="step-group" style="margin-bottom:0">
+            <div class="group-label"><span class="dash"></span>Opción B · Desde el mapa de procesos</div>
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Vaya al mapa de procesos y ubique el subproceso.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">Haga clic en Editar sobre el subproceso: eso habilita la pestaña Administración.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text">Desde ahí cambie el campo Padre igual que en la Opción A.</span></div></li>
+            </ol>
+          </div>
+
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">El cambio se refleja automáticamente en el mapa; no requiere actualizar la imagen.</p></div>
+          </div>
+        </section>
+
+        <!-- 02 — MAPA -->
+        <section id="mapa" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">02</span><h2>Actualizar y vincular el mapa de procesos</h2></div>
+          <p class="m-section-intro">Para cambiar la imagen del mapa y hacer que sus áreas funcionen como enlaces.</p>
+
+          <div class="ruta"><span class="ruta-label">Ruta</span><span class="ruta-path">Admin → Calidad → Parametrización de procesos</span></div>
+
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-label">Imagen</span><span class="step-text">En la visual del mapa, seleccione Administrar archivos, elimine la imagen anterior y suba la nueva.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-label">Vinculación</span><span class="step-text">Haga clic en Administrar áreas.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-label">URL de seguimiento</span><span class="step-text">En otra pestaña, abra el proceso específico, vaya a la pestaña Seguimiento y copie la URL.</span></div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-label">Enlace</span><span class="step-text">En Administrar áreas, seleccione el área en el mapa y pegue la URL en el campo Dirección.</span></div></li>
+              <li><span class="n">05</span><div class="step-content"><span class="step-text">Haga clic en Grabar.</span></div></li>
+              <li><span class="n">06</span><div class="step-content"><span class="step-text">Repita los pasos 03 a 05 para cada área del mapa.</span></div></li>
+            </ol>
+          </div>
+
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Cuidado</div><p class="note-text">Cada área debe enlazarse manualmente. Si sube una imagen nueva, las áreas anteriores no se conservan.</p></div>
+            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">Administrar áreas solo carga procesos, no subprocesos. Si un área corresponde a un subproceso, tanto el proceso como el subproceso deben existir como entidades separadas en Procesos.</p></div>
+          </div>
+        </section>
+
+        <!-- 03 — OBSOLETOS -->
+        <section id="obsoleto" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">03</span><h2>Procesos obsoletos o renombrados</h2></div>
+          <p class="m-section-intro">Cuando una reestructuración del mapa deja un proceso que ya no debería aparecer como vigente.</p>
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">Cámbiele el estado a Anulado en vez de eliminarlo, siempre que no tenga documentos ni indicadores asociados; así se conserva la trazabilidad.</p></div>
+            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">Antes de anular o unificar procesos, valide que no tengan documentos o indicadores todavía asociados.</p></div>
+          </div>
+        </section>
+
+        <!-- 04 — SNC -->
+        <section id="snc" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">04</span><h2>Salidas No Conformes (SNC) de un subproceso</h2></div>
+          <p class="m-section-intro">Para montar en Almera la tabla de Salidas No Conformes de un subproceso, sin saber HTML, con ayuda de una IA. Cada subproceso tiene su propia tabla, que se inyecta como HTML en su sección de Salidas No Conformes, con el mismo aviso azul y la misma tabla de siete columnas.</p>
+
+          <div class="step-group">
+            <div class="group-label"><span class="dash"></span>Antes de empezar</div>
+            <ul class="plain-list">
+              <li>Los datos del subproceso en Excel o texto: salida/producto/servicio, situación que puede presentarse y las X del tratamiento inmediato de cada fila.</li>
+              <li>El nombre exacto del subproceso, tal como aparece en el mapa de procesos de Almera.</li>
+              <li>Permiso para editar la sección Salidas No Conformes del subproceso y acceso al campo donde Almera permite inyectar HTML.</li>
+              <li>Acceso a una IA de chat (Claude u otra) para convertir los datos a HTML.</li>
+            </ul>
+          </div>
+
+          <div class="step-group">
+            <div class="group-label"><span class="dash"></span>Estructura estándar de la tabla</div>
+            <p class="m-section-intro" style="margin-bottom:0">Siete columnas, siempre en este orden, aunque la fuente venga con menos.</p>
+            <div class="priv-rows">
+              <div class="priv-row"><span class="priv-name">1. Subproceso</span><span class="priv-desc">Nombre del subproceso, igual en todas las filas y sin punto final</span></div>
+              <div class="priv-row"><span class="priv-name">2. Salida / producto / servicio</span><span class="priv-desc">La salida tal como está definida en la caracterización del subproceso</span></div>
+              <div class="priv-row"><span class="priv-name">3. Situación que puede presentarse</span><span class="priv-desc">Descripción del incumplimiento; termina en punto</span></div>
+              <div class="priv-row"><span class="priv-name">4. Corrección</span><span class="priv-desc">X si aplica este tratamiento inmediato; vacío si no</span></div>
+              <div class="priv-row"><span class="priv-name">5. Devolución</span><span class="priv-desc">X si aplica; vacío si no</span></div>
+              <div class="priv-row"><span class="priv-name">6. Reproceso</span><span class="priv-desc">X si aplica; vacío si no</span></div>
+              <div class="priv-row"><span class="priv-name">7. Informar al usuario (Concesión)</span><span class="priv-desc">X si aplica; vacío si no</span></div>
+            </div>
+            <div class="notes-block">
+            <div class="note-box"><div class="note-label">Regla</div><p class="note-text">Una fila por cada situación distinta. Si una celda mezcla dos situaciones, confirme con el dueño del proceso si van en una fila o en dos.</p></div>
+            <div class="note-box"><div class="note-label">Regla</div><p class="note-text">La X siempre va en mayúscula, una por celda. Una «x» minúscula del Excel se normaliza a «X».</p></div>
+            <div class="note-box"><div class="note-label">Regla</div><p class="note-text">Si la fuente no trae la columna Subproceso o le falta una columna de tratamiento, no la invente: pregunte primero o deje la celda vacía.</p></div>
+            </div>
+          </div>
+
+          <div class="step-group">
+            <div class="group-label"><span class="dash"></span>Paso a paso con IA · una tabla por subproceso</div>
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Abra el Excel del subproceso y copie el bloque completo: encabezados y todas las filas.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">Abra una conversación nueva con la IA y pegue el prompt de más abajo.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text">Debajo del prompt, pegue los datos copiados del Excel.</span></div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-text">Revise la respuesta: debe ser un solo bloque de código HTML y una lista corta de las correcciones de texto hechas.</span></div></li>
+              <li><span class="n">05</span><div class="step-content"><span class="step-text">Recorra la lista de verificación de esta sección.</span></div></li>
+              <li><span class="n">06</span><div class="step-content"><span class="step-text">Copie el bloque de código completo, desde el aviso azul hasta el cierre de la tabla.</span></div></li>
+            </ol>
+          </div>
+
+          <details class="prompt-box">
+            <summary>Ver el prompt para la IA</summary>
+            <p class="prompt-hint">Copie todo el bloque, péguelo en la IA y, al final, añada los datos del subproceso. Ya incluye el HTML de la plantilla.</p>
+            <button type="button" class="copy-btn" data-copy="snc-prompt">Copiar prompt</button>
+            <pre class="code-block" id="snc-prompt"><code>Actúa como asistente de formato HTML para Almera SGI (Capital Salud). Te voy a pasar los datos de una tabla de Salidas No Conformes (SNC) de un subproceso. Devuélveme UN solo bloque de código HTML listo para pegar en Almera.
+
+REGLAS
+1. Usa exactamente la plantilla de abajo: primero el aviso azul y luego la tabla.
+2. La tabla siempre tiene 7 columnas, en este orden: Subproceso, Salida / producto / servicio (Definido en la caracterización), Situación que puede presentarse, Corrección, Devolución, Reproceso, Informar al usuario (Concesión).
+3. Una fila &lt;tr&gt; por cada situación. Copia la fila de ejemplo y cambia solo el contenido.
+4. En las 4 últimas columnas escribe X (mayúscula) donde yo marque el tratamiento. Si no aplica, deja &amp;nbsp;. Normaliza las x minúsculas.
+5. Corrige tildes y errores de digitación evidentes. Quita espacios dobles, comillas sueltas y saltos de línea que vengan del Excel. No cambies el sentido ni agregues información.
+6. El nombre del subproceso va igual en todas las filas, con mayúsculas iniciales y sin punto final. Cada situación termina en punto.
+7. Deja intactos los códigos y siglas (por ejemplo PR-022-ADM, FR-108-ADM, PAMEC, MIPRES).
+8. Si falta la columna Subproceso o alguna columna de tratamiento, pregúntame antes de generar. Si una celda trae dos situaciones, pregúntame si van en una fila o en dos.
+9. Mantén los estilos en línea (style="...") tal como están. No uses clases ni CSS externo.
+10. Después del bloque de código, escribe una lista corta con las correcciones de texto que hiciste.
+
+PLANTILLA
+&lt;div style="border:1px solid #c7d6e8; border-left:4px solid #2e6da4; background-color:#f2f7fc; border-radius:4px; padding:14px 18px; margin-bottom:16px; font-family:Verdana,sans-serif; font-size:12px; color:#000;"&gt;
+  &lt;p style="margin:0 0 8px 0; font-size:13px; color:#1e3a5f;"&gt;&lt;strong&gt;⚠️ Registro de Salidas No Conformes (SNC)&lt;/strong&gt;&lt;/p&gt;
+  &lt;p style="margin:0 0 10px 0;"&gt;En caso de identificar una &lt;strong&gt;Salida No Conforme (SNC)&lt;/strong&gt; asociada a alguno de los subprocesos establecidos (ver subproceso), se deberá realizar el registro correspondiente en el siguiente enlace:&lt;/p&gt;
+  &lt;p style="margin:0 0 10px 0;"&gt;
+    &lt;a href="https://forms.office.com/pages/responsepage.aspx?id=dntcp1fBhkiX-RYm0OkvVV3cdYtfSbBKmMFhE6Y5wOVUN0RVR1dQWDJPSjlMTkNFMkU0OFcyTEhIRi4u&amp;amp;origin=lprLink&amp;amp;route=shorturl" style="display:inline-block; background-color:#2e6da4; color:#ffffff; text-decoration:none; padding:7px 14px; border-radius:3px; font-size:12px;"&gt;📋 Formulario: Reporte de Salidas No Conformes&lt;/a&gt;
+  &lt;/p&gt;
+  &lt;p style="margin:0; font-size:11px; color:#555;"&gt;Ver la consolidación de las Salidas No Conformes de la Entidad - SNC: &lt;a href="https://sgi.almeraim.com/sgi/secciones/?nid=424" style="color:#2e6da4;"&gt;clic aquí&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse; width:100%; font-family:Verdana,sans-serif; font-size:12px; color:#000;"&gt;
+  &lt;thead&gt;
+    &lt;tr style="background-color:#d9d9d9;"&gt;
+      &lt;th style="border:1px solid #999; text-align:center; vertical-align:middle;"&gt;Subproceso&lt;/th&gt;
+      &lt;th style="border:1px solid #999; text-align:center; vertical-align:middle;"&gt;Salida / producto / servicio&lt;br&gt;(Definido en la caracterización)&lt;/th&gt;
+      &lt;th style="border:1px solid #999; text-align:center; vertical-align:middle;"&gt;Situación que puede presentarse&lt;/th&gt;
+      &lt;th style="border:1px solid #999; text-align:center; vertical-align:middle;"&gt;Corrección&lt;/th&gt;
+      &lt;th style="border:1px solid #999; text-align:center; vertical-align:middle;"&gt;Devolución&lt;/th&gt;
+      &lt;th style="border:1px solid #999; text-align:center; vertical-align:middle;"&gt;Reproceso&lt;/th&gt;
+      &lt;th style="border:1px solid #999; text-align:center; vertical-align:middle;"&gt;Informar al usuario&lt;br&gt;(Concesión)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style="border:1px solid #999; vertical-align:middle;"&gt;NOMBRE DEL SUBPROCESO&lt;/td&gt;
+      &lt;td style="border:1px solid #999; vertical-align:middle;"&gt;SALIDA / PRODUCTO / SERVICIO&lt;/td&gt;
+      &lt;td style="border:1px solid #999; vertical-align:middle;"&gt;SITUACIÓN QUE PUEDE PRESENTARSE.&lt;/td&gt;
+      &lt;td style="border:1px solid #999; text-align:center; vertical-align:middle;"&gt;X&lt;/td&gt;
+      &lt;td style="border:1px solid #999; text-align:center; vertical-align:middle;"&gt;&amp;nbsp;&lt;/td&gt;
+      &lt;td style="border:1px solid #999; text-align:center; vertical-align:middle;"&gt;X&lt;/td&gt;
+      &lt;td style="border:1px solid #999; text-align:center; vertical-align:middle;"&gt;&amp;nbsp;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+DATOS DEL SUBPROCESO (pegados desde Excel)
+[pega aquí los datos]</code></pre>
+          </details>
+
+          <div class="step-group">
+            <div class="group-label"><span class="dash"></span>Cargarlo en Almera</div>
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Abra el proceso/subproceso que tendrá la SNC.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">Haga clic en Editar.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text">Desplácese hasta el campo Salidas No Conformes y haga clic en el botón Fuente HTML.</span></div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-text">Dentro del campo de texto pegue el código HTML que le dio el asistente de IA.</span></div></li>
+              <li><span class="n">05</span><div class="step-content"><span class="step-text">Para verificar cómo queda, haga clic de nuevo en el botón Fuente HTML.</span></div></li>
+              <li><span class="n">06</span><div class="step-content"><span class="step-text">Cuando todo esté correcto, haga clic en Grabar.</span></div></li>
+              <li><span class="n">07</span><div class="step-content"><span class="step-text">Recargue la página y confirme que el aviso y la tabla se ven completos.</span></div></li>
+            </ol>
+          </div>
+
+          <div class="step-group">
+            <div class="group-label"><span class="dash"></span>Hacerlo sin IA</div>
+            <p class="m-section-intro" style="margin-bottom:0">La plantilla está dentro del prompt, entre las líneas PLANTILLA y DATOS DEL SUBPROCESO.</p>
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Copie la plantilla, desde la etiqueta <span class="code-inline">&lt;div</span> del aviso hasta el cierre <span class="code-inline">&lt;/table&gt;</span>.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">Duplique el bloque <span class="code-inline">&lt;tr&gt;</span> de ejemplo, completo, una vez por cada situación.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text">En cada fila reemplace el texto en mayúsculas de las tres primeras celdas.</span></div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-text">En las cuatro últimas celdas deje <span class="code-inline">X</span> donde aplique el tratamiento y <span class="code-inline">&amp;nbsp;</span> donde no aplique.</span></div></li>
+              <li><span class="n">05</span><div class="step-content"><span class="step-text">No borre comillas ni signos &lt; o &gt; de las etiquetas: un solo carácter faltante rompe la tabla.</span></div></li>
+            </ol>
+          </div>
+
+          <div class="step-group">
+            <div class="group-label"><span class="dash"></span>Reglas de limpieza de texto</div>
+            <p class="m-section-intro" style="margin-bottom:0">Los datos de Excel suelen traer errores de digitación. Se corrigen al montar la tabla, sin cambiar el sentido.</p>
+            <ul class="plain-list">
+              <li>Tildes: auditorías, pérdida, técnico, científico, habilitación, órdenes.</li>
+              <li>Typos evidentes: «inclumplimiento» pasa a «incumplimiento»; «Bse de datos» pasa a «Base de datos».</li>
+              <li>Conectores: «y o» pasa a «y/o».</li>
+              <li>Espacios dobles y espacios antes de una coma: se eliminan.</li>
+              <li>Comillas sueltas y saltos de línea que Excel agrega al pegar: se eliminan.</li>
+              <li>Punto final: las situaciones lo llevan; el nombre del subproceso y la salida no.</li>
+              <li>Nombre del subproceso: el mismo en todas las filas, con tilde y mayúsculas iniciales.</li>
+              <li>Siglas y códigos de procedimiento o formato (PR-, FR-, PAMEC, MIPRES, RIPS) se dejan intactos.</li>
+              <li>Dato dudoso, como una X que parece faltar: se confirma con el dueño del proceso en vez de asumirlo.</li>
+            </ul>
+          </div>
+
+          <div class="step-group">
+            <div class="group-label"><span class="dash"></span>Lista de verificación · antes y después de guardar</div>
+            <ul class="plain-list check-list">
+              <li>El aviso azul aparece antes de la tabla, con los dos enlaces.</li>
+              <li>La tabla tiene siete columnas, en el orden estándar.</li>
+              <li>Cada fila lleva el nombre del subproceso, igual en todas.</li>
+              <li>Las X coinciden con el Excel, fila por fila.</li>
+              <li>No quedan typos ni tildes faltantes.</li>
+              <li>Los códigos de procedimiento y formato están intactos.</li>
+              <li>El botón del formulario y el enlace de consolidación abren correctamente.</li>
+              <li>Tras guardar, la tabla se ve completa en Almera, sin texto cortado.</li>
+            </ul>
+          </div>
+
+          <div class="step-group" style="margin-bottom:0">
+            <div class="group-label"><span class="dash"></span>Errores comunes</div>
+            <div class="priv-rows">
+              <div class="priv-row"><span class="priv-name">Se ven etiquetas como <code>&lt;td&gt;</code> o <code>&lt;div&gt;</code> escritas en pantalla</span><span class="priv-desc"><strong>Causa:</strong> El bloque se pegó en el editor visual y no en el campo de HTML. <strong>Qué hacer:</strong> Borrar y volver a pegar en el campo de HTML.</span></div>
+              <div class="priv-row"><span class="priv-name">La tabla sale sin bordes o el botón sin color</span><span class="priv-desc"><strong>Causa:</strong> Se perdieron los estilos en línea al copiar. <strong>Qué hacer:</strong> Copiar de nuevo el bloque completo, sin recortar.</span></div>
+              <div class="priv-row"><span class="priv-name">Columnas descuadradas</span><span class="priv-desc"><strong>Causa:</strong> Alguna fila tiene menos o más de siete celdas. <strong>Qué hacer:</strong> Revisar que cada <code>&lt;tr&gt;</code> tenga siete <code>&lt;td&gt;</code>.</span></div>
+              <div class="priv-row"><span class="priv-name">Todo el contenido se ve roto desde cierto punto</span><span class="priv-desc"><strong>Causa:</strong> Falta un cierre de etiqueta (<code>&lt;/tr&gt;</code>, <code>&lt;/td&gt;</code>, <code>&lt;/table&gt;</code>). <strong>Qué hacer:</strong> Pedir a la IA que revise el HTML y señale la etiqueta sin cerrar.</span></div>
+              <div class="priv-row"><span class="priv-name">Letras raras en lugar de tildes</span><span class="priv-desc"><strong>Causa:</strong> Problema de codificación al copiar. <strong>Qué hacer:</strong> Pedir a la IA que escriba las tildes como entidades HTML (por ejemplo <code>&amp;oacute;</code>).</span></div>
+              <div class="priv-row"><span class="priv-name">La IA mezcla dos situaciones en una fila</span><span class="priv-desc"><strong>Causa:</strong> La celda de origen traía dos líneas. <strong>Qué hacer:</strong> Indicarle si van en una fila o en dos, y que no combine por su cuenta.</span></div>
+            </div>
+          </div>
+
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Sin confirmar</div><p class="note-text">El instructivo original dejaba pendiente confirmar la ruta exacta en Almera hasta el campo de HTML; los pasos de «Cargarlo en Almera» son los registrados hasta ahora.</p></div>
+          </div>
+        </section>
+
+        <!-- 05 — PENDIENTE -->
+        <section id="pendiente" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">05</span><h2>Pendiente de validar</h2></div>
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Sin confirmar</div><p class="note-text">Se detectaron mapas que apuntan al ID del proceso padre en vez del subproceso. Soporte indicó validarlo caso por caso; si vuelve a ocurrir, contacte a soporte con el ID del proceso.</p></div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="m-footer">
+      <span>Mapa de procesos · Calidad</span>
+      <span>Almera SGI</span>
+    </footer>
+
+  </div>
+</div>
+
+
+<script>
+document.querySelectorAll('.copy-btn').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var el = document.getElementById(b.dataset.copy);
+    if (!el) return;
+    var done = function () { var t = b.textContent; b.textContent = 'Copiado'; setTimeout(function () { b.textContent = t; }, 1600); };
+    if (navigator.clipboard) { navigator.clipboard.writeText(el.textContent).then(done); }
+    else { var r = document.createRange(); r.selectNode(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); document.execCommand('copy'); done(); }
+  });
+});
+</script>
+
+</body>
+</html>

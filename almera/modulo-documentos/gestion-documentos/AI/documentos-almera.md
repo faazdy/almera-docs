@@ -19,12 +19,12 @@
 3. Crear un emisor (interno/externo)
 4. Crear una clase de documento (tipo documental)
 5. Buscar, filtrar y exportar documentos
-6. Procesos y mapa de procesos
-7. Modelos de gestión
-8. Recursos
-9. Términos y definiciones
-10. Preguntas frecuentes
-11. Temas pendientes de validar con soporte Almera
+6. Recursos
+7. Términos y definiciones
+8. Preguntas frecuentes
+9. Temas pendientes de validar con soporte Almera
+
+> **Guías separadas:** el *Mapa de procesos* (`mapa-procesos-almera.md`) y los *Modelos de gestión* (`modelos-gestion-almera.md`) tienen su propia guía. Si el usuario pregunta por ellos, indícalo.
 
 ---
 
@@ -365,74 +365,6 @@ Se recomienda que en el campo **Tipo** se seleccione el tipo de documentos que s
 
 ---
 
-## Procesos y mapa de procesos
-
-### Modificar la jerarquía de un proceso (mover un subproceso)
-
-**Cuándo se usa:** para trasladar un subproceso a un nuevo "proceso padre" (por ejemplo, si un subproceso pasó de depender de "Planeación estratégica" a depender de "Organización y métodos").
-
-**Ruta:** `Admin → Procesos`
-
-Hay **dos formas equivalentes** de hacerlo:
-
-**Opción A — desde la sección Procesos:**
-1. Ir a **Admin → Procesos**.
-2. Buscar y seleccionar el subproceso que se quiere mover (se puede filtrar por nombre).
-3. En el campo **Padre**, quitar el proceso actual y buscar/seleccionar el nuevo proceso del cual va a depender.
-4. Presionar **Grabar**.
-
-**Opción B — desde el mapa de procesos:**
-1. Ir al mapa de procesos y ubicar el subproceso.
-2. Darle **Editar** al subproceso — esto habilita, en la parte superior, la pestaña de **Administración**.
-3. Desde ahí, cambiar el campo **Padre** de la misma forma.
-
-> El mapa de procesos se actualiza automáticamente al guardar el cambio de jerarquía — no requiere reemplazar la imagen del mapa.
-
-### Actualizar la imagen del mapa y vincular las áreas
-
-**Cuándo se usa:** cuando se sube una imagen nueva del mapa de procesos y hay que hacer que sus zonas/botones lleven al proceso correcto.
-
-**Ruta:** `Admin → Calidad → Parametrización de procesos`
-
-1. **Reemplazar la imagen:** en la vista del mapa, seleccionar **Administrar archivos**, eliminar la imagen anterior y subir la nueva.
-2. **Vincular las áreas:** hacer clic en **Administrar áreas** (esto abre un panel).
-3. En otra pestaña del navegador, abrir el proceso específico (sección **Procesos**) y entrar a su pestaña **Seguimiento**; copiar la URL de esa página.
-4. En el panel de "Administrar áreas", seleccionar la zona del mapa correspondiente a ese proceso y pegar la URL copiada en el campo **Dirección**.
-5. Presionar **Grabar**.
-6. Repetir el paso 3–5 para cada área/proceso del mapa.
-
-### Notas / advertencias
-
-- **El mapa solo carga procesos, no subprocesos** en el listado de "Administrar áreas". Si un área del mapa en realidad corresponde a un subproceso (y no tiene su propio "proceso" creado formalmente), no debe vincularse ese subproceso directamente ahí — lo correcto ("deber ser") es que tanto el proceso como el subproceso existan como entidades separadas en la sección **Procesos**.
-- **Al reemplazar la imagen del mapa, las áreas/vínculos anteriores no se conservan** — hay que volver a vincular cada zona manualmente.
-- Si un proceso quedó obsoleto o cambió de nombre tras una reestructuración del mapa (y ya no debería aparecer como vigente), la forma correcta de "retirarlo" es cambiarle el estado a **Anulado** — no eliminarlo — siempre que no tenga documentos ni indicadores asociados, para no perder trazabilidad.
-- Antes de anular o unificar procesos, conviene validar que no tengan documentos o indicadores todavía asociados.
-
-**Fuente:** `docs-gestor-documento.md` + transcripción cruda (min ~22–48).
-
----
-
-## Modelos de gestión (normas ISO y similares)
-
-**Cuándo se usa:** para cargar un estándar o norma de gestión (ISO 9001, ISO 45001, etc.) y poder, luego, seleccionar desde la caracterización de cada proceso qué ítems de esa norma le aplican.
-
-**Ruta:** `Admin → Calidad → Modelos de gestión`
-
-### Pasos
-
-1. Ir a **Admin → Calidad → Modelos de gestión**.
-2. Adjuntar el archivo del modelo/norma que se quiere cargar.
-3. Presionar **Guardar**.
-4. Una vez cargado, desde la **caracterización de un proceso** se puede seleccionar cuáles ítems de ese modelo le aplican a ese proceso específico.
-
-### Notas / advertencias
-
-- **Antes de subir un modelo de gestión nuevo, se recomienda primero preguntarle a soporte de Almera si ya lo tienen disponible como plantilla.** Cargar un modelo desde cero (ítem por ítem) es bastante operativo si Almera ya tiene ese estándar pre-armado, es mucho más rápido cargarlo directamente.
-
-**Fuente:** transcripción cruda de la capacitación (min ~20–23).
-
----
-
 ## Recursos (para caracterización de procesos)
 
 **Cuándo se usa:** cuando al caracterizar un proceso no aparece habilitado el campo para indicar qué tipo de recursos necesita — normalmente es porque el recurso todavía no ha sido creado en el catálogo.
@@ -711,10 +643,4 @@ Estas son dudas que quedaron **abiertas** en la capacitación del 25 de junio de
 
 **Fuente:** transcripción cruda, min ~1:03–1:07.
 
-### Migración de procesos con ID mal vinculado en el mapa
-
-**Contexto:** se detectaron procesos donde el mapa apunta al ID de un proceso "padre" en vez del subproceso correspondiente (por un ajuste antiguo al mapa), generando enlaces que llevan al lugar equivocado.
-
-**Estado:** Carlos dijo que había que "validarlo" caso por caso — es un tema de datos específico de esta organización, no un procedimiento general reutilizable. Si vuelve a surgir, contactar a soporte con el ID del proceso en cuestión.
-
-**Fuente:** transcripción cruda, min ~38–44.
+> El pendiente "Mapa con ID mal vinculado" ahora vive en la guía `mapa-procesos-almera.md`.

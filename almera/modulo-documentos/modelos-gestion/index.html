@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modelos de gestión — Almera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/styles.css">
+<link rel="stylesheet" href="./styles/style.css">
+</head>
+<body>
+
+<div class="page">
+  <div class="wrap">
+
+    <!-- ============ HEADER ============ -->
+    <header class="m-header">
+      <div class="eyebrow"><span class="dot"></span>Almera · Guía de operación</div>
+      <a class="back" href="../../index.html#modulos">Todos los módulos</a>
+    </header>
+
+    <!-- ============ HERO ============ -->
+    <section class="m-hero">
+      <div>
+        <div class="m-hero-kicker">Calidad · Módulo</div>
+        <h1>Modelos de gestión</h1>
+      </div>
+      <div class="m-hero-side">
+        <p>Cargar una norma o estándar (ISO 9001, ISO 45001) para seleccionar, desde la caracterización de cada proceso, qué ítems le aplican, o subir de forma masiva el árbol de su estructura con ayuda de una IA.</p>
+        <div class="m-hero-actions">
+          <a class="dl-pill skill" href="./AI/almera-modelos-gestion.skill" download title="Descargar habilidad para Claude">
+            <img src="../../assets/claude-ico.webp" alt="Claude icon">
+            Descargar habilidad
+            <span class="mono">Claude</span>
+          </a>
+          <a class="dl-pill md" href="./AI/modelos-gestion-almera.md" download title="Descargar documento de referencia">
+            <img src="../../assets/AI-icon.png" alt="Markdown icon">
+            Descargar GuIA
+            <span class="mono">Cualquier agente de IA</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="faq-section">
+      <div class="faq-kicker">Preguntas frecuentes</div>
+      <div class="faq-grid">
+        <a href="#cargar"><span>¿Cómo cargo una norma ISO o agrego nodos a un modelo?</span><span class="faq-num">01</span></a>
+        <a href="#cargar"><span>¿Conviene cargar la norma ítem por ítem?</span><span class="faq-num">01</span></a>
+        <a href="#uso"><span>¿Cómo indico qué ítems de la norma aplican a un proceso?</span><span class="faq-num">02</span></a>
+        <a href="#carga-masiva"><span>¿Cómo subo de forma masiva el árbol de estructura de un modelo?</span><span class="faq-num">03</span></a>
+      </div>
+    </section>
+
+    <!-- ============ BODY ============ -->
+    <div class="m-body">
+
+      <nav class="m-toc">
+        <div class="m-toc-group">
+          <div class="m-toc-label">Modelos de gestión</div>
+          <a href="#cargar"><span class="num">01</span>Cargar un modelo</a>
+          <a href="#uso"><span class="num">02</span>Usarlo en un proceso</a>
+          <a href="#carga-masiva"><span class="num">03</span>Carga masiva de estructura</a>
+        </div>
+      </nav>
+
+      <main class="m-main">
+
+        <!-- 01 — CARGAR -->
+        <section id="cargar" class="m-section first">
+          <div class="m-section-head"><span class="m-section-num">01</span><h2>Cargar un modelo de gestión</h2></div>
+          <p class="m-section-intro">Para cargar un estándar o norma (ISO 9001, ISO 45001) y luego seleccionar sus ítems desde la caracterización de cada proceso.</p>
+
+          <div class="ruta"><span class="ruta-label">Ruta</span><span class="ruta-path">Admin → Calidad → Modelos de gestión</span></div>
+
+          <div class="step-group">
+            <div class="group-label"><span class="dash"></span>Opción 1 · Cargar por nodo</div>
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Vaya a Admin → Calidad → Modelos de gestión.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">Haga clic en <strong>Nuevo Modelo</strong> para crear uno nuevo; si necesita modificar uno existente, seleccione el de interés.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text">Si crea uno nuevo, llene los campos requeridos y haga clic en <strong>Grabar</strong>.</span></div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-text">En la pestaña <strong>Estructura</strong>, haga clic en el botón <strong>Nuevo</strong> para añadir un nuevo ítem. En los campos del nodo puede asignar el Grupo, la Posición, etc. El grupo determina cuál es el padre del nodo que se creará, es decir, dentro de qué ítem quedará.</span></div></li>
+              <li><span class="n">05</span><div class="step-content"><span class="step-text">Haga clic en <strong>Grabar</strong>.</span></div></li>
+            </ol>
+          </div>
+
+          <div class="step-group">
+            <div class="group-label">
+              <span class="dash"></span>
+              Opción 2 · Cargar masivamente con plantilla Excel (con ayuda de IA)
+            </div>
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Vaya a Admin → Calidad → Modelos de gestión.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">Haga clic en <strong>Nuevo Modelo</strong> para crear el nuevo repositorio. Si quiere cargar la estructura en un modelo que ya existe, entre a ese modelo.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text">Llene los campos solicitados en la creación (código, nombre, descripción) y haga clic en <strong>Grabar</strong>.</span></div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-text">Dentro de la pestaña <strong>Estructura</strong>, haga clic en el ícono de Excel para <strong>Cargar nodos desde la plantilla xlsx</strong>.</span></div></li>
+              <li><span class="n">05</span><div class="step-content"><span class="step-text">En la sección de cargar, haga clic en <strong>Seleccionar archivo</strong> y elija la plantilla (generada por el asistente de IA o armada manualmente por el usuario).</span></div></li>
+              <li><span class="n">06</span><div class="step-content"><span class="step-text">Haga clic en <strong>Cargar</strong> cuando se muestre la estructura Excel.</span></div></li>
+              <li><span class="n">07</span><div class="step-content"><span class="step-text">Si todo salió bien, el sistema mostrará la estructura con el mensaje <strong>Aprobado</strong> en color verde por cada ítem.</span></div></li>
+              <li><span class="n">08</span><div class="step-content"><span class="step-text">Haga clic en <strong>Grabar</strong>.</span></div></li>
+            </ol>
+          </div>
+
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">Para comprobar la estructura, use la pestaña Sistemas del menú lateral o la misma ruta de Modelos de gestión.</p></div>
+            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">Cómo armar la plantilla Excel con la IA (árbol, prompt y reglas) está en la <a href="#carga-masiva" style="color:var(--accent)">sección 03</a>.</p></div>
+            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">Antes de subir un modelo nuevo, pregunte a soporte si ya lo tienen disponible como plantilla: cargarlo ítem por ítem es mucho más operativo.</p></div>
+          </div>
+        </section>
+
+        <!-- 02 — USO -->
+        <section id="uso" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">02</span><h2>Usar el modelo en la caracterización de un proceso</h2></div>
+          <p class="m-section-intro">Una vez cargado, el modelo queda disponible para todos los procesos.</p>
+
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Abra la caracterización del proceso que desea relacionar.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">Seleccione los ítems del modelo que le aplican a ese proceso específico.</span></div></li>
+            </ol>
+          </div>
+
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Sin confirmar</div><p class="note-text">El detalle de pantalla de este segundo paso (nombres exactos de pestañas y botones) no quedó registrado en la capacitación; verifíquelo en el sistema.</p></div>
+          </div>
+        </section>
+
+        <!-- 03 — CARGA MASIVA -->
+        <section id="carga-masiva" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">03</span><h2>Carga masiva de la estructura de un modelo</h2></div>
+          <p class="m-section-intro">Para subir de una sola vez toda la estructura de nodos (carpetas y documentos) a un modelo de gestión: <strong>le pasa el árbol a una IA y ella le devuelve la tabla lista para el Excel</strong>. No necesita programar ni ejecutar nada. Caso probado: modelo «Medida de recuperación» (<span class="code-inline">MDR-1</span>), 227 nodos (5 carpetas + 222 documentos).</p>
+
+          <div class="dl-row">
+            <a class="dl-file" href="./template/Estructura Medida de recuperacion - carga.xlsx" download>Plantilla Excel <span class="mono">.xlsx</span></a>
+            <a class="dl-file" href="./template/instructivo-simple.md" download>Instructivo completo <span class="mono">.md</span></a>
+          </div>
+
+          <div class="step-group">
+            <div class="group-label"><span class="dash"></span>Flujo en 4 pasos</div>
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text"><strong>Arme el árbol</strong> de carpetas y documentos en texto.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text"><strong>Pásele el árbol a la IA</strong> con el prompt de esta sección. Le devuelve la tabla con la estructura armada.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text"><strong>Pegue la tabla en la plantilla Excel.</strong></span></div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-text"><strong>Cargue el Excel en la plataforma.</strong></span></div></li>
+            </ol>
+          </div>
+
+          <div class="step-group">
+            <div class="group-label"><span class="dash"></span>1 · El árbol</div>
+            <p class="m-section-intro" style="margin-bottom:0">Es la lista de carpetas y, debajo de cada una, sus documentos. Formato:</p>
+            <pre class="code-block"><code>Nombre de la carpeta (N)
+├── Nombre del documento 1 (V 1.0)
+├── Nombre del documento 2 (V 1.0)
+└── Último documento (V 1.0)
+
+Otra carpeta (N)
+├── Documento A (V 1.0)
+└── Documento B (V 1.0)</code></pre>
+            <ul class="plain-list">
+              <li>Cada carpeta va en una línea y termina con el número de documentos entre paréntesis: <span class="code-inline">(9)</span>.</li>
+              <li>Cada documento empieza con <span class="code-inline">├── </span> (o <span class="code-inline">└── </span> el último) y puede terminar con su versión <span class="code-inline">(V 1.0)</span>.</li>
+              <li>Una línea en blanco separa una carpeta de la siguiente.</li>
+              <li>El número (N) debe coincidir con los documentos que hay debajo. La IA lo revisa y le avisa si no.</li>
+            </ul>
+          </div>
+
+          <div class="step-group">
+            <div class="group-label"><span class="dash"></span>2 · La plantilla Excel</div>
+            <p class="m-section-intro" style="margin-bottom:0">Hoja <span class="code-inline">Nodos_Modelo</span>, con una fila por nodo, en orden de árbol (una carpeta y justo debajo sus documentos).</p>
+            <div class="priv-rows">
+              <div class="priv-row"><span class="priv-name">A · Código (obligatoria)</span><span class="priv-desc">Identificador jerárquico del nodo.</span></div>
+              <div class="priv-row"><span class="priv-name">B · Nombre (obligatoria)</span><span class="priv-desc">Nombre de la carpeta o del documento.</span></div>
+              <div class="priv-row"><span class="priv-name">C · Clasificación (obligatoria)</span><span class="priv-desc">Valor permitido (hoja Clasificaciones).</span></div>
+              <div class="priv-row"><span class="priv-name">D · Clasificación Hijos (obligatoria)</span><span class="priv-desc">Valor permitido (hoja Clasificaciones).</span></div>
+              <div class="priv-row"><span class="priv-name">E · Descripción</span><span class="priv-desc">En documentos: <span class="code-inline">Versión X.Y</span>. Opcional.</span></div>
+              <div class="priv-row"><span class="priv-name">F · Padre</span><span class="priv-desc">Código de la carpeta a la que pertenece el documento. Obligatoria en documentos.</span></div>
+            </div>            <div class="group-label"><span class="dash"></span>Cómo se arman los códigos</div>
+            <div class="priv-rows">
+              <div class="priv-row"><span class="priv-name">Carpeta</span><span class="priv-desc">Número consecutivo: <span class="code-inline">1</span>, <span class="code-inline">2</span>, <span class="code-inline">3</span></span></div>
+              <div class="priv-row"><span class="priv-name">Documento</span><span class="priv-desc">Código de su carpeta + punto + consecutivo de <strong>dos dígitos</strong>: <span class="code-inline">2.01</span>, <span class="code-inline">2.02</span> … <span class="code-inline">2.84</span></span></div>
+            </div>            <p class="m-section-intro" style="margin-bottom:22px">Los dos dígitos evitan confundir 2.1 con 2.10 y mantienen el orden.</p>
+            <div class="group-label"><span class="dash"></span>Clasificaciones</div>
+            <div class="priv-rows">
+              <div class="priv-row"><span class="priv-name">Carpeta</span><span class="priv-desc">Clasificación <span class="code-inline">Módulo</span> · Clasificación Hijos <span class="code-inline">Items</span></span></div>
+              <div class="priv-row"><span class="priv-name">Documento</span><span class="priv-desc">Clasificación <span class="code-inline">Item</span> · Clasificación Hijos <span class="code-inline">Items</span></span></div>
+            </div>            <div class="group-label"><span class="dash"></span>Ejemplo</div>
+            <div class="priv-rows">
+              <div class="priv-row"><span class="priv-name"><span class="code-inline">1</span> · Informacion medida de recuperacion</span><span class="priv-desc">Módulo · Items · sin descripción · sin padre</span></div>
+              <div class="priv-row"><span class="priv-name"><span class="code-inline">1.01</span> · Matriz Financiera Capital Salud</span><span class="priv-desc">Item · Items · Versión 1.0 · padre 1</span></div>
+              <div class="priv-row"><span class="priv-name"><span class="code-inline">1.02</span> · Matriz Técnico Científico 2022</span><span class="priv-desc">Item · Items · Versión 1.0 · padre 1</span></div>
+              <div class="priv-row"><span class="priv-name"><span class="code-inline">2</span> · Fichas de indicadores técnico científicos FENIX</span><span class="priv-desc">Módulo · Items · sin descripción · sin padre</span></div>
+              <div class="priv-row"><span class="priv-name"><span class="code-inline">2.01</span> · BAJO PESO AL NACER CORTE MAYO 2023</span><span class="priv-desc">Item · Items · Versión 1.0 · padre 2</span></div>
+            </div>            <p class="m-section-intro" style="margin-bottom:12px">Así queda en la plataforma:</p>
+            <pre class="code-block"><code>Medida de recuperación
+├─ Informacion medida de recuperacion                 (1)
+│  ├─ Matriz Financiera Capital Salud                 (1.01)
+│  └─ Matriz Técnico Científico 2022                  (1.02)
+└─ Fichas de indicadores técnico científicos FENIX    (2)
+   └─ BAJO PESO AL NACER CORTE MAYO 2023              (2.01)</code></pre>
+          </div>
+
+          <div class="step-group">
+            <div class="group-label"><span class="dash"></span>Reglas que no se pueden romper</div>
+            <ol class="plain-list">
+              <li><strong>La columna A (Código) debe estar llena en todas las filas.</strong> Si falta, la plataforma responde «No se registró codigo».</li>
+              <li><strong>La plataforma lee las columnas por posición, no por el título.</strong> El orden debe ser siempre: A Código, B Nombre, C Clasificación, D Clasificación Hijos, E Descripción, F Padre.</li>
+              <li>Las columnas C y D solo aceptan valores de la hoja Clasificaciones.</li>
+              <li>No incluya el nodo raíz del modelo (ya existe).</li>
+              <li>Cada carpeta va antes que sus documentos.</li>
+              <li>No recargue una exportación de la plataforma tal cual: sale con la columna Código vacía y los títulos corridos.</li>
+              <li>No agregue columnas, filas de totales ni celdas combinadas.</li>
+            </ol>
+          </div>
+
+          <details class="prompt-box">
+            <summary>3 · Ver el prompt para el asistente de IA</summary>
+            <p class="prompt-hint">Abra un chat con su asistente de IA, copie el prompt completo y <strong>pegue su árbol al final</strong>, donde dice [PEGA AQUÍ EL ÁRBOL]. No hace falta adjuntar ningún archivo.</p>
+            <button type="button" class="copy-btn" data-copy="carga-prompt">Copiar prompt</button>
+            <pre class="code-block" id="carga-prompt"><code>Actúa como asistente de datos. Voy a darte un árbol de carpetas y documentos y necesito que me entregues la tabla lista para pegar en una plantilla Excel de carga masiva de nodos de la plataforma "Modelos de Gestión".
+
+FORMATO DEL ÁRBOL QUE TE ENTREGO
+- Una carpeta por línea, terminada con el número de documentos entre paréntesis, p. ej. "Nombre de la carpeta (9)".
+- Debajo, sus documentos, cada uno con "├── " o "└── " al inicio y, opcionalmente, la versión al final, p. ej. "├── Nombre del documento (V 1.0)".
+- Las carpetas se separan por una línea en blanco.
+
+TABLA QUE DEBES GENERAR
+Una fila de títulos y una fila por cada nodo, en orden de árbol (cada carpeta seguida de sus documentos). Columnas, exactamente en este orden y con estos títulos:
+
+Código | Nombre | Clasificación | Clasificación Hijos | Descripción | Padre
+
+REGLAS DE LLENADO
+- Carpeta número k (k = 1, 2, 3…):
+    Código = k
+    Nombre = nombre de la carpeta, sin el "(N)"
+    Clasificación = Módulo
+    Clasificación Hijos = Items
+    Descripción = vacío
+    Padre = vacío
+- Documento número j de la carpeta k:
+    Código = k.jj, con j SIEMPRE de dos dígitos (1.01, 1.02, … 2.84)
+    Nombre = nombre del documento, sin la versión
+    Clasificación = Item
+    Clasificación Hijos = Items
+    Descripción = "Versión X.Y" si el árbol trae "(V X.Y)"; si no trae versión, vacío
+    Padre = código de su carpeta (k)
+- Copia los nombres tal cual: no los corrijas, no los resumas ni cambies mayúsculas, tildes o la ñ.
+- La columna Código nunca puede quedar vacía.
+- No incluyas fila para el modelo raíz, ni filas de totales, ni columnas adicionales.
+
+VALIDACIONES (hazlas antes de responder; si algo falla, dímelo y no inventes datos)
+1. El número de documentos de cada carpeta coincide con su "(N)".
+2. No hay códigos repetidos.
+3. Total de filas de datos = carpetas + documentos.
+4. Avísame de documentos repetidos dentro de la misma carpeta y de documentos sin versión.
+
+FORMATO DE ENTREGA
+1. Primero un resumen corto: cuántas carpetas, cuántos documentos por carpeta, total de filas y los avisos encontrados.
+2. Luego la tabla completa en UN solo bloque de código, con las columnas separadas por TABULADOR (no por comas ni por barras), para que al pegarla en Excel cada valor caiga en su celda. Primera línea = los títulos.
+3. Si puedes generar archivos, entrégame además el mismo contenido como un archivo .xlsx llamado "Estructura carga.xlsx", con la hoja "Nodos_Modelo" y las columnas Código y Padre en formato TEXTO.
+4. No omitas filas ni abrevies con "..." aunque la tabla sea larga. Si no cabe en una respuesta, divídela en partes numeradas, sin repetir ni saltarte filas, y dime cuándo termina.
+
+ÁRBOL:
+
+[PEGA AQUÍ EL ÁRBOL]</code></pre>
+          </details>
+
+          <div class="step-group">
+            <div class="group-label"><span class="dash"></span>4 · Pasar la tabla a la plantilla Excel</div>
+            <p class="m-section-intro" style="margin-bottom:14px"><strong>Si la IA le entregó un .xlsx:</strong> revíselo con la lista de revisión de abajo y pase a «Cargar en Almera». Si el archivo no tiene el mismo formato que la plantilla, use el procedimiento siguiente.</p>
+            <p class="m-section-intro" style="margin-bottom:14px"><strong>Si la IA le entregó la tabla en texto:</strong></p>
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Abra <span class="code-inline">Estructura Medida de recuperacion - carga.xlsx</span> (o la exportación de la plataforma, para conservar la hoja Clasificaciones).</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">En la hoja <span class="code-inline">Nodos_Modelo</span>, borre las filas de datos anteriores (deje la fila 1 de títulos).</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text"><strong>Antes de pegar</strong>, seleccione las columnas <strong>A</strong> y <strong>F</strong> y póngales formato <strong>Texto</strong> (Inicio → desplegable de formato de número → Texto). Si no lo hace, Excel convierte 2.10 en 2,1 y se pierden los códigos.</span></div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-text">Copie el bloque de código de la IA, haga clic en la celda <strong>A1</strong> y pegue. Cada valor debe caer en su columna.</span></div></li>
+              <li><span class="n">05</span><div class="step-content"><span class="step-text">Verifique que los títulos queden como <span class="code-inline">Código | Nombre | Clasificación | Clasificación Hijos | Descripción | Padre</span>.</span></div></li>
+              <li><span class="n">06</span><div class="step-content"><span class="step-text">Guarde como .xlsx.</span></div></li>
+            </ol>
+          </div>
+
+          <div class="step-group">
+            <div class="group-label"><span class="dash"></span>5 · Cargar en Almera</div>
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Ir a <strong>Admin → Calidad → Modelos de gestión</strong>.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">Hacer clic en el botón <strong>Nuevo Modelo</strong> para crear el nuevo repositorio. Si quiere cargar la estructura en un modelo que ya existe, entre a ese modelo.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text">Llenar los campos solicitados en la creación (código, nombre, descripción) y hacer clic en <strong>Grabar</strong>.</span></div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-text">Dentro de la pestaña <strong>Estructura</strong>, hacer clic en el ícono de Excel para <strong>Cargar nodos desde la plantilla xlsx</strong>.</span></div></li>
+              <li><span class="n">05</span><div class="step-content"><span class="step-text">En la sección de cargar, hacer clic en el botón <strong>Seleccionar archivo</strong> y elegir la plantilla (generada por el asistente de IA o armada manualmente por el usuario).</span></div></li>
+              <li><span class="n">06</span><div class="step-content"><span class="step-text">Hacer clic en <strong>Cargar</strong> cuando se muestre la estructura Excel.</span></div></li>
+              <li><span class="n">07</span><div class="step-content"><span class="step-text">Si todo salió bien, el sistema mostrará la estructura con el mensaje <strong>Aprobado</strong> en color verde por cada ítem.</span></div></li>
+              <li><span class="n">08</span><div class="step-content"><span class="step-text">Hacer clic en <strong>Grabar</strong>.</span></div></li>
+              <li><span class="n">09</span><div class="step-content"><span class="step-text">Comprobar la estructura desde la pestaña <strong>Sistemas</strong> en el menú lateral, o desde la misma ruta de Modelos de gestión.</span></div></li>
+            </ol>
+          </div>
+
+          <div class="step-group">
+            <div class="group-label"><span class="dash"></span>Revisión rápida antes de cargar</div>
+            <p class="m-section-intro" style="margin-bottom:0">Revise siempre lo que entrega la IA; puede equivocarse en árboles largos.</p>
+            <ul class="plain-list check-list">
+              <li>La columna A no tiene celdas vacías.</li>
+              <li>El total de filas coincide con carpetas + documentos.</li>
+              <li>Los códigos de documentos tienen dos dígitos (2.01, no 2.1) y 2.10 no aparece como 2,1.</li>
+              <li>Las columnas C y D solo tienen Módulo/Item e Items.</li>
+              <li>En documentos, F trae el código de su carpeta; en carpetas, F está vacía.</li>
+              <li>El último documento de cada carpeta sí está (en listas largas la IA puede cortar filas).</li>
+              <li>Los nombres, tildes y ñ coinciden con el árbol original.</li>
+              <li>No hay filas extra (totales, notas) ni columnas adicionales.</li>
+            </ul>
+          </div>
+
+          <div class="step-group">
+            <div class="group-label"><span class="dash"></span>Problemas frecuentes</div>
+            <div class="priv-rows">
+              <div class="priv-row"><span class="priv-name">«No se registró codigo»</span><span class="priv-desc"><strong>Causa:</strong> fila con la columna A vacía o desplazada. <strong>Solución:</strong> revisar que la tabla se pegó desde A1 y que no hay filas en blanco.</span></div>
+              <div class="priv-row"><span class="priv-name">Códigos como 2,1 o 1.1</span><span class="priv-desc"><strong>Causa:</strong> Excel los volvió número. <strong>Solución:</strong> poner A y F en formato Texto <strong>antes</strong> de pegar.</span></div>
+              <div class="priv-row"><span class="priv-name">Todo quedó en una sola columna</span><span class="priv-desc"><strong>Causa:</strong> la IA separó con comas o barras. <strong>Solución:</strong> pedirle «separa por TABULADOR» o usar Datos → Texto en columnas.</span></div>
+              <div class="priv-row"><span class="priv-name">Faltan filas</span><span class="priv-desc"><strong>Causa:</strong> la IA cortó la respuesta. <strong>Solución:</strong> pedirle continuar desde el último código entregado, o dividir el árbol por carpetas.</span></div>
+              <div class="priv-row"><span class="priv-name">Clasificación rechazada</span><span class="priv-desc"><strong>Causa:</strong> valor que no está en Clasificaciones. <strong>Solución:</strong> usar exactamente Módulo, Item, Items.</span></div>
+              <div class="priv-row"><span class="priv-name">Nombres modificados</span><span class="priv-desc"><strong>Causa:</strong> la IA «corrigió» el texto. <strong>Solución:</strong> reforzar «copia los nombres tal cual» y comparar contra el árbol.</span></div>
+            </div>
+          </div>
+
+          <div class="step-group">
+            <div class="group-label"><span class="dash"></span>Árboles muy grandes</div>
+            <p class="m-section-intro" style="margin-bottom:0">Con cientos de nodos (como los 227 de este caso) la IA puede cortar o alterar la salida. Si pasa:</p>
+            <ul class="plain-list">
+              <li>Envíe el árbol <strong>carpeta por carpeta</strong> y pida en cada mensaje: «esta es la carpeta número K; empieza los códigos en K».</li>
+              <li>Junte las tablas en el Excel en el orden de las carpetas.</li>
+              <li>Si ya sabe cuántas filas debe tener cada carpeta (documentos + 1), verifique el conteo antes de unirlas.</li>
+            </ul>
+          </div>
+
+          <div class="step-group" style="margin-bottom:0">
+            <div class="group-label"><span class="dash"></span>Usar otra estructura distinta</div>
+            <p class="m-section-intro" style="margin-bottom:0">Para otro modelo con otras clasificaciones, cambie en el prompt los valores <span class="code-inline">Módulo / Items</span> (carpetas) e <span class="code-inline">Item / Items</span> (documentos) por los de la hoja Clasificaciones de la plataforma. El resto del procedimiento es igual.</p>
+
+          </div>
+
+        </section>
+
+      </main>
+    </div>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="m-footer">
+      <span>Modelos de gestión · Calidad</span>
+      <span>Almera SGI</span>
+    </footer>
+
+  </div>
+</div>
+
+
+<script>
+document.querySelectorAll('.copy-btn').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var el = document.getElementById(b.dataset.copy);
+    if (!el) return;
+    var done = function () { var t = b.textContent; b.textContent = 'Copiado'; setTimeout(function () { b.textContent = t; }, 1600); };
+    if (navigator.clipboard) { navigator.clipboard.writeText(el.textContent).then(done); }
+    else { var r = document.createRange(); r.selectNode(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); document.execCommand('copy'); done(); }
+  });
+});
+</script>
+
+</body>
+</html>

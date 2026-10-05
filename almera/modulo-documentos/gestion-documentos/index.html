@@ -28,7 +28,7 @@
         <h1>Gestión documental</h1>
       </div>
       <div class="m-hero-side">
-        <p>Elaborar documentos dentro del flujo de aprobación, aprobar o anular solicitudes, configurar emisores y clases documentales, y mantener el mapa de procesos al día.</p>
+        <p>Elaborar documentos dentro del flujo de aprobación, aprobar o anular solicitudes y configurar emisores y clases documentales.</p>
         <div class="m-hero-actions">
           <a class="dl-pill skill" href="./AI/almera-documentos.skill" download title="Descargar habilidad para Claude">
             <img src="../../assets/claude-ico.webp" alt="Claude icon">
@@ -41,6 +41,7 @@
             <span class="mono">Cualquier agente de IA</span>
           </a>
         </div>
+        <p class="m-hero-more">También por separado: <a href="../mapa-procesos/index.html">Mapa de procesos</a> · <a href="../modelos-gestion/index.html">Modelos de gestión</a></p>
       </div>
     </section>
 
@@ -54,7 +55,7 @@
         <a href="#buscar"><span>¿Cómo exporto el listado de documentos a Excel?</span><span class="faq-num">06</span></a>
         <a href="#aprobacion"><span>¿Qué pasa si apruebo, rechazo o retorno una solicitud?</span><span class="faq-num">07</span></a>
         <a href="#anular"><span>¿Cómo anulo un documento para que deje de ser vigente?</span><span class="faq-num">09</span></a>
-        <a href="#mapa"><span>¿Cómo actualizo el mapa de procesos?</span><span class="faq-num">12</span></a>
+        <a href="../mapa-procesos/index.html"><span>¿Cómo actualizo el mapa de procesos?</span><span class="faq-num">↗</span></a>
       </div>
     </section>
 
@@ -82,20 +83,14 @@
           <a href="#actualizar-version"><span class="num">10</span>Actualizar versión</a>
         </div>
         <div class="m-toc-group">
-          <div class="m-toc-label">Mapa de procesos</div>
-          <a href="#jerarquia"><span class="num">11</span>Jerarquía de proceso</a>
-          <a href="#mapa"><span class="num">12</span>Actualizar mapa</a>
-        </div>
-        <div class="m-toc-group">
           <div class="m-toc-label">Configuración</div>
-          <a href="#modelos"><span class="num">13</span>Modelos de gestión</a>
-          <a href="#recursos"><span class="num">14</span>Recursos</a>
-          <a href="#terminos"><span class="num">15</span>Términos</a>
+          <a href="#recursos"><span class="num">11</span>Recursos</a>
+          <a href="#terminos"><span class="num">12</span>Términos</a>
         </div>
         <div class="m-toc-group">
           <div class="m-toc-label">Flujo integrado · pendiente de validar</div>
-          <a href="#flujo-integrado"><span class="num">16</span>Nuevo flujo de documentos</a>
-          <a href="#derogacion"><span class="num">17</span>Nuevo flujo de derogación</a>
+          <a href="#flujo-integrado"><span class="num">13</span>Nuevo flujo de documentos</a>
+          <a href="#derogacion"><span class="num">14</span>Nuevo flujo de derogación</a>
         </div>
       </nav>
 
@@ -365,81 +360,9 @@
           </div>
         </section>
 
-        <!-- 11 — JERARQUÍA -->
-        <section id="jerarquia" class="m-section">
-          <div class="m-section-head"><span class="m-section-num">11</span><h2>Jerarquía de un proceso</h2></div>
-          <p class="m-section-intro">Para trasladar un subproceso a un nuevo proceso padre. Hay dos formas equivalentes.</p>
-
-          <div class="step-group">
-            <div class="group-label"><span class="dash"></span>Opción A · Desde la sección Procesos</div>
-            <div class="ruta"><span class="ruta-label">Ruta</span><span class="ruta-path">Admin → Procesos</span></div>
-            <ol class="steps-list">
-              <li><span class="n">01</span><div class="step-content"><span class="step-text">Vaya a la sección Procesos en el menú administrativo.</span></div></li>
-              <li><span class="n">02</span><div class="step-content"><span class="step-text">Busque y seleccione el subproceso que desea mover.</span></div></li>
-              <li><span class="n">03</span><div class="step-content"><span class="step-text">En el campo Padre, elimine el proceso actual y busque el nuevo del cual dependerá.</span></div></li>
-              <li><span class="n">04</span><div class="step-content"><span class="step-text">Haga clic en Grabar.</span></div></li>
-            </ol>
-          </div>
-
-          <div class="step-group" style="margin-bottom:0">
-            <div class="group-label"><span class="dash"></span>Opción B · Desde el mapa de procesos</div>
-            <ol class="steps-list">
-              <li><span class="n">01</span><div class="step-content"><span class="step-text">Vaya al mapa de procesos y ubique el subproceso.</span></div></li>
-              <li><span class="n">02</span><div class="step-content"><span class="step-text">Haga clic en Editar sobre el subproceso: eso habilita la pestaña Administración.</span></div></li>
-              <li><span class="n">03</span><div class="step-content"><span class="step-text">Desde ahí cambie el campo Padre igual que en la Opción A.</span></div></li>
-            </ol>
-          </div>
-
-          <div class="notes-block">
-            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">El cambio se refleja automáticamente en el mapa; no requiere actualizar la imagen. Si un proceso quedó obsoleto, cámbiele el estado a Anulado en vez de eliminarlo, siempre que no tenga documentos ni indicadores asociados.</p></div>
-            <div class="note-box"><div class="note-label">Sin confirmar</div><p class="note-text">Se detectaron mapas que apuntan al ID del proceso padre en vez del subproceso. Soporte indicó validarlo caso por caso; si vuelve a ocurrir, contacte a soporte con el ID del proceso.</p></div>
-          </div>
-        </section>
-
-        <!-- 12 — MAPA -->
-        <section id="mapa" class="m-section">
-          <div class="m-section-head"><span class="m-section-num">12</span><h2>Actualizar y vincular el mapa de procesos</h2></div>
-          <p class="m-section-intro">Para cambiar la imagen del mapa y hacer que sus áreas funcionen como enlaces.</p>
-
-          <div class="step-group">
-            <ol class="steps-list">
-              <li><span class="n">01</span><div class="step-content"><span class="step-label">Imagen</span><span class="step-text">En la visual del mapa, seleccione Administrar archivos, elimine la imagen anterior y suba la nueva.</span></div></li>
-              <li><span class="n">02</span><div class="step-content"><span class="step-label">Vinculación</span><span class="step-text">Haga clic en Administrar áreas.</span></div></li>
-              <li><span class="n">03</span><div class="step-content"><span class="step-label">URL de seguimiento</span><span class="step-text">En otra pestaña, abra el proceso específico, vaya a la pestaña Seguimiento y copie la URL.</span></div></li>
-              <li><span class="n">04</span><div class="step-content"><span class="step-label">Enlace</span><span class="step-text">En Administrar áreas, seleccione el área en el mapa y pegue la URL en el campo Dirección.</span></div></li>
-              <li><span class="n">05</span><div class="step-content"><span class="step-text">Haga clic en Grabar.</span></div></li>
-            </ol>
-          </div>
-
-          <div class="notes-block">
-            <div class="note-box"><div class="note-label">Cuidado</div><p class="note-text">Cada área debe enlazarse manualmente. Si sube una imagen nueva, las áreas anteriores no se conservan.</p></div>
-            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">Administrar áreas solo carga procesos, no subprocesos. Si un área corresponde a un subproceso, tanto el proceso como el subproceso deben existir como entidades separadas en Procesos.</p></div>
-          </div>
-        </section>
-
-        <!-- 13 — MODELOS DE GESTIÓN -->
-        <section id="modelos" class="m-section">
-          <div class="m-section-head"><span class="m-section-num">13</span><h2>Modelos de gestión</h2></div>
-          <p class="m-section-intro">Para cargar un estándar o norma (ISO 9001, ISO 45001) y luego seleccionar, desde la caracterización de cada proceso, qué ítems le aplican.</p>
-
-          <div class="ruta"><span class="ruta-label">Ruta</span><span class="ruta-path">Admin → Calidad → Modelos de gestión</span></div>
-
-          <div class="step-group">
-            <ol class="steps-list">
-              <li><span class="n">01</span><div class="step-content"><span class="step-text">Vaya a Admin → Calidad → Modelos de gestión.</span></div></li>
-              <li><span class="n">02</span><div class="step-content"><span class="step-text">Adjunte el archivo del modelo o norma que desea cargar.</span></div></li>
-              <li><span class="n">03</span><div class="step-content"><span class="step-text">Haga clic en Guardar. Ya podrá seleccionar sus ítems desde la caracterización de cualquier proceso.</span></div></li>
-            </ol>
-          </div>
-
-          <div class="notes-block">
-            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">Antes de subir un modelo nuevo, pregunte a soporte si ya lo tienen disponible como plantilla: cargarlo ítem por ítem es mucho más operativo.</p></div>
-          </div>
-        </section>
-
-        <!-- 14 — RECURSOS -->
+        <!-- 11 — RECURSOS -->
         <section id="recursos" class="m-section">
-          <div class="m-section-head"><span class="m-section-num">14</span><h2>Recursos</h2></div>
+          <div class="m-section-head"><span class="m-section-num">11</span><h2>Recursos</h2></div>
           <p class="m-section-intro">Cuando al caracterizar un proceso no aparece habilitado el campo de recursos.</p>
 
           <div class="ruta"><span class="ruta-label">Ruta</span><span class="ruta-path">Admin → Calidad → Recursos</span></div>
@@ -457,9 +380,9 @@
           </div>
         </section>
 
-        <!-- 15 — TÉRMINOS -->
+        <!-- 12 — TÉRMINOS -->
         <section id="terminos" class="m-section">
-          <div class="m-section-head"><span class="m-section-num">15</span><h2>Términos y definiciones</h2></div>
+          <div class="m-section-head"><span class="m-section-num">12</span><h2>Términos y definiciones</h2></div>
           <p class="m-section-intro">Para alimentar el listado maestro de términos del sistema.</p>
 
           <div class="ruta"><span class="ruta-label">Ruta</span><span class="ruta-path">Admin → Calidad → Términos y definiciones</span></div>
@@ -478,9 +401,9 @@
           </div>
         </section>
 
-        <!-- 16 — NUEVO FLUJO INTEGRADO (pendiente de validar) -->
+        <!-- 13 — NUEVO FLUJO INTEGRADO (pendiente de validar) -->
         <section id="flujo-integrado" class="m-section">
-          <div class="m-section-head"><span class="m-section-num">16</span><h2>Nuevo flujo de documentos integrado - Creación y aprobación</h2></div>
+          <div class="m-section-head"><span class="m-section-num">13</span><h2>Nuevo flujo de documentos integrado - Creación y aprobación</h2></div>
           <p class="m-section-intro">Flujo observado en el entorno de pruebas, todavía sin implementar del todo en producción. Se agrega aquí como referencia adicional — no reemplaza el flujo ya documentado en las secciones 03 y 07 hasta que se valide y se decida oficializarlo.</p>
 
           <div class="step-group">
@@ -542,7 +465,7 @@
           </div>
 
           <div class="step-group" id="derogacion">
-            <div class="m-section-head"><span class="m-section-num">17</span><h2>Nuevo flujo de documentos integrado - Derogación</h2></div>
+            <div class="m-section-head"><span class="m-section-num">14</span><h2>Nuevo flujo de documentos integrado - Derogación</h2></div>
             <div class="group-label"><span class="dash"></span>Solicitud de derogación</div>
             <ol class="steps-list">
               <li><span class="n">01</span><div class="step-content"><span class="step-text">Entre al documento que se va a derogar.</span></div></li>
