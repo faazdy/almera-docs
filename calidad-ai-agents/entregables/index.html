@@ -184,8 +184,10 @@
                 <span class="field-chip">PDF</span>
                 <span class="field-chip">PNG</span>
                 <span class="field-chip">JPG</span>
+                <span class="field-chip">SVG</span>
+                <span class="field-chip">BPMN</span>
               </div>
-              <p class="mini-desc" style="margin:10px 0 0">Entrega además la tabla de validación y los pasos en texto.</p>
+              <p class="mini-desc" style="margin:10px 0 0">Siempre entrega todos los formatos, incluido el BPMN, que abre en Bizagi Modeler. Además, la tabla de validación y los pasos en texto.</p>
             </div>
           </div>
 
@@ -193,21 +195,22 @@
           <div class="step-group">
             <ol class="steps-list">
               <li><span class="n">01</span><div class="step-content"><span class="step-label">Entregar el procedimiento</span><span class="step-text">Pegue la descripción de los pasos o adjunte el archivo, por ejemplo una hoja de Excel con las actividades.</span></div></li>
-              <li><span class="n">02</span><div class="step-content"><span class="step-label">Responder la estructura</span><span class="step-text">Antes de dibujar, Claude pregunta si hay <strong>fases</strong>, <strong>responsables</strong> que separen el flujo en carriles y <strong>variaciones</strong> del procedimiento.</span></div></li>
-              <li><span class="n">03</span><div class="step-content"><span class="step-label">Revisar el diagrama y la validación</span><span class="step-text">Recibe el diagrama con la leyenda de colores y una tabla que indica qué paso está correcto y cuál hay que revisar.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-label">Responder las preguntas</span><span class="step-text">Claude toma de la fuente los <strong>responsables</strong> (carriles) y las <strong>fases</strong>, y solo pregunta lo ambiguo. Siempre pregunta dónde quiere los <strong>comentarios de revisión</strong>: 1) solo en el PDF (por defecto), 2) solo en el BPMN, 3) en ambos. Si no elige, quedan en el PDF.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-label">Revisar el diagrama y la validación</span><span class="step-text">Recibe el PDF, las imágenes y el BPMN, con la leyenda de colores y una tabla que indica qué paso está correcto y cuál hay que revisar. Los comentarios aparecen donde los pidió.</span></div></li>
               <li><span class="n">04</span><div class="step-content"><span class="step-label">Corregir y regenerar</span><span class="step-text">Con las correcciones, Claude actualiza el diagrama y los colores, idealmente todo en verde.</span></div></li>
             </ol>
           </div>
 
           <div class="example-card"><div class="example-label">Ejemplo</div><div class="example-kv">
-            <div class="example-kv-item"><span class="k">Petición</span><span class="v">«Diagrama este procedimiento de inducción de funcionarios y expórtalo en PDF.»</span></div>
-            <div class="example-kv-item"><span class="k">Claude pregunta</span><span class="v">¿Tiene fases, roles por carril o variaciones?</span></div>
+            <div class="example-kv-item"><span class="k">Petición</span><span class="v">«Diagrama este procedimiento de inducción de funcionarios.»</span></div>
+            <div class="example-kv-item"><span class="k">Claude pregunta</span><span class="v">¿Los comentarios de revisión van 1) solo en el PDF, 2) solo en el BPMN o 3) en ambos?</span></div>
           </div></div>
 
           <div class="m-sub">Reglas que aplica siempre</div>
           <div class="mini-rows">
             <div class="mini-row"><span class="mini-name">100 caracteres</span><span class="mini-desc">Cada actividad tiene como máximo 100 caracteres. Si no cabe, se parte en dos pasos o se reescribe; no se abrevia con jerga.</span></div>
             <div class="mini-row"><span class="mini-name">Paleta Bizagi</span><span class="mini-desc">Colores y estilo por tipo de elemento (evento, actividad, decisión, carril), sin los colores por defecto del renderizador.</span></div>
+            <div class="mini-row"><span class="mini-name">Carriles y fases</span><span class="mini-desc">Un carril horizontal por responsable y, solo si la fuente las define, fases como bandas verticales. Se conserva la numeración de la fuente.</span></div>
             <div class="mini-row"><span class="mini-name">Variaciones</span><span class="mini-desc">Si los pasos cambian según el caso: un diagrama general con el tronco común y un diagrama por cada variación.</span></div>
           </div>
 
@@ -222,19 +225,20 @@
           <div class="scope-grid">
             <div class="scope-col">
               <div class="scope-label">Incluye</div>
-              <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Diagrama en imagen o PDF con título, leyenda de colores y versión.</span></div>
-              <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Tabla de validación por paso, con comentarios.</span></div>
+              <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Diagrama en PDF, PNG, JPG y SVG con título, leyenda de colores y versión.</span></div>
+              <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Archivo BPMN 2.0 que se abre en Bizagi Modeler.</span></div>
+              <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Tabla de validación por paso y comentarios de revisión en el PDF, el BPMN o ambos.</span></div>
               <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Diagrama general y uno por variación.</span></div>
             </div>
             <div class="scope-col">
               <div class="scope-label no">No incluye</div>
-              <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Archivos editables de Bizagi (.bpm): Bizagi no importa BPMN estándar y su formato es propietario.</span></div>
+              <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Archivos nativos de Bizagi (.bpm): su formato es propietario; se entrega BPMN estándar, que Bizagi importa.</span></div>
               <div class="substep"><span class="substep-bullet"></span><span class="substep-text">Inventar pasos: si falta un dato, lo marca en amarillo o rojo.</span></div>
             </div>
           </div>
 
           <div class="notes-block">
-            <div class="note-box"><div class="note-label">Cuidado</div><p class="note-text">Para exportar a PDF, PNG o JPG, Claude usa un renderizador de diagramas que depende del entorno de ejecución. Si no está disponible, entrega el diagrama en un Artifact para verlo en pantalla, y la exportación se hace desde ahí.</p></div>
+            <div class="note-box"><div class="note-label">Cuidado</div><p class="note-text">Para generar los archivos, Claude ejecuta código en su entorno de ejecución. Si no está disponible, lo avisa y no entrega archivos sin haber visto el diagrama. Tras importar el BPMN en Bizagi, conviene revisar las etiquetas de los rombos, las fases y las notas.</p></div>
           </div>
         </section>
 
@@ -274,7 +278,7 @@
               </div>
             </div>
             <div class="mod-row">
-              <span class="mod-name">Diagramas de flujo<small>PDF · PNG · JPG</small></span>
+              <span class="mod-name">Diagramas de flujo<small>PDF · PNG · JPG · SVG · BPMN</small></span>
               <div class="mod-actions">
                 <a class="pill pill-skill" href="../diagramas-flujo/diagramas-flujo.skill" download title="Descargar habilidad para Claude (.skill)">
                   <img src="../../almera/assets/claude-ico.webp" alt="Claude icon">
