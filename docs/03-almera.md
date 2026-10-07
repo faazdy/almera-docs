@@ -79,14 +79,6 @@ En `modulo-documentos/modelos-gestion/template/` hay un caso trabajado completo:
 
 ⚠️ El script tiene **rutas absolutas fijas** a la máquina original (`BASE = C:\Users\…\modelos-de-gestion`, y lee un `task.txt` que no está en el repo). Para reutilizarlo hay que cambiar `BASE`, `SRC` y `TASK`. Para casos nuevos, el flujo recomendado es el del instructivo (con IA, sin script).
 
-## 6. Pendientes
-
-**Tareas del equipo (`to-do`):**
-- [ ] Meter el árbol de opciones de Admin en la skill general, de modo que todas las skills individuales conozcan la estructura completa de módulos de Almera.
-- [ ] Verificar el módulo **Proyectos**.
-- [ ] Con ayuda de correos y pruebas, verificar el correcto funcionamiento de **Mecanismos de integración**.
-- [ ] Documentar las categorías **General** y **Riesgos** del árbol de Admin (hoy no tienen guía).
-
 **Dudas abiertas con soporte de Almera** (sección "Temas pendientes de validar" de cada GuIA; ahí hay contexto, estado y minuto de la transcripción). Ejemplos:
 - Gestión documental: marca de agua en documentos obsoletos/anulados; generación automática de código con estructura personalizada.
 - Mecanismos de integración: el cuarto tipo de privilegio por comité no se identificó; error al editar una plantilla existente a nivel de tipo de comité.
@@ -94,7 +86,7 @@ En `modulo-documentos/modelos-gestion/template/` hay un caso trabajado completo:
 - Indicadores: resultados que superan el 100 % de cumplimiento (parámetro por ubicar); notificaciones semanales de atraso que no llegaban.
 - Proyectos: notificación automática al cerrar un proyecto (posible, falta validar cómo se configura).
 
-Cuando soporte confirme alguna, pásala del apartado de pendientes al procedimiento correspondiente **en las tres copias** (GuIA, `.skill`, guía web).
+> Todas las dudas y temas pendientes por validar se envían a Soporte Almera. Cuando soporte confirme alguna, pásala del apartado de pendientes al procedimiento correspondiente **en las tres copias** (GuIA, `.skill`, guía web).
 
 **Apuntes sin integrar** (revisar y pasar a la GuIA o descartar): `gestion-documentos/new.txt` (pasos del flujo de documentos en pruebas, incluida una sugerencia de saltar el paso de enviar a revisión para ir directo al coordinador), `gestion-documentos/AI/pulir.txt` (FAQ en borrador: qué pasa al rechazar/aprobar/devolver), `indicadores/add.txt` y `modulo-proyectos/AI/steps.txt` (pasos de creación de tipo de proyecto).
 
