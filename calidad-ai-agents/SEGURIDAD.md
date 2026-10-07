@@ -46,16 +46,15 @@ corriendo la skill en el momento**, porque de eso depende qué pasa con lo que s
   desarrolladores individuales — no la misma que un acuerdo empresarial con control de retención.
 - Antes de pegar información real y delicada (no un ejemplo anonimizado) en cualquiera de las dos
   skills, confirma con quien gestione la cuenta de Claude en la organización si hay un plan
-  empresarial con acuerdo de no retención/no entrenamiento. Si no lo sabes, trátalo como si no lo
-  hubiera y no pegues el dato real — usa el equivalente anonimizado.
+  empresarial con acuerdo de no retención/no entrenamiento.
 - Esto aplica igual a `presentaciones-institucionales`, que además ejecuta scripts propios
-  (`pptx_kit.py`) que leen/escriben archivos localmente — confirma que esos archivos temporales no
+  (`pptx_kit.py`) que leen/escriben archivos localmente. Confirmar que esos archivos temporales no
   queden en una carpeta compartida sin control de acceso.
 
 ## El entregable hereda la sensibilidad del input
 
 Un PPTX o un diagrama generado a partir de un procedimiento con datos reales sigue siendo un
-documento sensible — no se vuelve "solo una imagen" o "solo unas slides" por haber pasado por la
+documento sensible — no se vuelve "solo una imagen" o "solo unas diapositivas" por haber pasado por la
 skill. Antes de subirlo a Teams/SharePoint/correo o de compartirlo fuera del área, se aplica el
 mismo control de acceso que al documento fuente, y se revisa que no haya quedado ningún dato real
 que debía anonimizarse en el insumo.

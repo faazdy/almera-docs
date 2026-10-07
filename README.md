@@ -2,7 +2,7 @@
 
 **S**istema de **A**utomatización, **B**ase de información e **I**nteligencia **A**rtificial — el proyecto de conocimiento y automatización del área de Calidad, construido inicialmente sobre Almera (SGI).
 
-> Nombre de trabajo del proyecto. Hoy vive en este repositorio como documentación de Almera + skills de IA; la reorganización a monorepo (`almera-docs/` + `calidad-ia-agents/` + landing raíz) está en el roadmap (ver más abajo).
+> **¿Retomas el proyecto?** Empieza por [`docs/`](docs/README.md): skills, informes y módulos de Almera, con pendientes y riesgos del traspaso.
 
 ---
 
@@ -74,6 +74,8 @@ Ninguna que requiera instalación: dos librerías JS vendored (`chart.umd.min.js
 | Módulo | Guía web | GuIA `.md` | Habilidad `.skill` |
 |---|---|---|---|
 | Gestión documental | Completa | Completo | Disponible |
+| Mapa de procesos | Completa | Completo | Disponible |
+| Modelos de gestión | Completa | Completo | Disponible |
 | Evaluaciones | Completa | Completo | Disponible |
 | Indicadores | Completa | Completo | Disponible |
 | Mecanismos de integración | Completa | Completo | Disponible |
@@ -81,9 +83,11 @@ Ninguna que requiera instalación: dos librerías JS vendored (`chart.umd.min.js
 | Proyectos | Completa | Completo | Disponible |
 | Códigos de estructura organizacional | Completa | — | Fuera del sistema de IA (página de referencia) |
 
-**6 módulos documentados · 33 secciones cubiertas.**
+**8 módulos documentados** (cada uno con guía web, GuIA y skill).
 
-Skills de producción (`skills/`): `presentaciones-institucionales` y `diagramas-flujo` — en construcción, falta insumo de referencia (plantilla institucional y paleta/diagramas de Bizagi respectivamente).
+Skills de producción (`calidad-ai-agents/`): `presentaciones-institucionales` (PPTX / HTML / PDF, con modo consolidar) y `diagramas-flujo` (PDF / PNG / JPG / SVG / BPMN) — funcionales; ver pendientes en [`docs/01-skills.md`](docs/01-skills.md).
+
+Informes: `almera/informe-documentos/` e `almera/control-documentos-sgc/` — ver [`docs/02-informes.md`](docs/02-informes.md).
 
 ---
 
