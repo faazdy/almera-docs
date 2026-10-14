@@ -58,7 +58,7 @@ La parte 7 es la que evita que la IA invente: lo que soporte de Almera no confir
 ## 4. Cómo agregar un módulo nuevo
 
 1. **Insumos:** transcripción de la capacitación con soporte de Almera + cualquier guía interna. Prueba los flujos en el entorno de **pruebas**.
-2. **Redactar la GuIA `.md`** con la plantilla de §3 en `almera/<modulo>/AI/<modulo>-almera.md`.
+2. **Redactar la GuIA `.md`** en `almera/<modulo>/AI/<modulo>-almera.md`. La estructura es la misma para los archivos GuIA.md.
 3. **Crear la skill:** carpeta `almera-<modulo>/` con `SKILL.md` (frontmatter `name` + `description` que liste los temas y disparadores) y `references/` partido por tema (empieza por `00-mapa-navegacion-admin.md`). Empaqueta con [01-skills.md §0](01-skills.md). Nombre del archivo: `almera-<modulo>.skill`.
 4. **Crear la guía web:** copia el `index.html` y `styles/style.css` de un módulo existente (los de Indicadores o Planes de mejora son buenos modelos) y adapta contenido; incluye los botones de descarga de GuIA y Skill.
 5. **Enlazar** el módulo en `almera/index.html` (lista de módulos con sus descargas).
@@ -77,7 +77,7 @@ En `modulo-documentos/modelos-gestion/template/` hay un caso trabajado completo:
 | `Medida de recuperacion-ejemplo-REAL.xlsx` | Ejemplo real cargado. |
 | `generar_estructura_medida_recuperacion.py` | Genera el XLSX desde un árbol en texto, reescribiendo `sheet1.xml` y `sharedStrings.xml` de un export de la plataforma. |
 
-⚠️ El script tiene **rutas absolutas fijas** a la máquina original (`BASE = C:\Users\…\modelos-de-gestion`, y lee un `task.txt` que no está en el repo). Para reutilizarlo hay que cambiar `BASE`, `SRC` y `TASK`. Para casos nuevos, el flujo recomendado es el del instructivo (con IA, sin script).
+El script tiene **rutas absolutas fijas** a la máquina original (`BASE = C:\Users\…\modelos-de-gestion`, y lee un `task.txt` que no está en el repo). Para reutilizarlo hay que cambiar `BASE`, `SRC` y `TASK`. Para casos nuevos, el flujo recomendado es el del instructivo (con IA, sin script).
 
 **Dudas abiertas con soporte de Almera** (sección "Temas pendientes de validar" de cada GuIA; ahí hay contexto, estado y minuto de la transcripción). Ejemplos:
 - Gestión documental: marca de agua en documentos obsoletos/anulados; generación automática de código con estructura personalizada.

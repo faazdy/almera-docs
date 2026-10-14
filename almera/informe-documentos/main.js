@@ -423,6 +423,7 @@
   }
 
   function renderCharts(){
+    renderPeriodChart();
     const clasifCard = document.getElementById('cardClasificacion');
     if(hasClasificacion){
       if(clasifCard) clasifCard.style.display = '';
@@ -560,6 +561,126 @@
     renderPagination(totalPages);
   }
 
+  // ---------- filtros por periodo / año ----------
+  const MONTHS = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  const PERIOD_TYPES = {
+    mensual:    { size: 1, name: 'Mes' },
+    bimestral:  { size: 2, name: 'Bimestre' },
+    trimestral: { size: 3, name: 'Trimestre' },
+    semestral:  { size: 6, name: 'Semestre' }
+  };
+  const DATE_PROPS = ["_fechaModificacion", "_fechaDocumento", "_fechaCreacion"];
+
+  function periodLabel(type, i){
+    const t = PERIOD_TYPES[type];
+    const a = i * t.size, b = a + t.size - 1;
+    if(t.size === 1) return MONTHS[a];
+    return t.name + ' ' + (i + 1) + ' (' + MONTHS[a].slice(0,3) + '–' + MONTHS[b].slice(0,3) + ')';
+  }
+
+  function refreshPeriodOptions(){
+    const type = document.getElementById('fPeriodType').value;
+    const sel = document.getElementById('fPeriod');
+    if(!type){
+      sel.innerHTML = '<option value="">—</option>';
+      sel.value = '';
+      sel.disabled = true;
+      return;
+    }
+    const n = 12 / PERIOD_TYPES[type].size;
+    let html = '<option value="">Todos</option>';
+    for(let i = 0; i < n; i++) html += '<option value="' + i + '">' + periodLabel(type, i) + '</option>';
+    sel.innerHTML = html;
+    sel.disabled = false;
+  }
+
+  function populateYearOptions(){
+    const years = new Set();
+    rawData.forEach(function(r){
+      DATE_PROPS.forEach(function(p){ if(r[p]) years.add(r[p].getFullYear()); });
+    });
+    const list = Array.from(years).sort(function(a,b){ return b - a; });
+    const sel = document.getElementById('fYear');
+    sel.innerHTML = '<option value="">Todos</option>' + list.map(function(y){ return '<option value="' + y + '">' + y + '</option>'; }).join('');
+  }
+
+  function matchesPeriod(r, f){
+    if(!f.year && f.period === '' && !f.from && !f.to) return true;
+    const d = r[f.dateProp];
+    if(!d) return false;
+    if(f.year && d.getFullYear() !== Number(f.year)) return false;
+    if(f.periodType && f.period !== ''){
+      if(Math.floor(d.getMonth() / PERIOD_TYPES[f.periodType].size) !== Number(f.period)) return false;
+    }
+    if(f.from && d < new Date(f.from + 'T00:00:00')) return false;
+    if(f.to && d > new Date(f.to + 'T23:59:59')) return false;
+    return true;
+  }
+
+  // ---------- gráfico de barras por periodo ----------
+  function renderPeriodChart(){
+    const f = getFilterValues();
+    const type = f.periodType || (f.year ? 'mensual' : 'anual');
+    const size = type === 'anual' ? 12 : PERIOD_TYPES[type].size;
+    const perYear = 12 / size;
+    const short = function(i){
+      if(type === 'mensual') return MONTHS[i].slice(0,3);
+      return { bimestral:'Bim ', trimestral:'Trim ', semestral:'Sem ' }[type] + (i + 1);
+    };
+
+    const buckets = {};
+    let sinFecha = 0, minY = Infinity, maxY = -Infinity;
+    filtered.forEach(function(r){
+      const d = r[f.dateProp];
+      if(!d){ sinFecha++; return; }
+      const y = d.getFullYear();
+      const i = type === 'anual' ? 0 : Math.floor(d.getMonth() / size);
+      const k = y * 100 + i;
+      (buckets[k] = buckets[k] || []).push(r);
+      if(y < minY) minY = y;
+      if(y > maxY) maxY = y;
+    });
+
+    const labels = [], rowsByBar = [];
+    if(minY !== Infinity){
+      if(f.year){ minY = maxY = Number(f.year); }
+      for(let y = minY; y <= maxY; y++){
+        const n = type === 'anual' ? 1 : perYear;
+        for(let i = 0; i < n; i++){
+          labels.push(type === 'anual' ? String(y) : (f.year ? short(i) : y + ' · ' + short(i)));
+          rowsByBar.push(buckets[y * 100 + i] || []);
+        }
+      }
+    }
+
+    const typeName = { anual:'año', mensual:'mes', bimestral:'bimestre', trimestral:'trimestre', semestral:'semestre' }[type];
+    const dateLabel = document.getElementById('fDateField').selectedOptions[0].textContent;
+    document.getElementById('periodChartSub').textContent =
+      'Por ' + typeName + ', según «' + dateLabel + '» y los filtros activos.' +
+      (sinFecha ? ' ' + sinFecha.toLocaleString('es-CO') + ' registro(s) sin esa fecha no se grafican.' : '') +
+      ' Haz clic en una barra para ver sus documentos.';
+
+    destroyChart('chartPeriodo');
+    const ctx = document.getElementById('chartPeriodo').getContext('2d');
+    charts.chartPeriodo = new Chart(ctx, {
+      type: 'bar',
+      data: { labels: labels, datasets: [{ data: rowsByBar.map(function(r){ return r.length; }), backgroundColor: '#eb5a25', borderRadius: 4 }] },
+      options: {
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { beginAtZero: true, grid: { color: '#ececec' }, ticks: { precision: 0 } },
+          x: { grid: { display: false }, ticks: { font: { size: 11 }, maxRotation: 60 } }
+        },
+        onClick: function(evt, elements){
+          if(!elements.length) return;
+          const i = elements[0].index;
+          openDetailModal('Periodo: ' + labels[i], rowsByBar[i]);
+        }
+      }
+    });
+  }
+
   // ---------- filtros ----------
   function getFilterValues(){
     return {
@@ -569,6 +690,12 @@
       clase: document.getElementById('fClase').value,
       bucket: document.getElementById('fAntiguedad').value,
       search: document.getElementById('fSearch').value.trim().toLowerCase(),
+      dateProp: document.getElementById('fDateField').value,
+      year: document.getElementById('fYear').value,
+      periodType: document.getElementById('fPeriodType').value,
+      period: document.getElementById('fPeriod').value,
+      from: document.getElementById('fFrom').value,
+      to: document.getElementById('fTo').value,
     };
   }
 
@@ -585,6 +712,7 @@
                     String(r['Código'] || '').toLowerCase().indexOf(f.search) !== -1;
         if(!hay) return false;
       }
+      if(!matchesPeriod(r, f)) return false;
       return true;
     });
     currentPage = 1;
@@ -598,9 +726,13 @@
       document.getElementById(id).value = '';
     });
     document.getElementById('fSearch').value = '';
+    ['fYear','fPeriodType','fFrom','fTo'].forEach(function(id){ document.getElementById(id).value = ''; });
+    document.getElementById('fDateField').selectedIndex = 0;
+    refreshPeriodOptions();
   }
 
   function populateFilterOptions(){
+    populateYearOptions();
     const clasifGroup = document.getElementById('groupClasificacion');
     if(hasClasificacion){
       if(clasifGroup) clasifGroup.style.display = '';
@@ -727,6 +859,13 @@
     document.getElementById(id).addEventListener('change', applyFilters);
   });
   document.getElementById('fSearch').addEventListener('input', debounce(applyFilters, 250));
+  ['fDateField','fYear','fPeriod','fFrom','fTo'].forEach(function(id){
+    document.getElementById(id).addEventListener('change', applyFilters);
+  });
+  document.getElementById('fPeriodType').addEventListener('change', function(){
+    refreshPeriodOptions();
+    applyFilters();
+  });
 
   document.getElementById('btnClearFilters').addEventListener('click', function(){
     resetFilterControls();

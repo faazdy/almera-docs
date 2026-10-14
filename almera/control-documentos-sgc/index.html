@@ -58,83 +58,10 @@
     <!-- ============ CONTENIDO (oculto hasta cargar datos) ============ -->
     <div id="dashboardContent" class="dash-hidden">
 
-      <!-- 02 — KPIs -->
-      <section class="m-section" id="kpis">
-        <div class="m-section-head"><span class="m-section-num">02</span><h2>Indicadores generales</h2></div>
-        <p class="m-section-intro" id="kpiScope">Mostrando todos los documentos. Haz clic en cualquier indicador para ver el detalle.</p>
-        <div class="kpi-panel" id="kpiGrid"></div>
-      </section>
-
-      <!-- 03 — ANTIGÜEDAD -->
-      <section class="m-section" id="antiguedad">
-        <div class="m-section-head"><span class="m-section-num">03</span><h2>Antigüedad de los documentos</h2></div>
-        <p class="m-section-intro">Calculada sobre el campo de fecha que elijas. Por defecto usa Fecha de última actualización.</p>
-
-        <div class="filter-group" style="margin-bottom:30px">
-          <label>Calcular antigüedad usando</label>
-          <div class="filter-pills" id="ageFieldPills">
-            <button class="filter-pill active" data-field="ultimaActualizacion" type="button">Fecha última actualización</button>
-            <button class="filter-pill" data-field="elaboracion" type="button">Fecha de elaboración</button>
-          </div>
-        </div>
-
-        <div class="chart-card wide">
-          <div class="chart-card-title">Documentos por rango de antigüedad</div>
-          <div class="chart-card-sub">Haz clic en una barra para ver la lista de esos documentos.</div>
-          <div class="chart-canvas-wrap hero"><canvas id="chartAntiguedad"></canvas></div>
-        </div>
-      </section>
-
-      <!-- 04 — GRÁFICOS -->
-      <section class="m-section" id="graficos">
-        <div class="m-section-head"><span class="m-section-num">04</span><h2>Distribución por categoría</h2></div>
-        <p class="m-section-intro">Haz clic en cualquier sector o barra para ver los documentos de esa categoría.</p>
-        <div class="charts-grid">
-          <div class="chart-card">
-            <div class="chart-card-title">Por estado</div>
-            <div class="chart-card-sub">Vigente / Derogado</div>
-            <div class="chart-canvas-wrap"><canvas id="chartEstado"></canvas></div>
-          </div>
-          <div class="chart-card">
-            <div class="chart-card-title">Por tipo de documento</div>
-            <div class="chart-card-sub">Formato, Procedimiento, Guía, Manual, etc.</div>
-            <div class="chart-canvas-wrap"><canvas id="chartTipo"></canvas></div>
-          </div>
-          <div class="chart-card">
-            <div class="chart-card-title">Top 10 procesos con más documentos</div>
-            <div class="chart-card-sub">Campo «Proceso»</div>
-            <div class="chart-canvas-wrap tall"><canvas id="chartProceso"></canvas></div>
-          </div>
-          <div class="chart-card">
-            <div class="chart-card-title">Top 10 subprocesos con más documentos</div>
-            <div class="chart-card-sub">Campo «SubProceso»</div>
-            <div class="chart-canvas-wrap tall"><canvas id="chartSubproceso"></canvas></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 05 — CALIDAD DE DATOS -->
-      <section class="m-section" id="calidad">
-        <div class="m-section-head"><span class="m-section-num">05</span><h2>Calidad de datos</h2></div>
-        <p class="m-section-intro">Hallazgos detectados automáticamente sobre el archivo completo, sin filtros.</p>
-        <div class="dq-grid" id="dqGrid"></div>
-
-        <section class="cta-section">
-          <div class="cta-card">
-            <div class="cta-kicker">Exportar</div>
-            <h2>Llevar el informe a la revisión</h2>
-            <p>Descargue el informe completo en PDF para el comité de calidad. Para exportar solo el detalle filtrado, use el botón «Exportar vista» en la tabla de documentos.</p>
-            <div class="cta-actions">
-              <button class="cta-btn" id="btnPrintPdf" type="button">Descargar informe (PDF) <span class="mono">↓</span></button>
-              <a class="cta-btn-outline" href="#tabla">Ver tabla completa</a>
-            </div>
-          </div>
-        </section>
-      </section>
-
-      <!-- 06 — TABLA -->
-      <section class="m-section" id="tabla">
-        <div class="m-section-head"><span class="m-section-num">06</span><h2>Detalle de documentos</h2></div>
+      <!-- 02 — FILTROS -->
+      <section class="m-section" id="filtros">
+        <div class="m-section-head"><span class="m-section-num">02</span><h2>Filtros</h2></div>
+        <p class="m-section-intro">Filtra por año, periodo o rango de fechas. Los indicadores, gráficos y la tabla se actualizan en conjunto.</p>
 
         <div class="filter-bar">
           <div class="filter-group">
@@ -177,6 +104,40 @@
             </select>
           </div>
           <div class="filter-group">
+            <label>Campo de fecha</label>
+            <select id="fDateField">
+              <option value="_fechaUltimaActualizacion">Fecha última actualización</option>
+              <option value="_fechaElaboracion">Fecha de elaboración</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Año</label>
+            <select id="fYear"><option value="">Todos</option></select>
+          </div>
+          <div class="filter-group">
+            <label>Periodicidad</label>
+            <select id="fPeriodType">
+              <option value="">Sin periodo</option>
+              <option value="mensual">Mensual</option>
+              <option value="bimestral">Bimestral</option>
+              <option value="trimestral">Trimestral</option>
+              <option value="semestral">Semestral</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Periodo</label>
+            <select id="fPeriod" disabled><option value="">—</option></select>
+          </div>
+          <div class="filter-group">
+            <label>Desde</label>
+            <input type="date" id="fFrom">
+          </div>
+          <div class="filter-group">
+            <label>Hasta</label>
+            <input type="date" id="fTo">
+          </div>
+          <div class="filter-divider"></div>
+          <div class="filter-group">
             <label>Buscar</label>
             <input type="text" id="fSearch" placeholder="Nombre o código...">
           </div>
@@ -185,6 +146,91 @@
             <button class="btn-primary" id="btnExport" type="button">Exportar vista (.xlsx)</button>
           </div>
         </div>
+
+        <div class="chart-card wide" style="margin-top:20px">
+          <div class="chart-card-title">Documentos por periodo</div>
+          <div class="chart-card-sub" id="periodChartSub"></div>
+          <div class="chart-canvas-wrap hero"><canvas id="chartPeriodo"></canvas></div>
+        </div>
+      </section>
+
+      <!-- 02 — KPIs -->
+      <section class="m-section" id="kpis">
+        <div class="m-section-head"><span class="m-section-num">03</span><h2>Indicadores generales</h2></div>
+        <p class="m-section-intro" id="kpiScope">Mostrando todos los documentos. Haz clic en cualquier indicador para ver el detalle.</p>
+        <div class="kpi-panel" id="kpiGrid"></div>
+      </section>
+
+      <!-- 03 — ANTIGÜEDAD -->
+      <section class="m-section" id="antiguedad">
+        <div class="m-section-head"><span class="m-section-num">04</span><h2>Antigüedad de los documentos</h2></div>
+        <p class="m-section-intro">Calculada sobre el campo de fecha que elijas. Por defecto usa Fecha de última actualización.</p>
+
+        <div class="filter-group" style="margin-bottom:30px">
+          <label>Calcular antigüedad usando</label>
+          <div class="filter-pills" id="ageFieldPills">
+            <button class="filter-pill active" data-field="ultimaActualizacion" type="button">Fecha última actualización</button>
+            <button class="filter-pill" data-field="elaboracion" type="button">Fecha de elaboración</button>
+          </div>
+        </div>
+
+        <div class="chart-card wide">
+          <div class="chart-card-title">Documentos por rango de antigüedad</div>
+          <div class="chart-card-sub">Haz clic en una barra para ver la lista de esos documentos.</div>
+          <div class="chart-canvas-wrap hero"><canvas id="chartAntiguedad"></canvas></div>
+        </div>
+      </section>
+
+      <!-- 04 — GRÁFICOS -->
+      <section class="m-section" id="graficos">
+        <div class="m-section-head"><span class="m-section-num">05</span><h2>Distribución por categoría</h2></div>
+        <p class="m-section-intro">Haz clic en cualquier sector o barra para ver los documentos de esa categoría.</p>
+        <div class="charts-grid">
+          <div class="chart-card">
+            <div class="chart-card-title">Por estado</div>
+            <div class="chart-card-sub">Vigente / Derogado</div>
+            <div class="chart-canvas-wrap"><canvas id="chartEstado"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-card-title">Por tipo de documento</div>
+            <div class="chart-card-sub">Formato, Procedimiento, Guía, Manual, etc.</div>
+            <div class="chart-canvas-wrap"><canvas id="chartTipo"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-card-title">Top 10 procesos con más documentos</div>
+            <div class="chart-card-sub">Campo «Proceso»</div>
+            <div class="chart-canvas-wrap tall"><canvas id="chartProceso"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-card-title">Top 10 subprocesos con más documentos</div>
+            <div class="chart-card-sub">Campo «SubProceso»</div>
+            <div class="chart-canvas-wrap tall"><canvas id="chartSubproceso"></canvas></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 — CALIDAD DE DATOS -->
+      <section class="m-section" id="calidad">
+        <div class="m-section-head"><span class="m-section-num">06</span><h2>Calidad de datos</h2></div>
+        <p class="m-section-intro">Hallazgos detectados automáticamente sobre el archivo completo, sin filtros.</p>
+        <div class="dq-grid" id="dqGrid"></div>
+
+        <section class="cta-section">
+          <div class="cta-card">
+            <div class="cta-kicker">Exportar</div>
+            <h2>Llevar el informe a la revisión</h2>
+            <p>Descargue el informe completo en PDF para el comité de calidad. Para exportar solo el detalle filtrado, use el botón «Exportar vista» de la sección Filtros.</p>
+            <div class="cta-actions">
+              <button class="cta-btn" id="btnPrintPdf" type="button">Descargar informe (PDF) <span class="mono">↓</span></button>
+              <a class="cta-btn-outline" href="#tabla">Ver tabla completa</a>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- 06 — TABLA -->
+      <section class="m-section" id="tabla">
+        <div class="m-section-head"><span class="m-section-num">07</span><h2>Detalle de documentos</h2></div>
 
         <div class="table-toolbar">
           <span class="table-count" id="tableCount"></span>

@@ -173,11 +173,14 @@ a:hover{color:var(--ink)}
 .filter-group label{
   font:500 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-soft);
 }
-.filter-group select,.filter-group input[type=text]{
+.filter-group select,.filter-group input[type=text],.filter-group input[type=date]{
   font:400 13px/1 "DM Sans",sans-serif;padding:9px 12px;border-radius:2px;
   border:1px solid var(--line-strong);background:#fff;color:var(--ink);min-width:150px;
 }
 .filter-group input[type=text]{min-width:190px}
+.filter-group input[type=date]{min-width:140px}
+.filter-group select:disabled{opacity:.5;cursor:not-allowed}
+.filter-divider{flex-basis:100%;height:0;margin:0}
 
 .filter-pills{display:flex;gap:4px;padding:4px;background:rgba(23,22,20,.05);border-radius:999px;width:fit-content}
 .filter-pill{
