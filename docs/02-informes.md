@@ -95,9 +95,23 @@ Los campos calculados llevan prefijo `_` (`_fechaModificacion`, `_extension`, `_
 **Gráficos:** antigüedad, por estado (Vigente/Derogado), por tipo de documento, top 10 procesos y top 10 subprocesos.
 **Calidad de datos:** códigos duplicados (puede ser un derogado y su reemplazo con el mismo código), sin código, derogados sin fecha, derogados sin observación (motivo), variantes de texto en `Tipo de documento` y en `Requiere actualización`.
 
-## 5. Mantenimiento
+## 5. Indicadores personalizados (sin código)
 
-**Agregar un KPI:** en `renderKPIs()` añade el conjunto en `sets` y una entrada en `cardDefs` (`key`, `sev`, `title`, `subtitle`, `modalTitle`). Severidades: `problem`, `warn`, `info`.
+Ambos informes tienen un botón **"⚙ Indicadores personalizados"** junto a "Indicadores generales". Desde ahí, el equipo de calidad puede agregar, editar o eliminar sus propias tarjetas de KPI (se ven y funcionan igual que las nativas: clic → modal con el detalle → exportar a Excel) **sin tocar código**, eligiendo:
+
+- **Campo:** una lista fija de columnas conocidas del informe (más "Antigüedad (años)" como campo especial).
+- **Condición:** está vacío / no está vacío / es igual a / es distinto de / contiene / es mayor que / es menor que (las opciones cambian según el tipo de campo).
+- **Severidad:** Requiere acción, Atención o Informativo.
+
+Los indicadores quedan guardados en el navegador (`localStorage`, no se suben a ningún lado) y el panel tiene botones para **exportar/importar la configuración en un `.json`** — útil para respaldarla o pasársela a un compañero en otra máquina.
+
+**Límite del panel:** solo evalúa una condición sobre un solo campo a la vez. Reglas que cruzan varios campos (p. ej. "código duplicado", "fecha de documento futura", "Origen distinto de Asociado a") siguen necesitando un cambio de código — pedirlo a quien mantiene el informe usando la sección "Mantenimiento" de abajo.
+
+El motor vive en `custom-kpis.js` (idéntico en los dos informes) y se conecta a `main.js` en un solo punto dentro de `renderKPIs()`: `CustomKPIs.apply({ rows: filtered, cardDefs, sets })`, justo antes de pintar las tarjetas.
+
+## 6. Mantenimiento
+
+**Agregar un KPI (si no alcanza con el panel de indicadores personalizados):** en `renderKPIs()` añade el conjunto en `sets` y una entrada en `cardDefs` (`key`, `sev`, `title`, `subtitle`, `modalTitle`). Severidades: `problem`, `warn`, `info`.
 
 **Agregar una regla de calidad de datos:** añade un objeto `{type: 'warn'|'good'|'note', text}` a `items` en `renderDataQuality()`.
 
@@ -108,7 +122,7 @@ Los campos calculados llevan prefijo `_` (`_fechaModificacion`, `_extension`, `_
 **Pruebas:** se realizaron con los listados maestros disponibles (Almera y el listado de SGC de planeación).
 
 
-## 6. Buenas prácticas y datos
+## 7. Buenas prácticas y datos
 
 - No subas el Excel a otros servicios para "probarlo": el valor del informe es que corre local.
 - Si compartes el informe como PDF, revisa antes que los filtros activos son los que quieres mostrar (el PDF refleja la vista actual).

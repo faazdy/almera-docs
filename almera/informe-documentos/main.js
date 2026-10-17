@@ -291,6 +291,8 @@
       { key:'pdf',         sev:'info',    title:'Cargados como PDF', subtitle:'Sin edición en línea', modalTitle:'Documentos cargados como PDF' },
     ];
 
+    if(window.CustomKPIs) window.CustomKPIs.apply({ rows: filtered, cardDefs: cardDefs, sets: sets });
+
     const cards = cardDefs.map(function(c){
       const n = sets[c.key].length;
       return Object.assign({}, c, {
@@ -321,7 +323,7 @@
               '<span class="kpi-row-value">' + c.valueFmt + '</span>' +
             '</span>' +
             '<span class="kpi-row-text">' +
-              '<span class="kpi-row-title">' + c.title + '</span>' +
+              '<span class="kpi-row-title">' + c.title + (c.custom ? ' <span class="tag-dup">Personalizado</span>' : '') + '</span>' +
               '<span class="kpi-row-subtitle">' + c.subtitle + '</span>' +
             '</span>' +
             '<span class="kpi-row-pct-wrap">' +
@@ -906,5 +908,29 @@
       renderTable();
     });
   });
+
+  // ---------- indicadores personalizados (sin código) ----------
+  if(window.CustomKPIs){
+    window.CustomKPIs.init({
+      storageKey: 'almera_informe_documentos_custom_kpis_v1',
+      getYears: getRowYears,
+      onChange: applyFilters,
+      fields: [
+        { key:'Código', label:'Código', type:'text' },
+        { key:'Nombre', label:'Nombre', type:'text' },
+        { key:'Clasificación', label:'Clasificación', type:'text' },
+        { key:'Tipo', label:'Tipo', type:'text' },
+        { key:'Clase', label:'Clase', type:'text' },
+        { key:'Asociado a', label:'Proceso / Subproceso', type:'text' },
+        { key:'Origen', label:'Origen', type:'text' },
+        { key:'Emisor', label:'Emisor', type:'text' },
+        { key:'Estado', label:'Estado', type:'text' },
+        { key:'Versión', label:'Versión', type:'number' },
+        { key:'_extension', label:'Tipo de archivo', type:'text' },
+        { key:'_antiguedad', label:'Antigüedad (años)', type:'years' }
+      ]
+    });
+    window.CustomKPIs.mount('btnCustomKpis');
+  }
 
 })();

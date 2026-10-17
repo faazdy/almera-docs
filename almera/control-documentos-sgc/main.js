@@ -358,6 +358,8 @@
       { key:'derogadosinfecha', sev:'info',    title:'Derogados sin fecha de derogación', subtitle:'Dato faltante en el listado', modalTitle:'Documentos derogados sin fecha de derogación' },
     ];
 
+    if(window.CustomKPIs) window.CustomKPIs.apply({ rows: filtered, cardDefs: cardDefs, sets: sets });
+
     const cards = cardDefs.map(function(c){
       const n = sets[c.key].length;
       return Object.assign({}, c, {
@@ -388,7 +390,7 @@
               '<span class="kpi-row-value">' + c.valueFmt + '</span>' +
             '</span>' +
             '<span class="kpi-row-text">' +
-              '<span class="kpi-row-title">' + c.title + '</span>' +
+              '<span class="kpi-row-title">' + c.title + (c.custom ? ' <span class="tag-dup">Personalizado</span>' : '') + '</span>' +
               '<span class="kpi-row-subtitle">' + c.subtitle + '</span>' +
             '</span>' +
             '<span class="kpi-row-pct-wrap">' +
@@ -958,5 +960,26 @@
       renderTable();
     });
   });
+
+  // ---------- indicadores personalizados (sin código) ----------
+  if(window.CustomKPIs){
+    window.CustomKPIs.init({
+      storageKey: 'almera_control_documentos_sgc_custom_kpis_v1',
+      getYears: getRowYears,
+      onChange: applyFilters,
+      fields: [
+        { key:'_proceso', label:'Proceso', type:'text' },
+        { key:'_subproceso', label:'SubProceso', type:'text' },
+        { key:'_tipoNorm', label:'Tipo de documento', type:'text' },
+        { key:'_codigo', label:'Código', type:'text' },
+        { key:'_nombre', label:'Nombre', type:'text' },
+        { key:'_estado', label:'Estado', type:'text' },
+        { key:'_observacion', label:'Observación', type:'text' },
+        { key:'_requiereBucket', label:'Requiere actualización', type:'text' },
+        { key:'_antiguedad', label:'Antigüedad (años)', type:'years' }
+      ]
+    });
+    window.CustomKPIs.mount('btnCustomKpis');
+  }
 
 })();
