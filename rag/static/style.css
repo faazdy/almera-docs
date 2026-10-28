@@ -1,0 +1,133 @@
+/* Asistente SABIA — mismos tokens y tipografía que la portada (styles/style.css).
+   El header, el kicker y los quicklinks replican sus componentes; la
+   conversación y la caja de pregunta son propias de esta página. */
+
+:root{
+  --bg:#faf9f7;
+  --ink:#171614;
+  --ink-soft:#5f5b52;
+  --ink-soft-2:#6b665c;
+  --ink-list:#3d3a34;
+  --muted:#8a8579;
+  --muted-soft:#a5a096;
+  --faint:#c3bdb1;
+  --line:rgba(23,22,20,.1);
+  --line-soft:rgba(23,22,20,.09);
+  --line-strong:rgba(23,22,20,.16);
+  --accent:#eb5a25;
+  --accent-ink:#b7472a;
+  --accent-soft:rgba(235,90,37,.08);
+  --dark:#17161a;
+}
+html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans","Helvetica Neue",Helvetica,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--ink);color:var(--bg)}
+
+.page{flex:1;padding:0 32px}
+.wrap{max-width:1080px;margin:0 auto}
+
+/* header: fijo arriba para que el menú (nav.js, diseño 1c) esté siempre a mano */
+.site-header{position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;min-height:68px;padding:24px 0 0;background:var(--bg)}
+[data-sabnav]{display:flex}
+.eyebrow{display:flex;align-items:center;gap:9px;font:500 10.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.eyebrow[href]:hover{color:var(--ink)}
+.eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0}
+
+/* columna de lectura */
+.chat{max-width:760px;padding-bottom:48px; margin:0 auto}
+
+/* intro */
+.intro{padding:112px 0 0}
+.kicker{font:500 10.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:30px}
+.intro h1{margin:0 0 28px;font:300 56px/1.04 "DM Sans",sans-serif;letter-spacing:-.035em;text-wrap:balance}
+.intro p{margin:0;font:400 17px/1.6 "DM Sans",sans-serif;color:var(--ink-soft);max-width:56ch;text-wrap:pretty}
+.suggest-kicker{margin:72px 0 20px}
+
+.quicklinks{display:flex;flex-direction:column;gap:1px;background:var(--line)}
+.quicklink{background:var(--bg);display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:16px;align-items:baseline;padding:17px 4px;border:0;text-align:left;cursor:pointer;font:inherit;color:inherit;transition:background .3s ease,padding .3s ease}
+.quicklink:hover{background:#fff;padding-left:10px;padding-right:10px}
+.quicklink-num{font:500 11px/1.4 "JetBrains Mono",monospace;color:var(--faint)}
+.quicklink-body{display:flex;flex-direction:column;gap:4px}
+.quicklink-title{font:400 15px/1.35 "DM Sans",sans-serif;color:var(--ink)}
+.quicklink-desc{font:400 13px/1.45 "DM Sans",sans-serif;color:var(--muted)}
+.quicklink-arrow{font:400 11px/1 "JetBrains Mono",monospace;color:var(--muted-soft)}
+
+/* conversación: cada turno es una fila editorial separada por línea */
+.turn{padding:44px 0 8px;border-bottom:1px solid var(--line)}
+.turn:first-child{margin-top:56px;border-top:1px solid var(--line-strong)}
+.turn-label{display:flex;align-items:center;flex-wrap:wrap;gap:9px;font:500 10.5px/1.4 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.turn-label .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0}
+.turn-label .modules{color:var(--muted-soft);letter-spacing:.1em}
+.turn-q{margin:0 0 36px;font:300 26px/1.25 "DM Sans",sans-serif;letter-spacing:-.02em;white-space:pre-wrap;text-wrap:pretty}
+
+/* respuesta en Markdown */
+.answer{font:400 15.5px/1.7 "DM Sans",sans-serif;color:var(--ink-list);text-wrap:pretty}
+.answer > *{margin:0}
+.answer > * + *{margin-top:14px}
+.answer strong{font-weight:500;color:var(--ink)}
+.answer a{color:var(--accent-ink);border-bottom:1px solid rgba(183,71,42,.3)}
+.answer h1,.answer h2,.answer h3,.answer h4{font:500 17px/1.35 "DM Sans",sans-serif;color:var(--ink);letter-spacing:-.01em;margin-top:26px}
+.answer ol,.answer ul{padding-left:24px}
+.answer li + li{margin-top:6px}
+.answer li::marker{font:500 12px "JetBrains Mono",monospace;color:var(--muted-soft)}
+.answer ul li::marker{color:var(--faint)}
+.answer code{font:400 13px "JetBrains Mono",monospace;background:#fff;border:1px solid var(--line);border-radius:4px;padding:1px 5px}
+.answer pre{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow-x:auto}
+.answer pre code{border:0;padding:0}
+.answer blockquote{border-left:2px solid var(--accent);padding-left:14px;color:var(--ink-soft)}
+.answer hr{border:0;border-top:1px solid var(--line)}
+.answer table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}
+.answer th,.answer td{border-bottom:1px solid var(--line);padding:8px 12px 8px 0;text-align:left;vertical-align:top}
+.answer th{font:500 10.5px/1.4 "JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+.answer.error{background:var(--accent-soft);color:var(--accent-ink);border-radius:10px;padding:14px 16px}
+
+.sources{margin-top:26px;font:400 12px/1.5 "JetBrains Mono",monospace;color:var(--muted-soft)}
+.sources summary{cursor:pointer;letter-spacing:.06em;text-transform:uppercase;width:max-content}
+.sources summary:hover{color:var(--ink)}
+.sources ul{margin:10px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.sources li{display:flex;gap:11px;align-items:baseline;font-family:"DM Sans",sans-serif;font-size:13px;color:var(--ink-soft-2)}
+.sources li::before{content:"";width:11px;height:1px;background:var(--faint);flex:0 0 auto;transform:translateY(-4px)}
+
+.typing{display:inline-flex;gap:5px;padding:8px 0}
+.typing i{width:5px;height:5px;border-radius:50%;background:var(--muted-soft);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}
+.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
+
+/* caja de pregunta */
+.composer-wrap{position:sticky;bottom:0;padding:20px 32px 18px;margin:0 auto;background:linear-gradient(to top,var(--bg) 78%,rgba(250,249,247,0))}
+.composer-form{max-width:760px}
+.composer{display:flex;align-items:flex-end;gap:10px;background:#fff;border:1px solid var(--line-strong);border-radius:16px;padding:8px 8px 8px 18px;box-shadow:0 4px 14px rgba(23,22,20,.06);transition:border-color .25s ease}
+.composer:focus-within{border-color:rgba(23,22,20,.4)}
+.composer textarea{flex:1;border:0;outline:0;resize:none;background:transparent;color:var(--ink);font:400 15.5px/1.5 "DM Sans",sans-serif;padding:7px 0;max-height:180px}
+.composer textarea::placeholder{color:var(--muted-soft)}
+.send{width:38px;height:38px;flex-shrink:0;border:0;border-radius:999px;background:var(--dark);color:var(--bg);font:400 14px/1 "JetBrains Mono",monospace;cursor:pointer;transition:opacity .25s ease}
+.send:hover{opacity:.86}
+.send:disabled{opacity:.35;cursor:wait}
+.composer-meta{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:10px;padding:0 4px;font:400 11px/1.4 "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-soft)}
+.module-picker{display:flex;align-items:center;gap:8px}
+.module-picker select{font:inherit;letter-spacing:inherit;text-transform:inherit;color:var(--ink-soft);background:transparent;border:0;border-bottom:1px solid var(--line-strong);padding:2px 0;cursor:pointer;outline:0}
+.module-picker select:hover,.module-picker select:focus{color:var(--ink);border-color:var(--ink)}
+.disclaimer{text-align:right}
+
+@media (max-width:900px){
+  .intro{padding:84px 0 0}
+  .intro h1{font-size:44px}
+}
+@media (max-width:640px){
+  .page{padding:0 16px}
+  .site-header{padding:16px 0 0;min-height:60px}
+  .intro{padding:56px 0 0}
+  .intro h1{font-size:34px}
+  .intro p{font-size:15.5px}
+  .suggest-kicker{margin-top:48px}
+  .turn{padding-top:32px}
+  .turn:first-child{margin-top:36px}
+  .turn-q{font-size:21px;margin-bottom:26px}
+  .composer-wrap{padding:16px 16px 12px}
+  .composer-meta{flex-direction:column;align-items:flex-start;gap:6px}
+  .disclaimer{text-align:left}
+}

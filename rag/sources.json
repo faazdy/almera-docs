@@ -1,0 +1,62 @@
+{
+  "_comment": "Catálogo de conocimiento del RAG-lite. Rutas relativas a la raíz del repo. 'shared' se inyecta en todas las respuestas; cada módulo se inyecta completo cuando el enrutador lo elige.",
+  "shared": [
+    "almera/assets/almera-structure.md"
+  ],
+  "modules": [
+    {
+      "id": "documentos",
+      "name": "Documentos",
+      "description": "Crear, editar, aprobar, buscar y dar de baja documentos; emisores, clases documentales, plantillas, recursos y términos.",
+      "files": ["almera/modulo-documentos/gestion-documentos/AI/documentos-almera.md"]
+    },
+    {
+      "id": "mapa-procesos",
+      "name": "Mapa de procesos",
+      "description": "Caracterización de procesos, parametrización de procesos y montaje de tablas de Salidas No Conformes (SNC).",
+      "files": [
+        "almera/modulo-documentos/mapa-procesos/AI/mapa-procesos-almera.md",
+        "almera/modulo-documentos/mapa-procesos/Instructivo montaje de tablas de Salidas No Conformes (SNC) en Almera.md"
+      ]
+    },
+    {
+      "id": "mecanismos-integracion",
+      "name": "Mecanismos de integración",
+      "description": "Comités, actas, sesiones, compromisos y parametrización de mecanismos de integración.",
+      "files": ["almera/modulo-documentos/mecanismos-integracion/AI/mecanismos-integracion.md"]
+    },
+    {
+      "id": "modelos-gestion",
+      "name": "Modelos de gestión",
+      "description": "Cargar normas (ISO 9001, ISO 45001…), nodos, relación con procesos y carga masiva de estructura con plantilla Excel.",
+      "files": [
+        "almera/modulo-documentos/modelos-gestion/AI/modelos-gestion-almera.md",
+        "almera/modulo-documentos/modelos-gestion/template/INSTRUCTIVO carga masiva de estructura - Medida de recuperacion.md"
+      ]
+    },
+    {
+      "id": "evaluaciones",
+      "name": "Evaluaciones / Auditorías",
+      "description": "Tipos de evaluación, unidades auditables, programación y ejecución de auditorías, hallazgos.",
+      "files": ["almera/modulo-evaluaciones/evaluaciones/AI/evaluaciones-almera.md"]
+    },
+    {
+      "id": "indicadores",
+      "name": "Indicadores",
+      "description": "Ficha técnica, campos adicionales, unidades de medida, metas, semaforización, responsables, fechas y alertas.",
+      "files": ["almera/modulo-evaluaciones/indicadores/AI/indicadores.md"]
+    },
+    {
+      "id": "planes-mejora",
+      "name": "Planes de mejora",
+      "description": "Informes de evaluación, hallazgos, evaluadores, sistema de referencia, puntos de atención, transiciones, niveles de respuesta y clasificaciones.",
+      "files": ["almera/modulo-evaluaciones/planes-de-mejora/AI/docs-plan-de-mejora.md"]
+    },
+    {
+      "id": "proyectos",
+      "name": "Proyectos",
+      "description": "Tipos de proyecto, estados y transiciones, privilegios, cronogramas, actividades, hitos, presupuesto e integración con Plan Estratégico.",
+      "files": ["almera/modulo-proyectos/AI/proyectos-almera.md"]
+    }
+  ]
+}

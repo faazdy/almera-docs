@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SABIA · Asistente de Almera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+
+<div class="page">
+  <div class="wrap">
+
+    <!-- ============ HEADER ============ -->
+    <header class="site-header">
+      <a class="eyebrow" href="../index.html"><span class="dot"></span>SABIA · Asistente de Almera</a>
+      <span data-sabnav></span>
+    </header>
+
+    <main id="chat" class="chat">
+
+      <!-- ============ INTRO (se quita con la primera pregunta) ============ -->
+      <section id="empty" class="intro">
+        <div class="kicker">Capital Salud · SGC</div>
+        <h1>Pregúntale a SABIA</h1>
+        <p>Responde con los procedimientos documentados de cada módulo de Almera: la ruta exacta y los pasos. Si algo no está en la documentación, lo dice en vez de inventarlo.</p>
+
+        <div class="kicker suggest-kicker">Para empezar</div>
+        <div class="quicklinks">
+          <button type="button" class="quicklink" data-q="¿Cómo creo un documento nuevo?">
+            <span class="quicklink-num">01</span>
+            <span class="quicklink-body">
+              <span class="quicklink-title">¿Cómo creo un documento nuevo?</span>
+              <span class="quicklink-desc">Documentos</span>
+            </span>
+            <span class="quicklink-arrow">→</span>
+          </button>
+          <button type="button" class="quicklink" data-q="¿Cómo configuro la semaforización de un indicador?">
+            <span class="quicklink-num">02</span>
+            <span class="quicklink-body">
+              <span class="quicklink-title">¿Cómo configuro la semaforización de un indicador?</span>
+              <span class="quicklink-desc">Indicadores</span>
+            </span>
+            <span class="quicklink-arrow">→</span>
+          </button>
+          <button type="button" class="quicklink" data-q="¿Cómo creo un comité en mecanismos de integración?">
+            <span class="quicklink-num">03</span>
+            <span class="quicklink-body">
+              <span class="quicklink-title">¿Cómo creo un comité?</span>
+              <span class="quicklink-desc">Mecanismos de integración</span>
+            </span>
+            <span class="quicklink-arrow">→</span>
+          </button>
+          <button type="button" class="quicklink" data-q="¿Cómo cargo una norma ISO en modelos de gestión?">
+            <span class="quicklink-num">04</span>
+            <span class="quicklink-body">
+              <span class="quicklink-title">¿Cómo cargo una norma ISO?</span>
+              <span class="quicklink-desc">Modelos de gestión</span>
+            </span>
+            <span class="quicklink-arrow">→</span>
+          </button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- ============ CAJA DE PREGUNTA ============ -->
+<footer class="composer-wrap">
+  <div class="wrap">
+    <form id="composer" class="composer-form">
+      <div class="composer">
+        <textarea id="input" rows="1" maxlength="4000" placeholder="Escribe tu pregunta sobre Almera…" required></textarea>
+        <button id="send" type="submit" class="send" aria-label="Enviar">→</button>
+      </div>
+      <div class="composer-meta">
+        <label class="module-picker">
+          <span>Módulo</span>
+          <select id="module">
+            <option value="">Automático</option>
+          </select>
+        </label>
+        <span class="disclaimer">No pegues datos personales · <span id="model">—</span></span>
+      </div>
+    </form>
+  </div>
+</footer>
+
+<script src="static/vendor/marked.min.js"></script>
+<script src="static/vendor/purify.min.js"></script>
+<script src="static/app.js"></script>
+<script src="../almera/assets/nav.js" data-base="../"></script>
+</body>
+</html>
