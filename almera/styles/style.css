@@ -27,7 +27,9 @@ a:hover{color:var(--ink)}
 .wrap{max-width:1080px;margin:0 auto}
 
 /* header */
-.site-header{display:flex;justify-content:space-between;align-items:baseline;padding:36px 0 0}
+.site-header{display:flex;justify-content:space-between;align-items:center;padding:24px 0 0}
+.header-right{display:flex;align-items:center;gap:26px}
+[data-sabnav]{display:flex}
 .eyebrow{display:flex;align-items:center;gap:9px;font:500 10.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0}
 .site-nav{display:flex;gap:22px;font:400 13px/1 "DM Sans",sans-serif;color:var(--muted)}
@@ -83,7 +85,7 @@ a:hover{color:var(--ink)}
 .ia-actions{display:flex;gap:10px;flex-wrap:wrap}
 .ia-btn-primary{display:flex;align-items:center;gap:10px;padding:13px 22px;border-radius:999px;background:var(--accent);color:#fff;font:400 14.5px/1 "DM Sans",sans-serif;transition:opacity .25s ease}
 .ia-btn-primary:hover{opacity:.86;color:#fff}
-.ia-btn-outline{display:flex;align-items:center;padding:13px 22px;border-radius:999px;border:1px solid rgba(250,249,247,.2);color:rgba(250,249,247,.85);font:400 14.5px/1 "DM Sans",sans-serif;transition:border-color .25s ease}
+.ia-btn-outline{display:flex;align-items:center;gap:10px;padding:13px 22px;border-radius:999px;border:1px solid rgba(250,249,247,.2);color:rgba(250,249,247,.85);font:400 14.5px/1 "DM Sans",sans-serif;transition:border-color .25s ease}
 .ia-btn-outline:hover{border-color:rgba(250,249,247,.55);color:var(--bg)}
 
 /* otros elementos */
@@ -108,8 +110,8 @@ a:hover{color:var(--ink)}
 }
 @media (max-width:640px){
   .page{padding:0 20px 96px}
-  .site-header{padding:28px 0 0}
-  .site-nav{gap:16px}
+  .site-header{padding:16px 0 0}
+  .site-nav{display:none}
   .hero{padding:64px 0 48px}
   .hero h1{font-size:34px}
   .modules-grid,.other-grid{grid-template-columns:1fr}

@@ -29,7 +29,9 @@ a:hover{color:var(--ink)}
 .wrap{max-width:1080px;margin:0 auto}
 
 /* header */
-.site-header{display:flex;justify-content:space-between;align-items:baseline;padding:36px 0 0}
+.site-header{display:flex;justify-content:space-between;align-items:center;padding:24px 0 0}
+.header-right{display:flex;align-items:center;gap:20px}
+[data-sabnav]{display:flex}
 .eyebrow{display:flex;align-items:center;gap:9px;font:500 10.5px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0}
 .header-meta{font:400 12px/1 "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-soft)}
@@ -87,7 +89,7 @@ a:hover{color:var(--ink)}
 }
 @media (max-width:640px){
   .page{padding:0 20px 96px}
-  .site-header{padding:28px 0 0}
+  .site-header{padding:16px 0 0}
   .header-meta{display:none}
   .hero{padding:64px 0 44px}
   .hero h1{font-size:34px}
