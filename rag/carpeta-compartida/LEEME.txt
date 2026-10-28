@@ -1,0 +1,44 @@
+CÓMO AGREGAR CONOCIMIENTO A SABIA
+==================================
+
+Todo lo que guardes en esta carpeta lo aprende el asistente "Pregúntale a SABIA".
+No necesitas instalar nada ni saber de sistemas.
+
+
+1. GUARDA EL DOCUMENTO EN LA CARPETA DE SU MÓDULO
+   Ejemplo: una guía sobre comités va en "Mecanismos de integración".
+   Los archivos sueltos aquí afuera no se publican.
+
+   Formatos que sirven: Word (.docx), PDF, PowerPoint (.pptx), Excel (.xlsx) y texto (.txt).
+
+
+2. USA TÍTULOS DE WORD
+   Separa cada tema con los estilos "Título 1", "Título 2" y "Título 3" (pestaña Inicio → Estilos).
+   No basta con poner el texto en negrita. Los títulos le permiten al asistente
+   encontrar la parte exacta que responde cada pregunta.
+
+   Lo más fácil: copia "Plantilla guía SABIA.docx" y llénala.
+
+
+3. ESPERA UNOS MINUTOS Y REVISA "ESTADO SABIA.txt"
+   El sistema revisa esta carpeta cada pocos minutos y escribe ahí el resultado:
+
+   🟢 Publicado            El asistente ya lo usa.
+   🟡 Con advertencias     El asistente ya lo usa, pero el documento se puede mejorar.
+                           Lee la nota y corrígelo cuando puedas.
+   🔴 No publicado         Hay que corregirlo. La nota dice exactamente qué hacer.
+
+
+¿TIENES UNA TRANSCRIPCIÓN, UN PDF ESCANEADO O UN DOCUMENTO DESORDENADO?
+   Abre "PROMPT para limpiar con IA.txt" y sigue los pasos. La IA lo ordena
+   por ti y tú solo guardas el resultado en la carpeta del módulo.
+
+
+PARA ACTUALIZAR un documento: reemplaza el archivo por la versión nueva.
+PARA QUITAR un documento: bórralo de la carpeta.
+
+
+IMPORTANTE
+   - Escribe solo procedimientos del sistema: rutas, pasos, reglas y dudas abiertas.
+   - NO incluyas datos personales, de pacientes ni información confidencial.
+   - Si algo no está confirmado con soporte de Almera, márcalo como [POR CONFIRMAR].

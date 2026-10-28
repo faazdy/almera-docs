@@ -26,6 +26,13 @@ HOST = os.getenv("HOST", "127.0.0.1")
 PORT = int(os.getenv("PORT", "8800"))
 MAX_CONTEXT_CHARS = int(os.getenv("MAX_CONTEXT_CHARS", "120000"))
 
+# ETL: carpeta compartida donde Calidad deja los documentos (vacío = desactivado).
+# Puede ser relativa a rag/ (carpeta-compartida) o una ruta de red (\\servidor\Calidad\SABIA).
+_knowledge = os.getenv("KNOWLEDGE_DIR", "").strip()
+KNOWLEDGE_DIR = (RAG_DIR / _knowledge) if _knowledge else None
+ETL_OUTPUT_DIR = RAG_DIR / "generado"
+ETL_INTERVAL_SECONDS = int(os.getenv("ETL_INTERVAL_SECONDS", "300"))
+
 # Límites de entrada para que nadie dispare costos con mensajes enormes
 MAX_QUESTION_CHARS = 4000
 MAX_HISTORY_MESSAGES = 8

@@ -8,7 +8,10 @@ Ejecutar desde rag/:  python -m app.main
     /api/...       → API del chat
 """
 
+import asyncio
 import json
+import logging
+from contextlib import asynccontextmanager
 from typing import Literal
 
 import uvicorn
@@ -17,7 +20,7 @@ from fastapi.responses import FileResponse, RedirectResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from . import config
+from . import config, etl
 from .knowledge import KnowledgeBase
 from .llm import LLMError, stream_chat
 from .prompts import build_system_prompt
@@ -25,8 +28,43 @@ from .prompts import build_system_prompt
 # Lo único del repo que se publica. Nunca montar la raíz: expondría rag/.env y .git.
 SITE_DIRS = ("styles", "almera", "calidad-ai-agents")
 
-kb = KnowledgeBase()
-app = FastAPI(title="SABIA", docs_url=None, redoc_url=None, openapi_url=None)
+log = logging.getLogger("sabia")
+
+# La base se reemplaza entera cuando el ETL publica cambios; cada request toma la
+# referencia vigente al empezar, así nunca ve una base a medio construir.
+state = {"kb": KnowledgeBase(etl.load_published(config.ETL_OUTPUT_DIR))}
+
+
+def refresh_knowledge():
+    if not config.KNOWLEDGE_DIR.is_dir():
+        log.warning("ETL: no encuentro la carpeta %s (¿ruta mal escrita o servidor sin conexión?)",
+                    config.KNOWLEDGE_DIR)
+        return
+    results, changed = etl.run(config.KNOWLEDGE_DIR, config.ETL_OUTPUT_DIR)
+    if changed:
+        state["kb"] = KnowledgeBase(etl.load_published(config.ETL_OUTPUT_DIR))
+    counts = {s: sum(r.status == s for r in results) for s in ("verde", "amarillo", "rojo")}
+    log.info("ETL: %s · base %s", counts, "actualizada" if changed else "sin cambios")
+
+
+async def etl_loop():
+    while True:
+        try:
+            await asyncio.to_thread(refresh_knowledge)
+        except Exception:  # carpeta de red caída, etc.: se reintenta en la próxima vuelta
+            log.exception("ETL falló")
+        await asyncio.sleep(config.ETL_INTERVAL_SECONDS)
+
+
+@asynccontextmanager
+async def lifespan(_app):
+    task = asyncio.create_task(etl_loop()) if config.KNOWLEDGE_DIR else None
+    yield
+    if task:
+        task.cancel()
+
+
+app = FastAPI(title="SABIA", docs_url=None, redoc_url=None, openapi_url=None, lifespan=lifespan)
 
 
 class Message(BaseModel):
@@ -45,11 +83,12 @@ def sse(event: str, data) -> str:
 
 @app.get("/api/modules")
 def modules():
-    return {"model": config.OPENROUTER_MODEL, "modules": kb.catalog()}
+    return {"model": config.OPENROUTER_MODEL, "modules": state["kb"].catalog()}
 
 
 @app.post("/api/chat")
 async def chat(req: ChatRequest):
+    kb = state["kb"]
     history = req.messages[-config.MAX_HISTORY_MESSAGES :]
     question = history[-1]
     if question.role != "user":
@@ -62,7 +101,7 @@ async def chat(req: ChatRequest):
     routing = kb.route(" ".join(user_turns[-2:]), pinned=req.module)
 
     messages = [
-        {"role": "system", "content": build_system_prompt(kb.catalog(), kb.build_context(routing["modules"]))},
+        {"role": "system", "content": build_system_prompt(kb.catalog(), kb.build_context(routing["plan"]))},
         *({"role": m.role, "content": m.content} for m in history),
     ]
 
@@ -107,5 +146,8 @@ for folder in SITE_DIRS:
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s:     %(name)s: %(message)s")
     print(f"SABIA en http://{config.HOST}:{config.PORT}/  ·  asistente en /asistente/")
+    if config.KNOWLEDGE_DIR:
+        print(f"Carpeta de conocimiento: {config.KNOWLEDGE_DIR} (revisión cada {config.ETL_INTERVAL_SECONDS}s)")
     uvicorn.run(app, host=config.HOST, port=config.PORT)

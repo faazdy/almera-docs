@@ -1,8 +1,9 @@
 """Base de conocimiento: carga las guías .md, las parte por secciones y enruta preguntas.
 
 RAG-lite: las secciones solo sirven para *decidir* qué módulo(s) usar (BM25 léxico).
-Al modelo se le inyecta el módulo completo, así los procedimientos paso a paso nunca
-llegan cortados.
+Al modelo se le inyectan los documentos completos, así los procedimientos paso a paso
+nunca llegan cortados. Cada módulo junta la guía curada del repo (sources.json) y los
+documentos que llegan por la carpeta compartida (ver etl.py).
 """
 
 import json
@@ -50,8 +51,15 @@ def tokenize(text: str) -> list[str]:
 
 
 @dataclass
+class Doc:
+    name: str  # ruta de origen, se muestra en el contexto como comentario
+    content: str
+
+
+@dataclass
 class Section:
     module_id: str
+    doc: int  # índice en Module.docs; -1 = entrada del catálogo
     path: str  # "Título del documento › Sección › Subsección"
     tokens: list[str]
     label: str = ""  # lo que se muestra como fuente (sin el título del documento)
@@ -62,12 +70,15 @@ class Module:
     id: str
     name: str
     description: str
-    files: list[str]
-    content: str = ""
+    docs: list[Doc] = field(default_factory=list)
     sections: list[Section] = field(default_factory=list)
 
+    @property
+    def size(self) -> int:
+        return sum(len(d.content) for d in self.docs)
 
-def split_sections(module_id: str, markdown: str) -> list[Section]:
+
+def split_sections(module_id: str, doc: int, markdown: str) -> list[Section]:
     sections: list[Section] = []
     stack: list[tuple[int, str]] = []
     body: list[str] = []
@@ -82,8 +93,13 @@ def split_sections(module_id: str, markdown: str) -> list[Section]:
         # El título pesa más que el cuerpo
         tokens = tokenize(path) * 3 + tokenize("\n".join(body))
         if tokens:
-            label = " › ".join(title for _, title in stack[1:]) or stack[0][1]
-            sections.append(Section(module_id, path, tokens, label))
+            # El título del documento se omite si es largo ("Almera — Módulo de… (guía…)"),
+            # pero da contexto cuando es corto ("Archivar un documento obsoleto › Notas")
+            parts = [t for _, t in stack]
+            if len(parts) > 1 and len(parts[0]) > 45:
+                parts = parts[1:]
+            label = " › ".join(parts)
+            sections.append(Section(module_id, doc, path, tokens, label))
 
     for line in markdown.splitlines():
         if line.lstrip().startswith("```"):
@@ -100,20 +116,25 @@ def split_sections(module_id: str, markdown: str) -> list[Section]:
     return sections
 
 
+def load_catalog() -> dict:
+    return json.loads(config.SOURCES_FILE.read_text(encoding="utf-8"))
+
+
 class KnowledgeBase:
-    def __init__(self):
-        data = json.loads(config.SOURCES_FILE.read_text(encoding="utf-8"))
+    def __init__(self, extra: dict[str, list[Doc]] | None = None):
+        """extra: documentos adicionales por id de módulo (los publica el ETL)."""
+        data = load_catalog()
         self.shared = "\n\n".join(self._read(p) for p in data.get("shared", []))
         self.modules: dict[str, Module] = {}
         for spec in data["modules"]:
-            mod = Module(spec["id"], spec["name"], spec["description"], spec["files"])
-            mod.content = "\n\n".join(
-                f"<!-- archivo: {p} -->\n{self._read(p)}" for p in mod.files
-            )
-            mod.sections = split_sections(mod.id, mod.content)
+            mod = Module(spec["id"], spec["name"], spec["description"])
+            mod.docs = [Doc(p, self._read(p)) for p in spec["files"]]
+            mod.docs += (extra or {}).get(mod.id, [])
+            for i, doc in enumerate(mod.docs):
+                mod.sections += split_sections(mod.id, i, doc.content)
             # El nombre y la descripción del catálogo también ayudan a enrutar
             mod.sections.append(
-                Section(mod.id, mod.name, tokenize(f"{mod.name} {mod.description}") * 2)
+                Section(mod.id, -1, mod.name, tokenize(f"{mod.name} {mod.description}") * 2)
             )
             self.modules[mod.id] = mod
         self._build_index()
@@ -147,14 +168,20 @@ class KnowledgeBase:
         return scores
 
     def route(self, query: str, pinned: str | None = None) -> dict:
-        """Devuelve los módulos a inyectar y las secciones más relevantes (para mostrar como fuentes)."""
+        """Decide qué módulos y documentos inyectar y qué secciones mostrar como fuentes.
+
+        Devuelve {"plan": {módulo: [índices de docs]}, "modules": [...], "sources": [...]}.
+        """
         scores = self._bm25(tokenize(query))
         ranked = sorted(zip(scores, self.sections), key=lambda x: x[0], reverse=True)
 
         per_module: dict[str, list[float]] = {}
+        doc_scores: dict[str, dict[int, float]] = {}
         for score, sec in ranked:
             if score > 0:
                 per_module.setdefault(sec.module_id, []).append(score)
+                best = doc_scores.setdefault(sec.module_id, {})
+                best[sec.doc] = max(best.get(sec.doc, 0), score)
         module_scores = {mid: sum(s[:3]) for mid, s in per_module.items()}
         order = sorted(module_scores, key=module_scores.get, reverse=True)
 
@@ -166,30 +193,44 @@ class KnowledgeBase:
         else:
             selected = []
 
-        # Respetar el presupuesto de contexto
-        budget, chosen = config.MAX_CONTEXT_CHARS - len(self.shared), []
+        # Respetar el presupuesto de contexto: módulo completo si cabe; si no, sus
+        # documentos más relevantes primero (siempre al menos uno del primer módulo).
+        budget, plan = config.MAX_CONTEXT_CHARS - len(self.shared), {}
         for mid in selected:
-            size = len(self.modules[mid].content)
-            if size <= budget or not chosen:
-                chosen.append(mid)
-                budget -= size
+            mod = self.modules[mid]
+            if mod.size <= budget:
+                plan[mid] = list(range(len(mod.docs)))
+                budget -= mod.size
+                continue
+            best = doc_scores.get(mid, {})
+            picked = []
+            for i in sorted(range(len(mod.docs)), key=lambda i: best.get(i, 0), reverse=True):
+                size = len(mod.docs[i].content)
+                if size <= budget or not (plan or picked):
+                    picked.append(i)
+                    budget -= size
+            if picked:
+                plan[mid] = sorted(picked)
 
         sources = [
             {"module": self.modules[sec.module_id].name, "section": sec.label}
             for score, sec in ranked
-            if score > 0 and sec.module_id in chosen and sec.label
+            if score > 0 and sec.doc in plan.get(sec.module_id, ()) and sec.label
         ][:4]
-        return {"modules": chosen, "sources": sources}
+        return {"plan": plan, "modules": list(plan), "sources": sources}
 
-    def build_context(self, module_ids: list[str]) -> str:
+    def build_context(self, plan: dict[str, list[int]]) -> str:
         parts = [f'<documento tipo="navegacion">\n{self.shared}\n</documento>']
-        for mid in module_ids:
+        for mid, doc_ids in plan.items():
             mod = self.modules[mid]
-            parts.append(f'<documento modulo="{mod.name}">\n{mod.content}\n</documento>')
+            body = "\n\n".join(
+                f"<!-- archivo: {mod.docs[i].name} -->\n{mod.docs[i].content}" for i in doc_ids
+            )
+            parts.append(f'<documento modulo="{mod.name}">\n{body}\n</documento>')
         return "\n\n".join(parts)
 
     def catalog(self) -> list[dict]:
         return [
-            {"id": m.id, "name": m.name, "description": m.description, "chars": len(m.content)}
+            {"id": m.id, "name": m.name, "description": m.description, "chars": m.size, "docs": len(m.docs)}
             for m in self.modules.values()
         ]

@@ -1,0 +1,63 @@
+PROMPT PARA ORDENAR UN DOCUMENTO CON IA ANTES DE SUBIRLO A SABIA
+================================================================
+
+Sirve para transcripciones de capacitaciones, PDFs desordenados, correos con
+instrucciones o cualquier documento sin estructura.
+
+CÓMO USARLO
+  1. Abre la IA aprobada por la entidad. No uses cuentas personales para información interna.
+  2. Copia TODO el texto que está entre las dos líneas de abajo y pégalo en el chat.
+  3. Debajo del prompt pega el contenido del documento (o adjunta el archivo).
+  4. Revisa la respuesta: los pasos deben ser los mismos del documento original.
+  5. Copia la respuesta, pégala en el Bloc de notas y guárdala en la carpeta del
+     módulo con extensión .txt (ejemplo: "Crear un comité.txt").
+     Si tu IA puede entregar un archivo de Word, también sirve.
+
+──────────────────────────── COPIAR DESDE AQUÍ ────────────────────────────
+
+Vas a reorganizar documentación operativa del sistema Almera (software de gestión de
+calidad) para una base de conocimiento. El contenido está al final de este mensaje.
+
+REGLAS (son obligatorias):
+1. Solo reorganiza. NO agregues pasos, botones, menús, campos ni explicaciones que no
+   estén en el contenido. NO "mejores" ni completes procedimientos con lo que creas.
+2. Conserva exactamente las rutas de menú (por ejemplo: Admin → Calidad → Documentos),
+   los nombres de botones y el orden de los pasos.
+3. Si algo es ambiguo, contradictorio o quedó sin resolver, escríbelo en la sección
+   "Temas pendientes de validar" con la marca [POR CONFIRMAR]. No lo resuelvas tú.
+4. Elimina saludos, muletillas, conversación que no aporta, repeticiones y nombres de
+   personas. Elimina cualquier dato personal o de pacientes.
+5. Escribe en español claro, en segunda persona ("Pulsa Grabar").
+
+FORMATO DE SALIDA (Markdown, exactamente esta estructura):
+
+# <Módulo> — <Tema principal>
+
+<Una o dos frases sobre qué cubre este documento.>
+
+## <Nombre de la tarea, por ejemplo: Crear un comité>
+
+**Ruta:** <ruta del menú, si se menciona>
+
+1. <Paso>
+2. <Paso>
+
+**Notas:** <advertencias o reglas del sistema para esta tarea, si las hay>
+
+(Repite una sección "##" por cada tarea distinta.)
+
+## Preguntas frecuentes
+
+### <Pregunta>
+<Respuesta tomada del contenido>
+
+## Temas pendientes de validar
+
+- [POR CONFIRMAR] <duda o comportamiento sin confirmar>
+
+Si una sección no tiene contenido, omítela. Responde solo con el documento, sin
+comentarios antes ni después.
+
+CONTENIDO:
+
+──────────────────────────── COPIAR HASTA AQUÍ ────────────────────────────
