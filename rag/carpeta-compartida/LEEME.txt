@@ -2,7 +2,7 @@ CÓMO AGREGAR CONOCIMIENTO A SABIA
 ==================================
 
 Todo lo que guardes en esta carpeta lo aprende el asistente "Pregúntale a SABIA".
-No necesitas instalar nada ni saber de sistemas.
+No necesitas instalar nada ni saber codigo.
 
 
 1. GUARDA EL DOCUMENTO EN LA CARPETA DE SU MÓDULO
