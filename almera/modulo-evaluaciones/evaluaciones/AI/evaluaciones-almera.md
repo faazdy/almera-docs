@@ -325,6 +325,19 @@ Si una "pregunta" en realidad es una sección o clasificación (ej. "3. Parámet
 5. Si el agrupador que se necesita no existe todavía (por ejemplo, para que el campo aparezca en "Pregunta"), primero hay que crear un **agrupador nuevo** y asignarle esa ubicación, y luego crear el campo asociándolo a ese agrupador.
 6. Grabar. Puede ser necesario refrescar la pantalla para ver el campo nuevo reflejado.
 
+### Configurar seguimientos y privilegios
+Para colocar seguimientos dentro de las Evaluaciones (audtorias, etc), se pueden seguir estos pasos:
+
+1. Dentro de Sistemas de Referencia, seleccionar el sistema al que está relacionada la evaluación para hacerle seguimiento.
+2. Dentro del sistema seleccionado, vamos a la pestaña **Privilegios**, y le damos clic al botón **Administrar Privilegios**.
+3. Cuando se abra la ventana de los privilegios, metemos en el buscador el usuario, luego seleccionamos que privilegios tendrá (administración, consulta o adicion de evaluación).
+4. Luego le damos clic al botón con el símbolo del mas '+' de color verde.
+5. Dar clic en cerrar.
+
+Para comprobarlo, vamos a **Evaluaciones -> Administrar planes**, seleccionamos algún plan que tenga el sistema de referencia al que tengamos privilegios configurados. Entramos a algun Plan de accion, y nos dirigimos a la pestaña 'Seguimientos' y a la pestaña 'Seguimientos de control'. En ambos debemos tener el botón **Adicionar**.
+
+>Nota: en caso de no tener el botón **Adicionar** se deben seguir los pasos anteriores.
+
 ### Configurar niveles de respuesta
 
 Los **niveles de respuesta** definen cómo se califica cada pregunta al momento de evaluar (ej. Cumple / No cumple / No aplica).
