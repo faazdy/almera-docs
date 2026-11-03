@@ -1,15 +1,17 @@
 # SABIA — documentación de traspaso
 
-Guía para el equipo que continúa el proyecto. Si es la primera vez que abres el repo, lee esto y luego los documentos en este orden. Para una foto rápida del estado actual, empieza por el **corte** (4):
+Guía para el equipo que continúa el proyecto. Si es la primera vez que abres el repo, lee esto y luego los documentos en este orden. Para una foto rápida del estado actual, empieza por el **corte** más reciente (5). Si tienes que arrancar, arreglar o mantener SABIA, ve directo a **soporte técnico** (6):
 
 | # | Documento | Qué cubre |
 |---|---|---|
 | 1 | [01-skills.md](01-skills.md) | Las skills: las 2 de entregables (presentaciones, diagramas de flujo) y las 8 de módulos de Almera. Cómo funcionan, cómo se empaquetan, cómo se mantienen. |
 | 2 | [02-informes.md](02-informes.md) | Los dos informes (dashboards): Informe de documentos Almera e Informe de Control de documentos del SGC. |
 | 3 | [03-almera.md](03-almera.md) | Documentación de los módulos de Almera: estructura, estado, cómo agregar un módulo nuevo, pendientes. |
-| 4 | [04-corte-2026-10-28.md](04-corte-2026-10-28.md) | **Corte del proyecto:** qué tiene, para qué se hizo, arquitectura, stack, decisiones, asistente RAG + ETL, pendientes. |
+| 4 | [04-corte-2026-10-28.md](04-corte-2026-10-28.md) | Corte del 28 de octubre (histórico). PDF: `SABIA-corte-2026-10-28.pdf`. |
+| 5 | [05-corte-2026-11-03.md](05-corte-2026-11-03.md) | **Corte vigente (3 de noviembre):** qué tiene, qué cambió, arquitectura, stack, decisiones, seguridad, pendientes. PDF: `SABIA-corte-2026-11-03.pdf`. |
+| 6 | [06-soporte-tecnico.md](06-soporte-tecnico.md) | **Soporte técnico:** requisitos, arranque, prueba de humo, diagnóstico por síntoma, tareas de mantenimiento, endpoints, logs y cómo reportar. PDF: `SABIA-soporte-tecnico.pdf`. |
 
-Operación del asistente y del ETL: [`rag/README.md`](../rag/README.md). Rutas del sitio y menú: [`routes.md`](../routes.md).
+Operación del asistente y del ETL: [`rag/README.md`](../rag/README.md). Rutas del sitio y menú: [`routes.md`](../routes.md). Los PDF se generan con `node docs/generar-pdf.js <doc.md> <salida.pdf>` ([06 §6.12](06-soporte-tecnico.md)).
 
 ## Qué es SABIA
 
@@ -28,6 +30,7 @@ almera-docs/
 ├── index.html                  Landing de SABIA (enlaza a Almera, Agentes de IA y el asistente)
 ├── README.md                   Resumen ejecutivo + arquitectura (desactualizado: no incluye rag/)
 ├── routes.md                   Rutas del sitio y menú compartido (nav.js)
+├── package.json, iniciar.bat   Arranque del servidor (npm start / doble clic)
 ├── to-do                       Backlog informal del proyecto (leerlo)
 ├── rag/                        Servidor SABIA: sitio + asistente RAG-lite + ETL de la carpeta compartida
 ├── docs/                       ← esta documentación
@@ -61,7 +64,8 @@ almera-docs/
 
 - Almera: verificar módulo Proyectos y Mecanismos de integración con pruebas y correos; documentar las categorías General y Riesgos; meter el árbol de Admin en la skill general ([03-almera.md §6](03-almera.md)).
 - Presentaciones: probar PDF desde HTML, ajustar tamaño de personajes en PPTX ([01-skills.md §2.4](01-skills.md)).
-- Asistente: publicarlo en el servidor del área con TI, agregar autenticación y validar respuestas con usuarios reales ([04-corte §9](04-corte-2026-10-28.md)).
+- Asistente: publicarlo en el servidor del área con TI, agregar autenticación y validar respuestas con usuarios reales ([05-corte §9](05-corte-2026-11-03.md)).
+- Evaluaciones y Planes de mejora: reempaquetar sus `.skill` con los pasos de seguimiento y corregir la GuIA de Planes de mejora ([05-corte §9](05-corte-2026-11-03.md)).
 - Ideas a futuro anotadas en `to-do`: skills para ChatGPT Pro, CLI con modelo local (LM Studio), RAG para la DEP con Ollama.
 
 ## Enlaces útiles
