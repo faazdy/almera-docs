@@ -33,6 +33,14 @@ KNOWLEDGE_DIR = (RAG_DIR / _knowledge) if _knowledge else None
 ETL_OUTPUT_DIR = RAG_DIR / "generado"
 ETL_INTERVAL_SECONDS = int(os.getenv("ETL_INTERVAL_SECONDS", "300"))
 
+# Descargas del botón "Aportar un documento". Salen de la copia del repo, no de la
+# carpeta compartida: si alguien borra o daña la plantilla allá, el botón sigue sirviendo.
+DOWNLOADS = {
+    "plantilla": RAG_DIR / "carpeta-compartida" / "Plantilla guía SABIA.docx",
+    "prompt": RAG_DIR / "carpeta-compartida" / "PROMPT para limpiar con IA.txt",
+}
+MAX_UPLOAD_MB = int(os.getenv("MAX_UPLOAD_MB", "20"))
+
 # Límites de entrada para que nadie dispare costos con mensajes enormes
 MAX_QUESTION_CHARS = 4000
 MAX_HISTORY_MESSAGES = 8

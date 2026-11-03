@@ -4,9 +4,17 @@ const form = document.getElementById('composer');
 const input = document.getElementById('input');
 const sendBtn = document.getElementById('send');
 const moduleSel = document.getElementById('module');
+const contributeBtn = document.getElementById('contribute');
+const uploadDialog = document.getElementById('upload-dialog');
+const uploadForm = document.getElementById('upload-form');
+const uploadModule = document.getElementById('upload-module');
+const uploadFile = document.getElementById('upload-file');
+const uploadSubmit = document.getElementById('upload-submit');
+const uploadResult = document.getElementById('upload-result');
 
 const history = [];
 let busy = false;
+let maxUploadMb = 20;
 
 const render = (md) => DOMPurify.sanitize(marked.parse(md));
 
@@ -24,7 +32,10 @@ async function loadModules() {
             opt.textContent = m.name;
             opt.title = m.description;
             moduleSel.appendChild(opt);
+            if (m.uploads !== false) uploadModule.appendChild(opt.cloneNode(true));
         }
+        maxUploadMb = data.max_upload_mb;
+        contributeBtn.hidden = !data.upload;
     } catch {
         document.getElementById('model').textContent = 'servidor no disponible';
     }
@@ -146,6 +157,91 @@ input.addEventListener('input', () => {
 document.querySelectorAll('.quicklink').forEach((btn) =>
     btn.addEventListener('click', () => !busy && ask(btn.dataset.q))
 );
+
+// ---------- Aportar un documento ----------
+const STATUS = {
+    verde: { icon: '🟢', title: 'Publicado. SABIA ya lo usa para responder.' },
+    amarillo: { icon: '🟡', title: 'Publicado con advertencias. SABIA ya lo usa, pero conviene mejorarlo:' },
+    rojo: { icon: '🔴', title: 'No se publicó. Corrígelo y vuelve a subirlo:' },
+};
+const ALLOWED = ['.docx', '.pdf', '.pptx', '.xlsx', '.txt', '.md'];
+const OLD_FORMATS = { '.doc': '.docx', '.ppt': '.pptx', '.xls': '.xlsx' };
+
+function showResult(kind, title, notes = []) {
+    uploadResult.hidden = false;
+    uploadResult.className = `upload-result ${kind}`;
+    uploadResult.innerHTML = `<p class="result-title">${esc(title)}</p>${
+        notes.length ? `<ul>${notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>` : ''
+    }`;
+}
+
+// Revisa lo obvio antes de subir, para no hacer esperar a nadie por un error evidente
+function checkFile(file) {
+    if (!uploadModule.value) return 'Elige el módulo al que pertenece el documento.';
+    if (!file) return 'Elige el archivo que quieres publicar.';
+    const ext = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
+    if (OLD_FORMATS[ext])
+        return `Es un formato antiguo (${ext}). Ábrelo y usa Guardar como → ${OLD_FORMATS[ext]}.`;
+    if (!ALLOWED.includes(ext))
+        return 'Formato no soportado. Usa Word (.docx), PDF, PowerPoint (.pptx), Excel (.xlsx) o texto (.txt).';
+    if (file.name.startsWith('~$')) return 'Ese es un archivo temporal de Office. Elige el documento original.';
+    if (!file.size) return 'El archivo está vacío.';
+    if (file.size > maxUploadMb * 1024 * 1024) return `El archivo pesa más de ${maxUploadMb} MB.`;
+    return null;
+}
+
+async function sendFile(file, replace) {
+    const params = new URLSearchParams({ module: uploadModule.value, filename: file.name, replace });
+    const res = await fetch(`/api/upload?${params}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/octet-stream' },
+        body: file,
+    });
+    const data = await res.json().catch(() => ({}));
+    return { res, data };
+}
+
+uploadForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const file = uploadFile.files[0];
+    const problem = checkFile(file);
+    if (problem) return showResult('rojo', problem);
+
+    uploadSubmit.disabled = true;
+    uploadSubmit.textContent = 'Revisando…';
+    showResult('working', 'Guardando y revisando el documento. Puede tardar unos segundos…');
+    try {
+        let { res, data } = await sendFile(file, false);
+        if (res.status === 409) {
+            const moduleName = uploadModule.selectedOptions[0].textContent;
+            if (!confirm(`Ya existe "${file.name}" en ${moduleName}.\n\n¿Reemplazarlo por esta versión?`)) {
+                showResult('working', 'No se subió nada. Cambia el nombre del archivo si es un documento distinto.');
+                return;
+            }
+            ({ res, data } = await sendFile(file, true));
+        }
+        if (!res.ok) throw new Error(typeof data.detail === 'string' ? data.detail : `Error ${res.status}`);
+        const s = STATUS[data.status];
+        showResult(data.status, `${s.icon} ${s.title}`, data.notes);
+        if (data.status !== 'rojo') uploadFile.value = '';
+    } catch (err) {
+        showResult('rojo', err.message === 'Failed to fetch' ? 'No hay conexión con el servidor.' : err.message);
+    } finally {
+        uploadSubmit.disabled = false;
+        uploadSubmit.textContent = 'Publicar';
+    }
+});
+
+contributeBtn.addEventListener('click', () => {
+    // Solo si ese módulo acepta documentos (el de "cómo alimentar a SABIA" no)
+    if (moduleSel.value && uploadModule.querySelector(`option[value="${moduleSel.value}"]`))
+        uploadModule.value = moduleSel.value;
+    uploadResult.hidden = true;
+    uploadDialog.showModal();
+});
+uploadDialog.querySelector('[data-close]').addEventListener('click', () => uploadDialog.close());
+uploadDialog.addEventListener('click', (e) => e.target === uploadDialog && uploadDialog.close());
+[uploadModule, uploadFile].forEach((el) => el.addEventListener('change', () => (uploadResult.hidden = true)));
 
 loadModules();
 input.focus();

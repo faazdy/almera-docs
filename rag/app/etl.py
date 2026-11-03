@@ -21,7 +21,7 @@ from . import config
 from .knowledge import Doc, load_catalog, normalize
 
 # Subir cuando cambie la limpieza o el semáforo: obliga a reprocesar todo
-ETL_VERSION = "1"
+ETL_VERSION = "2"
 
 SUPPORTED = {".docx", ".pdf", ".pptx", ".xlsx", ".md", ".txt"}
 LEGACY = {
@@ -75,9 +75,50 @@ PAGE_NUM_RE = re.compile(r"^\s*(p[aá]g(ina)?\.?\s*)?\d{1,4}(\s*(de|/)\s*\d{1,4}
 FAKE_HEADING_RE = re.compile(r"^\*\*([^*\n]{3,80}?)\*\*:?\s*$")
 HEADING_LINE_RE = re.compile(r"^#{1,6}\s")
 
+# Textos de ejemplo de "Plantilla guía SABIA.docx" que la gente olvida borrar.
+# Se comparan normalizados y sin marcas de Markdown (*, #, -), línea por línea.
+TEMPLATE_LINES = {
+    "<modulo> — <tema principal>",
+    "reemplaza el titulo de arriba. ejemplo: mecanismos de integracion — crear un comite. usa el estilo titulo 1 "
+    "solo una vez, para el titulo del documento. borra los textos grises cuando termines.",
+    "una o dos frases sobre que cubre este documento.",
+    "<nombre de la tarea>",
+    "una seccion con estilo titulo 2 por cada tarea. ejemplo: crear un comite, elaborar un acta.",
+    "ruta: admin → … → …",
+    "1. primer paso. escribe los botones como aparecen en almera, por ejemplo: pulsa grabar.",
+    "2. segundo paso.",
+    "3. tercer paso.",
+    "notas: advertencias o reglas del sistema para esta tarea.",
+    "¿pregunta? (estilo titulo 3)",
+    "respuesta.",
+    "[por confirmar] comportamientos del sistema que todavia no estan confirmados con soporte de almera.",
+}
+ANGLE_RE = re.compile(r"<([^<>\n]+)>")
+
+
+def template_key(line: str) -> str:
+    return normalize(re.sub(r"^[#*\s-]+|[*\s]+$", "", line).replace("**", "")).strip()
+
+
+def drop_empty_sections(lines: list[str]) -> list[str]:
+    """Quita títulos sin contenido antes del siguiente título de igual o mayor nivel."""
+    while True:
+        keep, removed = [], False
+        for i, ln in enumerate(lines):
+            if HEADING_LINE_RE.match(ln):
+                level = len(ln) - len(ln.lstrip("#"))
+                nxt = next((x for x in lines[i + 1 :] if x.strip()), None)
+                if nxt is None or (HEADING_LINE_RE.match(nxt) and len(nxt) - len(nxt.lstrip("#")) <= level):
+                    removed = True
+                    continue
+            keep.append(ln)
+        if not removed:
+            return keep
+        lines = keep
+
 
 def clean(text: str, title: str, ext: str) -> tuple[str, dict]:
-    info = {"images": 0, "fake_headings": 0, "repeated": 0, "page_numbers": 0}
+    info = {"images": 0, "fake_headings": 0, "repeated": 0, "page_numbers": 0, "template": 0}
 
     text, info["images"] = IMAGE_RE.subn("", text)
     if ext == ".xlsx":  # restos de pandas: celdas vacías y columnas sin nombre
@@ -110,7 +151,14 @@ def clean(text: str, title: str, ext: str) -> tuple[str, dict]:
         if PAGE_NUM_RE.match(s):
             info["page_numbers"] += 1
             continue
+        if template_key(s) in TEMPLATE_LINES:
+            info["template"] += 1
+            continue
+        if HEADING_LINE_RE.match(s):
+            ln = ANGLE_RE.sub(r"\1", ln)  # "## <Crear un comité>" → "## Crear un comité"
         out.append(ln)
+    if info["template"]:
+        out = drop_empty_sections(out)  # "Preguntas frecuentes" que quedó vacía, etc.
 
     text = re.sub(r"\n{3,}", "\n\n", "\n".join(out)).strip()
     if not text.startswith("# "):
@@ -128,7 +176,9 @@ def assess(text: str, info: dict) -> tuple[str, list[str]]:
     headings = [ln for ln in lines[1:] if HEADING_LINE_RE.match(ln)]
     red, yellow, notes = [], [], []
 
-    if len(body) < 80 or (len(body) < 200 and not headings):
+    if (len(body) < 80 or (len(body) < 200 and not headings)) and info.get("template", 0) >= 5:
+        red.append("Es la plantilla sin llenar. Escribe los pasos de tu tema en ella y vuelve a subirla.")
+    elif len(body) < 80 or (len(body) < 200 and not headings):
         red.append("Casi no tiene texto. Si es un PDF escaneado o una imagen, el sistema no lo puede leer: "
                    "usa el Word original o " + PROMPT_HINT + ".")
     if sum(1 for ln in lines if TIMESTAMP_LINE_RE.search(ln)) >= 10:
@@ -157,16 +207,23 @@ def assess(text: str, info: dict) -> tuple[str, list[str]]:
 
     if not red and (info["repeated"] or info["page_numbers"]):
         notes.append("Se quitaron encabezados, pies y números de página repetidos.")
+    if not red and info.get("template"):
+        notes.append(f"Se quitaron {info['template']} texto(s) de ejemplo de la plantilla que quedaron sin borrar.")
 
     status = "rojo" if red else "amarillo" if yellow else "verde"
     return status, red + yellow + notes
 
 
 # ---------- Cargar ----------
+def upload_modules() -> list[dict]:
+    """Módulos que aceptan documentos (los de "uploads": false solo usan guías curadas)."""
+    return [spec for spec in load_catalog()["modules"] if spec.get("uploads", True)]
+
+
 def module_lookup() -> dict[str, str]:
     """Nombre de carpeta normalizado → id de módulo. Acepta el id, el nombre o cada parte de "A / B"."""
     lookup = {}
-    for spec in load_catalog()["modules"]:
+    for spec in upload_modules():
         for alias in [spec["id"], spec["name"], *spec["name"].split("/")]:
             lookup[normalize(alias).strip().replace("-", " ")] = spec["id"]
     return lookup
@@ -238,7 +295,7 @@ def run(knowledge_dir: Path, out_dir: Path) -> tuple[list[Result], bool]:
         old = {}
 
     lookup = module_lookup()
-    valid = sorted({spec["name"].split("/")[0].strip() for spec in load_catalog()["modules"]})
+    valid = sorted({spec["name"].split("/")[0].strip() for spec in upload_modules()})
     results: dict[str, Result] = {}
     reprocessed = False
 

@@ -112,6 +112,47 @@ a{color:inherit;text-decoration:none}
 .module-picker select{font:inherit;letter-spacing:inherit;text-transform:inherit;color:var(--ink-soft);background:transparent;border:0;border-bottom:1px solid var(--line-strong);padding:2px 0;cursor:pointer;outline:0}
 .module-picker select:hover,.module-picker select:focus{color:var(--ink);border-color:var(--ink)}
 .disclaimer{text-align:right}
+.meta-left{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.meta-btn{font:inherit;letter-spacing:inherit;text-transform:inherit;color:var(--accent-ink);background:transparent;border:0;border-bottom:1px solid rgba(183,71,42,.3);padding:2px 0;cursor:pointer}
+.meta-btn:hover{color:var(--accent);border-color:var(--accent)}
+
+/* aportar un documento */
+.upload-dialog{width:min(560px,calc(100vw - 32px));max-height:calc(100vh - 32px);border:1px solid var(--line-strong);border-radius:16px;padding:0;background:var(--bg);color:var(--ink);box-shadow:0 18px 50px rgba(23,22,20,.18)}
+.upload-dialog::backdrop{background:rgba(23,22,20,.35)}
+.upload-form{padding:26px 28px 24px}
+.upload-head{display:flex;justify-content:space-between;align-items:center}
+.upload-head .kicker{margin:0}
+.upload-close{border:0;background:transparent;font:300 26px/1 "DM Sans",sans-serif;color:var(--muted);cursor:pointer;padding:0 2px}
+.upload-close:hover{color:var(--ink)}
+.upload-form h2{margin:18px 0 22px;font:300 30px/1.1 "DM Sans",sans-serif;letter-spacing:-.025em}
+.upload-steps{list-style:none;margin:0;padding:0;counter-reset:step;display:flex;flex-direction:column;gap:1px;background:var(--line)}
+.upload-steps li{counter-increment:step;background:var(--bg);display:grid;grid-template-columns:34px minmax(0,1fr);column-gap:12px;row-gap:8px;padding:16px 0}
+.upload-steps li > *{grid-column:2}
+.upload-steps li::before{content:counter(step,decimal-leading-zero);grid-row:span 3;font:500 11px/1.6 "JetBrains Mono",monospace;color:var(--faint)}
+.step-title{font:500 15px/1.4 "DM Sans",sans-serif;color:var(--ink)}
+.step-desc{font:400 13px/1.5 "DM Sans",sans-serif;color:var(--muted)}
+.field{font:400 14px/1.4 "DM Sans",sans-serif;color:var(--ink);background:#fff;border:1px solid var(--line-strong);border-radius:10px;padding:9px 12px;width:100%;outline:0}
+.field:focus{border-color:rgba(23,22,20,.45)}
+.field[type=file]{padding:7px 8px;cursor:pointer}
+.field[type=file]::file-selector-button{font:500 12px "DM Sans",sans-serif;border:1px solid var(--line-strong);background:var(--bg);color:var(--ink);border-radius:999px;padding:6px 14px;margin-right:12px;cursor:pointer}
+.btn-primary,.btn-secondary{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;font:500 13.5px/1 "DM Sans",sans-serif;padding:11px 20px;cursor:pointer;transition:opacity .25s ease,background .25s ease;justify-self:start}
+.btn-primary{border:0;background:var(--dark);color:var(--bg)}
+.btn-primary:hover{opacity:.86}
+.btn-primary:disabled{opacity:.4;cursor:wait}
+.btn-secondary{border:1px solid var(--line-strong);background:#fff;color:var(--ink)}
+.btn-secondary:hover{border-color:var(--ink)}
+.upload-warn{margin:14px 0 0;font:400 12.5px/1.5 "DM Sans",sans-serif;color:var(--accent-ink)}
+.upload-result{margin-top:16px;border-radius:10px;padding:13px 16px;font:400 14px/1.5 "DM Sans",sans-serif;background:#fff;border:1px solid var(--line)}
+.upload-result .result-title{margin:0;font-weight:500}
+.upload-result ul{margin:8px 0 0;padding-left:20px;color:var(--ink-soft)}
+.upload-result li + li{margin-top:4px}
+.upload-result.verde{background:#eef6ee;border-color:#cfe5cf}
+.upload-result.amarillo{background:#fbf5e3;border-color:#eedfb0}
+.upload-result.rojo{background:var(--accent-soft);border-color:rgba(235,90,37,.25);color:var(--accent-ink)}
+.upload-result.working{color:var(--ink-soft)}
+.upload-actions{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-top:22px}
+.upload-help{font:400 12.5px/1.45 "DM Sans",sans-serif;color:var(--muted);border-bottom:1px solid var(--line-strong)}
+.upload-help:hover{color:var(--ink)}
 
 @media (max-width:900px){
   .intro{padding:84px 0 0}
@@ -130,4 +171,6 @@ a{color:inherit;text-decoration:none}
   .composer-wrap{padding:16px 16px 12px}
   .composer-meta{flex-direction:column;align-items:flex-start;gap:6px}
   .disclaimer{text-align:left}
+  .upload-form{padding:22px 18px 20px}
+  .upload-actions{flex-direction:column-reverse;align-items:stretch}
 }

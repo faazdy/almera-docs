@@ -17,9 +17,11 @@ El sitio es **estático** (HTML/CSS/JS plano) y funciona con cualquier servidor 
 | `/asistente/` | Chat "Pregúntale a SABIA" | `rag/static/index.html` |
 | `/asistente/static/…` | CSS/JS del chat | `rag/static/` |
 | `/api/modules`, `/api/chat` | API del chat | `rag/app/main.py` |
+| `/api/descargas/plantilla`, `/api/descargas/prompt`, `/api/upload` | Botón "Aportar un documento" del chat | `rag/app/main.py` |
 
 ```powershell
-cd rag; .\iniciar.ps1        # todo SABIA en http://127.0.0.1:8800/
+npm start                    # todo SABIA en http://127.0.0.1:8800/
+# o doble clic en iniciar.bat, o: cd rag; .\iniciar.ps1
 ```
 
 **Modo solo estático** (`npx serve -l 8934 .`, GitHub Pages o abrir el HTML con doble clic): funciona todo **excepto** "Pregúntale a SABIA", que da 404 porque no hay servidor que responda `/asistente/`.

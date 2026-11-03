@@ -4,6 +4,10 @@ CÓMO AGREGAR CONOCIMIENTO A SABIA
 Todo lo que guardes en esta carpeta lo aprende el asistente "Pregúntale a SABIA".
 No necesitas instalar nada ni saber codigo.
 
+LO MÁS FÁCIL: en el chat de SABIA, pulsa "+ Aportar un documento". Ahí descargas
+la plantilla, eliges el módulo y subes el archivo. En unos segundos te dice si quedó
+publicado. Si prefieres usar esta carpeta, sigue los pasos de abajo.
+
 
 1. GUARDA EL DOCUMENTO EN LA CARPETA DE SU MÓDULO
    Ejemplo: una guía sobre comités va en "Mecanismos de integración".

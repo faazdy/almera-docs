@@ -70,6 +70,7 @@ class Module:
     id: str
     name: str
     description: str
+    uploads: bool = True  # False: no acepta documentos de la carpeta compartida ni del botón
     docs: list[Doc] = field(default_factory=list)
     sections: list[Section] = field(default_factory=list)
 
@@ -127,7 +128,7 @@ class KnowledgeBase:
         self.shared = "\n\n".join(self._read(p) for p in data.get("shared", []))
         self.modules: dict[str, Module] = {}
         for spec in data["modules"]:
-            mod = Module(spec["id"], spec["name"], spec["description"])
+            mod = Module(spec["id"], spec["name"], spec["description"], spec.get("uploads", True))
             mod.docs = [Doc(p, self._read(p)) for p in spec["files"]]
             mod.docs += (extra or {}).get(mod.id, [])
             for i, doc in enumerate(mod.docs):
@@ -231,6 +232,7 @@ class KnowledgeBase:
 
     def catalog(self) -> list[dict]:
         return [
-            {"id": m.id, "name": m.name, "description": m.description, "chars": m.size, "docs": len(m.docs)}
+            {"id": m.id, "name": m.name, "description": m.description, "chars": m.size, "docs": len(m.docs),
+             "uploads": m.uploads}
             for m in self.modules.values()
         ]

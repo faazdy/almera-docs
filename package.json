@@ -1,0 +1,10 @@
+{
+  "name": "sabia",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SABIA: documentación de Almera y asistente RAG-lite",
+  "scripts": {
+    "start": "powershell -NoProfile -ExecutionPolicy Bypass -File rag/iniciar.ps1",
+    "dev": "npm start"
+  }
+}

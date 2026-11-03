@@ -78,17 +78,59 @@
         <button id="send" type="submit" class="send" aria-label="Enviar">→</button>
       </div>
       <div class="composer-meta">
-        <label class="module-picker">
-          <span>Módulo</span>
-          <select id="module">
-            <option value="">Automático</option>
-          </select>
-        </label>
+        <div class="meta-left">
+          <label class="module-picker">
+            <span>Módulo</span>
+            <select id="module">
+              <option value="">Automático</option>
+            </select>
+          </label>
+          <button type="button" id="contribute" class="meta-btn" hidden>+ Aportar un documento</button>
+        </div>
         <span class="disclaimer">No pegues datos personales · <span id="model">—</span></span>
       </div>
     </form>
   </div>
 </footer>
+
+<!-- ============ APORTAR UN DOCUMENTO ============ -->
+<dialog id="upload-dialog" class="upload-dialog" aria-labelledby="upload-title">
+  <form id="upload-form" class="upload-form" novalidate>
+    <div class="upload-head">
+      <div class="kicker">Enseñarle a SABIA</div>
+      <button type="button" class="upload-close" data-close aria-label="Cerrar">×</button>
+    </div>
+    <h2 id="upload-title">Aportar un documento</h2>
+
+    <ol class="upload-steps">
+      <li>
+        <span class="step-title">Descarga la plantilla y llénala</span>
+        <span class="step-desc">Separa cada tarea con los estilos Título 1, 2 y 3 de Word. Borra los textos grises de ejemplo.</span>
+        <a class="btn-secondary" href="/api/descargas/plantilla" download>↓ Descargar plantilla (.docx)</a>
+      </li>
+      <li>
+        <label class="step-title" for="upload-module">¿De qué módulo es?</label>
+        <select id="upload-module" class="field" required>
+          <option value="">Elige un módulo…</option>
+        </select>
+      </li>
+      <li>
+        <label class="step-title" for="upload-file">Elige el archivo</label>
+        <span class="step-desc">Word, PDF, PowerPoint, Excel o texto. Si ya existe uno con el mismo nombre, te preguntamos antes de reemplazarlo.</span>
+        <input id="upload-file" class="field" type="file" accept=".docx,.pdf,.pptx,.xlsx,.txt,.md" required>
+      </li>
+    </ol>
+
+    <p class="upload-warn">No incluyas datos personales, de pacientes ni información confidencial.</p>
+
+    <div id="upload-result" class="upload-result" role="status" aria-live="polite" hidden></div>
+
+    <div class="upload-actions">
+      <a class="upload-help" href="/api/descargas/prompt" download>¿Es una transcripción o un PDF escaneado? Descarga el prompt para ordenarlo con IA</a>
+      <button id="upload-submit" type="submit" class="btn-primary">Publicar</button>
+    </div>
+  </form>
+</dialog>
 
 <script src="static/vendor/marked.min.js"></script>
 <script src="static/vendor/purify.min.js"></script>

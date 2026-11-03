@@ -57,6 +57,19 @@
       "name": "Proyectos",
       "description": "Tipos de proyecto, estados y transiciones, privilegios, cronogramas, actividades, hitos, presupuesto e integración con Plan Estratégico.",
       "files": ["almera/modulo-proyectos/AI/proyectos-almera.md"]
+    },
+    {
+      "id": "sabia",
+      "name": "SABIA (cómo alimentarlo)",
+      "description": "Cómo alimentar a SABIA: agregar, subir, aportar, publicar, actualizar, reemplazar, eliminar o quitar documentos del asistente; carpeta compartida, botón Aportar un documento, plantilla, semáforo y ESTADO SABIA.",
+      "files": ["rag/conocimiento/alimentar-sabia.md"],
+      "uploads": false
+    },
+    {
+      "id": "general",
+      "name": "General",
+      "description": "Información general de Almera que no pertenece a un solo módulo: ingreso al sistema, navegación, menús y conceptos comunes.",
+      "files": []
     }
   ]
 }
