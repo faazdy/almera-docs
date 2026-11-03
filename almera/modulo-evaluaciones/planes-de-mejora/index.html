@@ -50,6 +50,8 @@
       <div class="faq-grid">
         <a href="#informe"><span>¿Cómo crear y configurar un informe?</span><span class="faq-num">01</span></a>
         <a href="#hallazgo"><span>¿Cómo crear y configurar un hallazgo?</span><span class="faq-num">02</span></a>
+        <a href="#seguimiento"><span>¿Cómo le hago seguimiento a una acción de mejora?</span><span class="faq-num">03</span></a>
+        <a href="#a4"><span>¿Por qué no me aparece el botón «Adicionar» en Seguimientos?</span><span class="faq-num">A.4</span></a>
       </div>
     </section>
 
@@ -61,6 +63,7 @@
           <div class="m-toc-label">Proceso principal</div>
           <a href="#informe"><span class="num">01</span>Crear informe</a>
           <a href="#hallazgo"><span class="num">02</span>Crear hallazgo</a>
+          <a href="#seguimiento"><span class="num">03</span>Dar seguimiento</a>
         </div>
         <div class="m-toc-group">
           <div class="m-toc-label">Anexo A · Configuración</div>
@@ -72,6 +75,7 @@
             <a href="#a2-campos">Campos personalizados</a>
           </div>
           <a href="#a3"><span class="num">A.3</span>Puntos de atención</a>
+          <a href="#a4"><span class="num">A.4</span>Privilegios de seguimiento</a>
         </div>
       </nav>
 
@@ -138,6 +142,29 @@
           <div class="notes-block">
             <div class="note-box"><div class="note-label">Cuidado</div><p class="note-text">Vinculación obligatoria: todo hallazgo debe estar atado a una Unidad Auditable. No es un campo opcional.</p></div>
             <div class="note-box"><div class="note-label">Nota</div><p class="note-text">La clasificación del hallazgo es 100% parametrizable.</p></div>
+          </div>
+        </section>
+
+        <!-- 03 — SEGUIMIENTO -->
+        <section id="seguimiento" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">03</span><h2>Añadir o dar seguimiento a un plan de mejora</h2></div>
+          <p class="m-section-intro">Registre el avance de una acción de mejora dentro de su plan (por ejemplo, Plan de Mejora ICONTEC 2025-2026 o PAMEC).</p>
+
+          <div class="ruta"><span class="ruta-label">Ruta</span><span class="ruta-path">Admin → Evaluaciones → Administrar planes → [plan de interés]</span></div>
+
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Entre al plan de mejora de interés.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">En los detalles auditables, haga clic en el número de «Acciones de mejora» y entre a la acción correspondiente.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-text">Vaya a la pestaña «Seguimiento» o «Seguimientos de control», según lo que necesite registrar.</span></div></li>
+              <li><span class="n">04</span><div class="step-content">
+                <span class="step-text">Haga clic en «Adicionar» y diligencie los campos requeridos.</span>
+                <div class="step-links">
+                  <a href="#a4">¿No aparece el botón «Adicionar»? Ver A.4</a>
+                </div>
+              </div></li>
+              <li><span class="n">05</span><div class="step-content"><span class="step-text">Haga clic en «Grabar».</span></div></li>
+            </ol>
           </div>
         </section>
 
@@ -214,7 +241,7 @@
         </section>
 
         <!-- A.3 — PUNTOS DE ATENCIÓN -->
-        <section id="a3" class="subsection" style="padding-bottom:56px">
+        <section id="a3" class="subsection">
           <span class="subsection-tag">A.3</span>
           <h2 class="subsection-title">Adicionar o ajustar puntos de atención</h2>
           <p class="subsection-usage">Use esto para modificar las clasificaciones automáticas del sistema.</p>
@@ -225,6 +252,36 @@
             <div class="kv-row"><span class="kv-key">Agregar</span><span class="kv-val">Haga clic en «Crear clasificación» — se asocia a todo por defecto.</span></div>
             <div class="kv-row"><span class="kv-key">Desactivar</span><span class="kv-val">Ingrese al punto, deseleccione todos los sistemas de referencia y guarde.</span></div>
             <div class="kv-row"><span class="kv-key">Eliminar</span><span class="kv-val">Haga clic sobre el ícono del bote de basura.</span></div>
+          </div>
+        </section>
+
+        <!-- A.4 — PRIVILEGIOS DE SEGUIMIENTO -->
+        <section id="a4" class="subsection" style="padding-bottom:56px">
+          <span class="subsection-tag">A.4</span>
+          <h2 class="subsection-title">Configurar seguimientos y privilegios</h2>
+          <p class="subsection-usage">Use esto para definir, por cada sistema de referencia (ej. Auditoría interna, PAMEC), quién puede hacer seguimientos sobre sus planes.</p>
+
+          <div class="ruta"><span class="ruta-label">Ruta</span><span class="ruta-path">Admin → Evaluaciones → Sistemas de referencia → [sistema de interés]</span></div>
+
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-text">Seleccione el sistema de referencia al que está relacionada la evaluación a la que se le hará seguimiento.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-text">Vaya a la pestaña <code>Privilegios</code> y haga clic en «Administrar privilegios».</span></div></li>
+              <li><span class="n">03</span><div class="step-content">
+                <span class="step-text">En la ventana de privilegios, busque al usuario y seleccione los privilegios que tendrá.</span>
+                <div class="field-list">
+                  <span class="field-chip">Administración</span>
+                  <span class="field-chip">Consulta</span>
+                  <span class="field-chip">Adición de evaluación</span>
+                </div>
+              </div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-text">Haga clic en el botón verde con el símbolo «+».</span></div></li>
+              <li><span class="n">05</span><div class="step-content"><span class="step-text">Haga clic en «Cerrar».</span></div></li>
+            </ol>
+          </div>
+
+          <div class="notes-block" style="margin-top:0">
+            <div class="note-box"><div class="note-label">Comprobar</div><p class="note-text">Vaya a Admin → Evaluaciones → Administrar planes, abra un plan que use ese sistema de referencia y entre a una acción. En las pestañas «Seguimientos» y «Seguimientos de control» debe aparecer el botón «Adicionar». Si no aparece, repita los pasos anteriores.</p></div>
           </div>
         </section>
 

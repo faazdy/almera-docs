@@ -239,6 +239,34 @@ La nueva clasificación quedará disponible para todos los sistemas de referenci
 2. Confirme la operación.
 
 ---
+## Añadir o dar seguimiento a un plan de mejora
+
+**Cuándo se usa:** para configurar, por cada sistema de referencia (ej. "Auditoría interna"), qué información se pide y cómo se califica cada auditoría que use ese sistema.
+**Ruta:** Evaluaciones -> Administrar planes -> **Seleccionar el plan de interés (ej. Plan de Mejora ICONTEC-2025-2026, PAMEC, etc)**
+
+Pasos:
+1. Entrar al plan de mejora de interés.
+2. Dentro de los detalles auditables, dar clic en el numero de 'Acciones de mejora', y entramos en la respectiva acción.
+3. Dirigirse a la prestaña 'Seguimiento' o 'Seguimientos de control' según la necesidad.
+4. Dar clic en **Adicionar** y llenar los campos requeridos.
+5. Grabar
+
+
+### Configurar seguimientos y privilegios
+**Cuándo se usa:** para configurar, por cada sistema de referencia (ej. "Auditoría interna"), quienes pueden hacer seguimientos y como habilitarles permisos sobre los planes.
+**Ruta:** Evaluaciones -> Sistemas de referencia -> **Seleccionar el sistema de interés (ej. Auditoría Interna, PAMEC, etc)**
+
+Pasos:
+1. Dentro de Sistemas de Referencia, seleccionar el sistema al que está relacionada la evaluación para hacerle seguimiento.
+2. Dentro del sistema seleccionado, vamos a la pestaña **Privilegios**, y le damos clic al botón **Administrar Privilegios**.
+3. Cuando se abra la ventana de los privilegios, metemos en el buscador el usuario, luego seleccionamos que privilegios tendrá (administración, consulta o adicion de evaluación).
+4. Luego le damos clic al botón con el símbolo del mas '+' de color verde.
+5. Dar clic en cerrar.
+
+Para comprobarlo, vamos a **Evaluaciones -> Administrar planes**, seleccionamos algún plan que tenga el sistema de referencia al que tengamos privilegios configurados. Entramos a algun Plan de accion, y nos dirigimos a la pestaña 'Seguimientos' y a la pestaña 'Seguimientos de control'. En ambos debemos tener el botón **Adicionar**.
+
+>Nota: en caso de no tener el botón **Adicionar** se deben seguir los pasos anteriores.
+
 
 # Resumen de rutas
 

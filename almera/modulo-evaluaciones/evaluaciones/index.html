@@ -52,6 +52,7 @@
         <a href="#plantillas"><span>¿Cómo configuro una plantilla para auditorías recurrentes?</span><span class="faq-num">B</span></a>
         <a href="#cuestionario"><span>¿Cómo cargo la lista de chequeo (masiva o manual)?</span><span class="faq-num">C</span></a>
         <a href="#ejecucion"><span>¿Cómo se generan los hallazgos y planes de mejora?</span><span class="faq-num">D</span></a>
+        <a href="#seguimientos"><span>¿Cómo habilito a alguien para hacer seguimientos?</span><span class="faq-num">G</span></a>
       </div>
     </section>
 
@@ -67,6 +68,7 @@
           <a href="#ejecucion"><span class="num">D</span>Ejecución y hallazgos</a>
           <a href="#sistema-referencia"><span class="num">E</span>Sistema de referencia</a>
           <a href="#reportes"><span class="num">F</span>Reportes y privilegios</a>
+          <a href="#seguimientos"><span class="num">G</span>Seguimientos y privilegios</a>
         </div>
       </nav>
 
@@ -201,6 +203,28 @@
 
           <div class="notes-block">
             <div class="note-box"><div class="note-label">Cuidado</div><p class="note-text">Incluso los administradores «superusuario» pueden no tener automáticamente todos los privilegios — hay que revisarlos y asignarlos explícitamente por sistema de referencia.</p></div>
+          </div>
+        </section>
+
+        <!-- G — SEGUIMIENTOS -->
+        <section id="seguimientos" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">G</span><h2>Configurar seguimientos y privilegios</h2></div>
+          <p class="m-section-intro">Habilite a los usuarios que harán seguimiento a los planes que salen de las evaluaciones (auditorías, etc.) de un sistema de referencia.</p>
+
+          <div class="ruta"><span class="ruta-label">Ruta</span><span class="ruta-path">Admin → Evaluaciones → Sistemas de referencia → [sistema de interés]</span></div>
+
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-label">Sistema</span><span class="step-text">Seleccione el sistema de referencia al que está relacionada la evaluación a la que se le hará seguimiento.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-label">Privilegios</span><span class="step-text">Vaya a la pestaña Privilegios y haga clic en «Administrar privilegios».</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-label">Usuario</span><span class="step-text">En la ventana de privilegios, busque al usuario y elija qué privilegios tendrá: administración, consulta o adición de evaluación.</span></div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-label">Agregar</span><span class="step-text">Haga clic en el botón verde con el símbolo «+».</span></div></li>
+              <li><span class="n">05</span><div class="step-content"><span class="step-label">Cerrar</span><span class="step-text">Haga clic en «Cerrar».</span></div></li>
+            </ol>
+          </div>
+
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Comprobar</div><p class="note-text">Vaya a Admin → Evaluaciones → Administrar planes, abra un plan que use ese sistema de referencia y entre a un plan de acción. En las pestañas «Seguimientos» y «Seguimientos de control» debe aparecer el botón «Adicionar». Si no aparece, repita los pasos anteriores. Cómo registrar el seguimiento: <a href="../planes-de-mejora/index.html#seguimiento">ver Planes de mejora → Dar seguimiento</a>.</p></div>
           </div>
         </section>
 
