@@ -39,6 +39,7 @@ pregunta ──► enrutador BM25 ──► módulo(s) elegidos ──► prompt
 ```
 
 - **Por qué "lite":** todo el conocimiento de Almera son ~240 KB (~65k tokens). Cada guía cabe entera en el contexto del modelo, así que no hay base vectorial ni embeddings. Las secciones solo se usan para *decidir* qué módulo enviar. Al modelo siempre le llega la guía completa, así los procedimientos paso a paso nunca llegan partidos.
+- **Conjugaciones y plurales:** el enrutador recorta terminaciones (`stem()` en `app/knowledge.py`), así "¿cómo te alimento?" encuentra "alimentar" y "evaluaciones" encuentra "evaluación". Si lo cambias, mide antes y después enrutando los títulos de las guías y revisando que cada uno caiga en su módulo.
 - **Seguimientos:** para enrutar se usan las dos últimas preguntas del usuario, así "¿y cómo lo apruebo?" sigue en el mismo módulo.
 - **Selector de módulo:** en la barra superior se puede fijar un módulo si el enrutador automático se equivoca.
 - **Costo aproximado:** 8–17k tokens de entrada por pregunta. Con `claude-haiku-5.5` cuesta unos US$0,002 por pregunta.

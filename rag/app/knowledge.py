@@ -22,9 +22,25 @@ STOPWORDS = set(
     fue ha hace hacer hay la las le les lo los mas me mi mis muy ni no nos o para pero por
     porque puede pueden puedo que se segun ser si sin sobre su sus tambien tiene tienen
     todo todos tu un una unas uno unos y ya yo almera hago hacerlo quiero necesito
-    debo sistema modulo opcion
+    debo sistema modulo opcion te ti contigo tus
     """.split()
 )
+
+# Terminaciones que se recortan para que "alimento", "alimentas" y "alimentarlo" (o
+# "evaluación" y "evaluaciones") cuenten como la misma palabra. Van de la más larga a la
+# más corta y solo se recorta una, dejando al menos 4 letras.
+SUFFIXES = (
+    "aciones", "amiento", "imiento", "acion", "arlos", "arlas", "arlo", "arla", "arle", "arte", "erte",
+    "irte", "ando", "iendo", "ados", "adas", "idos", "idas", "ado", "ada", "ido", "ida",
+    "ar", "er", "ir", "as", "es", "os", "a", "e", "o", "s",
+)
+
+
+def stem(tok: str) -> str:
+    for suffix in SUFFIXES:
+        if tok.endswith(suffix) and len(tok) - len(suffix) >= 4:
+            return tok[: -len(suffix)]
+    return tok
 
 HEADING_RE = re.compile(r"^(#{1,3})\s+(.+?)\s*#*\s*$")
 # Secciones que se repiten en casi todas las guías y ensucian el enrutamiento
@@ -41,12 +57,7 @@ def tokenize(text: str) -> list[str]:
     for tok in re.findall(r"[a-z0-9]+", normalize(text)):
         if len(tok) < 2 or tok in STOPWORDS:
             continue
-        # Stemming mínimo de plurales en español
-        if len(tok) > 5 and tok.endswith("es"):
-            tok = tok[:-2]
-        elif len(tok) > 4 and tok.endswith("s"):
-            tok = tok[:-1]
-        tokens.append(tok)
+        tokens.append(stem(tok))
     return tokens
 
 

@@ -61,7 +61,7 @@
     {
       "id": "sabia",
       "name": "SABIA (cómo alimentarlo)",
-      "description": "Cómo alimentar a SABIA: agregar, subir, aportar, publicar, actualizar, reemplazar, eliminar o quitar documentos del asistente; carpeta compartida, botón Aportar un documento, plantilla, semáforo y ESTADO SABIA.",
+      "description": "Cómo alimentar a SABIA o enseñarle cosas nuevas: agregar, subir, aportar, publicar, actualizar, reemplazar, eliminar o quitar documentos del asistente; carpeta compartida, botón Aportar un documento, plantilla, semáforo y ESTADO SABIA.",
       "files": ["rag/conocimiento/alimentar-sabia.md"],
       "uploads": false
     },

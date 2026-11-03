@@ -77,9 +77,14 @@ app = FastAPI(title="SABIA", docs_url=None, redoc_url=None, openapi_url=None, li
 
 @app.middleware("http")
 async def revalidate_assistant(request: Request, call_next):
-    """Sin esto el navegador guarda el app.js viejo y no ve los cambios del chat hasta un Ctrl+F5."""
+    """Sin esto el navegador guarda el .js viejo y no ve los cambios hasta un Ctrl+F5.
+
+    Aplica a todo el sitio (chat, informes, guías), no solo a /asistente: con un recargar
+    normal el navegador pide de nuevo el HTML pero puede reusar el main.js viejo, y la página
+    queda a medias (por ejemplo, filtros nuevos que nadie llena).
+    """
     response = await call_next(request)
-    if request.url.path.startswith("/asistente"):
+    if not request.url.path.startswith("/api/") and "Cache-Control" not in response.headers:
         response.headers["Cache-Control"] = "no-cache"  # sigue usando ETag: si no cambió, responde 304
     return response
 
