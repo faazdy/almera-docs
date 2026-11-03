@@ -18,7 +18,7 @@
   };
   const NEEDS_VALUE = { empty:false, not_empty:false, equals:true, not_equals:true, contains:true, gt:true, lt:true };
 
-  let cfg = null; // {storageKey, fields:[{key,label,type}], getYears(row), onChange()}
+  let cfg = null; // {storageKey, fields:[{key,label,type}], getYears(row), getRows(), onChange()}
   let fieldsByKey = {};
   let panelRules = [];
   let editingId = null;
@@ -29,7 +29,36 @@
     });
   }
 
-  function isEmpty(v){ return v === null || v === undefined || v === ''; }
+  function isEmpty(v){ return v === null || v === undefined || String(v).trim() === ''; }
+
+  // Compara sin importar mayúsculas, tildes ni espacios de más:
+  // "Sí" = "SI ", "caracterizacion" = "Caracterización".
+  function norm(v){
+    return String(v === null || v === undefined ? '' : v).toLowerCase()
+      .normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/s+/g, ' ').trim();
+  }
+
+  // Acepta coma o punto decimal: "2,5" = "2.5".
+  function toNumber(v){
+    if(typeof v === 'number') return v;
+    const s = String(v === null || v === undefined ? '' : v).replace(/s/g, '').replace(',', '.');
+    return s === '' ? NaN : Number(s);
+  }
+
+  function sameValue(raw, value, type){
+    if(type !== 'text'){
+      const a = toNumber(raw), b = toNumber(value);
+      if(!isNaN(a) && !isNaN(b)) return a === b;
+    }
+    return norm(raw) === norm(value);
+  }
+
+  function compare(raw, value, op){
+    const a = toNumber(raw), b = toNumber(value);
+    if(isNaN(a) || isNaN(b)) return false;
+    return op === 'gt' ? a > b : a < b;
+  }
 
   function loadRules(){
     try{
@@ -57,11 +86,11 @@
     switch(rule.operator){
       case 'empty': return isEmpty(raw);
       case 'not_empty': return !isEmpty(raw);
-      case 'equals': return !isEmpty(raw) && String(raw).trim().toLowerCase() === String(rule.value || '').trim().toLowerCase();
-      case 'not_equals': return isEmpty(raw) || String(raw).trim().toLowerCase() !== String(rule.value || '').trim().toLowerCase();
-      case 'contains': return !isEmpty(raw) && String(raw).toLowerCase().indexOf(String(rule.value || '').toLowerCase()) !== -1;
-      case 'gt': return !isEmpty(raw) && Number(raw) > Number(rule.value);
-      case 'lt': return !isEmpty(raw) && Number(raw) < Number(rule.value);
+      case 'equals': return !isEmpty(raw) && sameValue(raw, rule.value, fdef.type);
+      case 'not_equals': return isEmpty(raw) || !sameValue(raw, rule.value, fdef.type);
+      case 'contains': return !isEmpty(raw) && norm(raw).indexOf(norm(rule.value)) !== -1;
+      case 'gt':
+      case 'lt': return !isEmpty(raw) && compare(raw, rule.value, rule.operator);
       default: return false;
     }
   }
@@ -106,6 +135,31 @@
     }).join('');
   }
 
+  // Valores que de verdad trae el archivo cargado para ese campo (los más frecuentes primero),
+  // para que la persona elija uno en vez de adivinar cómo está escrito.
+  function valueSuggestions(fieldKey){
+    const fdef = fieldsByKey[fieldKey];
+    if(!fdef || fdef.type === 'years' || !cfg.getRows) return [];
+    const counts = {};
+    (cfg.getRows() || []).forEach(function(r){
+      const v = r[fieldKey];
+      if(isEmpty(v)) return;
+      const s = String(v).replace(/s+/g, ' ').trim();
+      counts[s] = (counts[s] || 0) + 1;
+    });
+    return Object.keys(counts).sort(function(a, b){ return counts[b] - counts[a]; }).slice(0, 60);
+  }
+
+  function fillSuggestions(fieldKey){
+    const list = document.getElementById('ckValueList');
+    const hint = document.getElementById('ckValueHint');
+    const values = valueSuggestions(fieldKey);
+    list.innerHTML = values.map(function(v){ return '<option value="' + escapeHtml(v) + '"></option>'; }).join('');
+    hint.textContent = values.length
+      ? 'Valores en el archivo: ' + values.slice(0, 8).join(' · ') + (values.length > 8 ? ' …' : '')
+      : (fieldsByKey[fieldKey] && fieldsByKey[fieldKey].type !== 'text' ? 'Puedes usar coma o punto decimal (ej. 2,5).' : '');
+  }
+
   function openPanel(){
     panelRules = loadRules();
     editingId = null;
@@ -140,11 +194,13 @@
         '<div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:12px;">' +
           '<div class="filter-group"><label>Campo</label><select id="ckField">' + fieldOptionsHtml(editing ? editing.field : defaultField) + '</select></div>' +
           '<div class="filter-group"><label>Condición</label><select id="ckOperator">' + operatorOptionsHtml(editing ? editing.field : defaultField, editing ? editing.operator : 'empty') + '</select></div>' +
-          '<div class="filter-group" id="ckValueWrap"><label>Valor</label><input type="text" id="ckValue" value="' + escapeHtml(editing ? (editing.value || '') : '') + '"></div>' +
+          '<div class="filter-group" id="ckValueWrap"><label>Valor</label><input type="text" id="ckValue" list="ckValueList" autocomplete="off" placeholder="Escribe o elige un valor" value="' + escapeHtml(editing ? (editing.value || '') : '') + '"><datalist id="ckValueList"></datalist></div>' +
           '<div class="filter-group"><label>Severidad</label><select id="ckSeverity">' +
             ['problem', 'warn', 'info'].map(function(s){ return '<option value="' + s + '"' + ((editing ? editing.severity : 'warn') === s ? ' selected' : '') + '>' + SEVERITY_LABEL[s] + '</option>'; }).join('') +
           '</select></div>' +
         '</div>' +
+        '<p class="note-text" id="ckValueHint" style="margin:-4px 0 12px;"></p>' +
+        '<p class="note-text" style="margin:0 0 12px;">No importan mayúsculas, tildes ni espacios: "si" encuentra "SÍ" y "caracterizacion" encuentra "Caracterización".</p>' +
         '<div style="display:flex;gap:10px;">' +
           '<button class="btn-primary" type="button" id="ckSave">Guardar</button>' +
           (editing ? '<button class="btn-ghost" type="button" id="ckCancel">Cancelar edición</button>' : '') +
@@ -188,12 +244,15 @@
     function toggleValueField(){
       const op = document.getElementById('ckOperator').value;
       document.getElementById('ckValueWrap').style.display = NEEDS_VALUE[op] ? '' : 'none';
+      document.getElementById('ckValueHint').style.display = NEEDS_VALUE[op] ? '' : 'none';
     }
     document.getElementById('ckField').addEventListener('change', function(){
       document.getElementById('ckOperator').innerHTML = operatorOptionsHtml(this.value, null);
+      fillSuggestions(this.value);
       toggleValueField();
     });
     document.getElementById('ckOperator').addEventListener('change', toggleValueField);
+    fillSuggestions(document.getElementById('ckField').value);
     toggleValueField();
 
     document.querySelectorAll('[data-edit]').forEach(function(btn){
@@ -222,6 +281,10 @@
 
       if(!title){ alert('Escribe un título para el indicador.'); return; }
       if(NEEDS_VALUE[operator] && !value){ alert('Escribe un valor para esta condición.'); return; }
+      if((operator === 'gt' || operator === 'lt') && isNaN(toNumber(value))){
+        alert('Para "mayor que" o "menor que" escribe un número, por ejemplo 2 o 2,5.');
+        return;
+      }
 
       const rule = { id: editingId || genId(), title: title, subtitle: subtitle, field: field, operator: operator, value: value, severity: severity };
       panelRules = editingId

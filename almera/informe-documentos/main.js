@@ -914,6 +914,7 @@
     window.CustomKPIs.init({
       storageKey: 'almera_informe_documentos_custom_kpis_v1',
       getYears: getRowYears,
+      getRows: function(){ return rawData; },
       onChange: applyFilters,
       fields: [
         { key:'Código', label:'Código', type:'text' },

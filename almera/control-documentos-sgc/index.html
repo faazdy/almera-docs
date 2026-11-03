@@ -92,6 +92,14 @@
             </select>
           </div>
           <div class="filter-group">
+            <label>Seguimiento al estado</label>
+            <select id="fSeguimiento"><option value="">Todos</option></select>
+          </div>
+          <div class="filter-group">
+            <label>Profesional DEP</label>
+            <select id="fProfesional"><option value="">Todos</option></select>
+          </div>
+          <div class="filter-group">
             <label>Antigüedad</label>
             <select id="fAntiguedad">
               <option value="">Todas</option>
@@ -208,6 +216,16 @@
             <div class="chart-card-sub">Campo «SubProceso»</div>
             <div class="chart-canvas-wrap tall"><canvas id="chartSubproceso"></canvas></div>
           </div>
+          <div class="chart-card">
+            <div class="chart-card-title">Por seguimiento al estado</div>
+            <div class="chart-card-sub">Actualizado, en revisión, en aprobación, en actualización, etc.</div>
+            <div class="chart-canvas-wrap tall"><canvas id="chartSeguimiento"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-card-title">Por profesional DEP asignado</div>
+            <div class="chart-card-sub">Campo «Nombre profesional asignado de la DEP»</div>
+            <div class="chart-canvas-wrap tall"><canvas id="chartProfesional"></canvas></div>
+          </div>
         </div>
       </section>
 
@@ -246,10 +264,12 @@
                 <th data-key="_nombre">Nombre</th>
                 <th data-key="_proceso">Proceso</th>
                 <th data-key="_subproceso">SubProceso</th>
-                <th data-key="_tipo">Tipo</th>
+                <th data-key="_tipoNorm">Tipo</th>
                 <th data-key="_estado">Estado</th>
+                <th data-key="_seguimiento">Seguimiento</th>
+                <th data-key="_profesional">Profesional DEP</th>
                 <th data-key="_fechaUltimaActualizacion">Última actualización</th>
-                <th data-key="_requiereActualizacion">Requiere actualización</th>
+                <th data-key="_requiereBucket">Requiere actualización</th>
                 <th data-key="_antiguedad">Antigüedad</th>
               </tr>
             </thead>

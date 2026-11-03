@@ -182,11 +182,14 @@
     row._nombre = clean(COL.nombre ? row[COL.nombre] : '') || null;
     row._estado = clean(COL.estado ? row[COL.estado] : '') || null;
     row._observacion = clean(COL.observacion ? row[COL.observacion] : '') || null;
+    row._seguimiento = clean(COL.seguimiento ? row[COL.seguimiento] : '').replace(/s+/g, ' ') || null;
+    row._profesional = clean(COL.profesionalDEP ? row[COL.profesionalDEP] : '').replace(/s+/g, ' ') || null;
     row._fechaElaboracion = parseDate(COL.fechaElaboracion ? row[COL.fechaElaboracion] : null);
     row._fechaUltimaActualizacion = parseDate(COL.fechaUltimaActualizacion ? row[COL.fechaUltimaActualizacion] : null) || row._fechaElaboracion;
     row._fechaDerogacion = parseDate(COL.fechaDerogacion ? row[COL.fechaDerogacion] : null);
     row._requiereRaw = COL.requiereActualizacion ? row[COL.requiereActualizacion] : null;
     row._requiereBucket = requiereBucket(row._requiereRaw);
+    row._requiereTexto = clean(row._requiereRaw) || null; // tal cual el Excel ("Para derogar", "En actualización"…)
     row._numActualizaciones = COL.fechasActualizacionHistorico.filter(function(c){ return row[c] !== null && row[c] !== undefined && row[c] !== ''; }).length;
     row._sinCodigo = !row._codigo;
     row._esDerogado = row._estado === 'Derogado';
@@ -246,6 +249,8 @@
         'SubProceso': r._subproceso,
         'Tipo de documento': r._tipoNorm,
         'Estado': r._estado,
+        'Seguimiento al estado': r._seguimiento,
+        'Profesional DEP': r._profesional,
         'Fecha de elaboración': formatDate(r._fechaElaboracion),
         'Fecha última actualización': formatDate(r._fechaUltimaActualizacion),
         'Requiere actualización': r._requiereBucket,
@@ -497,6 +502,8 @@
     renderDonut('chartTipo', groupCount(filtered, '_tipoNorm'), '_tipoNorm', 'Tipo de documento');
     renderHBar('chartProceso', topN(groupCount(filtered, '_proceso'), 10), '_proceso', 'Proceso');
     renderHBar('chartSubproceso', topN(groupCount(filtered, '_subproceso'), 10), '_subproceso', 'SubProceso');
+    renderHBar('chartSeguimiento', topN(groupCount(filtered, '_seguimiento'), 10), '_seguimiento', 'Seguimiento al estado');
+    renderHBar('chartProfesional', topN(groupCount(filtered, '_profesional'), 10), '_profesional', 'Profesional DEP');
 
     const buckets = ['< 6 meses','6 meses - 1 año','1 - 2 años','2 - 3 años','> 3 años','Sin fecha'];
     const counts = {};
@@ -602,6 +609,8 @@
         '<td class="wrap">' + escapeHtml(r._subproceso || '—') + '</td>' +
         '<td>' + escapeHtml(r._tipoNorm || '—') + '</td>' +
         '<td>' + escapeHtml(r._estado || '—') + '</td>' +
+        '<td class="wrap">' + escapeHtml(r._seguimiento || '—') + '</td>' +
+        '<td class="wrap">' + escapeHtml(r._profesional || '—') + '</td>' +
         '<td>' + formatDate(r._fechaUltimaActualizacion) + '</td>' +
         '<td>' + escapeHtml(r._requiereBucket) + '</td>' +
         '<td><span class="age-dot ' + dot + '"></span>' + bucket + '</td>' +
@@ -740,6 +749,8 @@
       proceso: document.getElementById('fProceso').value,
       subproceso: document.getElementById('fSubproceso').value,
       requiere: document.getElementById('fRequiere').value,
+      seguimiento: document.getElementById('fSeguimiento').value,
+      profesional: document.getElementById('fProfesional').value,
       bucket: document.getElementById('fAntiguedad').value,
       search: document.getElementById('fSearch').value.trim().toLowerCase(),
       dateProp: document.getElementById('fDateField').value,
@@ -759,6 +770,8 @@
       if(f.proceso && r._proceso !== f.proceso) return false;
       if(f.subproceso && r._subproceso !== f.subproceso) return false;
       if(f.requiere && r._requiereBucket !== f.requiere) return false;
+      if(f.seguimiento && r._seguimiento !== f.seguimiento) return false;
+      if(f.profesional && r._profesional !== f.profesional) return false;
       if(f.bucket && ageBucketLabel(getRowYears(r)) !== f.bucket) return false;
       if(f.search){
         const hay = String(r._nombre || '').toLowerCase().indexOf(f.search) !== -1 ||
@@ -775,7 +788,7 @@
   }
 
   function resetFilterControls(){
-    ['fEstado','fTipo','fProceso','fSubproceso','fRequiere','fAntiguedad'].forEach(function(id){
+    ['fEstado','fTipo','fProceso','fSubproceso','fRequiere','fSeguimiento','fProfesional','fAntiguedad'].forEach(function(id){
       document.getElementById(id).value = '';
     });
     document.getElementById('fSearch').value = '';
@@ -790,6 +803,8 @@
     fillSelect('fTipo', uniqueSorted(rawData, '_tipoNorm'), 'Todos');
     fillSelect('fProceso', uniqueSorted(rawData, '_proceso'), 'Todos');
     fillSelect('fSubproceso', uniqueSorted(rawData, '_subproceso'), 'Todas');
+    fillSelect('fSeguimiento', uniqueSorted(rawData, '_seguimiento'), 'Todos');
+    fillSelect('fProfesional', uniqueSorted(rawData, '_profesional'), 'Todos');
   }
 
   // ---------- carga de archivo ----------
@@ -909,7 +924,7 @@
   }
 
   // ---------- eventos: filtros ----------
-  ['fEstado','fTipo','fProceso','fSubproceso','fRequiere','fAntiguedad'].forEach(function(id){
+  ['fEstado','fTipo','fProceso','fSubproceso','fRequiere','fSeguimiento','fProfesional','fAntiguedad'].forEach(function(id){
     document.getElementById(id).addEventListener('change', applyFilters);
   });
   document.getElementById('fSearch').addEventListener('input', debounce(applyFilters, 250));
@@ -966,6 +981,7 @@
     window.CustomKPIs.init({
       storageKey: 'almera_control_documentos_sgc_custom_kpis_v1',
       getYears: getRowYears,
+      getRows: function(){ return rawData; },
       onChange: applyFilters,
       fields: [
         { key:'_proceso', label:'Proceso', type:'text' },
@@ -974,8 +990,11 @@
         { key:'_codigo', label:'Código', type:'text' },
         { key:'_nombre', label:'Nombre', type:'text' },
         { key:'_estado', label:'Estado', type:'text' },
+        { key:'_seguimiento', label:'Seguimiento al estado', type:'text' },
+        { key:'_profesional', label:'Profesional DEP', type:'text' },
         { key:'_observacion', label:'Observación', type:'text' },
-        { key:'_requiereBucket', label:'Requiere actualización', type:'text' },
+        { key:'_requiereBucket', label:'Requiere actualización (SI / NO / Derogado / Otro)', type:'text' },
+        { key:'_requiereTexto', label:'Requiere actualización (texto del Excel)', type:'text' },
         { key:'_antiguedad', label:'Antigüedad (años)', type:'years' }
       ]
     });

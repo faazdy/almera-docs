@@ -74,7 +74,10 @@ Los campos calculados llevan prefijo `_` (`_fechaModificacion`, `_extension`, `_
 **Detección de columnas:** el listado de la carpeta compartida tiene encabezados con saltos de línea y espacios inconsistentes, así que `resolveColumns()` los **normaliza** (minúsculas, sin tildes ni símbolos) y busca por nombre exacto, prefijo o términos contenidos. Columnas que reconoce: `Proceso`, `SubProceso`, `Tipo de documento`, `Código del documento`, `Nombre del documento`, `Estado del documento`, `Seguimiento al estado del documento`, `Fecha de elaboración`, `Fecha última actualización`, `Fecha de derogación`, `Versión inicial`, `Última versión`, `Observación`, cargos de elaboración y aprobación, profesional DEP, `Cons` y las columnas históricas `Fecha N Actualización`.
 
 - Obligatorias para aceptar el archivo: nombre del documento, código, estado y al menos una de Proceso/SubProceso. Se descartan las filas sin nombre ni código.
-- Filtros de la tabla: Estado, Tipo de documento, Proceso, SubProceso, Requiere actualización, Antigüedad y búsqueda por nombre/código.
+- Filtros de la tabla: Estado, Tipo de documento, Proceso, SubProceso, Requiere actualización, Seguimiento al estado, Profesional DEP, Antigüedad y búsqueda por nombre/código.
+- **Seguimiento al estado** (`Seguimiento al estado del documento`): en qué paso va el documento (ACTUALIZADO, DEROGADO, EN REVISION - (LIDER), EN APROBACIÓN - (DIRECTOR), EN ACTUALIZACIÓN - (DEP), CREACIÓN - (DEP)). Se muestra tal cual el Excel, solo con los espacios de más quitados.
+- **Profesional DEP** (`Nombre profesional asignado de la DEP`): el profesional de la DEP responsable del documento.
+- Los dos campos están en los filtros, en la tabla de detalle (columnas Seguimiento y Profesional DEP), en la exportación a Excel y en el panel de indicadores personalizados.
 - Mismos rangos de antigüedad y colores de punto que el informe de Almera.
 - `Requiere actualización` puede aparecer varias veces (una por vigencia); el informe usa **la del año más alto**.
 - Es un campo de **texto libre**; se agrupa en cuatro categorías: Sí / No / Derogado / Otro (en gestión).
@@ -92,7 +95,7 @@ Los campos calculados llevan prefijo `_` (`_fechaModificacion`, `_extension`, `_
 | Derogados sin fecha de derogación | Informativo | Estado = Derogado y sin `Fecha de derogación` |
 
 **Antigüedad:** por `Fecha última actualización` (por defecto) o `Fecha de elaboración`.
-**Gráficos:** antigüedad, por estado (Vigente/Derogado), por tipo de documento, top 10 procesos y top 10 subprocesos.
+**Gráficos:** antigüedad, por estado (Vigente/Derogado), por tipo de documento, top 10 procesos, top 10 subprocesos, por seguimiento al estado y por profesional DEP asignado.
 **Calidad de datos:** códigos duplicados (puede ser un derogado y su reemplazo con el mismo código), sin código, derogados sin fecha, derogados sin observación (motivo), variantes de texto en `Tipo de documento` y en `Requiere actualización`.
 
 ## 5. Indicadores personalizados (sin código)
@@ -102,6 +105,17 @@ Ambos informes tienen un botón **"⚙ Indicadores personalizados"** junto a "In
 - **Campo:** una lista fija de columnas conocidas del informe (más "Antigüedad (años)" como campo especial).
 - **Condición:** está vacío / no está vacío / es igual a / es distinto de / contiene / es mayor que / es menor que (las opciones cambian según el tipo de campo).
 - **Severidad:** Requiere acción, Atención o Informativo.
+
+**Cómo compara el valor:**
+
+- No importan mayúsculas, tildes ni espacios de más: "si" encuentra "SI " y "Sí"; "caracterizacion" encuentra "Caracterización".
+- En números y antigüedad sirve la coma o el punto decimal ("2,5" = "2.5"), y "1" es igual a "1.0". Si el valor de "mayor que" o "menor que" no es un número, el panel no deja guardar.
+- Con un archivo cargado, el campo **Valor** sugiere los valores que de verdad trae ese campo (los más frecuentes primero), y debajo muestra los primeros ocho. Ayuda a no buscar en el campo equivocado (en el export de Almera, "Formato" está en **Clase**, no en **Tipo**).
+
+**Campos del informe del SGC:** además de los básicos, ofrece **Seguimiento al estado** (EN REVISIÓN, EN APROBACIÓN…) y dos versiones de "Requiere actualización":
+
+- **Requiere actualización (SI / NO / Derogado / Otro):** el grupo resumido que usa el KPI nativo.
+- **Requiere actualización (texto del Excel):** el texto tal cual; sirve para "Para derogar", "En actualización", "Documento nuevo", etc., que en el grupo resumido caen todos en "Otro".
 
 Los indicadores quedan guardados en el navegador (`localStorage`, no se suben a ningún lado) y el panel tiene botones para **exportar/importar la configuración en un `.json`** — útil para respaldarla o pasársela a un compañero en otra máquina.
 
