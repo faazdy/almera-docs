@@ -26,9 +26,20 @@ HOST = os.getenv("HOST", "127.0.0.1")
 PORT = int(os.getenv("PORT", "8800"))
 MAX_CONTEXT_CHARS = int(os.getenv("MAX_CONTEXT_CHARS", "120000"))
 
-# ETL: carpeta compartida donde Calidad deja los documentos (vacío = desactivado).
-# Puede ser relativa a rag/ (carpeta-compartida) o una ruta de red (\\servidor\Calidad\SABIA).
-_knowledge = os.getenv("KNOWLEDGE_DIR", "").strip()
+# Nube: repo privado de GitHub donde se guardan los originales de lo que se aporta.
+# En la nube el disco se borra en cada reinicio; el repo es lo único que persiste.
+GITHUB_REPO = os.getenv("GITHUB_REPO", "").strip()  # usuario/sabia-conocimiento
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN", "").strip()
+GITHUB_BRANCH = os.getenv("GITHUB_BRANCH", "main").strip()
+
+# Claves (vacías = sin clave). SITE_PASSWORD protege todo el sitio; UPLOAD_PASSWORD, solo los aportes.
+SITE_PASSWORD = os.getenv("SITE_PASSWORD", "")
+UPLOAD_PASSWORD = os.getenv("UPLOAD_PASSWORD", "")
+
+# ETL: carpeta donde están los documentos aportados (vacío = desactivado).
+# Con GITHUB_REPO es rag/nube/, una copia local del repo que se rehace al arrancar.
+# Sin él, puede ser relativa a rag/ (carpeta-compartida) o una ruta de red (\\servidor\Calidad\SABIA).
+_knowledge = "nube" if GITHUB_REPO else os.getenv("KNOWLEDGE_DIR", "").strip()
 KNOWLEDGE_DIR = (RAG_DIR / _knowledge) if _knowledge else None
 ETL_OUTPUT_DIR = RAG_DIR / "generado"
 ETL_INTERVAL_SECONDS = int(os.getenv("ETL_INTERVAL_SECONDS", "300"))

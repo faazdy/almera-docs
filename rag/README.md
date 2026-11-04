@@ -31,6 +31,54 @@ El chat usa el mismo menú del sitio (`almera/assets/nav.js`, diseño 1c) y todo
 
 Manual: `python -m venv .venv`, `.venv\Scripts\pip install -r requirements.txt`, `copy .env.example .env`, `.venv\Scripts\python -m app.main`.
 
+## Desplegar en la nube (Render + GitHub, gratis)
+
+Es la forma de que todo el mundo use **la misma** SABIA: un solo servidor en Render, al que todos entran por el navegador. Nadie del área necesita cuenta de GitHub ni de Render.
+
+```
+Profesional ──► https://sabia-xxxx.onrender.com (clave del sitio) ──► SABIA en Render
+                                                                       │ aporte: commit "Aporte: Indicadores/x.docx · por Ana"
+                                                                       ▼
+                                                     GitHub privado: usuario/sabia-conocimiento
+```
+
+En el plan gratis de Render el disco se borra en cada reinicio. Por eso los originales de lo que se aporta se guardan en un **repo privado aparte** (`app/almacen.py`). Al arrancar, y cada `ETL_INTERVAL_SECONDS`, SABIA revisa el último commit de ese repo. Si cambió, lo descarga a `rag/nube/` y corre el ETL. Solo cuentan los archivos dentro de una carpeta de módulo (`Indicadores/…`); lo que esté suelto en la raíz del repo se ignora.
+
+### Una sola vez
+
+1. **Repo de conocimiento.** En GitHub crea un repo **privado** `sabia-conocimiento`, marcando *Add a README* (un repo vacío no tiene rama `main`).
+2. **Token.** GitHub → Settings → Developer settings → *Fine-grained tokens* → *Generate new token*:
+   - *Repository access*: **Only select repositories** → `sabia-conocimiento`.
+   - *Permissions* → *Contents*: **Read and write**. Nada más.
+   - Anota la fecha de vencimiento: cuando venza, los aportes fallan (ver "Renovar el token").
+3. **Render.** Crea una cuenta en <https://render.com> con GitHub. *New* → *Blueprint* → elige el repo `almera-docs`. Render lee `render.yaml` (en la raíz) y pide:
+
+   | Variable | Valor |
+   |---|---|
+   | `OPENROUTER_API_KEY` | La llave de OpenRouter (con límite de gasto) |
+   | `GITHUB_REPO` | `usuario/sabia-conocimiento` |
+   | `GITHUB_TOKEN` | El token del paso 2 |
+   | `SITE_PASSWORD` | Clave para entrar a SABIA (la que se le da a todo el personal) |
+   | `UPLOAD_PASSWORD` | Clave para aportar documentos (solo para quienes publican) |
+
+4. Espera el primer despliegue y abre la URL `https://sabia-xxxx.onrender.com`. El navegador pide usuario y clave: el usuario puede ser cualquiera; la clave es `SITE_PASSWORD`.
+
+### Día a día
+
+| Qué | Cómo |
+|---|---|
+| Aportar o reemplazar un documento | Botón **+ Aportar un documento** del chat. Pide nombre y `UPLOAD_PASSWORD`. Queda como commit en `sabia-conocimiento` |
+| Borrar o mover un documento | En github.com, dentro de `sabia-conocimiento`: borrar o mover el archivo. SABIA lo nota en la siguiente revisión (≤ 5 min) |
+| Ver quién aportó qué | Historial de commits de `sabia-conocimiento` |
+| Deshacer un aporte malo | Revertir o borrar el archivo en `sabia-conocimiento` |
+| Cambiar el código o una guía curada | Push a `master` de `almera-docs`: Render vuelve a desplegar solo |
+| Cambiar una clave | Render → servicio `sabia` → *Environment*. Al guardar, reinicia |
+| Renovar el token | Generar uno nuevo (paso 2) y reemplazar `GITHUB_TOKEN` en Render |
+
+**Plan gratis:** tras ~15 min sin uso Render duerme el servicio; la siguiente visita tarda ~1 min en responder mientras despierta y vuelve a procesar los documentos aportados. Si molesta, el plan pago más barato no se duerme.
+
+**Logs:** Render → servicio `sabia` → *Logs*. Ahí sale `Conocimiento descargado de GitHub (commit …)`, el semáforo del ETL y cada subida con su autor.
+
 ## Cómo funciona
 
 ```
@@ -50,6 +98,7 @@ pregunta ──► enrutador BM25 ──► módulo(s) elegidos ──► prompt
 | `conocimiento/alimentar-sabia.md` | Guía del módulo "SABIA (cómo alimentarlo)": cómo agregar, actualizar y eliminar conocimiento |
 | `app/knowledge.py` | Junta guías curadas y documentos del ETL, los parte por encabezados (`#`–`###`), índice BM25 y enrutamiento |
 | `app/etl.py` | Convierte lo que llega a la carpeta compartida en `.md` limpio, con semáforo |
+| `app/almacen.py` | En la nube: guarda cada aporte en el repo `sabia-conocimiento` y lo descarga a `rag/nube/` |
 | `carpeta-compartida/` | Plantilla de la carpeta que va en el servidor del área (LEEME, prompt, plantilla de Word) |
 | `app/prompts.py` | Reglas del asistente (mismas de las skills: procedimiento exacto, no inventar, advertir pendientes, citar fuente) |
 | `app/llm.py` | Cliente de OpenRouter con streaming |
@@ -106,9 +155,11 @@ En producción, `KNOWLEDGE_DIR` apunta a la carpeta de red **sin comillas**: `KN
 - La llave vive **solo** en `rag/.env`, que está en `.gitignore`. El navegador nunca la ve: todas las llamadas a OpenRouter salen del servidor.
 - El servidor publica **solo** una lista cerrada del repo (`SITE_DIRS` en `app/main.py`: `styles/`, `almera/`, `calidad-ai-agents/` y el `index.html` raíz). La raíz no se monta, así que `rag/.env`, `rag/app/`, `.git/`, `docs/` y los archivos sueltos de la raíz responden 404, también ante intentos con `../`. Si se agrega una carpeta nueva al sitio, hay que sumarla a `SITE_DIRS`.
 - `OPENROUTER_DENY_DATA_COLLECTION=true` limita el enrutamiento de OpenRouter a proveedores que no guardan ni entrenan con los prompts.
-- Por defecto escucha en `127.0.0.1`, es decir, solo en este equipo. Para compartirlo en la red local usa `HOST=0.0.0.0`. **No tiene autenticación:** cualquiera en la red podría usarlo y gastar créditos. Configura un límite de gasto en la llave de OpenRouter.
+- Por defecto escucha en `127.0.0.1`, es decir, solo en este equipo. Para compartirlo en la red local usa `HOST=0.0.0.0`. Configura siempre un límite de gasto en la llave de OpenRouter.
+- **Claves:** `SITE_PASSWORD` protege todo (sitio, chat y API) con la autenticación básica del navegador; `UPLOAD_PASSWORD` protege solo "Aportar un documento", porque lo aportado termina en las respuestas. Vacías = sin clave. **En la nube las dos son obligatorias**, y Render sirve todo por HTTPS.
+- **Token de GitHub:** limitado a `sabia-conocimiento` y solo *Contents*. Vive en las variables de Render; el navegador nunca lo ve.
 - Las preguntas tienen un máximo de 4000 caracteres y solo se envían los últimos 8 mensajes del historial.
 - Red corporativa: la conexión usa `truststore` (los certificados de Windows) porque la red inspecciona TLS. No desactives la verificación SSL.
 - Ver también `calidad-ai-agents/SEGURIDAD.md`: no pegar datos personales ni información sensible en las preguntas.
 - **Carpeta compartida:** todo lo que se guarde ahí termina en las respuestas del asistente. Dale permiso de escritura solo a quienes deben publicar. El servidor necesita leer la carpeta, escribir `ESTADO SABIA.txt` y, para el botón "Aportar un documento", escribir en las subcarpetas de los módulos.
-- **Subidas:** `/api/upload` no tiene autenticación, igual que el chat. Con `HOST=0.0.0.0`, cualquiera en la red puede publicar documentos. Solo acepta los formatos del ETL, hasta `MAX_UPLOAD_MB`, y guarda únicamente el nombre del archivo (sin rutas) dentro de la carpeta del módulo elegido.
+- **Subidas:** sin `UPLOAD_PASSWORD`, cualquiera que llegue al servidor puede publicar documentos. Solo acepta los formatos del ETL, hasta `MAX_UPLOAD_MB`, y guarda únicamente el nombre del archivo (sin rutas) dentro de la carpeta del módulo elegido.

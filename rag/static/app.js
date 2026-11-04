@@ -11,6 +11,9 @@ const uploadModule = document.getElementById('upload-module');
 const uploadFile = document.getElementById('upload-file');
 const uploadSubmit = document.getElementById('upload-submit');
 const uploadResult = document.getElementById('upload-result');
+const uploadAuthor = document.getElementById('upload-author');
+const uploadKeyStep = document.getElementById('upload-key-step');
+const uploadKey = document.getElementById('upload-key');
 
 const history = [];
 let busy = false;
@@ -36,6 +39,7 @@ async function loadModules() {
         }
         maxUploadMb = data.max_upload_mb;
         contributeBtn.hidden = !data.upload;
+        uploadKeyStep.hidden = !data.upload_key;
     } catch {
         document.getElementById('model').textContent = 'servidor no disponible';
     }
@@ -187,14 +191,21 @@ function checkFile(file) {
     if (file.name.startsWith('~$')) return 'Ese es un archivo temporal de Office. Elige el documento original.';
     if (!file.size) return 'El archivo está vacío.';
     if (file.size > maxUploadMb * 1024 * 1024) return `El archivo pesa más de ${maxUploadMb} MB.`;
+    if (!uploadAuthor.value.trim()) return 'Escribe tu nombre: queda registrado junto al documento.';
+    if (!uploadKeyStep.hidden && !uploadKey.value) return 'Escribe la clave para aportar.';
     return null;
 }
 
 async function sendFile(file, replace) {
-    const params = new URLSearchParams({ module: uploadModule.value, filename: file.name, replace });
+    const params = new URLSearchParams({
+        module: uploadModule.value,
+        filename: file.name,
+        replace,
+        autor: uploadAuthor.value.trim(),
+    });
     const res = await fetch(`/api/upload?${params}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/octet-stream' },
+        headers: { 'Content-Type': 'application/octet-stream', 'X-Clave-Aportes': uploadKey.value },
         body: file,
     });
     const data = await res.json().catch(() => ({}));
@@ -207,6 +218,9 @@ uploadForm.addEventListener('submit', async (e) => {
     const problem = checkFile(file);
     if (problem) return showResult('rojo', problem);
 
+    try {
+        localStorage.setItem('sabia-autor', uploadAuthor.value.trim());
+    } catch {}
     uploadSubmit.disabled = true;
     uploadSubmit.textContent = 'Revisando…';
     showResult('working', 'Guardando y revisando el documento. Puede tardar unos segundos…');
@@ -242,6 +256,9 @@ contributeBtn.addEventListener('click', () => {
 uploadDialog.querySelector('[data-close]').addEventListener('click', () => uploadDialog.close());
 uploadDialog.addEventListener('click', (e) => e.target === uploadDialog && uploadDialog.close());
 [uploadModule, uploadFile].forEach((el) => el.addEventListener('change', () => (uploadResult.hidden = true)));
+try {
+    uploadAuthor.value = localStorage.getItem('sabia-autor') || '';
+} catch {}
 
 loadModules();
 input.focus();

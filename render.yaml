@@ -1,0 +1,25 @@
+# Despliegue de SABIA en Render (plan gratis). Paso a paso en rag/README.md → "Desplegar en la nube".
+# Los valores con sync: false los pide Render al crear el servicio; nunca se escriben aquí.
+services:
+  - type: web
+    name: sabia
+    runtime: python
+    plan: free
+    region: virginia
+    buildCommand: pip install -r rag/requirements.txt
+    startCommand: cd rag && python -m app.main
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.15
+      - key: HOST
+        value: 0.0.0.0
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: GITHUB_REPO          # usuario/sabia-conocimiento
+        sync: false
+      - key: GITHUB_TOKEN         # token fine-grained, solo ese repo, Contents: Read and write
+        sync: false
+      - key: SITE_PASSWORD        # clave para entrar a SABIA
+        sync: false
+      - key: UPLOAD_PASSWORD      # clave para aportar documentos
+        sync: false

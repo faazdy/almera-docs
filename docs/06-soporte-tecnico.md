@@ -2,6 +2,8 @@
 
 Guía para quien tenga que **arrancar, revisar, arreglar o mantener** SABIA sin haber participado en su desarrollo. Está ordenada por tareas: busca el síntoma en la §5 o la tarea en la §6.
 
+> **SABIA en producción corre en Render** (nube, plan gratis) y los documentos aportados se guardan en el repo privado `sabia-conocimiento` de GitHub. Despliegue, claves, token y tareas del día a día: [`rag/README.md` → "Desplegar en la nube"](../rag/README.md#desplegar-en-la-nube-render--github-gratis). Esta guía cubre sobre todo cómo correrlo en un equipo, que sigue sirviendo para desarrollo y pruebas. En la nube, los logs están en Render → servicio `sabia` → *Logs*.
+
 Para entender **qué es** cada parte y **por qué** está hecha así, lee primero el [corte del proyecto](05-corte-2026-11-03.md). El detalle de cada pieza está en [01-skills](01-skills.md), [02-informes](02-informes.md), [03-almera](03-almera.md) y [`rag/README.md`](../rag/README.md).
 
 ---

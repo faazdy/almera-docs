@@ -9,22 +9,25 @@ Ejecutar desde rag/:  python -m app.main
 """
 
 import asyncio
+import base64
 import json
 import logging
 import os
 import re
+import secrets
 import threading
 import uuid
 from contextlib import asynccontextmanager
 from typing import Literal
 
+import httpx
 import uvicorn
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import FileResponse, RedirectResponse, StreamingResponse
+from fastapi.responses import FileResponse, RedirectResponse, Response, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from . import config, etl
+from . import almacen, config, etl
 from .knowledge import KnowledgeBase
 from .llm import LLMError, stream_chat
 from .prompts import build_system_prompt
@@ -37,16 +40,19 @@ log = logging.getLogger("sabia")
 # La base se reemplaza entera cuando el ETL publica cambios; cada request toma la
 # referencia vigente al empezar, así nunca ve una base a medio construir.
 state = {"kb": KnowledgeBase(etl.load_published(config.ETL_OUTPUT_DIR))}
-# El ciclo periódico y las subidas comparten manifest.json: nunca dos ETL a la vez
-etl_lock = threading.Lock()
+# El ciclo periódico y las subidas comparten la carpeta y manifest.json: nunca dos a la vez.
+# Reentrante porque la subida guarda el archivo y llama a refresh_knowledge con el candado tomado.
+etl_lock = threading.RLock()
 
 
-def refresh_knowledge() -> list[etl.Result]:
-    if not config.KNOWLEDGE_DIR.is_dir():
-        log.warning("ETL: no encuentro la carpeta %s (¿ruta mal escrita o servidor sin conexión?)",
-                    config.KNOWLEDGE_DIR)
-        return []
+def refresh_knowledge(pull: bool = False) -> list[etl.Result]:
     with etl_lock:
+        if pull and almacen.ENABLED:
+            almacen.pull(config.KNOWLEDGE_DIR)  # solo descarga si hay commits nuevos
+        if not config.KNOWLEDGE_DIR.is_dir():
+            log.warning("ETL: no encuentro la carpeta %s (¿ruta mal escrita o servidor sin conexión?)",
+                        config.KNOWLEDGE_DIR)
+            return []
         results, changed = etl.run(config.KNOWLEDGE_DIR, config.ETL_OUTPUT_DIR)
         if changed:
             state["kb"] = KnowledgeBase(etl.load_published(config.ETL_OUTPUT_DIR))
@@ -58,8 +64,8 @@ def refresh_knowledge() -> list[etl.Result]:
 async def etl_loop():
     while True:
         try:
-            await asyncio.to_thread(refresh_knowledge)
-        except Exception:  # carpeta de red caída, etc.: se reintenta en la próxima vuelta
+            await asyncio.to_thread(refresh_knowledge, True)
+        except Exception:  # carpeta de red o GitHub caídos, etc.: se reintenta en la próxima vuelta
             log.exception("ETL falló")
         await asyncio.sleep(config.ETL_INTERVAL_SECONDS)
 
@@ -73,6 +79,31 @@ async def lifespan(_app):
 
 
 app = FastAPI(title="SABIA", docs_url=None, redoc_url=None, openapi_url=None, lifespan=lifespan)
+
+
+def same_secret(given: str, expected: str) -> bool:
+    return secrets.compare_digest(given.encode("utf-8"), expected.encode("utf-8"))
+
+
+def has_site_password(header: str) -> bool:
+    """Autenticación básica del navegador: el usuario da igual, solo se revisa la clave."""
+    scheme, _, value = header.partition(" ")
+    if scheme.lower() != "basic":
+        return False
+    try:
+        _, _, password = base64.b64decode(value).decode("utf-8").partition(":")
+    except ValueError:  # base64 o UTF-8 inválidos
+        return False
+    return same_secret(password, config.SITE_PASSWORD)
+
+
+@app.middleware("http")
+async def require_site_password(request: Request, call_next):
+    """Con SITE_PASSWORD, el navegador pide la clave una vez y la recuerda mientras esté abierto."""
+    if config.SITE_PASSWORD and not has_site_password(request.headers.get("authorization", "")):
+        return Response("Se necesita la clave de SABIA.", status_code=401, media_type="text/plain; charset=utf-8",
+                        headers={"WWW-Authenticate": 'Basic realm="SABIA", charset="UTF-8"'})
+    return await call_next(request)
 
 
 @app.middleware("http")
@@ -109,6 +140,7 @@ def modules():
         "model": config.OPENROUTER_MODEL,
         "modules": state["kb"].catalog(),
         "upload": bool(config.KNOWLEDGE_DIR),
+        "upload_key": bool(config.UPLOAD_PASSWORD),
         "max_upload_mb": config.MAX_UPLOAD_MB,
     }
 
@@ -142,10 +174,15 @@ def module_folder(module_id: str):
 
 
 @app.post("/api/upload")
-async def upload(request: Request, module: str, filename: str, replace: bool = False):
+async def upload(request: Request, module: str, filename: str, replace: bool = False, autor: str = ""):
     """Recibe el archivo como cuerpo crudo, lo guarda en la carpeta del módulo y corre el ETL ya mismo."""
+    if config.UPLOAD_PASSWORD and not same_secret(request.headers.get("x-clave-aportes", ""), config.UPLOAD_PASSWORD):
+        raise HTTPException(403, "La clave para aportar no es correcta. Pídesela a quien administra SABIA.")
+    autor = re.sub(r"[\x00-\x1f]", "", autor).strip()[:80]
+    if almacen.ENABLED and not autor:
+        raise HTTPException(400, "Escribe tu nombre: queda registrado junto al documento.")
     if not config.KNOWLEDGE_DIR or not config.KNOWLEDGE_DIR.is_dir():
-        raise HTTPException(503, "La carpeta compartida no está disponible en este momento. Intenta más tarde.")
+        raise HTTPException(503, "La carpeta de documentos no está disponible en este momento. Intenta más tarde.")
     if module not in state["kb"].modules or not state["kb"].modules[module].uploads:
         raise HTTPException(400, "Elige el módulo al que pertenece el documento.")
     name = safe_filename(filename)
@@ -166,32 +203,39 @@ async def upload(request: Request, module: str, filename: str, replace: bool = F
         raise HTTPException(400, "El archivo está vacío.")
 
     def save_and_process():
-        folder = module_folder(module)
-        target = folder / name
-        if target.exists() and not replace:
-            return None
-        tmp = folder / f".subida-{uuid.uuid4().hex}.tmp"  # el ETL ignora lo que empieza por "."
-        try:
-            tmp.write_bytes(data)
-            os.replace(tmp, target)  # si el archivo está abierto en Word, falla aquí y no queda a medias
-        finally:
-            tmp.unlink(missing_ok=True)
-        rel = target.relative_to(config.KNOWLEDGE_DIR).as_posix()
-        return next((r for r in refresh_knowledge() if r.source == rel), None) or etl.Result(
-            rel, module, "rojo", ["El archivo se guardó, pero no se pudo revisar. Mira ESTADO SABIA.txt en unos minutos."]
-        )
+        with etl_lock:  # que la revisión periódica no descargue el repo mientras se guarda
+            folder = module_folder(module)
+            target = folder / name
+            rel = target.relative_to(config.KNOWLEDGE_DIR).as_posix()
+            if target.exists() and not replace:
+                return None
+            # En la nube, primero el repo: si GitHub falla, no queda nada publicado a medias
+            if almacen.ENABLED and not almacen.save(rel, bytes(data), autor, replace):
+                return None
+            tmp = folder / f".subida-{uuid.uuid4().hex}.tmp"  # el ETL ignora lo que empieza por "."
+            try:
+                tmp.write_bytes(data)
+                os.replace(tmp, target)  # si el archivo está abierto en Word, falla aquí y no queda a medias
+            finally:
+                tmp.unlink(missing_ok=True)
+            return next((r for r in refresh_knowledge() if r.source == rel), None) or etl.Result(
+                rel, module, "rojo", ["El archivo se guardó, pero no se pudo revisar. Vuelve a subirlo en unos minutos."]
+            )
 
     try:
         result = await asyncio.to_thread(save_and_process)
+    except httpx.HTTPError:
+        log.exception("Subida: GitHub no respondió")
+        raise HTTPException(503, f'No se pudo guardar "{name}" en el almacén de SABIA. Intenta de nuevo en unos minutos.')
     except PermissionError:
         raise HTTPException(423, f'No se pudo guardar "{name}". Si alguien lo tiene abierto en Office, '
                                  "ciérralo e intenta de nuevo.")
     except OSError as exc:
         log.exception("Subida falló")
-        raise HTTPException(503, f"No se pudo guardar en la carpeta compartida ({exc.__class__.__name__}).")
+        raise HTTPException(503, f"No se pudo guardar el documento ({exc.__class__.__name__}).")
     if result is None:
         raise HTTPException(409, f'Ya existe "{name}" en {state["kb"].modules[module].name}.')
-    log.info("Subida: %s → %s", result.source, result.status)
+    log.info("Subida: %s → %s (por %s)", result.source, result.status, autor or "sin nombre")
     return {"file": result.source, "module": state["kb"].modules[module].name,
             "status": result.status, "notes": result.notes}
 
@@ -257,7 +301,11 @@ for folder in SITE_DIRS:
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(levelname)s:     %(name)s: %(message)s")
+    if almacen.ENABLED and not config.GITHUB_TOKEN:
+        raise SystemExit("Falta GITHUB_TOKEN: sin él SABIA no puede leer ni guardar en " + config.GITHUB_REPO)
     print(f"SABIA en http://{config.HOST}:{config.PORT}/  ·  asistente en /asistente/")
-    if config.KNOWLEDGE_DIR:
+    if almacen.ENABLED:
+        print(f"Documentos aportados: GitHub {config.GITHUB_REPO} (revisión cada {config.ETL_INTERVAL_SECONDS}s)")
+    elif config.KNOWLEDGE_DIR:
         print(f"Carpeta de conocimiento: {config.KNOWLEDGE_DIR} (revisión cada {config.ETL_INTERVAL_SECONDS}s)")
     uvicorn.run(app, host=config.HOST, port=config.PORT)

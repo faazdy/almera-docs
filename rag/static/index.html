@@ -119,6 +119,16 @@
         <span class="step-desc">Word, PDF, PowerPoint, Excel o texto. Si ya existe uno con el mismo nombre, te preguntamos antes de reemplazarlo.</span>
         <input id="upload-file" class="field" type="file" accept=".docx,.pdf,.pptx,.xlsx,.txt,.md" required>
       </li>
+      <li>
+        <label class="step-title" for="upload-author">Tu nombre</label>
+        <span class="step-desc">Queda registrado junto al documento, para saber a quién preguntar si hay dudas.</span>
+        <input id="upload-author" class="field" type="text" maxlength="80" autocomplete="name" required>
+      </li>
+      <li id="upload-key-step" hidden>
+        <label class="step-title" for="upload-key">Clave para aportar</label>
+        <span class="step-desc">Pídesela a quien administra SABIA en el área de Calidad.</span>
+        <input id="upload-key" class="field" type="password" autocomplete="off">
+      </li>
     </ol>
 
     <p class="upload-warn">No incluyas datos personales, de pacientes ni información confidencial.</p>
