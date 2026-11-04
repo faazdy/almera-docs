@@ -10,6 +10,7 @@ Guía para el equipo que continúa el proyecto. Si es la primera vez que abres e
 | 4 | [04-corte-2026-10-28.md](04-corte-2026-10-28.md) | Corte del 28 de octubre (histórico). PDF: `SABIA-corte-2026-10-28.pdf`. |
 | 5 | [05-corte-2026-11-03.md](05-corte-2026-11-03.md) | **Corte vigente (3 de noviembre):** qué tiene, qué cambió, arquitectura, stack, decisiones, seguridad, pendientes. PDF: `SABIA-corte-2026-11-03.pdf`. |
 | 6 | [06-soporte-tecnico.md](06-soporte-tecnico.md) | **Soporte técnico:** requisitos, arranque, prueba de humo, diagnóstico por síntoma, tareas de mantenimiento, endpoints, logs y cómo reportar. PDF: `SABIA-soporte-tecnico.pdf`. |
+| 7 | [07-documentacion-completa.md](07-documentacion-completa.md) | **Documentación completa (4 de noviembre), la foto vigente:** todo el proyecto en un solo documento: por qué, estado, arquitectura, referencia técnica, DevOps (repos, Render, secretos, logs, respaldo), seguridad, decisiones y pendientes. |
 
 Operación del asistente y del ETL: [`rag/README.md`](../rag/README.md). Rutas del sitio y menú: [`routes.md`](../routes.md). Los PDF se generan con `node docs/generar-pdf.js <doc.md> <salida.pdf>` ([06 §6.12](06-soporte-tecnico.md)).
 
