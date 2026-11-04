@@ -55,6 +55,7 @@
         <a href="#buscar"><span>¿Cómo exporto el listado de documentos a Excel?</span><span class="faq-num">06</span></a>
         <a href="#aprobacion"><span>¿Qué pasa si apruebo, rechazo o retorno una solicitud?</span><span class="faq-num">07</span></a>
         <a href="#anular"><span>¿Cómo anulo un documento para que deje de ser vigente?</span><span class="faq-num">09</span></a>
+        <a href="#consecutivos"><span>¿Cómo hago que los códigos sigan el consecutivo existente?</span><span class="faq-num">13</span></a>
         <a href="../mapa-procesos/index.html"><span>¿Cómo actualizo el mapa de procesos?</span><span class="faq-num">↗</span></a>
       </div>
     </section>
@@ -86,11 +87,12 @@
           <div class="m-toc-label">Configuración</div>
           <a href="#recursos"><span class="num">11</span>Recursos</a>
           <a href="#terminos"><span class="num">12</span>Términos</a>
+          <a href="#consecutivos"><span class="num">13</span>Códigos consecutivos</a>
         </div>
         <div class="m-toc-group">
           <div class="m-toc-label">Flujo integrado · pendiente de validar</div>
-          <a href="#flujo-integrado"><span class="num">13</span>Nuevo flujo de documentos</a>
-          <a href="#derogacion"><span class="num">14</span>Nuevo flujo de derogación</a>
+          <a href="#flujo-integrado"><span class="num">14</span>Nuevo flujo de documentos</a>
+          <a href="#derogacion"><span class="num">15</span>Nuevo flujo de derogación</a>
         </div>
       </nav>
 
@@ -175,7 +177,7 @@
           </div>
 
           <div class="notes-block">
-            <div class="note-box"><div class="note-label">Código del documento</div><p class="note-text">El código se puede generar automáticamente (configuración parametrizable por Almera, no algo que active cada usuario). La estructura típica es inicial del proceso + inicial del subproceso + inicial del tipo de documento + consecutivo, pero es ajustable. Si ya existen documentos codificados manualmente, hay que pedirle a soporte que revise la parametrización antes de activarlo, para no generar códigos duplicados.</p></div>
+            <div class="note-box"><div class="note-label">Código del documento</div><p class="note-text">El código se puede generar automáticamente (configuración parametrizable por Almera, no algo que active cada usuario). La estructura típica es inicial del proceso + inicial del subproceso + inicial del tipo de documento + consecutivo, pero es ajustable. Si ya existen documentos codificados manualmente, hay que pedirle a soporte que revise la parametrización antes de activarlo, para no generar códigos duplicados. Para que la numeración continúe desde el último código existente, configure el campo Consecutivo de cada tipo documental (<a href="#consecutivos">sección 13</a>).</p></div>
             <div class="note-box"><div class="note-label">Sin confirmar</div><p class="note-text">Soporte confirmó que la estructura del código automático (ej. tipo-consecutivo-siglas del proceso) es parametrizable a la medida, pero pidió que se envíe una solicitud formal a soporte para hacer el ajuste, ya que hay que revisar los códigos existentes antes de activarlo.</p></div>
             <div class="note-box"><div class="note-label">Vincular otro documento</div><p class="note-text">Para referenciar un formato o manual relacionado dentro del editor en línea, la única forma disponible es: buscar el documento en el listado de Documentos, copiar su enlace, y pegarlo dentro del texto de la plantilla. No existe vinculación automática por código.</p></div>
             <div class="note-box"><div class="note-label">Cuidado</div><p class="note-text">Los documentos antiguos cargados como PDF no permiten activar la edición en línea. Hay que reconstruir el contenido en una plantilla Word editable y volver a cargarlo.</p></div>
@@ -401,9 +403,33 @@
           </div>
         </section>
 
-        <!-- 13 — NUEVO FLUJO INTEGRADO (pendiente de validar) -->
+        <!-- 13 — CÓDIGOS CONSECUTIVOS -->
+        <section id="consecutivos" class="m-section">
+          <div class="m-section-head"><span class="m-section-num">13</span><h2>Códigos consecutivos automáticos</h2></div>
+          <p class="m-section-intro">Para que los documentos nuevos de un tipo documental (formatos, procedimientos, anexos, etc.) sigan la numeración que ya existe y no repitan códigos.</p>
+
+          <div class="ruta"><span class="ruta-label">Ruta</span><span class="ruta-path">Proceso o subproceso → carpeta del tipo documental → documento → Administrar</span></div>
+
+          <div class="step-group">
+            <ol class="steps-list">
+              <li><span class="n">01</span><div class="step-content"><span class="step-label">Ingreso</span><span class="step-text">Entre al proceso o subproceso.</span></div></li>
+              <li><span class="n">02</span><div class="step-content"><span class="step-label">Punto de partida</span><span class="step-text">En cada carpeta de documentos (donde están los tipos de documento del proceso o subproceso), busque el número consecutivo más alto. Ejemplo: en Formatos, el código más alto es FR-030-SGC, así que el consecutivo más alto es 30.</span></div></li>
+              <li><span class="n">03</span><div class="step-content"><span class="step-label">Documento</span><span class="step-text">Haga clic en el documento que tiene ese número más alto.</span></div></li>
+              <li><span class="n">04</span><div class="step-content"><span class="step-label">Consecutivo</span><span class="step-text">Dentro del documento, haga clic en Administrar y, en el campo Consecutivo, escriba el número siguiente (en el ejemplo, 31).</span></div></li>
+              <li><span class="n">05</span><div class="step-content"><span class="step-text">Haga clic en Grabar.</span></div></li>
+            </ol>
+          </div>
+
+          <div class="notes-block">
+            <div class="note-box"><div class="note-label">Resultado</div><p class="note-text">Desde ese momento, los documentos nuevos de ese tipo se crean desde el número que escribió en el campo Consecutivo. En el ejemplo, el próximo formato queda con el código FR-031-SGC.</p></div>
+            <div class="note-box"><div class="note-label">Cuidado</div><p class="note-text">El consecutivo se configura por tipo documental. Repita los pasos en cada tipo que vaya a recibir códigos automáticos: formatos, procedimientos, anexos, etc. Tome siempre el número más alto de la carpeta, no el último de la lista.</p></div>
+            <div class="note-box"><div class="note-label">Nota</div><p class="note-text">Esto define desde qué número sigue el consecutivo. La estructura del código (siglas del tipo, consecutivo, siglas del proceso) la parametriza Almera; ver la nota «Código del documento» en la sección 03.</p></div>
+          </div>
+        </section>
+
+        <!-- 14 — NUEVO FLUJO INTEGRADO (pendiente de validar) -->
         <section id="flujo-integrado" class="m-section">
-          <div class="m-section-head"><span class="m-section-num">13</span><h2>Nuevo flujo de documentos integrado - Creación y aprobación</h2></div>
+          <div class="m-section-head"><span class="m-section-num">14</span><h2>Nuevo flujo de documentos integrado - Creación y aprobación</h2></div>
           <p class="m-section-intro">Flujo observado en el entorno de pruebas, todavía sin implementar del todo en producción. Se agrega aquí como referencia adicional — no reemplaza el flujo ya documentado en las secciones 03 y 07 hasta que se valide y se decida oficializarlo.</p>
 
           <div class="step-group">
@@ -465,7 +491,7 @@
           </div>
 
           <div class="step-group" id="derogacion">
-            <div class="m-section-head"><span class="m-section-num">14</span><h2>Nuevo flujo de documentos integrado - Derogación</h2></div>
+            <div class="m-section-head"><span class="m-section-num">15</span><h2>Nuevo flujo de documentos integrado - Derogación</h2></div>
             <div class="group-label"><span class="dash"></span>Solicitud de derogación</div>
             <ol class="steps-list">
               <li><span class="n">01</span><div class="step-content"><span class="step-text">Entre al documento que se va a derogar.</span></div></li>

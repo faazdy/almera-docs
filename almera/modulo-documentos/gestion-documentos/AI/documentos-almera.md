@@ -21,8 +21,9 @@
 5. Buscar, filtrar y exportar documentos
 6. Recursos
 7. Términos y definiciones
-8. Preguntas frecuentes
-9. Temas pendientes de validar con soporte Almera
+8. Configurar códigos consecutivos automáticos
+9. Preguntas frecuentes
+10. Temas pendientes de validar con soporte Almera
 
 > **Guías separadas:** el *Mapa de procesos* (`mapa-procesos-almera.md`) y los *Modelos de gestión* (`modelos-gestion-almera.md`) tienen su propia guía. Si el usuario pregunta por ellos, indícalo.
 
@@ -210,6 +211,7 @@ Almera maneja (o manejaba) dos formas de construir un documento. Es importante q
 - El código puede diligenciarse manualmente o **generarse automáticamente**; es una configuración parametrizable por Almera (no algo que cada usuario active).
 - La estructura más común es: **inicial del proceso + inicial del subproceso + inicial del tipo de documento + consecutivo**, pero es 100% ajustable a como la organización lo maneje internamente (p. ej. `PL-001-SIG` = Política – consecutivo – siglas del proceso).
 - **Importante:** si la organización ya tiene documentos codificados manualmente antes de activar la generación automática, hay que pedirle a soporte que revise la parametrización para evitar que se generen códigos duplicados con los ya existentes.
+- Para que el código automático **continúe la numeración existente** (p. ej. que después de `FR-030-SGC` siga `FR-031-SGC`), se configura el campo **Consecutivo** de cada tipo documental. Ver **"Configurar códigos consecutivos automáticos"** más abajo.
 
 ### Editor en línea
 
@@ -405,6 +407,35 @@ Se recomienda que en el campo **Tipo** se seleccione el tipo de documentos que s
 Una vez construido el listado, al redactar un documento no hay que volver a escribir la definición: simplemente se elige el término ya existente en el glosario y se vincula al documento.
 
 **Fuente:** `docs-gestor-documento.md` + transcripción cruda (min ~48–51).
+
+---
+
+## Configurar códigos consecutivos automáticos (punto de partida del consecutivo)
+
+**Cuándo se usa:** cuando un tipo documental (formatos, procedimientos, anexos, etc.) va a recibir códigos automáticos y ya existen documentos de ese tipo codificados. Se le indica a Almera desde qué número debe seguir, para que los documentos nuevos continúen la numeración y no repitan códigos existentes.
+
+**Ruta:** entrar al **proceso o subproceso** y abrir la carpeta del tipo documental.
+
+### Pasos
+
+1. Entrar al **proceso o subproceso**.
+2. En cada **carpeta de documentos** (las carpetas donde están los tipos de documento del proceso o subproceso), revisar cuál es el **número consecutivo más alto**. Ese número es el punto de partida.
+   - Ejemplo: en la carpeta de Formatos, el documento con el número más alto es `FR-030-SGC`, así que el consecutivo más alto es **30**.
+3. Hacer clic en el documento que tiene ese número más alto.
+4. Dentro del documento, hacer clic en **Administrar** y, en el campo **Consecutivo**, escribir el **número siguiente** (en el ejemplo, **31**).
+5. Hacer clic en **Grabar**.
+
+### Resultado
+
+A partir de ese momento, los documentos nuevos de ese tipo se crean desde el número que se escribió en el campo **Consecutivo**. En el ejemplo, el próximo formato queda con el código `FR-031-SGC`.
+
+### Notas / advertencias
+
+- El consecutivo se configura **por tipo documental**. Hay que repetir los pasos en cada tipo que vaya a recibir códigos automáticos (formatos, procedimientos, anexos, etc.).
+- Tome como referencia el número **más alto** de la carpeta, no el último documento de la lista. Si escribe un número menor o igual al más alto, Almera puede generar un código que ya existe.
+- Esto define **desde qué número** sigue el consecutivo. La **estructura** del código (siglas del tipo, consecutivo, siglas del proceso) la parametriza Almera (ver "Código del documento" en *Crear un documento*).
+
+**Fuente:** apuntes internos del área de Calidad (`gestion-documentos/new.txt`, nov 2026).
 
 ---
 
@@ -640,6 +671,8 @@ Estas son dudas que quedaron **abiertas** en la capacitación del 25 de junio de
 **Contexto:** la organización usa una estructura de código específica (tipo-consecutivo-siglas del proceso, ej. `PL-001-SIG`) y ya tiene documentos codificados manualmente. Se preguntó si Almera puede parametrizar la generación automática para replicar exactamente esa estructura sin generar códigos duplicados con los ya existentes.
 
 **Estado:** Carlos confirmó que es parametrizable, pero pidió que se enviara una **solicitud formal a soporte** para hacer el ajuste, ya que hay que revisar los códigos ya existentes antes de activarlo.
+
+**Actualización (nov 2026):** la parte de **no repetir códigos existentes** ya tiene procedimiento: se configura el campo **Consecutivo** de cada tipo documental (ver "Configurar códigos consecutivos automáticos"). Sigue sin confirmar si la **estructura** del código se puede cambiar a la medida sin pasar por soporte.
 
 **Fuente:** transcripción cruda, min ~1:03–1:07.
 

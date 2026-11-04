@@ -7,7 +7,7 @@
     {
       "id": "documentos",
       "name": "Documentos",
-      "description": "Crear, editar, aprobar, buscar y dar de baja documentos; emisores, clases documentales, plantillas, recursos y términos.",
+      "description": "Crear, editar, aprobar, buscar y dar de baja documentos; emisores, clases documentales, plantillas, recursos, términos y códigos consecutivos automáticos.",
       "files": ["almera/modulo-documentos/gestion-documentos/AI/documentos-almera.md"]
     },
     {
