@@ -58,10 +58,10 @@ En el plan gratis de Render el disco se borra en cada reinicio. Por eso los orig
    | `OPENROUTER_API_KEY` | La llave de OpenRouter (con límite de gasto) |
    | `GITHUB_REPO` | `usuario/sabia-conocimiento` |
    | `GITHUB_TOKEN` | El token del paso 2 |
-   | `SITE_PASSWORD` | Clave para entrar a SABIA (la que se le da a todo el personal) |
+   | `SITE_PASSWORD` | Clave para entrar a SABIA (la que se le da a todo el personal). Mínimo 12 caracteres |
    | `UPLOAD_PASSWORD` | Clave para aportar documentos (solo para quienes publican) |
 
-4. Espera el primer despliegue y abre la URL `https://sabia-xxxx.onrender.com`. El navegador pide usuario y clave: el usuario puede ser cualquiera; la clave es `SITE_PASSWORD`.
+4. Espera el primer despliegue y abre la URL `https://sabia-xxxx.onrender.com`. Sale la página **Entrar a SABIA**: la clave es `SITE_PASSWORD`. El navegador ofrece guardarla y la sesión dura 30 días.
 
 ### Día a día
 
@@ -72,7 +72,8 @@ En el plan gratis de Render el disco se borra en cada reinicio. Por eso los orig
 | Ver quién aportó qué | Historial de commits de `sabia-conocimiento` |
 | Deshacer un aporte malo | Revertir o borrar el archivo en `sabia-conocimiento` |
 | Cambiar el código o una guía curada | Push a `master` de `almera-docs`: Render vuelve a desplegar solo |
-| Cambiar una clave | Render → servicio `sabia` → *Environment*. Al guardar, reinicia |
+| Cambiar una clave | Render → servicio `sabia` → *Environment*. Al guardar, reinicia. Cambiar `SITE_PASSWORD` cierra todas las sesiones abiertas |
+| Cerrar sesión en un equipo | Abrir `/salir` |
 | Renovar el token | Generar uno nuevo (paso 2) y reemplazar `GITHUB_TOKEN` en Render |
 
 **Plan gratis:** tras ~15 min sin uso Render duerme el servicio; la siguiente visita tarda ~1 min en responder mientras despierta y vuelve a procesar los documentos aportados. Si molesta, el plan pago más barato no se duerme.
@@ -156,7 +157,8 @@ En producción, `KNOWLEDGE_DIR` apunta a la carpeta de red **sin comillas**: `KN
 - El servidor publica **solo** una lista cerrada del repo (`SITE_DIRS` en `app/main.py`: `styles/`, `almera/`, `calidad-ai-agents/` y el `index.html` raíz). La raíz no se monta, así que `rag/.env`, `rag/app/`, `.git/`, `docs/` y los archivos sueltos de la raíz responden 404, también ante intentos con `../`. Si se agrega una carpeta nueva al sitio, hay que sumarla a `SITE_DIRS`.
 - `OPENROUTER_DENY_DATA_COLLECTION=true` limita el enrutamiento de OpenRouter a proveedores que no guardan ni entrenan con los prompts.
 - Por defecto escucha en `127.0.0.1`, es decir, solo en este equipo. Para compartirlo en la red local usa `HOST=0.0.0.0`. Configura siempre un límite de gasto en la llave de OpenRouter.
-- **Claves:** `SITE_PASSWORD` protege todo (sitio, chat y API) con la autenticación básica del navegador; `UPLOAD_PASSWORD` protege solo "Aportar un documento", porque lo aportado termina en las respuestas. Vacías = sin clave. **En la nube las dos son obligatorias**, y Render sirve todo por HTTPS.
+- **Claves:** `SITE_PASSWORD` protege todo (sitio, chat y API) con la página `/login`; `UPLOAD_PASSWORD` protege solo "Aportar un documento", porque lo aportado termina en las respuestas. Vacías = sin clave. **En la nube las dos son obligatorias**, y Render sirve todo por HTTPS.
+- **Sesión sin base de datos:** al entrar, el servidor deja una cookie `sabia_sesion` (`HttpOnly`, `Secure` en HTTPS, `SameSite=Lax`) con la fecha de vencimiento firmada con HMAC. La llave de la firma sale de `SITE_PASSWORD`, así que cambiar la clave invalida todas las sesiones. Tras 30 intentos fallidos en 10 minutos (en total, no por IP), el login se bloquea unos minutos; las sesiones ya abiertas siguen funcionando.
 - **Token de GitHub:** limitado a `sabia-conocimiento` y solo *Contents*. Vive en las variables de Render; el navegador nunca lo ve.
 - Las preguntas tienen un máximo de 4000 caracteres y solo se envían los últimos 8 mensajes del historial.
 - Red corporativa: la conexión usa `truststore` (los certificados de Windows) porque la red inspecciona TLS. No desactives la verificación SSL.

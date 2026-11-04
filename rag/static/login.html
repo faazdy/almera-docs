@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entrar a SABIA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Estilos en línea: esta página se ve sin sesión, y el resto de archivos del sitio la piden -->
+<style>
+:root{--bg:#faf9f7;--ink:#171614;--ink-soft:#5f5b52;--muted:#8a8579;--line-strong:rgba(23,22,20,.16);
+  --accent:#eb5a25;--accent-ink:#b7472a;--accent-soft:rgba(235,90,37,.08);--dark:#17161a}
+*{box-sizing:border-box}
+html{-webkit-font-smoothing:antialiased}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px 16px;
+  background:var(--bg);color:var(--ink);font-family:"DM Sans","Helvetica Neue",Helvetica,sans-serif}
+main{width:100%;max-width:380px}
+.eyebrow{display:flex;align-items:center;gap:9px;margin-bottom:30px;font:500 10.5px/1 "JetBrains Mono",monospace;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--accent)}
+h1{margin:0 0 12px;font:300 44px/1.04 "DM Sans",sans-serif;letter-spacing:-.035em}
+p{margin:0 0 28px;font:400 15px/1.6 "DM Sans",sans-serif;color:var(--ink-soft)}
+label{display:block;margin-bottom:8px;font:500 14px/1.4 "DM Sans",sans-serif}
+input[type=password]{width:100%;font:400 15px/1.4 "DM Sans",sans-serif;color:var(--ink);background:#fff;
+  border:1px solid var(--line-strong);border-radius:10px;padding:11px 12px;outline:0}
+input[type=password]:focus{border-color:rgba(23,22,20,.45)}
+.user{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.error{margin:14px 0 0;border-radius:10px;padding:11px 14px;font:400 14px/1.5 "DM Sans",sans-serif;
+  background:var(--accent-soft);border:1px solid rgba(235,90,37,.25);color:var(--accent-ink)}
+button{margin-top:20px;width:100%;border:0;border-radius:999px;padding:13px 20px;cursor:pointer;
+  font:500 14px/1 "DM Sans",sans-serif;background:var(--dark);color:var(--bg)}
+button:hover{opacity:.86}
+.help{margin:22px 0 0;font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow"><span class="dot"></span>SABIA · Capital Salud</div>
+  <h1>Entrar a SABIA</h1>
+  <p>Centro de recursos y asistente de Almera del área de Calidad.</p>
+
+  <form method="post" action="/api/login">
+    <!-- Usuario fijo y oculto: ayuda a que el navegador guarde la clave como "SABIA" -->
+    <input class="user" type="text" name="usuario" value="SABIA" autocomplete="username" tabindex="-1" aria-hidden="true">
+    <label for="clave">Clave</label>
+    <input id="clave" type="password" name="clave" autocomplete="current-password" required autofocus>
+    <input id="next" type="hidden" name="next" value="/">
+    <div id="error" class="error" role="alert" hidden></div>
+    <button type="submit">Entrar</button>
+  </form>
+
+  <p class="help">¿No tienes la clave? Pídesela al área de Calidad.</p>
+</main>
+<script>
+  const q = new URLSearchParams(location.search);
+  document.getElementById('next').value = q.get('next') || '/';
+  const errors = {
+    clave: 'La clave no es correcta. Revisa mayúsculas y minúsculas.',
+    bloqueo: 'Demasiados intentos fallidos. Espera unos minutos e intenta de nuevo.',
+  };
+  if (errors[q.get('error')]) {
+    const el = document.getElementById('error');
+    el.textContent = errors[q.get('error')];
+    el.hidden = false;
+  }
+</script>
+</body>
+</html>

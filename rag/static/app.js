@@ -19,6 +19,13 @@ const history = [];
 let busy = false;
 let maxUploadMb = 20;
 
+// Si la sesión venció (30 días o cambiaron la clave), volver a la página de entrada
+async function api(url, options) {
+    const res = await fetch(url, options);
+    if (res.status === 401) location.href = `/login?next=${encodeURIComponent(location.pathname)}`;
+    return res;
+}
+
 const render = (md) => DOMPurify.sanitize(marked.parse(md));
 
 const esc = (s) =>
@@ -26,7 +33,7 @@ const esc = (s) =>
 
 async function loadModules() {
     try {
-        const res = await fetch('/api/modules');
+        const res = await api('/api/modules');
         const data = await res.json();
         document.getElementById('model').textContent = data.model;
         for (const m of data.modules) {
@@ -107,7 +114,7 @@ async function ask(question) {
 
     let answer = '';
     try {
-        const res = await fetch('/api/chat', {
+        const res = await api('/api/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ messages: history, module: moduleSel.value || null }),
@@ -203,7 +210,7 @@ async function sendFile(file, replace) {
         replace,
         autor: uploadAuthor.value.trim(),
     });
-    const res = await fetch(`/api/upload?${params}`, {
+    const res = await api(`/api/upload?${params}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/octet-stream', 'X-Clave-Aportes': uploadKey.value },
         body: file,

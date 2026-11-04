@@ -15,6 +15,12 @@ services:
         value: 0.0.0.0
       - key: OPENROUTER_API_KEY
         sync: false
+      # Mismo modelo que rag/.env. Los modelos :free de OpenRouter necesitan DENY_DATA_COLLECTION=false
+      # (sus proveedores guardan los prompts): no escribir datos personales ni confidenciales en el chat.
+      - key: OPENROUTER_MODEL
+        value: nvidia/nemotron-3-ultra-550b-a55b:free
+      - key: OPENROUTER_DENY_DATA_COLLECTION
+        value: "false"
       - key: GITHUB_REPO          # usuario/sabia-conocimiento
         sync: false
       - key: GITHUB_TOKEN         # token fine-grained, solo ese repo, Contents: Read and write

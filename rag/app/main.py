@@ -9,21 +9,24 @@ Ejecutar desde rag/:  python -m app.main
 """
 
 import asyncio
-import base64
+import hashlib
+import hmac
 import json
 import logging
 import os
 import re
 import secrets
 import threading
+import time
 import uuid
 from contextlib import asynccontextmanager
 from typing import Literal
+from urllib.parse import parse_qs, urlencode
 
 import httpx
 import uvicorn
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import FileResponse, RedirectResponse, Response, StreamingResponse
+from fastapi.responses import FileResponse, JSONResponse, RedirectResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
@@ -85,25 +88,82 @@ def same_secret(given: str, expected: str) -> bool:
     return secrets.compare_digest(given.encode("utf-8"), expected.encode("utf-8"))
 
 
-def has_site_password(header: str) -> bool:
-    """Autenticación básica del navegador: el usuario da igual, solo se revisa la clave."""
-    scheme, _, value = header.partition(" ")
-    if scheme.lower() != "basic":
-        return False
-    try:
-        _, _, password = base64.b64decode(value).decode("utf-8").partition(":")
-    except ValueError:  # base64 o UTF-8 inválidos
-        return False
-    return same_secret(password, config.SITE_PASSWORD)
+# ---------- Entrar con clave (SITE_PASSWORD) ----------
+# Sin base de datos: la sesión es una cookie con su fecha de vencimiento firmada con una llave
+# derivada de SITE_PASSWORD. Si se cambia la clave en Render, todas las sesiones se cierran solas.
+SESSION_COOKIE = "sabia_sesion"
+SESSION_DAYS = 30
+OPEN_PATHS = {"/login", "/api/login"}
+# Tope global de intentos fallidos (no por IP: la IP que llega detrás del proxy se puede falsear)
+MAX_FAILURES, FAILURE_WINDOW = 30, 10 * 60
+failures: list[float] = []
+
+
+def _sign(expires: str) -> str:
+    key = hashlib.sha256(b"sabia-sesion:" + config.SITE_PASSWORD.encode("utf-8")).digest()
+    return hmac.new(key, expires.encode(), hashlib.sha256).hexdigest()
+
+
+def new_session() -> str:
+    expires = str(int(time.time()) + SESSION_DAYS * 86400)
+    return f"{expires}.{_sign(expires)}"
+
+
+def valid_session(value: str) -> bool:
+    expires, _, sig = value.partition(".")
+    return expires.isdigit() and int(expires) > time.time() and hmac.compare_digest(sig, _sign(expires))
+
+
+def safe_next(path: str) -> str:
+    """Solo rutas de este mismo sitio, para que /login no sirva de redirección a otra página."""
+    ok = path.startswith("/") and not path.startswith(("//", "/\\")) and not path.startswith("/login")
+    return path if ok else "/"
 
 
 @app.middleware("http")
-async def require_site_password(request: Request, call_next):
-    """Con SITE_PASSWORD, el navegador pide la clave una vez y la recuerda mientras esté abierto."""
-    if config.SITE_PASSWORD and not has_site_password(request.headers.get("authorization", "")):
-        return Response("Se necesita la clave de SABIA.", status_code=401, media_type="text/plain; charset=utf-8",
-                        headers={"WWW-Authenticate": 'Basic realm="SABIA", charset="UTF-8"'})
-    return await call_next(request)
+async def require_login(request: Request, call_next):
+    if (not config.SITE_PASSWORD or request.url.path in OPEN_PATHS
+            or valid_session(request.cookies.get(SESSION_COOKIE, ""))):
+        return await call_next(request)
+    if request.url.path.startswith("/api/"):
+        return JSONResponse({"detail": "Tu sesión terminó. Vuelve a entrar."}, status_code=401)
+    target = request.url.path + (f"?{request.url.query}" if request.url.query else "")
+    return RedirectResponse(f"/login?{urlencode({'next': target})}", status_code=303)
+
+
+@app.get("/login", include_in_schema=False)
+def login_page():
+    if not config.SITE_PASSWORD:
+        return RedirectResponse("/", status_code=303)
+    return FileResponse(config.STATIC_DIR / "login.html")
+
+
+@app.post("/api/login", include_in_schema=False)
+async def login(request: Request):
+    """Formulario HTML normal (no fetch), para que el navegador ofrezca guardar la clave."""
+    fields = parse_qs((await request.body()).decode("utf-8", "replace"))
+    password = fields.get("clave", [""])[0]
+    target = safe_next(fields.get("next", ["/"])[0])
+    now = time.time()
+    failures[:] = [t for t in failures if now - t < FAILURE_WINDOW]
+    if len(failures) >= MAX_FAILURES:
+        log.warning("Login: demasiados intentos fallidos, bloqueado por unos minutos")
+        return RedirectResponse(f"/login?{urlencode({'error': 'bloqueo', 'next': target})}", status_code=303)
+    if not config.SITE_PASSWORD or not same_secret(password, config.SITE_PASSWORD):
+        failures.append(now)
+        return RedirectResponse(f"/login?{urlencode({'error': 'clave', 'next': target})}", status_code=303)
+    response = RedirectResponse(target, status_code=303)
+    https = request.headers.get("x-forwarded-proto", request.url.scheme) == "https"
+    response.set_cookie(SESSION_COOKIE, new_session(), max_age=SESSION_DAYS * 86400,
+                        httponly=True, samesite="lax", secure=https)
+    return response
+
+
+@app.get("/salir", include_in_schema=False)
+def logout():
+    response = RedirectResponse("/login" if config.SITE_PASSWORD else "/", status_code=303)
+    response.delete_cookie(SESSION_COOKIE)
+    return response
 
 
 @app.middleware("http")
